@@ -5,6 +5,7 @@ import { renderSvg } from "./render.mjs";
 import { renderSequence, validateSequence } from "./sequence.mjs";
 import { compileDataflow, validateDataflow } from "./dataflow.mjs";
 import { reviewSpec } from "./review.mjs";
+import { resolveIcon } from "./catalog.mjs";
 
 export const DIAGRAM_TYPES = ["architecture", "sequence", "dataflow"];
 export const typeOf = (spec) => spec?.diagram_type || (spec?.participants ? "sequence" : spec?.stages ? "dataflow" : "architecture");
@@ -26,6 +27,7 @@ export function buildDiagram(input) {
       steps: first.steps.map((s) => ({ ...s, fromLabel: label(input.participants, s.from), toLabel: label(input.participants, s.to) })),
       review: () => reviewSpec(first.reviewSpec, first.model),
       nodes: input.participants.map((p) => ({ id: p.id, label: p.label || p.id })),
+      nodeList: input.participants.map((p) => ({ id: p.id, item: p, icon: resolveIcon(p.icon) })),
     };
   }
   let archSpec = input;
@@ -45,6 +47,7 @@ export function buildDiagram(input) {
     steps: model.routes.filter((r) => r.edge.step !== undefined).map((r) => ({ step: r.edge.step, from: r.edge.from, to: r.edge.to, label: r.edge.label, desc: r.edge.desc, fromLabel: nameOf(r.edge.from), toLabel: nameOf(r.edge.to) })).sort((a, b) => a.step - b.step),
     review: () => reviewSpec(archSpec, model),
     nodes: Object.values(model.nodes).map((n) => ({ id: n.id, label: n.item.label || n.id })),
+    nodeList: Object.values(model.nodes).map((n) => ({ id: n.id, item: n.item, icon: n.icon })),
     model,
   };
 }

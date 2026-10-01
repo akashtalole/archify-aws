@@ -11,6 +11,8 @@ import { importMermaid } from "../src/mermaid.mjs";
 import { importIac } from "../src/iac.mjs";
 import { finalize } from "../src/finalize.mjs";
 import { buildSchemas, guideScenario } from "../src/schemas.mjs";
+import { estimateCost } from "../src/cost/estimate.mjs";
+import { money } from "../src/cost/pricebook.mjs";
 import { loadCorpus, acquireCorpus, saveCorpus, corpusAgeDays, SOURCES as WA_SOURCES } from "../src/wa/corpus.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
@@ -30,6 +32,7 @@ Usage
   archify-aws schema [architecture|sequence|dataflow]      JSON Schema (path, or contents with --json)
   archify-aws guide "<scenario>" [--json]                  which diagram type and template fit
   archify-aws wa corpus [--lens generative-ai] [--refresh] [--json]   Well-Architected questions and best practices (live index or snapshot)
+  archify-aws cost <spec.json> [--region r] [--scale 1,3,10] [--usage usage.json] [--json]   monthly estimate from the AWS Price List
   archify-aws doctor
 
 Exit codes: 0 ok · 1 invalid spec / usage / failed gate · 2 --strict and layout warnings present · 3 icons missing
@@ -206,6 +209,27 @@ switch (cmd) {
       break;
     }
     die("usage: archify-aws wa corpus [--lens generative-ai] [--refresh]");
+  }
+  case "cost": {
+    needIcons();
+    const spec = readSpec(rest[0]);
+    let d; try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; die(e.message); }
+    const scales = (opt("--scale", "1,3,10") || "1").split(",").map(Number).filter((x) => x > 0);
+    let usage; if (opt("--usage")) usage = readSpec(opt("--usage"));
+    let est; try { est = estimateCost(d, { region: opt("--region"), usage, scales, scale: 1 }); } catch (e) { die(e.message); }
+    if (json) { out(est); break; }
+    console.log(`Monthly estimate · ${est.region} · as of ${est.asOf} · ${est.confidence === "indicative" ? "INDICATIVE (some usage assumed)" : "from stated usage"}`);
+    for (const n of est.nodes.filter((x) => x.status !== "not-billable")) {
+      const amt = ["estimated", "override"].includes(n.status) ? money(n.monthlyUsd) : `(${n.status})`;
+      console.log(`  ${(n.label || n.id).slice(0, 34).padEnd(36)} ${amt.padStart(14)}  ${(n.notes[0] || "").slice(0, 70)}`);
+    }
+    console.log(`\n  Total ${money(est.totals.monthlyUsd)}/month · ${money(est.totals.annualUsd)}/year`);
+    for (const [k, v] of Object.entries(est.totals.byCategory).sort((a, b) => b[1] - a[1])) console.log(`    ${k.padEnd(26)} ${money(v).padStart(14)}`);
+    console.log("  Sensitivity (traffic ×): " + est.sensitivity.map((s) => `${s.scale}× ${money(s.monthlyUsd)}`).join(" · "));
+    const c = est.coverage; console.log(`  Coverage: ${c.estimated + c.override}/${c.nodes} priced · ${c.needsInput} need input · ${c.notEstimated} not modelled · ${c.notItemized} not itemized`);
+    for (const w of est.whatIfs) console.log(`  what-if: ${w.title}: ${w.monthlyDeltaUsd < 0 ? "saves" : "adds"} ${money(Math.abs(w.monthlyDeltaUsd))}/month`);
+    console.log("\n" + est.basis);
+    break;
   }
   case "doctor": {
     const ok = iconsAvailable();

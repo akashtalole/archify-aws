@@ -6,7 +6,10 @@
       "framework",
       "generative-ai"
     ],
-    "output": "examples/compliance/out/architecture.html"
+    "output": "examples/compliance/out/architecture.html",
+    "cost": {
+      "note": "Illustrative volumes: 2,000 documents/month, 40 pages each, 100 checks per document. Replace usage on each node with your actuals."
+    }
   },
   "root": {
     "layout": "row",
@@ -33,17 +36,28 @@
                 "id": "cognito",
                 "icon": "cognito",
                 "label": "Amazon Cognito",
-                "sublabel": "SSO with corporate IdP"
+                "sublabel": "SSO with corporate IdP",
+                "usage": {
+                  "mau": 300
+                }
               },
               {
                 "id": "apigw",
                 "icon": "api-gateway",
-                "label": "Amazon API Gateway"
+                "label": "Amazon API Gateway",
+                "usage": {
+                  "requestsPerMonth": 100000
+                }
               },
               {
                 "id": "waf",
                 "icon": "waf",
-                "label": "AWS WAF"
+                "label": "AWS WAF",
+                "usage": {
+                  "webAcls": 1,
+                  "rules": 5,
+                  "requestsPerMonth": 100000
+                }
               }
             ]
           },
@@ -64,19 +78,32 @@
                     "id": "s3in",
                     "icon": "simple-storage-service",
                     "label": "Amazon S3",
-                    "sublabel": "document intake"
+                    "sublabel": "document intake",
+                    "usage": {
+                      "storageGb": 120,
+                      "putRequestsPerMonth": 10000,
+                      "getRequestsPerMonth": 400000
+                    }
                   },
                   {
                     "id": "tx",
                     "icon": "textract",
                     "label": "Amazon Textract",
-                    "sublabel": "text, tables, forms"
+                    "sublabel": "text, tables, forms",
+                    "usage": {
+                      "pagesPerMonth": 80000,
+                      "feature": "tables"
+                    }
                   },
                   {
                     "id": "pii",
                     "icon": "comprehend",
                     "label": "Amazon Comprehend",
-                    "sublabel": "PII detection"
+                    "sublabel": "PII detection",
+                    "usage": {
+                      "unitsPerMonth": 2400000,
+                      "feature": "DetectPiiEntities"
+                    }
                   }
                 ]
               },
@@ -84,7 +111,10 @@
                 "id": "sfn",
                 "icon": "step-functions",
                 "label": "AWS Step Functions",
-                "sublabel": "orchestrator, Distributed Map"
+                "sublabel": "orchestrator, Distributed Map",
+                "usage": {
+                  "stateTransitionsPerMonth": 1050000
+                }
               },
               {
                 "id": "engine",
@@ -98,25 +128,49 @@
                     "id": "runner",
                     "icon": "lambda",
                     "label": "AWS Lambda",
-                    "sublabel": "check runner"
+                    "sublabel": "check runner",
+                    "usage": {
+                      "requestsPerMonth": 200000,
+                      "avgDurationMs": 8000,
+                      "memoryMb": 1024,
+                      "arch": "x86"
+                    }
                   },
                   {
                     "id": "kb",
                     "icon": "opensearch-service",
                     "label": "Amazon OpenSearch Service",
-                    "sublabel": "regulations and policy library"
+                    "sublabel": "regulations and policy library",
+                    "usage": {
+                      "instanceType": "r6g.large.search",
+                      "instanceCount": 3,
+                      "storageGbPerNode": 200
+                    }
                   },
                   {
                     "id": "fm",
                     "icon": "bedrock",
                     "label": "Amazon Bedrock",
-                    "sublabel": "judge with citations"
+                    "sublabel": "judge with citations",
+                    "usage": {
+                      "model": "Claude Sonnet 5.5",
+                      "inputTokensPerMonth": 1200000000,
+                      "outputTokensPerMonth": 80000000
+                    }
                   },
                   {
                     "id": "guard",
                     "icon": "bedrock",
                     "label": "Bedrock Guardrails",
-                    "sublabel": "grounding, PII, safety"
+                    "sublabel": "grounding, PII, safety",
+                    "usage": {
+                      "textUnitsPerMonth": 1500000,
+                      "policies": [
+                        "content",
+                        "pii",
+                        "grounding"
+                      ]
+                    }
                   }
                 ]
               },
@@ -152,13 +206,23 @@
                         "id": "ddb",
                         "icon": "dynamodb",
                         "label": "Amazon DynamoDB",
-                        "sublabel": "verdicts, confidence, citations"
+                        "sublabel": "verdicts, confidence, citations",
+                        "usage": {
+                          "readRequestsPerMonth": 2000000,
+                          "writeRequestsPerMonth": 400000,
+                          "storageGb": 20
+                        }
                       },
                       {
                         "id": "evid",
                         "icon": "simple-storage-service",
                         "label": "Amazon S3",
-                        "sublabel": "audit evidence (Object Lock)"
+                        "sublabel": "audit evidence (Object Lock)",
+                        "usage": {
+                          "storageGb": 300,
+                          "putRequestsPerMonth": 20000,
+                          "getRequestsPerMonth": 50000
+                        }
                       }
                     ]
                   },
@@ -178,12 +242,22 @@
                         "id": "cw",
                         "icon": "cloudwatch",
                         "label": "Amazon CloudWatch",
-                        "sublabel": "quality and drift"
+                        "sublabel": "quality and drift",
+                        "usage": {
+                          "logIngestGbPerMonth": 60,
+                          "logStorageGb": 120,
+                          "customMetrics": 60,
+                          "alarms": 25
+                        }
                       },
                       {
                         "id": "kms",
                         "icon": "key-management-service",
-                        "label": "AWS KMS"
+                        "label": "AWS KMS",
+                        "usage": {
+                          "keys": 3,
+                          "requestsPerMonth": 2000000
+                        }
                       }
                     ]
                   }

@@ -6,7 +6,10 @@
       "framework",
       "generative-ai"
     ],
-    "output": "examples/compliance-agentcore/out/architecture.html"
+    "output": "examples/compliance-agentcore/out/architecture.html",
+    "cost": {
+      "note": "Illustrative volumes: 2,000 documents/month, 40 pages each, 100 checks per document. Replace usage on each node with your actuals."
+    }
   },
   "root": {
     "layout": "row",
@@ -33,17 +36,28 @@
                 "id": "cognito",
                 "icon": "cognito",
                 "label": "Amazon Cognito",
-                "sublabel": "federates the corporate IdP"
+                "sublabel": "federates the corporate IdP",
+                "usage": {
+                  "mau": 300
+                }
               },
               {
                 "id": "apigw",
                 "icon": "api-gateway",
-                "label": "Amazon API Gateway"
+                "label": "Amazon API Gateway",
+                "usage": {
+                  "requestsPerMonth": 100000
+                }
               },
               {
                 "id": "waf",
                 "icon": "waf",
-                "label": "AWS WAF"
+                "label": "AWS WAF",
+                "usage": {
+                  "webAcls": 1,
+                  "rules": 5,
+                  "requestsPerMonth": 100000
+                }
               }
             ]
           },
@@ -64,13 +78,21 @@
                     "id": "s3in",
                     "icon": "simple-storage-service",
                     "label": "Amazon S3",
-                    "sublabel": "document intake"
+                    "sublabel": "document intake",
+                    "usage": {
+                      "storageGb": 120,
+                      "putRequestsPerMonth": 10000,
+                      "getRequestsPerMonth": 400000
+                    }
                   },
                   {
                     "id": "eb",
                     "icon": "eventbridge",
                     "label": "Amazon EventBridge",
-                    "sublabel": "upload rule starts a run"
+                    "sublabel": "upload rule starts a run",
+                    "usage": {
+                      "eventsPerMonth": 10000
+                    }
                   }
                 ]
               },
@@ -95,13 +117,29 @@
                         "id": "sup",
                         "icon": "bedrock-agentcore",
                         "label": "Supervisor agent",
-                        "sublabel": "plans and tracks the run"
+                        "sublabel": "plans and tracks the run",
+                        "usage": {
+                          "component": "runtime",
+                          "sessionsPerMonth": 2000,
+                          "avgSessionMinutes": 15,
+                          "vcpu": 1,
+                          "memoryGb": 2,
+                          "cpuActiveFraction": 0.3
+                        }
                       },
                       {
                         "id": "chk",
                         "icon": "bedrock-agentcore",
                         "label": "Check-family agents",
-                        "sublabel": "A2A, run in parallel"
+                        "sublabel": "A2A, run in parallel",
+                        "usage": {
+                          "component": "runtime",
+                          "sessionsPerMonth": 20000,
+                          "avgSessionMinutes": 6,
+                          "vcpu": 1,
+                          "memoryGb": 2,
+                          "cpuActiveFraction": 0.3
+                        }
                       }
                     ]
                   },
@@ -116,7 +154,12 @@
                         "id": "gw",
                         "icon": "bedrock-agentcore",
                         "label": "AgentCore Gateway",
-                        "sublabel": "MCP tools"
+                        "sublabel": "MCP tools",
+                        "usage": {
+                          "invocationsPerMonth": 700000,
+                          "searchesPerMonth": 0,
+                          "tools": 6
+                        }
                       },
                       {
                         "id": "pol",
@@ -143,13 +186,22 @@
                         "id": "mem",
                         "icon": "bedrock-agentcore",
                         "label": "AgentCore Memory",
-                        "sublabel": "run state, reviewer feedback"
+                        "sublabel": "run state, reviewer feedback",
+                        "usage": {
+                          "shortTermEventsPerMonth": 100000,
+                          "longTermMemoriesStored": 20000,
+                          "retrievalsPerMonth": 40000
+                        }
                       },
                       {
                         "id": "ci",
                         "icon": "bedrock-agentcore",
                         "label": "AgentCore Code Interpreter",
-                        "sublabel": "date and table math"
+                        "sublabel": "date and table math",
+                        "usage": {
+                          "sessionsPerMonth": 400,
+                          "avgSessionMinutes": 2
+                        }
                       }
                     ]
                   },
@@ -170,7 +222,11 @@
                         "id": "ev",
                         "icon": "bedrock-agentcore",
                         "label": "AgentCore Evaluations",
-                        "sublabel": "golden-set quality"
+                        "sublabel": "golden-set quality",
+                        "usage": {
+                          "inputMTokens": 2,
+                          "outputMTokens": 0.4
+                        }
                       },
                       {
                         "id": "reg",
@@ -200,13 +256,26 @@
                         "id": "fm",
                         "icon": "bedrock",
                         "label": "Amazon Bedrock",
-                        "sublabel": "judge with citations"
+                        "sublabel": "judge with citations",
+                        "usage": {
+                          "model": "Claude Sonnet 5.5",
+                          "inputTokensPerMonth": 1200000000,
+                          "outputTokensPerMonth": 80000000
+                        }
                       },
                       {
                         "id": "guard",
                         "icon": "bedrock",
                         "label": "Bedrock Guardrails",
-                        "sublabel": "grounding, PII, safety"
+                        "sublabel": "grounding, PII, safety",
+                        "usage": {
+                          "textUnitsPerMonth": 1500000,
+                          "policies": [
+                            "content",
+                            "pii",
+                            "grounding"
+                          ]
+                        }
                       }
                     ]
                   },
@@ -222,25 +291,44 @@
                         "id": "tx",
                         "icon": "textract",
                         "label": "Amazon Textract",
-                        "sublabel": "text, tables, forms"
+                        "sublabel": "text, tables, forms",
+                        "usage": {
+                          "pagesPerMonth": 80000,
+                          "feature": "tables"
+                        }
                       },
                       {
                         "id": "kb",
                         "icon": "opensearch-service",
                         "label": "Amazon OpenSearch Service",
-                        "sublabel": "policy library"
+                        "sublabel": "policy library",
+                        "usage": {
+                          "instanceType": "r6g.large.search",
+                          "instanceCount": 3,
+                          "storageGbPerNode": 200
+                        }
                       },
                       {
                         "id": "ddb",
                         "icon": "dynamodb",
                         "label": "Amazon DynamoDB",
-                        "sublabel": "verdicts, run state"
+                        "sublabel": "verdicts, run state",
+                        "usage": {
+                          "readRequestsPerMonth": 2000000,
+                          "writeRequestsPerMonth": 400000,
+                          "storageGb": 20
+                        }
                       },
                       {
                         "id": "evid",
                         "icon": "simple-storage-service",
                         "label": "Amazon S3",
-                        "sublabel": "audit evidence (Object Lock)"
+                        "sublabel": "audit evidence (Object Lock)",
+                        "usage": {
+                          "storageGb": 300,
+                          "putRequestsPerMonth": 20000,
+                          "getRequestsPerMonth": 50000
+                        }
                       }
                     ]
                   },
@@ -261,7 +349,10 @@
                         "id": "q",
                         "icon": "simple-queue-service",
                         "label": "Amazon SQS",
-                        "sublabel": "review queue"
+                        "sublabel": "review queue",
+                        "usage": {
+                          "requestsPerMonth": 60000
+                        }
                       }
                     ]
                   },
@@ -276,7 +367,13 @@
                         "id": "cw",
                         "icon": "cloudwatch",
                         "label": "Amazon CloudWatch",
-                        "sublabel": "traces, policy decisions"
+                        "sublabel": "traces, policy decisions",
+                        "usage": {
+                          "logIngestGbPerMonth": 80,
+                          "logStorageGb": 160,
+                          "customMetrics": 60,
+                          "alarms": 25
+                        }
                       },
                       {
                         "id": "ct",
@@ -286,7 +383,11 @@
                       {
                         "id": "kms",
                         "icon": "key-management-service",
-                        "label": "AWS KMS"
+                        "label": "AWS KMS",
+                        "usage": {
+                          "keys": 3,
+                          "requestsPerMonth": 2000000
+                        }
                       }
                     ]
                   }

@@ -395,3 +395,93 @@ test("committed WA snapshots are valid, canonical and carry provenance", async (
   assert.ok(lens.bps.some((b) => b.bp_id === "GENSEC02-BP01" && /guardrails/i.test(b.bp_title)));
   for (const c of [fw, lens]) { assert.match(c.manifest.provenance.indexUrl, /^https:\/\/docs\.aws\.amazon\.com\/.*toc-contents\.json$/); assert.ok(Date.parse(c.manifest.provenance.retrievedAt)); }
 });
+
+// ---- cost estimation (AWS billing-and-cost-management skill rules: deterministic math, Price List only, explicit assumptions)
+const costOf = async (spec, opts) => {
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  const { estimateCost } = await import("../src/cost/estimate.mjs");
+  return estimateCost(buildDiagram(spec), { asOf: new Date("2026-01-15T00:00:00Z"), ...opts });
+};
+const mini = (usage, icon = "lambda") => ({ meta: { title: "t" }, root: { children: [{ id: "n", icon, label: "Node", usage }] } });
+
+test("tiered pricing walks tier boundaries", async () => {
+  const { tiered } = await import("../src/cost/pricebook.mjs");
+  const rows = [{ b: 0, e: 100, usd: "1" }, { b: 100, e: 300, usd: "0.5" }, { b: 300, e: null, usd: "0.25" }];
+  assert.equal(tiered(rows, 50).usd, 50);
+  assert.equal(tiered(rows, 100).usd, 100);
+  assert.equal(tiered(rows, 400).usd, 100 + 100 + 25);
+  assert.equal(tiered(rows, 0).usd, 0);
+});
+
+test("Lambda cost equals requests × request rate + GB-seconds × duration rate, read from the price book", needIcons, async () => {
+  const { loadPriceBook, tiered } = await import("../src/cost/pricebook.mjs");
+  const pb = loadPriceBook("us-east-1");
+  const req = pb.dim("AWSLambda", (r) => r.u === "Request", "r"), dur = pb.dim("AWSLambda", (r) => r.u === "Lambda-GB-Second", "d");
+  const usage = { requestsPerMonth: 2_000_000, avgDurationMs: 300, memoryMb: 1024, arch: "x86" };
+  const est = await costOf(mini(usage));
+  const expected = tiered(req, 2_000_000).usd + tiered(dur, 2_000_000 * 0.3 * 1).usd;
+  assert.ok(Math.abs(est.nodes[0].monthlyUsd - Math.round(expected * 1e4) / 1e4) < 1e-9, `${est.nodes[0].monthlyUsd} vs ${expected}`);
+  assert.equal(est.nodes[0].status, "estimated");
+  assert.equal(est.confidence, "usage-based", "all usage supplied by the spec");
+});
+
+test("defaults are recorded as assumptions and make the estimate indicative", needIcons, async () => {
+  const est = await costOf(mini({ requestsPerMonth: 1e6 }));
+  assert.equal(est.confidence, "indicative");
+  assert.ok(est.defaultedAssumptions.some((a) => a.key === "avgDurationMs"));
+  assert.deepEqual(est.nodes[0].assumptions.find((a) => a.key === "requestsPerMonth"), { key: "requestsPerMonth", value: 1e6, source: "spec", scaledByTraffic: true });
+});
+
+test("traffic sensitivity scales variable costs but not fixed hourly costs", needIcons, async () => {
+  const lam = await costOf(mini({ requestsPerMonth: 1e6, avgDurationMs: 100, memoryMb: 128 }), { scales: [1, 10] });
+  assert.ok(lam.sensitivity[1].monthlyUsd > lam.sensitivity[0].monthlyUsd * 9.9);
+  const ec2 = await costOf(mini({ instanceType: "m5.large", count: 2, ebsGbPerInstance: 0 }, "ec2"), { scales: [1, 10] });
+  assert.equal(ec2.sensitivity[0].monthlyUsd, ec2.sensitivity[1].monthlyUsd, "instance-hours do not scale with traffic");
+});
+
+test("honesty: unmodelled, ambiguous and unknown inputs are reported, never invented", needIcons, async () => {
+  const hl = await costOf(mini({}, "healthlake"));
+  assert.equal(hl.nodes[0].status, "not-estimated");
+  assert.equal(hl.totals.monthlyUsd, 0);
+  const noModel = await costOf(mini({ inputTokensPerMonth: 1e6 }, "bedrock"));
+  assert.equal(noModel.nodes[0].status, "needs-input");
+  assert.match(noModel.nodes[0].notes[0], /usage\.model/);
+  const vague = await costOf(mini({ model: "Claude" }, "bedrock"));
+  assert.equal(vague.nodes[0].status, "needs-input");
+  assert.match(vague.nodes[0].notes[0], /several Bedrock models|no Bedrock model/);
+  const typo = await costOf(mini({ instanceType: "m5.nonexistent" }, "ec2"));
+  assert.equal(typo.nodes[0].status, "needs-input");
+});
+
+test("override costs are labelled as user-supplied; no-charge and general icons are not priced", needIcons, async () => {
+  const o = await costOf({ meta: { title: "t" }, root: { children: [{ id: "a", icon: "healthlake", label: "HL", usage: { monthlyUsd: 123.456, note: "from quote" } }, { id: "b", icon: "identity-and-access-management", label: "IAM" }, { id: "c", icon: "users", label: "Users" }] } });
+  assert.deepEqual(o.nodes.map((n) => n.status), ["override", "no-charge", "not-billable"]);
+  assert.equal(o.totals.monthlyUsd, 123.456);
+  assert.equal(o.nodes[0].notes[0], "from quote");
+});
+
+test("Bedrock cost matches tokens × per-token rate and Multi-AZ what-if is the real price difference", needIcons, async () => {
+  const { loadPriceBook } = await import("../src/cost/pricebook.mjs");
+  const pb = loadPriceBook();
+  const inRow = pb.rows("AmazonBedrockFoundationModels").find((r) => /Sonnet 5\.5/.test(r.a.servicename || "") && /^MP:\w+_input_tokens_standard-Units$/.test(r.u));
+  const outRow = pb.rows("AmazonBedrockFoundationModels").find((r) => /Sonnet 5\.5/.test(r.a.servicename || "") && /^MP:\w+_output_tokens_standard-Units$/.test(r.u));
+  const est = await costOf(mini({ model: "Claude Sonnet 5.5", inputTokensPerMonth: 10e6, outputTokensPerMonth: 2e6 }, "bedrock"));
+  assert.ok(Math.abs(est.nodes[0].monthlyUsd - (10 * Number(inRow.usd) + 2 * Number(outRow.usd))) < 1e-6);
+  const rds = await costOf(mini({ instanceClass: "db.r6g.large", engine: "PostgreSQL", multiAz: true, storageGb: 100 }, "rds"));
+  const single = await costOf(mini({ instanceClass: "db.r6g.large", engine: "PostgreSQL", multiAz: false, storageGb: 100 }, "rds"));
+  const w = rds.whatIfs.find((x) => /rds-multiaz/.test(x.id));
+  assert.ok(Math.abs(w.monthlyDeltaUsd - (rds.totals.monthlyUsd - single.totals.monthlyUsd)) < 1e-4);
+  assert.equal(w.tradeoff, true);
+});
+
+test("cost estimate is deterministic and carries provenance", needIcons, async () => {
+  const spec = JSON.parse(fs.readFileSync(path.join(ROOT, "examples", "compliance", "architecture.json"), "utf8"));
+  const a = await costOf(spec), b = await costOf(spec);
+  assert.equal(JSON.stringify(a), JSON.stringify(b));
+  assert.equal(a.asOf, "2026-01-15");
+  assert.match(a.basis, /on-demand/);
+  assert.ok(a.priceBook.publications.AmazonBedrockFoundationModels);
+  const sumNodes = Math.round(a.nodes.filter((n) => ["estimated", "override"].includes(n.status)).reduce((s, n) => s + n.monthlyUsd, 0) * 1e4) / 1e4;
+  assert.equal(a.totals.monthlyUsd, sumNodes);
+  assert.equal(a.totals.annualUsd, Math.round(sumNodes * 12 * 1e4) / 1e4);
+});
