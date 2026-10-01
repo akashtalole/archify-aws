@@ -53,6 +53,11 @@ The agent searches icons, authors the spec, renders with `--strict --json`, repa
   *drawing*, not your configuration.
 * **Icon catalog** — 305 service, 419 resource, 47 general and 15 group icons (SVG); `icons search`, aliases (`alb`, `s3`, `kms`…).
 
+## Cost and Well-Architected review
+Every rendered page now has three tabs: **Diagram**, **Cost** (monthly estimate from the AWS Price List, with assumptions, sensitivity, what-ifs and an
+on-diagram cost overlay) and **Well-Architected review** (full Framework + Generative AI Lens best-practice ledger, findings by risk, trade-offs, Eisenhower
+plan). Use `--no-cost` / `--no-review` to omit them, `archify-aws cost` and `archify-aws wa review` for the CLI, and `?tab=cost|wa` to deep-link.
+
 ## Commands
 ```text
 archify-aws finalize <spec.json> [--json]      archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme dark] [--no-review] [--strict] [--json]

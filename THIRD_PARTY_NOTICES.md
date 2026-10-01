@@ -15,3 +15,9 @@ them, and do not imply AWS endorsement. Rendered diagrams embed the icons they u
 ## AWS Well-Architected Framework and Generative AI Lens
 Referenced and paraphrased with links to the AWS documentation; the review rules are heuristics written for this
 project, not AWS content.
+
+## AWS Agent Toolkit skills
+The cost-estimation and Well-Architected review features follow the workflows described in the `billing-and-cost-management` and
+`aws-well-architected-review` skills of <https://github.com/aws/agent-toolkit-for-aws> (core-skills), which is licensed by AWS under its own
+terms. Their rules are paraphrased; no skill text or data is redistributed. Pricing data comes from the public AWS Price List and framework
+structure from the public AWS Well-Architected documentation.

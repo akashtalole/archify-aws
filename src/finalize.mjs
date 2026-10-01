@@ -4,6 +4,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { buildDiagram, SpecError } from "./pipeline.mjs";
 import { renderPage } from "./page.mjs";
+import { analyze } from "./analysis.mjs";
 import { svgToPng } from "./png.mjs";
 import { chromeAvailable, dumpDom } from "./browser.mjs";
 import { catalog, iconsAvailable } from "./catalog.mjs";
@@ -11,7 +12,7 @@ import { catalog, iconsAvailable } from "./catalog.mjs";
 const sha = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 const TOOL = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8")).version;
 
-export function finalize(specPath, { outHtml, theme, png = true, requireBrowser = false, review = true } = {}) {
+export function finalize(specPath, { outHtml, theme, png = true, requireBrowser = false, review = true, cost = true } = {}) {
   const stages = [];
   const stage = (name, fn) => {
     try { const detail = fn(); const st = detail?.skipped ? "skipped" : "pass"; stages.push({ name, status: st, ...(detail ? { detail } : {}) }); return detail ?? {}; }
@@ -31,10 +32,12 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
   const th = theme || d.spec.meta?.theme || "light";
   const html = path.resolve(outHtml || d.spec.meta?.output || specPath.replace(/\.json$/, ".html"));
   const svgFile = html.replace(/\.html$/, ".svg");
-  const rev = review && d.spec.meta?.review !== false ? d.review() : null;
+  let an = { cost: null, wa: null };
+  const a = stage("analyze", () => { an = analyze(d, { cost, review }); return { cost: !!an.cost, review: !!an.wa }; });
+  if (!a) return receipt;
   const r = stage("render", () => {
     fs.mkdirSync(path.dirname(html), { recursive: true });
-    fs.writeFileSync(html, renderPage(d, rev, th));
+    fs.writeFileSync(html, renderPage(d, an.wa, th, an.cost));
     fs.writeFileSync(svgFile, d.svg(th));
     receipt.outputs.html = { path: path.relative(process.cwd(), html), sha256: sha(fs.readFileSync(html)), bytes: fs.statSync(html).size };
     receipt.outputs.svg = { path: path.relative(process.cwd(), svgFile), sha256: sha(fs.readFileSync(svgFile)) };
@@ -52,6 +55,13 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
     for (const m of svg.matchAll(/<use [^>]*href="#([^"]+)"/g)) if (!symbols.has(m[1])) problems.push(`svg: <use> references missing symbol ${m[1]}`);
     if (!/<title>[^<]+<\/title>/.test(svg)) problems.push("svg: missing <title>");
     if (/<script[^>]*\ssrc=|<link[^>]*stylesheet|@import|\bfetch\(|XMLHttpRequest|<img[^>]*src=["']?http/.test(page)) problems.push("page: external resource or network call found (output must be standalone)");
+    if (an.cost && !/id="tab-cost"/.test(page)) problems.push("page: Cost tab missing");
+    if (an.wa) {
+      if (!/id="tab-wa"/.test(page)) problems.push("page: Well-Architected tab missing");
+      const rows = (page.match(/<tr data-s="/g) || []).length, want = an.wa.ledger.length + an.wa.lensLedger.length;
+      if (rows !== want) problems.push(`review: ${rows} ledger rows rendered but ${want} best practices assessed`);
+      if (an.wa.mode === "full" && an.wa.ledger.length !== an.wa.coverage.framework.bps) problems.push("review: full mode did not assess every framework best practice");
+    }
     const nodeEls = (svg.match(/class="node"/g) || []).length;
     if (nodeEls !== d.stats.nodes) problems.push(`svg: ${nodeEls} node elements but ${d.stats.nodes} nodes in the model`);
     if (problems.length) { const e = new Error("check failed"); e.errors = problems; throw e; }
@@ -86,7 +96,8 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
       });
     }
   }
-  if (rev) receipt.review = { advisory: true, summary: rev.summary, gaps: rev.findings.filter((f) => f.status === "gap").map((f) => f.id), considerations: rev.findings.filter((f) => f.status === "consider").map((f) => f.id) };
+  if (an.cost) receipt.cost = { region: an.cost.region, asOf: an.cost.asOf, monthlyUsd: an.cost.totals.monthlyUsd, confidence: an.cost.confidence, coverage: an.cost.coverage };
+  if (an.wa) receipt.review = { advisory: true, mode: an.wa.mode, lens: an.wa.lens, findings: an.wa.findingCounts, evidenced: an.wa.coverage.framework.withEvidence, bps: an.wa.coverage.framework.assessedBps, ids: an.wa.findings.map((f) => f.id) };
   receipt.visualReview = "not-performed"; // finalize proves mechanics, not aesthetics: open the PNG/HTML and look
   receipt.ok = !stages.some((s) => s.status === "fail");
   return receipt;

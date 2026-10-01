@@ -47,10 +47,24 @@ review the icon mappings it lists and the relationships it inferred before deliv
    widen `gap`, or move a node next to its main neighbour. Rerun the whole command after each edit; max ~4 repair rounds, then report what remains.
    (`render --strict` is the quick loop while iterating.)
 6. **Look at the PNG** (open it) — the receipt says `visualReview: "not-performed"` because mechanics are checked, aesthetics are not. Fix collisions, tangled routes, unclear labels.
-7. **Review.** Read `review` in the receipt (or `archify-aws review spec.json`). Do not paper over gaps by adding
-   decorative icons: either the architecture really has the control (add it, with its connection) or say it's out of scope.
-8. **Report:** absolute paths to `.html` (and `.svg`/`.png`), node/edge counts, warnings, the gaps/considerations, and
-   explicitly: "review is advisory — inferred from the drawing, not from deployed configuration".
+7. **Cost and review.** `finalize` also writes a **Cost** tab (AWS Price List) and a **Well-Architected review** tab into the same HTML;
+   read `cost` and `review` in the receipt. Do not paper over gaps by adding decorative icons: either the architecture really has the control
+   (add it, with its connection) or say it's out of scope. See `references/cost-estimation.md` and `references/well-architected.md`.
+8. **Report:** absolute paths to `.html` (and `.svg`/`.png`), node/edge counts, warnings, monthly cost with its confidence and the key
+   assumptions, the findings by risk, how many best practices were actually evidenced, and explicitly: "cost is an indicative list-price
+   estimate and the review is advisory — inferred from the drawing, not from deployed configuration".
+
+## Cost estimation rules (from the AWS billing-and-cost-management skill)
+* Check today's date before quoting prices; the price book records its retrieval date.
+* Never do cost arithmetic by reasoning: run `archify-aws cost` (deterministic code) and quote its numbers. 730 hours/month.
+* Only public on-demand rates from the AWS Price List. Never invent a price; unpriced components stay "not-itemized" / "not-estimated".
+* Put real usage in each node's `usage`; defaulted assumptions make the estimate "indicative". Point to the AWS Pricing Calculator for a quote.
+
+## Well-Architected review rules (from the AWS well-architected-review skill)
+* The corpus is the frozen docs index (`archify-aws wa corpus`); use canonical best-practice IDs only, never fabricate one.
+* Five statuses: Implemented, Partially Implemented, Not Implemented, Not Applicable, Cannot Determine. Say "Cannot Determine" rather than guess.
+* Risk = impact × likelihood; do not manufacture Criticals, and acknowledge strengths. Scores are provisional when few BPs are evidenced.
+* The report is CONFIDENTIAL: do not post it to broadly visible channels without approval.
 
 ## Authoring rules (AWS deck + Well-Architected)
 * Structure first: `aws-cloud › region › vpc › az › subnet`. Show ≥ 2 AZs when the design claims high availability.
@@ -68,7 +82,7 @@ review the icon mappings it lists and the relationships it inferred before deliv
 * Diagram conventions from the AWS deck are summarised in [references/aws-diagram-guidelines.md](references/aws-diagram-guidelines.md).
 
 ## Commands
-`finalize`, `render`, `validate`, `review`, `import mermaid|iac`, `icons search|info|categories|groups`, `guide`, `schema`, `init`, `fetch-icons`, `doctor` — run
+`finalize`, `render`, `validate`, `cost`, `wa review|corpus`, `review`, `import mermaid|iac`, `icons search|info|categories|groups`, `guide`, `schema`, `init`, `fetch-icons`, `doctor` — run
 `node bin/archify-aws.mjs --help`. Always pass `--json` when parsing results.
 
 ## Don't

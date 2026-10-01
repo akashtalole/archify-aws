@@ -28,6 +28,8 @@ export function buildDiagram(input) {
       review: () => reviewSpec(first.reviewSpec, first.model),
       nodes: input.participants.map((p) => ({ id: p.id, label: p.label || p.id })),
       nodeList: input.participants.map((p) => ({ id: p.id, item: p, icon: resolveIcon(p.icon) })),
+      groupList: (input.groups || []).map((g, i) => ({ id: "g:" + i, kind: g.kind, label: g.label, parent: null })),
+      edgeList: input.messages.filter((m) => m.note === undefined).map((m) => ({ from: m.from, to: m.to, label: m.label })),
     };
   }
   let archSpec = input;
@@ -48,6 +50,8 @@ export function buildDiagram(input) {
     review: () => reviewSpec(archSpec, model),
     nodes: Object.values(model.nodes).map((n) => ({ id: n.id, label: n.item.label || n.id })),
     nodeList: Object.values(model.nodes).map((n) => ({ id: n.id, item: n.item, icon: n.icon })),
+    groupList: model.groups.map((g) => ({ id: g.id, kind: g.kind, label: g.label, parent: g.parent })),
+    edgeList: model.routes.map((r) => ({ from: r.edge.from, to: r.edge.to, label: r.edge.label })),
     model,
   };
 }

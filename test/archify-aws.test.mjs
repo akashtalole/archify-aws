@@ -253,7 +253,7 @@ test("finalize passes on a good spec and writes a deterministic receipt", async 
   const a = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
   const b = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
   assert.equal(a.ok, true);
-  assert.deepEqual(a.stages.map((s) => s.name), ["validate", "render", "check", "browser-check"]);
+  assert.deepEqual(a.stages.map((s) => s.name), ["validate", "analyze", "render", "check", "browser-check"]);
   assert.equal(JSON.stringify(a), JSON.stringify(b), "receipt is deterministic (no timestamps or timings)");
   assert.equal(a.visualReview, "not-performed");
   assert.match(a.outputs.html.sha256, /^[0-9a-f]{64}$/);
@@ -484,4 +484,58 @@ test("cost estimate is deterministic and carries provenance", needIcons, async (
   const sumNodes = Math.round(a.nodes.filter((n) => ["estimated", "override"].includes(n.status)).reduce((s, n) => s + n.monthlyUsd, 0) * 1e4) / 1e4;
   assert.equal(a.totals.monthlyUsd, sumNodes);
   assert.equal(a.totals.annualUsd, Math.round(sumNodes * 12 * 1e4) / 1e4);
+});
+
+// ---- Well-Architected review engine and report tabs
+import { reviewWorkload, riskLevel } from "../src/wa/evaluate.mjs";
+import { LEGACY_RULES, LEGACY_LENS_RULES, PROCEDURAL_RULES } from "../src/wa/rules.mjs";
+import { loadCorpus as loadWaCorpus } from "../src/wa/corpus.mjs";
+import { analyze } from "../src/analysis.mjs";
+import { buildDiagram } from "../src/pipeline.mjs";
+import { renderPage as renderPageWa } from "../src/page.mjs";
+
+const compliance = () => buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/compliance-agentcore/architecture.json", import.meta.url), "utf8")));
+
+test("WA rules only cite canonical best-practice IDs from the corpus", () => {
+  const fw = new Set(loadWaCorpus("framework").bps.map((b) => b.bp_id)), lens = new Set(loadWaCorpus("generative-ai").bps.map((b) => b.bp_id));
+  for (const r of LEGACY_RULES) for (const id of Object.keys(r.fw || {})) assert.ok(fw.has(id), id);
+  for (const r of [...LEGACY_RULES, ...LEGACY_LENS_RULES]) for (const id of Object.keys(r.lens || {})) assert.ok(lens.has(id), id);
+  assert.ok(PROCEDURAL_RULES.length > 0);
+});
+
+test("risk matrix follows the review skill", () => {
+  assert.equal(riskLevel("Severe", "High"), "Critical");
+  assert.equal(riskLevel("Severe", "Low"), "High");
+  assert.equal(riskLevel("Moderate", "High"), "High");
+  assert.equal(riskLevel("Moderate", "Medium"), "Medium");
+  assert.equal(riskLevel("Minor", "High"), "Medium");
+  assert.equal(riskLevel("Minor", "Low"), "Low");
+});
+
+test("review assesses every best practice exactly once, deterministically", () => {
+  const d = compliance(), { cost } = analyze(d, { review: false }), now = new Date("2026-10-01T00:00:00Z");
+  const a = reviewWorkload(d, { cost, now }), b = reviewWorkload(d, { cost, now });
+  assert.deepEqual(a, b);
+  const fw = loadWaCorpus("framework");
+  assert.equal(a.ledger.length, fw.bps.length);
+  assert.equal(new Set(a.ledger.map((x) => x.bp_id)).size, fw.bps.length);
+  assert.equal(a.lens, "generative-ai");
+  assert.ok(a.ledger.some((x) => x.status === "Cannot Determine"));
+  for (const f of a.findings) assert.match(f.id, /^F-\d{3}$/);
+});
+
+test("review modes and criticality", () => {
+  const d = compliance();
+  assert.equal(reviewWorkload(d, { mode: "score" }).ledger.length, 0);
+  const sec = reviewWorkload(d, { mode: "pillar", pillars: ["security"] });
+  assert.ok(sec.ledger.length > 0 && sec.ledger.every((x) => x.pillar_id === "security"));
+  assert.throws(() => reviewWorkload(d, { mode: "bogus" }));
+});
+
+test("page has Diagram, Cost and Well-Architected tabs with a full ledger", () => {
+  const d = compliance(), an = analyze(d), html = renderPageWa(d, an.wa, "light", an.cost);
+  for (const id of ["tab-diagram", "tab-cost", "tab-wa"]) assert.ok(html.includes(`id="${id}"`));
+  assert.equal((html.match(/<tr data-s="/g) || []).length, an.wa.ledger.length + an.wa.lensLedger.length);
+  assert.ok(html.includes("CONFIDENTIAL"));
+  assert.ok(!renderPageWa(d, null, "light", null).includes('id="tab-wa"'));
 });
