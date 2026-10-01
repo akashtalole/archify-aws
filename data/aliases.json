@@ -1,0 +1,31 @@
+{
+  "_comment": "Friendly names -> catalog service ids (see `archify-aws icons search`).",
+  "service": {
+    "s3": "simple-storage-service", "s3-glacier": "simple-storage-service-glacier",
+    "alb": "elastic-load-balancing", "nlb": "elastic-load-balancing", "elb": "elastic-load-balancing",
+    "load-balancer": "elastic-load-balancing",
+    "ecs": "elastic-container-service", "eks": "elastic-kubernetes-service", "ecr": "elastic-container-registry",
+    "ebs": "elastic-block-store", "efs": "efs",
+    "sqs": "simple-queue-service", "sns": "simple-notification-service", "ses": "simple-email-service",
+    "iam": "identity-and-access-management", "kms": "key-management-service",
+    "acm": "certificate-manager", "waf": "waf", "api-gw": "api-gateway", "apigw": "api-gateway",
+    "ddb": "dynamodb", "opensearch": "opensearch-service", "cloudwatch-logs": "cloudwatch",
+    "step-functions": "step-functions", "eventbridge": "eventbridge",
+    "bedrock-agents": "bedrock-agentcore", "agentcore": "bedrock-agentcore",
+    "sagemaker": "sagemaker-ai", "genai": "bedrock", "foundation-model": "bedrock",
+    "vpc": "virtual-private-cloud", "direct-connect": "direct-connect", "transit-gateway": "transit-gateway",
+    "vpn": "site-to-site-vpn", "route53": "route-53", "cdn": "cloudfront",
+    "secrets": "secrets-manager", "ssm": "systems-manager", "identity-center": "iam-identity-center",
+    "guardduty": "guardduty", "security-hub": "security-hub", "cfn": "cloudformation",
+    "msk": "managed-streaming-for-apache-kafka", "emr": "emr", "athena": "athena", "glue": "glue",
+    "redshift": "redshift", "kinesis": "kinesis", "firehose": "data-firehose"
+  },
+  "general": {
+    "users": "users", "user": "user", "client": "client", "browser": "client", "mobile": "mobile-client",
+    "internet": "internet", "on-prem": "office-building", "datacenter": "office-building"
+  },
+  "resource": {
+    "igw": "vpc:internet-gateway", "internet-gateway": "vpc:internet-gateway",
+    "nat": "vpc:nat-gateway", "nat-gateway": "vpc:nat-gateway", "alb-resource": "elastic-load-balancing:application-load-balancer"
+  }
+}

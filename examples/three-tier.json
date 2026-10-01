@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "title": "Highly available three-tier web application",
+    "subtitle": "CloudFront \u2192 ALB \u2192 EC2 Auto Scaling \u2192 Amazon RDS Multi-AZ, across two Availability Zones",
+    "output": "examples/out/three-tier.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 90,
+    "children": [
+      {
+        "id": "users",
+        "icon": "users",
+        "label": "Users"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 70,
+        "children": [
+          {
+            "id": "edge",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              },
+              {
+                "id": "cf",
+                "icon": "cloudfront",
+                "label": "Amazon CloudFront"
+              },
+              {
+                "id": "s3",
+                "icon": "s3",
+                "label": "Amazon S3"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "label": "Region",
+            "children": [
+              {
+                "id": "vpc",
+                "kind": "vpc",
+                "label": "VPC",
+                "layout": "row",
+                "gap": 70,
+                "children": [
+                  {
+                    "id": "alb",
+                    "icon": "alb",
+                    "label": "Application Load Balancer"
+                  },
+                  {
+                    "id": "azs",
+                    "kind": "stack",
+                    "layout": "column",
+                    "gap": 28,
+                    "children": [
+                      {
+                        "id": "az1",
+                        "kind": "az",
+                        "label": "Availability Zone 1",
+                        "children": [
+                          {
+                            "id": "app1",
+                            "kind": "asg",
+                            "label": "Auto Scaling group",
+                            "children": [
+                              {
+                                "id": "ec2a",
+                                "icon": "ec2",
+                                "label": "Amazon EC2"
+                              }
+                            ]
+                          },
+                          {
+                            "id": "data1",
+                            "kind": "private-subnet",
+                            "label": "Private subnet",
+                            "children": [
+                              {
+                                "id": "rds1",
+                                "icon": "rds",
+                                "label": "Amazon RDS",
+                                "sublabel": "primary"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "id": "az2",
+                        "kind": "az",
+                        "label": "Availability Zone 2",
+                        "children": [
+                          {
+                            "id": "app2",
+                            "kind": "asg",
+                            "label": "Auto Scaling group",
+                            "children": [
+                              {
+                                "id": "ec2b",
+                                "icon": "ec2",
+                                "label": "Amazon EC2"
+                              }
+                            ]
+                          },
+                          {
+                            "id": "data2",
+                            "kind": "private-subnet",
+                            "label": "Private subnet",
+                            "children": [
+                              {
+                                "id": "rds2",
+                                "icon": "rds",
+                                "label": "Amazon RDS",
+                                "sublabel": "standby"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "ops",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 40,
+            "children": [
+              {
+                "id": "cw",
+                "icon": "cloudwatch",
+                "label": "Amazon CloudWatch"
+              },
+              {
+                "id": "kms",
+                "icon": "kms",
+                "label": "AWS KMS"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "users",
+      "to": "cf",
+      "step": 1,
+      "label": "HTTPS"
+    },
+    {
+      "from": "waf",
+      "to": "cf",
+      "style": "dashed",
+      "label": "inspects"
+    },
+    {
+      "from": "cf",
+      "to": "alb",
+      "step": 2
+    },
+    {
+      "from": "alb",
+      "to": "ec2a",
+      "step": 3
+    },
+    {
+      "from": "alb",
+      "to": "ec2b",
+      "step": 3
+    },
+    {
+      "from": "ec2a",
+      "to": "rds1",
+      "step": 4,
+      "label": "SQL"
+    },
+    {
+      "from": "ec2b",
+      "to": "rds2",
+      "step": 4
+    },
+    {
+      "from": "rds1",
+      "to": "rds2",
+      "style": "dashed",
+      "arrow": "both",
+      "label": "sync replication"
+    },
+    {
+      "from": "cf",
+      "to": "s3",
+      "style": "dashed",
+      "label": "static assets"
+    }
+  ]
+}

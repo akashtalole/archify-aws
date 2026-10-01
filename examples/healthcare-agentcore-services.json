@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "title": "Healthcare agentic platform \u2014 Amazon Bedrock AgentCore shared services and use-case onboarding",
+    "subtitle": "One governed platform, many use cases: each team ships an agent on AgentCore Runtime and reaches enterprise tools only through Gateway and Policy",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/out/healthcare-agentcore-services.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 60,
+    "children": [
+      {
+        "id": "staff",
+        "icon": "users",
+        "label": "Clinicians and staff"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 60,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 50,
+            "children": [
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway"
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 80,
+            "children": [
+              {
+                "id": "uc",
+                "kind": "generic",
+                "label": "Use-case agents (one per team)",
+                "layout": "column",
+                "gap": 40,
+                "children": [
+                  {
+                    "id": "uc1",
+                    "icon": "gen:generic-application",
+                    "label": "Ambient clinical documentation"
+                  },
+                  {
+                    "id": "uc2",
+                    "icon": "gen:generic-application",
+                    "label": "Prior authorization"
+                  },
+                  {
+                    "id": "uc3",
+                    "icon": "gen:generic-application",
+                    "label": "Patient access assistant"
+                  },
+                  {
+                    "id": "uc4",
+                    "icon": "gen:generic-application",
+                    "label": "Revenue cycle coding"
+                  },
+                  {
+                    "id": "uc5",
+                    "icon": "gen:generic-application",
+                    "label": "Clinical research assistant"
+                  }
+                ]
+              },
+              {
+                "id": "platform-wrap",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 0,
+                "children": [
+                  {
+                    "id": "platform",
+                    "kind": "custom",
+                    "icon": "bedrock-agentcore",
+                    "label": "Amazon Bedrock AgentCore \u2014 shared services",
+                    "layout": "grid",
+                    "columns": 2,
+                    "gap": 40,
+                    "children": [
+                      {
+                        "id": "g-run",
+                        "kind": "generic",
+                        "label": "Build and run",
+                        "layout": "row",
+                        "gap": 44,
+                        "children": [
+                          {
+                            "id": "harness",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Harness",
+                            "sublabel": "managed agent loop"
+                          },
+                          {
+                            "id": "runtime",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Runtime",
+                            "sublabel": "serverless, isolated sessions"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "g-ctx",
+                        "kind": "generic",
+                        "label": "Identity, memory and observability",
+                        "layout": "row",
+                        "gap": 44,
+                        "children": [
+                          {
+                            "id": "identity",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Identity",
+                            "sublabel": "OAuth, workforce IdP"
+                          },
+                          {
+                            "id": "memory",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Memory",
+                            "sublabel": "short and long term"
+                          },
+                          {
+                            "id": "obs",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Observability",
+                            "sublabel": "OTEL traces to CloudWatch"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "g-tools",
+                        "kind": "generic",
+                        "label": "Tools",
+                        "layout": "row",
+                        "gap": 44,
+                        "children": [
+                          {
+                            "id": "gateway",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Gateway",
+                            "sublabel": "APIs and Lambda as MCP tools"
+                          },
+                          {
+                            "id": "codeint",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Code Interpreter",
+                            "sublabel": "sandboxed code"
+                          },
+                          {
+                            "id": "browser",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Browser",
+                            "sublabel": "managed browser"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "g-gov",
+                        "kind": "generic",
+                        "label": "Govern and improve",
+                        "layout": "row",
+                        "gap": 44,
+                        "children": [
+                          {
+                            "id": "policy",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Policy",
+                            "sublabel": "every tool call"
+                          },
+                          {
+                            "id": "registry",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Registry",
+                            "sublabel": "agents, MCP servers, tools"
+                          },
+                          {
+                            "id": "evals",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Evaluations",
+                            "sublabel": "quality signals"
+                          },
+                          {
+                            "id": "optim",
+                            "icon": "bedrock-agentcore",
+                            "label": "AgentCore Optimization",
+                            "sublabel": "recommendations, A/B"
+                          }
+                        ]
+                      }
+                    ],
+                    "align": "start"
+                  }
+                ]
+              },
+              {
+                "id": "right",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 40,
+                "children": [
+                  {
+                    "id": "models",
+                    "kind": "custom",
+                    "icon": "bedrock",
+                    "label": "Models",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "fm",
+                        "icon": "bedrock",
+                        "label": "Amazon Bedrock",
+                        "sublabel": "foundation models"
+                      },
+                      {
+                        "id": "guard",
+                        "icon": "bedrock",
+                        "label": "Bedrock Guardrails",
+                        "sublabel": "PHI / PII, safety"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tools",
+                    "kind": "generic",
+                    "label": "Enterprise tools and data",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "fn",
+                        "icon": "lambda",
+                        "label": "AWS Lambda",
+                        "sublabel": "business APIs"
+                      },
+                      {
+                        "id": "hl",
+                        "icon": "healthlake",
+                        "label": "AWS HealthLake",
+                        "sublabel": "FHIR store"
+                      },
+                      {
+                        "id": "kb",
+                        "icon": "opensearch-service",
+                        "label": "Amazon OpenSearch Service",
+                        "sublabel": "vector knowledge base"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "staff",
+      "to": "apigw",
+      "step": 1,
+      "label": "HTTPS",
+      "desc": "Staff use team-specific apps that call the API."
+    },
+    {
+      "from": "waf",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "apigw",
+      "to": "uc",
+      "step": 2,
+      "label": "invoke agent",
+      "desc": "Each use case is a separate agent with its own identity, scope and release cycle."
+    },
+    {
+      "from": "uc",
+      "to": "platform",
+      "step": 3,
+      "label": "deploy",
+      "desc": "Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions."
+    },
+    {
+      "from": "runtime",
+      "to": "gateway",
+      "step": 4,
+      "label": "tool calls",
+      "desc": "Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools."
+    },
+    {
+      "from": "policy",
+      "to": "gateway",
+      "style": "dashed",
+      "label": "authorizes each call"
+    },
+    {
+      "from": "platform",
+      "to": "tools",
+      "step": 5,
+      "label": "MCP tools",
+      "desc": "Gateway fronts business APIs, FHIR data and knowledge bases."
+    },
+    {
+      "from": "platform",
+      "to": "models",
+      "step": 6,
+      "label": "invoke models",
+      "desc": "Models are called through Bedrock with Guardrails on input and output."
+    },
+    {
+      "from": "evals",
+      "to": "optim",
+      "label": "feeds",
+      "style": "dashed"
+    }
+  ]
+}

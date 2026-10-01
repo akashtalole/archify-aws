@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "title": "Healthcare enterprise agentic AI platform on AWS",
+    "subtitle": "Workforce apps \u2192 governed agent runtime (Amazon Bedrock AgentCore) \u2192 models, clinical AI and FHIR data, with private EHR connectivity",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/out/healthcare-agentic-platform.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 70,
+    "children": [
+      {
+        "id": "staff",
+        "icon": "users",
+        "label": "Clinicians and staff"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 70,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "idc",
+                "icon": "iam-identity-center",
+                "label": "IAM Identity Center",
+                "sublabel": "workforce SSO + MFA"
+              },
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway"
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 120,
+            "children": [
+              {
+                "id": "agents",
+                "kind": "custom",
+                "icon": "bedrock-agentcore",
+                "label": "Agent platform",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "guard",
+                    "icon": "bedrock",
+                    "label": "Bedrock Guardrails",
+                    "sublabel": "PHI / PII, safety"
+                  },
+                  {
+                    "id": "agentcore",
+                    "icon": "bedrock-agentcore",
+                    "label": "Amazon Bedrock AgentCore",
+                    "sublabel": "runtime, identity, memory, gateway"
+                  },
+                  {
+                    "id": "avp",
+                    "icon": "verified-permissions",
+                    "label": "Verified Permissions",
+                    "sublabel": "tool authorization"
+                  }
+                ]
+              },
+              {
+                "id": "right",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 36,
+                "children": [
+                  {
+                    "id": "models",
+                    "kind": "custom",
+                    "icon": "bedrock",
+                    "label": "Foundation models and clinical AI",
+                    "layout": "row",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "fm",
+                        "icon": "bedrock",
+                        "label": "Amazon Bedrock",
+                        "sublabel": "foundation models"
+                      },
+                      {
+                        "id": "cmed",
+                        "icon": "comprehend-medical",
+                        "label": "Amazon Comprehend Medical"
+                      },
+                      {
+                        "id": "scribe",
+                        "icon": "healthscribe",
+                        "label": "AWS HealthScribe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "data",
+                    "kind": "generic",
+                    "label": "Clinical data and knowledge",
+                    "layout": "row",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "hl",
+                        "icon": "healthlake",
+                        "label": "AWS HealthLake",
+                        "sublabel": "FHIR store"
+                      },
+                      {
+                        "id": "kb",
+                        "icon": "opensearch-service",
+                        "label": "Amazon OpenSearch Service",
+                        "sublabel": "vector knowledge base"
+                      },
+                      {
+                        "id": "lake",
+                        "icon": "s3",
+                        "label": "Amazon S3",
+                        "sublabel": "policies, guidelines"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ops",
+                    "kind": "generic-dashed",
+                    "label": "Security and observability",
+                    "layout": "row",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "cw",
+                        "icon": "cloudwatch",
+                        "label": "Amazon CloudWatch",
+                        "sublabel": "traces, invocation logs"
+                      },
+                      {
+                        "id": "ct",
+                        "icon": "cloudtrail",
+                        "label": "AWS CloudTrail",
+                        "sublabel": "audit trail"
+                      },
+                      {
+                        "id": "kms",
+                        "icon": "key-management-service",
+                        "label": "AWS KMS",
+                        "sublabel": "customer managed keys"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dx",
+        "icon": "direct-connect",
+        "label": "AWS Direct Connect"
+      },
+      {
+        "id": "onprem",
+        "kind": "corporate-dc",
+        "label": "Hospital data center",
+        "children": [
+          {
+            "id": "ehr",
+            "icon": "gen:server",
+            "label": "EHR, PACS, lab systems"
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "staff",
+      "to": "apigw",
+      "step": 1,
+      "label": "HTTPS",
+      "desc": "Staff reach agent apps through the WAF-protected API; sessions are federated from the hospital IdP."
+    },
+    {
+      "from": "idc",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "OIDC / SSO"
+    },
+    {
+      "from": "waf",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "apigw",
+      "to": "agentcore",
+      "step": 2,
+      "desc": "Authenticated request starts an agent session with the caller's identity propagated."
+    },
+    {
+      "from": "agentcore",
+      "to": "guard",
+      "step": 3,
+      "label": "screen I/O",
+      "desc": "Guardrails filter prompts and responses (PHI/PII handling, harmful content, prompt attacks)."
+    },
+    {
+      "from": "agentcore",
+      "to": "avp",
+      "step": 4,
+      "label": "authorize",
+      "desc": "Each tool call is authorized against least-privilege policies (role, patient relationship, purpose)."
+    },
+    {
+      "from": "agentcore",
+      "to": "models",
+      "step": 5,
+      "label": "invoke",
+      "desc": "The agent reasons with foundation models and calls clinical AI services as tools."
+    },
+    {
+      "from": "agentcore",
+      "to": "data",
+      "step": 6,
+      "label": "tools + RAG",
+      "desc": "Tools read FHIR records and retrieve grounded knowledge; results return through the guardrails."
+    },
+    {
+      "from": "agentcore",
+      "to": "ops",
+      "style": "dashed",
+      "label": "telemetry + audit"
+    },
+    {
+      "from": "data",
+      "to": "dx",
+      "arrow": "both",
+      "style": "dashed",
+      "label": "FHIR / HL7"
+    },
+    {
+      "from": "dx",
+      "to": "onprem",
+      "arrow": "both",
+      "style": "dashed"
+    }
+  ]
+}

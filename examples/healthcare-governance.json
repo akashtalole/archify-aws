@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "title": "Healthcare agentic platform — multi-account governance and data foundation",
+    "subtitle": "Landing zone, preventive guardrails, central security and audit, governed clinical data. Verify HIPAA eligibility of each service and sign the BAA before handling PHI.",
+    "lens": ["framework", "generative-ai"],
+    "output": "examples/out/healthcare-governance.html"
+  },
+  "root": { "layout": "row", "gap": 90, "children": [
+    { "id": "cloud", "kind": "aws-cloud", "layout": "row", "gap": 90, "children": [
+      { "id": "mgmt", "kind": "account", "label": "Management account", "layout": "column", "gap": 56, "children": [
+        { "id": "orgs", "icon": "organizations", "label": "AWS Organizations", "sublabel": "SCPs: regions, services, encryption" },
+        { "id": "ctower", "icon": "control-tower", "label": "AWS Control Tower", "sublabel": "landing zone baseline" },
+        { "id": "idc", "icon": "iam-identity-center", "label": "IAM Identity Center", "sublabel": "workforce access" }
+      ]},
+      { "id": "accts", "kind": "stack", "layout": "grid", "columns": 2, "gap": 60, "children": [
+        { "id": "work", "kind": "account", "label": "Agent platform account", "layout": "row", "gap": 56, "children": [
+          { "id": "agentcore", "icon": "bedrock-agentcore", "label": "Amazon Bedrock AgentCore" },
+          { "id": "fm", "icon": "bedrock", "label": "Amazon Bedrock", "sublabel": "private endpoints" },
+          { "id": "guard", "icon": "bedrock", "label": "Bedrock Guardrails" }
+        ]},
+        { "id": "datalake", "kind": "account", "label": "Clinical data account", "layout": "row", "gap": 56, "children": [
+          { "id": "hl", "icon": "healthlake", "label": "AWS HealthLake" },
+          { "id": "s3", "icon": "s3", "label": "Amazon S3", "sublabel": "curated data lake" },
+          { "id": "lf", "icon": "lake-formation", "label": "AWS Lake Formation", "sublabel": "fine-grained access" },
+          { "id": "macie", "icon": "macie", "label": "Amazon Macie", "sublabel": "PHI discovery" }
+        ]},
+        { "id": "sec", "kind": "account", "label": "Security and audit account", "layout": "row", "gap": 56, "children": [
+          { "id": "ct", "icon": "cloudtrail", "label": "AWS CloudTrail", "sublabel": "org trail" },
+          { "id": "gd", "icon": "guardduty", "label": "Amazon GuardDuty" },
+          { "id": "sh", "icon": "security-hub", "label": "AWS Security Hub" },
+          { "id": "am", "icon": "audit-manager", "label": "AWS Audit Manager", "sublabel": "evidence" }
+        ]},
+        { "id": "resil", "kind": "account", "label": "Operations and recovery account", "layout": "row", "gap": 56, "children": [
+          { "id": "cw", "icon": "cloudwatch", "label": "Amazon CloudWatch", "sublabel": "dashboards, alarms" },
+          { "id": "bk", "icon": "backup", "label": "AWS Backup", "sublabel": "cross-account vault" },
+          { "id": "cfg", "icon": "config", "label": "AWS Config", "sublabel": "conformance packs" }
+        ]}
+      ]}
+    ]}
+  ]},
+  "edges": [
+    { "from": "mgmt", "to": "work", "style": "dashed", "label": "SCPs + baseline" },
+    { "from": "mgmt", "to": "sec", "style": "dashed" },
+    { "from": "work", "to": "datalake", "step": 1, "label": "governed data access", "desc": "Agent tools reach FHIR and curated data only through Lake Formation permissions." },
+    { "from": "work", "to": "sec", "step": 2, "label": "logs + findings", "desc": "Model invocation logs, CloudTrail events and findings flow to the central security account." },
+    { "from": "datalake", "to": "resil", "step": 3, "label": "backup", "desc": "Clinical data is backed up into a cross-account, encrypted vault." }
+  ]
+}

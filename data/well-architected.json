@@ -1,0 +1,26 @@
+{
+  "framework": {
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+    "pillars": {
+      "operational-excellence": { "name": "Operational excellence", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/operational-excellence.html", "focus": "Run and monitor systems, and continually improve processes and procedures." },
+      "security":               { "name": "Security", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/security.html", "focus": "Protect data, systems and assets; manage identities, detect events, and respond." },
+      "reliability":            { "name": "Reliability", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/reliability.html", "focus": "Recover from failures and meet demand: foundations, workload architecture, change and failure management." },
+      "performance-efficiency": { "name": "Performance efficiency", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/performance-efficiency.html", "focus": "Use computing resources efficiently as demand and technology change." },
+      "cost-optimization":      { "name": "Cost optimization", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/cost-optimization.html", "focus": "Deliver business value at the lowest price point." },
+      "sustainability":         { "name": "Sustainability", "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/sustainability.html", "focus": "Minimize the environmental impact of running cloud workloads." }
+    }
+  },
+  "generative-ai-lens": {
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html",
+    "scope": "Applications using foundation models on Amazon Bedrock or customer-managed models on Amazon SageMaker AI (and Amazon Q). For classic ML see the Machine Learning Lens.",
+    "lifecycle": ["scoping", "model selection", "customization", "development", "deployment", "continuous improvement"],
+    "designPrinciples": [
+      { "name": "Design for controlled autonomy", "text": "Guardrails and boundaries govern how AI systems operate, scale and interact." },
+      { "name": "Implement comprehensive observability", "text": "Measure security, performance, cost and environmental impact at every layer, including user feedback and model behavior." },
+      { "name": "Optimize resource efficiency", "text": "Right-size models and data operations from empirical requirements, with dynamic scaling." },
+      { "name": "Establish distributed resilience", "text": "Redundancy, automated recovery and geographic distribution keep service available through failures." },
+      { "name": "Standardize resource management", "text": "Central catalogs and controls for prompts, models and permissions: versioned, governed, cost-aware." },
+      { "name": "Secure interaction boundaries", "text": "Least privilege, secure communications, input/output sanitization and monitoring on every interface." }
+    ]
+  }
+}

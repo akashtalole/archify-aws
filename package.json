@@ -1,0 +1,14 @@
+{
+  "name": "archify-aws",
+  "version": "0.1.0",
+  "description": "Generate AWS architecture diagrams (standalone SVG/HTML) from typed JSON using the official AWS Architecture Icons, with Well-Architected review hints. Companion to tt-a1i/archify.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "archify-aws": "bin/archify-aws.mjs" },
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "icons:fetch": "node scripts/fetch-icons.mjs",
+    "examples": "node scripts/build-examples.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}
