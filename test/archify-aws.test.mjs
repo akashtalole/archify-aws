@@ -350,3 +350,48 @@ test("AgentCore Policy is drawn with the AgentCore icon, never the Verified Perm
     walk(j);
   }
 });
+
+// ---- Well-Architected corpus (AWS aws-well-architected-review skill: index-driven, validated, never invented)
+const tocFixture = { contents: [
+  { title: "Intro", href: "intro.html" },
+  { title: "Appendix", href: "appendix.html", contents: [
+    { title: "Security", href: "a-sec.html", contents: [
+      { title: "Identity", href: "a-id.html", contents: [
+        { title: "SEC 1. How do you manage identities?", href: "sec-01.html", contents: [
+          { title: "SEC01-BP01 Use strong sign-in", href: "sec_1_1.html" }, { title: "SEC01-BP02 Use temporary credentials", href: "sec_1_2.html" }] }] }] },
+    { title: "Reliability", href: "a-rel.html", contents: [
+      { title: "Foundations", href: "a-f.html", contents: [
+        { title: "REL 1. How do you manage quotas?", href: "rel-01.html", contents: [{ title: "REL01-BP01 Aware of quotas", href: "rel_1_1.html" }] }] }] }] } ] };
+
+test("WA corpus parser finds the pillar level through a single appendix branch and derives questions", async () => {
+  const { parseToc, validateCorpus } = await import("../src/wa/corpus.mjs");
+  const c = parseToc(tocFixture, "https://docs.aws.amazon.com/x/");
+  assert.deepEqual(c.pillars.map((p) => p.id), ["security", "reliability"]);
+  assert.deepEqual(c.bps.map((b) => b.bp_id), ["SEC01-BP01", "SEC01-BP02", "REL01-BP01"]);
+  assert.equal(c.questions.find((q) => q.question_id === "SEC01").question_title, "SEC 1. How do you manage identities?");
+  assert.equal(c.bps[0].bp_url, "https://docs.aws.amazon.com/x/sec_1_1.html");
+  assert.equal(validateCorpus(c).valid, true);
+});
+
+test("WA corpus validation gate rejects empty, duplicate and lopsided corpora", async () => {
+  const { validateCorpus } = await import("../src/wa/corpus.mjs");
+  assert.equal(validateCorpus({ pillars: [], questions: [], bps: [] }).valid, false);
+  const bp = (id, q, p) => ({ bp_id: id, bp_title: "t", bp_url: "u", question_id: q, pillar_id: p, pillar_name: p });
+  const lopsided = { pillars: [{ id: "a" }, { id: "b" }], questions: [{ question_id: "AAA01" }, { question_id: "BBB01" }],
+    bps: [...Array.from({ length: 9 }, (_, i) => bp(`AAA01-BP0${i + 1}`, "AAA01", "a")), bp("BBB01-BP01", "BBB01", "b")] };
+  assert.match(validateCorpus(lopsided).errors.join(), /implausible spread/);
+  const dup = { pillars: [{ id: "a" }], questions: [{ question_id: "AAA01" }], bps: [bp("AAA01-BP01", "AAA01", "a"), bp("AAA01-BP01", "AAA01", "a")] };
+  assert.match(validateCorpus(dup).errors.join(), /duplicate BP/);
+  const orphan = { pillars: [{ id: "a" }], questions: [{ question_id: "AAA01" }, { question_id: "AAA02" }], bps: [bp("AAA01-BP01", "AAA01", "a")] };
+  assert.match(validateCorpus(orphan).errors.join(), /AAA02 has no best practice/);
+});
+
+test("committed WA snapshots are valid, canonical and carry provenance", async () => {
+  const { loadCorpus } = await import("../src/wa/corpus.mjs");
+  const fw = loadCorpus("framework"), lens = loadCorpus("generative-ai");
+  assert.equal(fw.pillars.length, 6);
+  assert.ok(fw.bps.length > 250 && lens.bps.length > 40);
+  assert.ok(fw.bps.every((b) => /^[A-Z]{2,8}\d{2}-BP\d{2}$/.test(b.bp_id)));
+  assert.ok(lens.bps.some((b) => b.bp_id === "GENSEC02-BP01" && /guardrails/i.test(b.bp_title)));
+  for (const c of [fw, lens]) { assert.match(c.manifest.provenance.indexUrl, /^https:\/\/docs\.aws\.amazon\.com\/.*toc-contents\.json$/); assert.ok(Date.parse(c.manifest.provenance.retrievedAt)); }
+});

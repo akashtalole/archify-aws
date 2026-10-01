@@ -11,6 +11,7 @@ import { importMermaid } from "../src/mermaid.mjs";
 import { importIac } from "../src/iac.mjs";
 import { finalize } from "../src/finalize.mjs";
 import { buildSchemas, guideScenario } from "../src/schemas.mjs";
+import { loadCorpus, acquireCorpus, saveCorpus, corpusAgeDays, SOURCES as WA_SOURCES } from "../src/wa/corpus.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
@@ -28,6 +29,7 @@ Usage
   archify-aws fetch-icons [icons.zip|url]            download the official icon package
   archify-aws schema [architecture|sequence|dataflow]      JSON Schema (path, or contents with --json)
   archify-aws guide "<scenario>" [--json]                  which diagram type and template fit
+  archify-aws wa corpus [--lens generative-ai] [--refresh] [--json]   Well-Architected questions and best practices (live index or snapshot)
   archify-aws doctor
 
 Exit codes: 0 ok · 1 invalid spec / usage / failed gate · 2 --strict and layout warnings present · 3 icons missing
@@ -186,6 +188,24 @@ switch (cmd) {
   case "fetch-icons": {
     const r = spawnSync(process.execPath, [path.join(ROOT, "scripts", "fetch-icons.mjs"), ...rest], { stdio: "inherit" });
     process.exit(r.status ?? 1);
+  }
+  case "wa": {
+    const [sub] = rest;
+    if (sub === "corpus") {
+      const lens = opt("--lens", "framework");
+      if (!WA_SOURCES[lens]) die(`unknown lens "${lens}" (${Object.keys(WA_SOURCES).join(", ")})`);
+      let c;
+      try { c = flag("--refresh") ? await acquireCorpus(lens) : loadCorpus(lens); } catch (e) { die(e.message); }
+      if (flag("--refresh")) { if (!c.manifest.valid) die("corpus INVALID: " + c.manifest.errors.join("; ")); saveCorpus(c); }
+      if (json) out({ lens, ...c.manifest, ageDays: corpusAgeDays(c) });
+      else {
+        console.log(`${c.name}: ${c.manifest.counts.pillars} pillars · ${c.manifest.counts.questions} questions · ${c.manifest.counts.bps} best practices (${c.manifest.valid ? "valid" : "INVALID"})`);
+        console.log(`source ${c.manifest.provenance.indexUrl}\nretrieved ${c.manifest.provenance.retrievedAt} (${corpusAgeDays(c)} day(s) ago${flag("--refresh") ? ", live" : ", snapshot — use --refresh to re-read"})`);
+        for (const [p, n] of Object.entries(c.manifest.counts.perPillar)) console.log(`  ${p.padEnd(24)} ${n}`);
+      }
+      break;
+    }
+    die("usage: archify-aws wa corpus [--lens generative-ai] [--refresh]");
   }
   case "doctor": {
     const ok = iconsAvailable();
