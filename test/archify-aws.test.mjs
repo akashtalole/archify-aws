@@ -107,7 +107,7 @@ test("sequence diagrams validate, render and expose nodes/edges for the viewer",
   assert.ok((svg.match(/class="edge"/g) || []).length >= 14);
   assert.equal(d.steps.length, d.steps.map((s) => s.step).filter((v, i, a) => a.indexOf(v) === i).length, "unique step numbers");
   assert.throws(() => buildDiagram({ ...spec, messages: [{ from: "user", to: "nobody", label: "x" }] }), SpecError);
-  assert.throws(() => buildDiagram({ ...spec, groups: [{ kind: "vpc", members: ["user", "runtime"] }] }), /adjacent/);
+  assert.throws(() => buildDiagram({ ...spec, groups: [{ kind: "vpc", members: ["user", "runtime"] }] }), /api.*between/);
 });
 
 test("dataflow stages compile to labelled columns inside an AWS boundary", needIcons, async () => {
@@ -289,4 +289,43 @@ test("guide routes scenarios to the right diagram type", async () => {
   assert.equal(a.type, "architecture");
   assert.equal(a.template, "genai-rag");
   assert.ok(a.hints.some((h) => /Generative AI detected/.test(h)));
+});
+
+test("icon search matches whole words and honours aliases (regression: 'ses' hit databases, 'sns' hit nothing)", async () => {
+  const { searchIcons } = await import("../src/catalog.mjs");
+  const ids = (q) => searchIcons(q, 5).map((h) => h.id);
+  assert.ok(ids("ses").includes("simple-email-service"));
+  assert.ok(!ids("ses").some((i) => ["rds", "aurora", "neptune"].includes(i)));
+  assert.equal(ids("sns")[0], "simple-notification-service");
+  assert.equal(ids("textract")[0], "textract");
+});
+
+test("guide suggests companion diagrams for human-in-the-loop and deployment scenarios", async () => {
+  const { guideScenario } = await import("../src/schemas.mjs");
+  const g = guideScenario("compliance review assistant checks documents against 100 checks with human in the loop approval, then deploy rule changes through a pipeline with sign-off");
+  assert.deepEqual(g.diagrams.map((d) => d.type), ["architecture", "sequence", "dataflow"]);
+  assert.ok(g.hints.some((h) => /Human-in-the-loop/.test(h)));
+});
+
+// ---- compliance review assistant use case (end-to-end through finalize)
+for (const f of ["architecture.json", "review-run.sequence.json", "lifecycle.dataflow.json"]) {
+  test(`compliance example ${f} passes finalize`, async (t) => {
+    if (!iconsAvailable()) return t.skip("icons not fetched");
+    const { finalize } = await import("../src/finalize.mjs");
+    const r = finalize(path.join(ROOT, "examples", "compliance", f), { outHtml: path.join(ROOT, ".cache", "compliance", f.replace(/\.json$/, ".html")), png: false });
+    assert.equal(r.ok, true, JSON.stringify(r.stages.filter((s) => s.status === "fail")));
+  });
+}
+
+test("router keeps edges out of groups that neither endpoint belongs to", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  const d = buildDiagram(load("healthcare-agentcore-services") && JSON.parse(fs.readFileSync(path.join(ROOT, "examples", "compliance", "architecture.json"), "utf8")));
+  const sfnToHitl = d.model.routes.find((r) => r.edge.from === "sfn" && r.edge.to === "hitl");
+  const engine = d.model.groups.find((g) => g.id === "engine").rect;
+  for (let i = 0; i < sfnToHitl.pts.length - 1; i++) {
+    const [a, b] = [sfnToHitl.pts[i], sfnToHitl.pts[i + 1]];
+    const through = Math.max(a[0], b[0]) > engine.x + 2 && Math.min(a[0], b[0]) < engine.x + engine.w - 2 && Math.max(a[1], b[1]) > engine.y + 2 && Math.min(a[1], b[1]) < engine.y + engine.h - 2;
+    assert.ok(!through, "human-review route must go around the check engine group");
+  }
 });

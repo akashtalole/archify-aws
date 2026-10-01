@@ -58,11 +58,19 @@ export function guideScenario(text) {
   };
   const type = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
   const template = { architecture: /\b(genai|bedrock|agent\w*|llm|rag)\b/.test(t) ? "genai-rag" : /\b(serverless|lambda)\b/.test(t) ? "serverless-api" : "three-tier", sequence: "sequence", dataflow: "dataflow" }[type];
+  const hitl = /\b(human.?in.?the.?loop|hitl|approv\w*|reviewers?|review queue|sign.?off|escalat\w*|manual review)\b/.test(t);
+  const deploy = /\b(deploy\w*|release|promot\w*|ci ?\/? ?cd|rollout|pipeline)\b/.test(t) && /\b(approv\w*|human|gate|promot\w*|governance)\b/.test(t);
+  const diagrams = [{ type: "architecture", focus: "components, boundaries and the main request path" }];
+  if (hitl || /\b(review|process|lifecycle|workflow|steps?)\b/.test(t)) diagrams.push({ type: "sequence", focus: "one end-to-end run, including each human decision point" });
+  if (deploy) diagrams.push({ type: "dataflow", focus: "how changes (rules, prompts, models) move from authoring through evaluation and approval to production" });
+  else if (/\b(documents?|ingest\w*|checks?|rules?|corpus)\b/.test(t) && type === "architecture") diagrams.push({ type: "dataflow", focus: "how inputs move through ingestion, processing, storage and serving" });
   const genai = /\b(genai|generative|bedrock|agentcore|agents?|llm|rag|sagemaker|foundation model)\b/.test(t);
   return {
-    type, template, scores: score,
+    type, template, scores: score, diagrams,
     hints: [
       type === "architecture" ? "Nest aws-cloud › region › vpc › az › subnet; one left-to-right main flow; number only the primary request path." : type === "sequence" ? "Participants left→right in call order; use return/async kinds; wrap an AWS boundary around contiguous participants." : "One stage per column (Sources → Ingest → Store → Process → Serve); mark external stages; number the main data path.",
+      ...(hitl ? ["Human-in-the-loop detected: draw the review queue / approval step as its own node (e.g. Step Functions task token, Amazon Augmented AI, a reviewer app) and show what happens on reject and on timeout."] : []),
+      ...(diagrams.length > 1 ? [`Suggested diagrams: ${diagrams.map((d) => d.type).join(" + ")} — one diagram per question keeps each readable (6-20 nodes).`] : []),
       ...(genai ? ["Generative AI detected: draw guardrails, retrieval/grounding data, invocation logging and an API layer in front of the model (set meta.lens to include generative-ai)."] : []),
       "Run `archify-aws icons search <term>` for every service; never invent icon ids.",
       "Render with `archify-aws finalize <spec> --json`, then open the PNG and look at it.",

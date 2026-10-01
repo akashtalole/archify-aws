@@ -41,7 +41,10 @@ export function validateSequence(spec) {
     if (!GROUP_KINDS[g.kind]) errors.push(`group #${i + 1}: unknown kind "${g.kind}"`);
     const idx = (g.members || []).map((m) => ps.findIndex((p) => p.id === m));
     if (!idx.length || idx.includes(-1)) errors.push(`group #${i + 1}: members must be participant ids`);
-    else if (Math.max(...idx) - Math.min(...idx) + 1 !== idx.length) errors.push(`group #${i + 1}: members must be adjacent participants`);
+    else if (Math.max(...idx) - Math.min(...idx) + 1 !== idx.length) {
+      const between = ps.filter((p, k) => k > Math.min(...idx) && k < Math.max(...idx) && !idx.includes(k)).map((p) => p.id);
+      errors.push(`group #${i + 1}: members must be adjacent participants; ${between.join(", ")} sit${between.length === 1 ? "s" : ""} between them — reorder participants so the boundary members are consecutive (or drop that participant from the group)`);
+    }
   });
   return { errors, warnings };
 }
@@ -66,7 +69,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
     if (m.note !== undefined) { lines = wrapLabel(m.note, 34); h = 26 + lines.length * 15 + 12; }
     else {
       const span = m.kind === "self" ? 150 : Math.abs(x[m.to] - x[m.from]) - 56;
-      lines = wrapLabel(m.label || "", Math.max(24, Math.floor((span + 90) / 6.1)));
+      lines = wrapLabel(m.label || "", Math.max(14, Math.floor((span - 24) / 6.1)));
       h = ROW + Math.max(0, lines.length - 1) * 14;
     }
     const pad = fragStart.has(mi) ? 22 : 0; // room for the fragment tab above the first message
@@ -132,7 +135,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
       if (kind === "async") out.push(`<circle class="asyncdot" cx="${x1}" cy="${r.y}" r="3.5"/>`);
       const cx = (x1 + x2) / 2;
       r.lines.forEach((ln, k) => out.push(`<text class="elabel" x="${cx}" y="${r.y - 8 - (r.lines.length - 1 - k) * 14}" text-anchor="middle">${esc(ln)}</text>`));
-      bx = x1 + Math.sign(x2 - x1) * 18;
+      bx = x1; // numbered callout sits on the sender's lifeline, clear of the label
     }
     if (m.step !== false && kind !== "return") {
       stepNo++;

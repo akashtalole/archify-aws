@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "title": "Compliance review assistant \u2014 100 checks per document, human-in-the-loop on AWS",
+    "subtitle": "Documents are extracted, judged against a 100-check library with cited evidence, and anything failed or low-confidence goes to a human reviewer before a decision is recorded",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/compliance/out/architecture.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 60,
+    "children": [
+      {
+        "id": "owners",
+        "icon": "gen:users",
+        "label": "Document owners"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 60,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 50,
+            "children": [
+              {
+                "id": "cognito",
+                "icon": "cognito",
+                "label": "Amazon Cognito",
+                "sublabel": "SSO with corporate IdP"
+              },
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway"
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 90,
+            "children": [
+              {
+                "id": "intake",
+                "kind": "generic",
+                "label": "Intake and extraction",
+                "layout": "column",
+                "gap": 50,
+                "children": [
+                  {
+                    "id": "s3in",
+                    "icon": "simple-storage-service",
+                    "label": "Amazon S3",
+                    "sublabel": "document intake"
+                  },
+                  {
+                    "id": "tx",
+                    "icon": "textract",
+                    "label": "Amazon Textract",
+                    "sublabel": "text, tables, forms"
+                  },
+                  {
+                    "id": "pii",
+                    "icon": "comprehend",
+                    "label": "Amazon Comprehend",
+                    "sublabel": "PII detection"
+                  }
+                ]
+              },
+              {
+                "id": "sfn",
+                "icon": "step-functions",
+                "label": "AWS Step Functions",
+                "sublabel": "orchestrator, Distributed Map"
+              },
+              {
+                "id": "engine",
+                "kind": "custom",
+                "icon": "bedrock",
+                "label": "Check engine (100 checks in parallel)",
+                "layout": "column",
+                "gap": 44,
+                "children": [
+                  {
+                    "id": "runner",
+                    "icon": "lambda",
+                    "label": "AWS Lambda",
+                    "sublabel": "check runner"
+                  },
+                  {
+                    "id": "kb",
+                    "icon": "opensearch-service",
+                    "label": "Amazon OpenSearch Service",
+                    "sublabel": "regulations and policy library"
+                  },
+                  {
+                    "id": "fm",
+                    "icon": "bedrock",
+                    "label": "Amazon Bedrock",
+                    "sublabel": "judge with citations"
+                  },
+                  {
+                    "id": "guard",
+                    "icon": "bedrock",
+                    "label": "Bedrock Guardrails",
+                    "sublabel": "grounding, PII, safety"
+                  }
+                ]
+              },
+              {
+                "id": "right",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 36,
+                "children": [
+                  {
+                    "id": "hitl",
+                    "kind": "generic",
+                    "label": "Human review",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "a2i",
+                        "icon": "augmented-ai-a2i",
+                        "label": "Amazon Augmented AI",
+                        "sublabel": "review loop, private workforce"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "results",
+                    "kind": "generic",
+                    "label": "Results and evidence",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "ddb",
+                        "icon": "dynamodb",
+                        "label": "Amazon DynamoDB",
+                        "sublabel": "verdicts, confidence, citations"
+                      },
+                      {
+                        "id": "evid",
+                        "icon": "simple-storage-service",
+                        "label": "Amazon S3",
+                        "sublabel": "audit evidence (Object Lock)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "sec",
+                    "kind": "generic-dashed",
+                    "label": "Security and observability",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "ct",
+                        "icon": "cloudtrail",
+                        "label": "AWS CloudTrail"
+                      },
+                      {
+                        "id": "cw",
+                        "icon": "cloudwatch",
+                        "label": "Amazon CloudWatch",
+                        "sublabel": "quality and drift"
+                      },
+                      {
+                        "id": "kms",
+                        "icon": "key-management-service",
+                        "label": "AWS KMS"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reviewers",
+        "icon": "gen:users",
+        "label": "Compliance reviewers"
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "owners",
+      "to": "apigw",
+      "step": 1,
+      "label": "submit",
+      "desc": "Owner signs in and submits a document with the check set to apply."
+    },
+    {
+      "from": "waf",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "cognito",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "authorizer"
+    },
+    {
+      "from": "apigw",
+      "to": "intake",
+      "step": 2,
+      "label": "presigned upload",
+      "desc": "The document lands in the KMS-encrypted intake bucket."
+    },
+    {
+      "from": "intake",
+      "to": "sfn",
+      "step": 3,
+      "label": "S3 event",
+      "desc": "Upload starts one review execution; Textract and Comprehend prepare structured, PII-tagged text."
+    },
+    {
+      "from": "sfn",
+      "to": "engine",
+      "step": 4,
+      "label": "100 checks",
+      "desc": "A Distributed Map fans out one task per check; each retrieves criteria, judges with citations and passes through Guardrails."
+    },
+    {
+      "from": "engine",
+      "to": "results",
+      "step": 5,
+      "label": "verdicts",
+      "desc": "Verdict, confidence and cited spans are stored per check; the evidence bundle is written to a locked bucket."
+    },
+    {
+      "from": "sfn",
+      "to": "hitl",
+      "step": 6,
+      "label": "failed or low confidence",
+      "desc": "Only flagged checks go to a human; the execution waits on a task token."
+    },
+    {
+      "from": "hitl",
+      "to": "reviewers",
+      "step": 7,
+      "arrow": "both",
+      "label": "task and decision",
+      "desc": "Reviewers confirm, override or comment; the decision resumes the execution and is recorded."
+    },
+    {
+      "from": "hitl",
+      "to": "results",
+      "style": "dashed",
+      "label": "decisions"
+    }
+  ]
+}

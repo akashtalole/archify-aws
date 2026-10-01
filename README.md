@@ -9,6 +9,8 @@ explorable HTML (plus SVG/PNG) and a receipt of what was checked.
 |---|---|
 | ![three-tier](examples/out/three-tier.png) | ![genai-rag](examples/out/genai-rag.png) |
 
+Compliance review assistant (100 checks + human in the loop): [architecture](examples/compliance/out/architecture.png) · [one review run](examples/compliance/out/review-run.png) · [check-library lifecycle](examples/compliance/out/lifecycle.png)
+
 Healthcare enterprise agentic platform (examples): [platform](examples/out/healthcare-agentic-platform.png) ·
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)
