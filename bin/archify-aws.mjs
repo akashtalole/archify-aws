@@ -9,11 +9,14 @@ import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
 import { importMermaid } from "../src/mermaid.mjs";
 import { importIac } from "../src/iac.mjs";
+import { finalize } from "../src/finalize.mjs";
+import { buildSchemas, guideScenario } from "../src/schemas.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
 Usage
   archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme light|dark] [--no-review] [--strict] [--json]
+  archify-aws finalize <spec.json> [-o out.html] [--theme t] [--no-png] [--require-browser] [--json]   validate → render → checks → browser check → receipt
   archify-aws validate <spec.json> [--json]
   archify-aws review <spec.json> [--json]            Well-Architected + Generative AI Lens hints
   archify-aws icons search <term> [--limit n]        find service/resource/general icon ids
@@ -23,9 +26,11 @@ Usage
   archify-aws import iac <dir|file> [-o spec.json] [--include logs,iam] [--title T] [--render] [--json]   (Terraform, CloudFormation, SAM)
   archify-aws init [three-tier|serverless-api|genai-rag] [-o spec.json]
   archify-aws fetch-icons [icons.zip|url]            download the official icon package
+  archify-aws schema [architecture|sequence|dataflow]      JSON Schema (path, or contents with --json)
+  archify-aws guide "<scenario>" [--json]                  which diagram type and template fit
   archify-aws doctor
 
-Exit codes: 0 ok · 1 invalid spec / usage · 2 --strict and layout warnings present · 3 icons missing
+Exit codes: 0 ok · 1 invalid spec / usage / failed gate · 2 --strict and layout warnings present · 3 icons missing
 `;
 
 const argv = process.argv.slice(2);
@@ -65,6 +70,40 @@ switch (cmd) {
       if (res.pngError) console.log(`png: ${res.pngError}`);
     }
     process.exit(flag("--strict") && d.warnings.some((w) => !/used by more than one edge/.test(w)) ? 2 : 0);
+  }
+  case "finalize": {
+    needIcons();
+    const file = rest[0];
+    if (!file) die("missing <spec.json>\n" + HELP);
+    const rc = finalize(path.resolve(file), { outHtml: opt("-o"), theme: opt("--theme"), png: !flag("--no-png"), requireBrowser: flag("--require-browser"), review: !flag("--no-review") });
+    const outBase = rc.outputs.html ? path.resolve(rc.outputs.html.path).replace(/\.html$/, "") : path.resolve(file).replace(/\.json$/, "");
+    fs.writeFileSync(outBase + ".receipt.json", JSON.stringify(rc, null, 2) + "\n");
+    if (json) out(rc);
+    else {
+      for (const s of rc.stages) console.log(`${s.status === "pass" ? "✔" : s.status === "skipped" ? "–" : "✘"} ${s.name.padEnd(14)} ${s.status}${s.detail?.skipped ? " (" + s.detail.skipped + ")" : ""}`);
+      for (const s of rc.stages.filter((x) => x.status === "fail")) (s.detail.errors || []).forEach((e) => console.log("  - " + e));
+      if (rc.ok) {
+        console.log(`\n${rc.summary.type}: ${rc.summary.nodes} nodes · ${rc.summary.edges} ${rc.summary.type === "sequence" ? "messages" : "edges"}`);
+        for (const [k, v] of Object.entries(rc.outputs)) console.log(`${k.padEnd(5)} ${v.path}`);
+        console.log(`receipt ${path.relative(process.cwd(), outBase + ".receipt.json")}`);
+        if (rc.review) console.log(`Well-Architected (advisory): ${rc.review.gaps.length} gap(s) to confirm${rc.review.gaps.length ? " (" + rc.review.gaps.join(", ") + ")" : ""}, ${rc.review.considerations.length} to consider`);
+        console.log("Visual review: not performed — open the PNG/HTML and look before claiming quality.");
+      }
+    }
+    process.exit(rc.ok ? 0 : 1);
+  }
+  case "schema": {
+    const all = buildSchemas();
+    const name = rest[0];
+    if (name && !all[name]) die(`unknown schema "${name}" (architecture, sequence, dataflow)`);
+    if (json || name === undefined) out(name ? all[name] : Object.keys(all).map((n) => path.join(ROOT, "schemas", n + ".schema.json")));
+    else console.log(path.join(ROOT, "schemas", name + ".schema.json"));
+    break;
+  }
+  case "guide": {
+    const g = guideScenario(rest.join(" "));
+    if (json) out(g); else { console.log(`Use: ${g.type}  (template: archify-aws init ${g.template})`); g.hints.forEach((h) => console.log("• " + h)); }
+    break;
   }
   case "validate": {
     const spec = readSpec(rest[0]);
@@ -136,7 +175,8 @@ switch (cmd) {
   }
   case "init": {
     const name = rest[0] || "three-tier";
-    const src = path.join(ROOT, "examples", `${name}.json`);
+    const alias = { sequence: "agent-tool-call.sequence", dataflow: "clinical-notes.dataflow" };
+    const src = path.join(ROOT, "examples", `${alias[name] || name}.json`);
     if (!fs.existsSync(src)) die(`unknown template "${name}"`);
     const dest = opt("-o", `${name}.json`);
     fs.copyFileSync(src, dest);

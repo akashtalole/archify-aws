@@ -4,3 +4,5 @@ assets/aws-icons/
 .archify-aws/
 *.png
 !examples/out/*.png
+
+.cache/

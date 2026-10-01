@@ -9,6 +9,7 @@
   "scripts": {
     "icons:fetch": "node scripts/fetch-icons.mjs",
     "examples": "node scripts/build-examples.mjs",
+    "schemas": "node scripts/build-schemas.mjs",
     "test": "node --test test/*.test.mjs"
   }
 }

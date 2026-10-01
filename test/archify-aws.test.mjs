@@ -244,3 +244,49 @@ test("iac import errors clearly on empty input and renders", needIcons, async ()
     assert.deepEqual(buildDiagram(spec).warnings.filter((w) => !/more than one edge/.test(w)), []);
   }
 });
+
+// ---- finalize, schemas, guide
+test("finalize passes on a good spec and writes a deterministic receipt", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const { finalize } = await import("../src/finalize.mjs");
+  const out = path.join(ROOT, ".cache", "fin", "t.html");
+  const a = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
+  const b = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
+  assert.equal(a.ok, true);
+  assert.deepEqual(a.stages.map((s) => s.name), ["validate", "render", "check", "browser-check"]);
+  assert.equal(JSON.stringify(a), JSON.stringify(b), "receipt is deterministic (no timestamps or timings)");
+  assert.equal(a.visualReview, "not-performed");
+  assert.match(a.outputs.html.sha256, /^[0-9a-f]{64}$/);
+});
+
+test("finalize stops at the first failing gate and lists every error", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const { finalize } = await import("../src/finalize.mjs");
+  const bad = path.join(ROOT, ".cache", "bad.json");
+  fs.mkdirSync(path.dirname(bad), { recursive: true });
+  fs.writeFileSync(bad, JSON.stringify({ meta: { title: "bad" }, root: { children: [{ id: "a", icon: "bedrok", label: "A" }, { id: "b", icon: "s3", label: "B" }] }, edges: [{ from: "a", to: "zz" }] }));
+  const r = finalize(bad, { outHtml: path.join(ROOT, ".cache", "bad.html") });
+  assert.equal(r.ok, false);
+  assert.deepEqual(r.stages.map((s) => s.name + ":" + s.status), ["validate:fail"]);
+  assert.ok(r.stages[0].detail.errors.some((e) => /bedrok/.test(e)) && r.stages[0].detail.errors.some((e) => /zz/.test(e)));
+});
+
+test("committed JSON Schemas are in sync with the code's enums", async () => {
+  const { buildSchemas } = await import("../src/schemas.mjs");
+  const { GROUP_KINDS } = await import("../src/groups.mjs");
+  for (const [name, schema] of Object.entries(buildSchemas())) {
+    const onDisk = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", `${name}.schema.json`), "utf8"));
+    assert.deepEqual(onDisk, schema, `${name}.schema.json is stale — run node scripts/build-schemas.mjs`);
+  }
+  assert.deepEqual(buildSchemas().architecture.$defs.groupKind.enum, Object.keys(GROUP_KINDS));
+});
+
+test("guide routes scenarios to the right diagram type", async () => {
+  const { guideScenario } = await import("../src/schemas.mjs");
+  assert.equal(guideScenario("show the request lifecycle and call flow between API Gateway and Lambda with retries").type, "sequence");
+  assert.equal(guideScenario("ETL pipeline ingesting streams into a data lake and warehouse").type, "dataflow");
+  const a = guideScenario("multi-AZ VPC architecture for a Bedrock RAG agent platform");
+  assert.equal(a.type, "architecture");
+  assert.equal(a.template, "genai-rag");
+  assert.ok(a.hints.some((h) => /Generative AI detected/.test(h)));
+});

@@ -64,3 +64,34 @@ AZs (ALB, API Gateway) beside the AZ column, not inside one AZ.
 share a number) · `label` protocol/action · `desc` longer text for the Flow list · `style` solid|dashed
 (dashed = async/control/replication/observability) · `arrow` end|both|none.
 Routing is orthogonal, avoids other nodes and group headers, and prefers straight lines; `render` warns when it can't.
+
+---
+
+## Other diagram types
+Set `"diagram_type"` (omitted = architecture; a spec with `participants` is a sequence, with `stages` a dataflow).
+Editor/agent schemas: `archify-aws schema <type>` → `schemas/*.schema.json`.
+
+### Sequence
+```jsonc
+{ "diagram_type": "sequence", "meta": { "title": "…" },
+  "participants": [ { "id": "api", "icon": "api-gateway", "label": "Amazon API Gateway", "sublabel": "optional" } ],
+  "groups": [ { "kind": "aws-cloud", "label": "AWS Cloud", "members": ["api", "fn"] } ],   // members must be adjacent
+  "messages": [
+    { "from": "api", "to": "fn", "label": "invoke", "desc": "shown in the Flow list" },   // kind: sync (default)
+    { "from": "fn", "to": "api", "kind": "return", "label": "200" },                     // dashed return
+    { "from": "fn", "to": "q", "kind": "async", "label": "enqueue" },                    // dot at the sender
+    { "from": "fn", "to": "fn", "kind": "self", "label": "validate" },
+    { "note": "text", "over": ["fn", "q"] }
+  ],
+  "fragments": [ { "kind": "loop|alt|opt|par", "label": "retry", "from": 2, "to": 4, "elseAt": 3, "elseLabel": "else" } ] }  // message indexes, 0-based
+```
+Sync/async/self messages are numbered automatically (returns are not); `"step": false` suppresses a number.
+
+### Dataflow
+Stages become labelled columns; consecutive non-external stages share an AWS Cloud boundary.
+```jsonc
+{ "diagram_type": "dataflow", "meta": { "title": "…" },
+  "stages": [ { "id": "src", "label": "Sources", "external": true, "items": [ /* nodes or groups */ ] },
+              { "id": "ingest", "label": "Ingest", "items": [ … ] } ],
+  "edges": [ { "from": "a", "to": "b", "step": 1, "label": "events" } ] }
+```

@@ -1,0 +1,129 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/genai-rag.json",
+    "sha256": "a4371e28abafab7f9f9c0a238121488ce934f20c47c93b990abc4ad7b90e2768"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "ms": 23,
+      "detail": {
+        "type": "architecture",
+        "nodes": 11,
+        "groups": 4,
+        "edges": 9
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "ms": 7,
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "ms": 1,
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "ms": 561,
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 11,
+        "viewerEdges": 9
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "ms": 753,
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/genai-rag.html",
+      "sha256": "35d0b8f12f30bb8ff8b6404bdd4d414e974b4d76a3f5f9daf2ffd8977bbe10e9",
+      "bytes": 78671
+    },
+    "svg": {
+      "path": "examples/out/genai-rag.svg",
+      "sha256": "2d7fa41321948699205576e43278121e1a08c895fee188f532d9cf61b362bd1e"
+    },
+    "png": {
+      "path": "examples/out/genai-rag.png",
+      "sha256": "960b080bd8b64f50ff2456b16a12a195a9762f1b31c546b16ba1429528a69205"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 11,
+    "groups": 4,
+    "edges": 9,
+    "size": {
+      "width": 1192,
+      "height": 820
+    }
+  },
+  "review": {
+    "advisory": true,
+    "summary": {
+      "operational-excellence": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 2
+      },
+      "security": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 5
+      },
+      "reliability": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "performance-efficiency": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      },
+      "cost-optimization": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "sustainability": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      }
+    },
+    "gaps": [],
+    "considerations": [
+      "OPS-IAC",
+      "SEC-DETECT",
+      "REL-BACKUP",
+      "GENAI-RESILIENCE",
+      "PERF-EDGE",
+      "COST-VISIBILITY",
+      "GENAI-COST",
+      "GENAI-SUS"
+    ]
+  },
+  "visualReview": "not-performed"
+}

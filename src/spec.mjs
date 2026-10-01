@@ -1,5 +1,5 @@
 import { GROUP_KINDS } from "./groups.mjs";
-import { resolveIcon, searchIcons } from "./catalog.mjs";
+import { resolveIcon, searchIcons, didYouMean } from "./catalog.mjs";
 
 /** Walk the tree; yields {item, parent, kind:'node'|'group'|'spacer'}. */
 export function* walk(container, parent = null) {
@@ -32,7 +32,7 @@ export function validateSpec(spec) {
       if (!item.id) err(`node "${item.label || "?"}" needs an id`);
       if (!item.icon) err(`node "${item.id}" needs an icon (service id, e.g. "lambda")`);
       else if (!resolveIcon(item.icon)) {
-        const hint = searchIcons(item.icon, 4).map((h) => h.id).join(", ");
+        const hint = [...new Set([...didYouMean(item.icon), ...searchIcons(item.icon, 3).map((h) => h.id)])].slice(0, 4).join(", ");
         err(`node "${item.id}": unknown icon "${item.icon}"${hint ? ` — did you mean: ${hint}?` : ""} (try \`archify-aws icons search <term>\`)`);
       }
       if (!item.label) warn(`node "${item.id}" has no label`);

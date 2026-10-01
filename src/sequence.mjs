@@ -3,7 +3,7 @@
 //    groups?:[{kind,label,members:[ids]}]  (contiguous participants inside an AWS boundary),
 //    messages:[{from,to,label,kind:"sync|async|return|self",desc?}  |  {note:"text", over:[ids]} ],
 //    fragments?:[{kind:"loop|alt|opt|par",label,from:i,to:j,elseAt?:k,elseLabel?}] (indexes into messages) }
-import { resolveIcon, iconFile, catalog, groupIconFile } from "./catalog.mjs";
+import { resolveIcon, iconFile, catalog, groupIconFile, didYouMean } from "./catalog.mjs";
 import { GROUP_KINDS } from "./groups.mjs";
 import { symbol, esc, baseCss, ARROW_MARKER, THEMES } from "./render.mjs";
 import { wrapLabel } from "./layout.mjs";
@@ -20,7 +20,7 @@ export function validateSequence(spec) {
     if (!/^[A-Za-z][\w-]*$/.test(p.id || "")) errors.push(`participant id "${p.id}" must match /^[A-Za-z][\\w-]*$/`);
     if (ids.has(p.id)) errors.push(`duplicate participant id "${p.id}"`);
     ids.add(p.id);
-    if (!p.icon || !resolveIcon(p.icon)) errors.push(`participant "${p.id}": unknown icon "${p.icon}"`);
+    if (!p.icon || !resolveIcon(p.icon)) errors.push(`participant "${p.id}": unknown icon "${p.icon}"${didYouMean(p.icon || "").length ? ` — did you mean: ${didYouMean(p.icon || "").join(", ")}?` : ""}`);
   });
   const msgs = spec.messages || [];
   if (!msgs.length) errors.push("messages must not be empty");

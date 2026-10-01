@@ -212,5 +212,14 @@ if(q.get("theme")==="dark"||q.get("theme")==="light")setTheme(q.get("theme"));
 if(q.get("present")==="1")present(true);
 fromHash();
 window.__archify={ready:true,nodes:nodes.length,edges:E.length,reach:(id,d)=>{const r=reach(id,d);return{nodes:[...r.nodes],edges:r.edges.size}},route:(a,b)=>{const r=route(a,b);return r.error?{error:r.error}:{nodes:[...r.nodes],hops:r.path.length}},focus:focusOn,state,export:exp};
+if(q.get("check")==="1"){ // machine-readable self-check used by finalize (never shown to readers)
+  const fs_=[...svg.querySelectorAll("text")].map(t=>parseFloat(getComputedStyle(t).fontSize)||0).filter(Boolean);
+  const scale=svg.getBoundingClientRect().width/(svg.viewBox.baseVal.width||1);
+  let selftest="ok";
+  try{const first=nodes[0]&&nodes[0].dataset.id;if(first){window.__archify.reach(first,"both");window.__archify.route(first,first)}}catch(e){selftest=String(e)}
+  const pre=document.createElement("pre");pre.id="archify-check";
+  pre.textContent=JSON.stringify({ready:true,nodes:nodes.length,edges:E.length,overflowX:Math.max(0,document.documentElement.scrollWidth-innerWidth),minFontPx:Math.round(Math.min(...fs_)*scale*10)/10,symbols:svg.querySelectorAll("symbol").length,badUse:[...svg.querySelectorAll("use")].filter(u=>!svg.querySelector(u.getAttribute("href"))).length,selftest});
+  body.appendChild(pre);
+}
 })();
 `;

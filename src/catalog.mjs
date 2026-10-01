@@ -67,3 +67,16 @@ export function groupIconFile(key, dark = false) {
   return g ? path.join(ICON_DIR, g.file) : null;
 }
 export function iconsAvailable() { return fs.existsSync(path.join(ICON_DIR, "service")); }
+
+const lev = (a, b) => {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+};
+/** Closest service/alias ids for a mistyped icon reference (edit distance), for validator hints. */
+export function didYouMean(ref, n = 3) {
+  const q = norm(String(ref).replace(/^\w+:/, ""));
+  const pool = [...new Set([...catalog.services.map((s) => s.id), ...Object.keys(aliases.service), ...catalog.general.map((g) => g.id)])];
+  return pool.map((id) => ({ id, d: lev(q, id) })).filter((x) => x.d <= Math.max(2, Math.floor(q.length * 0.35))).sort((a, b) => a.d - b.d || a.id.length - b.id.length).slice(0, n).map((x) => x.id);
+}

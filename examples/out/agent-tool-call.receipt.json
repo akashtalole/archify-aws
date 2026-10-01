@@ -1,0 +1,121 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/agent-tool-call.sequence.json",
+    "sha256": "60728bcb564b5d71e35e5a8241fa5c3de7043f2991a1b16c6c14e4ea608b9b6e"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "sequence",
+        "nodes": 8,
+        "groups": 1,
+        "edges": 15
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 8,
+        "viewerEdges": 15
+      }
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/agent-tool-call.html",
+      "sha256": "4b06566adf64008f3b13a4f4e7668b424326fd4d242f3356eb6cf05502e865cf",
+      "bytes": 63821
+    },
+    "svg": {
+      "path": "examples/out/agent-tool-call.svg",
+      "sha256": "02e0a7ace6c0e88e712bc63c2b61bc354ffd58ab6d53ce1dbbf25a0fe55806ce"
+    }
+  },
+  "summary": {
+    "type": "sequence",
+    "nodes": 8,
+    "groups": 1,
+    "edges": 15,
+    "size": {
+      "width": 1488,
+      "height": 1311
+    }
+  },
+  "review": {
+    "advisory": true,
+    "summary": {
+      "operational-excellence": {
+        "gap": 2,
+        "consider": 1,
+        "ok": 0
+      },
+      "security": {
+        "gap": 1,
+        "consider": 2,
+        "ok": 2
+      },
+      "reliability": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 0
+      },
+      "performance-efficiency": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "cost-optimization": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "sustainability": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      }
+    },
+    "gaps": [
+      "OPS-OBSERVE",
+      "GENAI-OBSERVE",
+      "SEC-EDGE"
+    ],
+    "considerations": [
+      "OPS-IAC",
+      "SEC-DETECT",
+      "GENAI-AGENCY",
+      "GENAI-RESILIENCE",
+      "PERF-EDGE",
+      "GENAI-RETRIEVAL",
+      "COST-VISIBILITY",
+      "GENAI-COST",
+      "SUS-MANAGED",
+      "GENAI-SUS"
+    ]
+  },
+  "visualReview": "not-performed"
+}
