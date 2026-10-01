@@ -96,3 +96,41 @@ test("generative AI lens rules fire for Bedrock workloads", needIcons, async () 
   assert.equal(g.findings.find((f) => f.id === "GENAI-GUARDRAILS").status, "ok");
   assert.equal(g.findings.find((f) => f.id === "GENAI-OBSERVE").status, "ok");
 });
+
+test("sequence diagrams validate, render and expose nodes/edges for the viewer", needIcons, async () => {
+  const { buildDiagram, SpecError } = await import("../src/pipeline.mjs");
+  const spec = load("agent-tool-call.sequence");
+  const d = buildDiagram(spec);
+  assert.equal(d.type, "sequence");
+  const svg = d.svg("light");
+  assert.equal((svg.match(/class="node"/g) || []).length, spec.participants.length);
+  assert.ok((svg.match(/class="edge"/g) || []).length >= 14);
+  assert.equal(d.steps.length, d.steps.map((s) => s.step).filter((v, i, a) => a.indexOf(v) === i).length, "unique step numbers");
+  assert.throws(() => buildDiagram({ ...spec, messages: [{ from: "user", to: "nobody", label: "x" }] }), SpecError);
+  assert.throws(() => buildDiagram({ ...spec, groups: [{ kind: "vpc", members: ["user", "runtime"] }] }), /adjacent/);
+});
+
+test("dataflow stages compile to labelled columns inside an AWS boundary", needIcons, async () => {
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  const d = buildDiagram(load("clinical-notes.dataflow"));
+  assert.equal(d.type, "dataflow");
+  assert.deepEqual(d.warnings.filter((w) => !/more than one edge/.test(w)), []);
+  const kinds = d.model.groups.map((g) => g.kind);
+  assert.ok(kinds.includes("aws-cloud"));
+  // the source stage is external, so it sits outside the boundary
+  const src = d.model.groups.find((g) => g.id === "src");
+  assert.equal(src.parent, null);
+});
+
+test("router approaches every port along its normal (no edge grazing an icon)", needIcons, async () => {
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  const d = buildDiagram(load("clinical-notes.dataflow"));
+  for (const r of d.model.routes) {
+    const last = r.pts.slice(-2);
+    const n = d.model.nodes[r.edge.to];
+    if (!n) continue;
+    const [a, b] = last;
+    const onIconEdge = (b[0] === n.iconRect.x || b[0] === n.iconRect.x + n.iconRect.w) ? a[1] === b[1] : (b[1] === n.iconRect.y ? a[0] === b[0] : true);
+    assert.ok(onIconEdge, `${r.edge.from}->${r.edge.to} must meet the icon perpendicular to its side`);
+  }
+});

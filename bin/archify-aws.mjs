@@ -3,11 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { ROOT, catalog, searchIcons, resolveIcon, iconsAvailable, ICON_DIR } from "../src/catalog.mjs";
-import { validateSpec } from "../src/spec.mjs";
-import { buildModel } from "../src/build.mjs";
-import { renderSvg } from "../src/render.mjs";
+import { buildDiagram, SpecError, typeOf } from "../src/pipeline.mjs";
 import { renderPage } from "../src/page.mjs";
-import { reviewSpec } from "../src/review.mjs";
 import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
 
@@ -43,39 +40,41 @@ switch (cmd) {
     needIcons();
     const file = rest[0];
     const spec = readSpec(file);
-    let built;
-    try { built = buildModel(spec); } catch (e) { if (json) out({ ok: false, errors: e.errors || [e.message] }); else console.error(e.message); process.exit(1); }
-    const theme = opt("--theme", spec.meta.theme || "light");
-    const outHtml = path.resolve(opt("-o", spec.meta.output || file.replace(/\.json$/, "") + ".html"));
+    let d;
+    try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; if (json) out({ ok: false, errors: e.errors }); else console.error(e.message); process.exit(1); }
+    const theme = opt("--theme", spec.meta?.theme || "light");
+    const outHtml = path.resolve(opt("-o", spec.meta?.output || file.replace(/\.json$/, "") + ".html"));
     fs.mkdirSync(path.dirname(outHtml), { recursive: true });
-    const review = flag("--no-review") || spec.meta.review === false ? null : reviewSpec(spec, built.model);
-    fs.writeFileSync(outHtml, renderPage(built.model, spec, review, theme));
-    const res = { ok: true, html: outHtml, size: { width: built.model.width, height: built.model.height }, nodes: Object.keys(built.model.nodes).length, groups: built.model.groups.length, edges: built.model.routes.length, warnings: built.warnings };
+    const review = flag("--no-review") || spec.meta?.review === false ? null : d.review();
+    fs.writeFileSync(outHtml, renderPage(d, review, theme));
+    const res = { ok: true, type: d.type, html: outHtml, size: d.size, nodes: d.stats.nodes, groups: d.stats.groups, edges: d.stats.edges, warnings: d.warnings };
     const base = outHtml.replace(/\.html$/, "");
-    if (flag("--svg") || flag("--png")) { fs.writeFileSync(base + ".svg", renderSvg(built.model, spec, theme)); res.svg = base + ".svg"; }
-    if (flag("--png")) { try { svgToPng(base + ".svg", base + ".png", built.model.width, built.model.height); res.png = base + ".png"; } catch (e) { res.pngError = e.message; } }
+    if (flag("--svg") || flag("--png")) { fs.writeFileSync(base + ".svg", d.svg(theme)); res.svg = base + ".svg"; }
+    if (flag("--png")) { try { svgToPng(base + ".svg", base + ".png", d.size.width, d.size.height); res.png = base + ".png"; } catch (e) { res.pngError = e.message; } }
     if (review) res.review = { summary: review.summary, gaps: review.findings.filter((f) => f.status === "gap").map((f) => f.id), considerations: review.findings.filter((f) => f.status === "consider").length };
     if (json) out(res);
     else {
       console.log(`Wrote ${outHtml}${res.svg ? `\n      ${res.svg}` : ""}${res.png ? `\n      ${res.png}` : ""}`);
-      console.log(`${res.nodes} nodes · ${res.groups} groups · ${res.edges} edges · ${res.size.width}×${res.size.height}`);
-      for (const w of built.warnings) console.log(`warning: ${w}`);
+      console.log(`${d.type}: ${res.nodes} nodes · ${res.groups} groups · ${res.edges} ${d.type === "sequence" ? "messages" : "edges"} · ${res.size.width}×${res.size.height}`);
+      for (const w of d.warnings) console.log(`warning: ${w}`);
       if (review) console.log(`Well-Architected: ${res.review.gaps.length} gap(s) to confirm${res.review.gaps.length ? " (" + res.review.gaps.join(", ") + ")" : ""}, ${res.review.considerations} to consider — see the page`);
       if (res.pngError) console.log(`png: ${res.pngError}`);
     }
-    process.exit(flag("--strict") && built.warnings.some((w) => !/used by more than one edge/.test(w)) ? 2 : 0);
+    process.exit(flag("--strict") && d.warnings.some((w) => !/used by more than one edge/.test(w)) ? 2 : 0);
   }
   case "validate": {
-    const { errors, warnings } = validateSpec(readSpec(rest[0]));
-    if (json) out({ ok: !errors.length, errors, warnings });
+    const spec = readSpec(rest[0]);
+    let errors = [], warnings = [];
+    try { warnings = buildDiagram(spec).warnings; } catch (e) { if (!(e instanceof SpecError)) throw e; errors = e.errors; }
+    if (json) out({ ok: !errors.length, type: typeOf(spec), errors, warnings });
     else { errors.forEach((e) => console.log("error:", e)); warnings.forEach((w) => console.log("warning:", w)); console.log(errors.length ? `${errors.length} error(s)` : "valid"); }
     process.exit(errors.length ? 1 : 0);
   }
   case "review": {
     needIcons();
     const spec = readSpec(rest[0]);
-    let built; try { built = buildModel(spec); } catch (e) { die(e.message); }
-    const r = reviewSpec(spec, built.model);
+    let d; try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; die(e.message); }
+    const r = d.review();
     if (json) out(r);
     else for (const f of r.findings) console.log(`${f.status.padEnd(8)} ${f.pillar.padEnd(23)} ${f.id.padEnd(18)} ${f.title}`);
     break;

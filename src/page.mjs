@@ -1,17 +1,13 @@
-import { renderSvg, esc } from "./render.mjs";
+import { esc } from "./render.mjs";
 import { PILLAR_INFO, GENAI } from "./review.mjs";
 
 const STATUS = { gap: ["Gap", "to confirm"], consider: ["Consider", ""], ok: ["Looks good", ""] };
 
-export function renderPage(model, spec, review, theme) {
-  const svg = renderSvg(model, spec, theme);
-  const steps = model.routes.filter((r) => r.edge.step !== undefined).sort((a, b) => a.edge.step - b.edge.step || 0);
-  const name = (id) => {
-    const n = model.nodes[id];
-    if (n) return n.item.label || id;
-    return model.groups.find((g) => g.id === id)?.label || id;
-  };
-  const stepsHtml = steps.length ? `<section class="card"><h2>Flow</h2><ol class="steps">${steps.map((r) => `<li data-from="${esc(r.edge.from)}" data-to="${esc(r.edge.to)}"><span class="n">${r.edge.step}</span><span>${r.edge.desc ? esc(r.edge.desc) : `${esc(name(r.edge.from))} → ${esc(name(r.edge.to))}${r.edge.label ? ` <em>(${esc(r.edge.label)})</em>` : ""}`}</span></li>`).join("")}</ol></section>` : "";
+export function renderPage(diagram, review, theme) {
+  const spec = diagram.spec;
+  const svg = diagram.svg(theme);
+  const steps = diagram.steps;
+  const stepsHtml = steps.length ? `<section class="card"><h2>Flow</h2><ol class="steps">${steps.map((r) => `<li data-from="${esc(r.from)}" data-to="${esc(r.to)}"><span class="n">${r.step}</span><span>${r.desc ? esc(r.desc) : `${esc(r.fromLabel)} → ${esc(r.toLabel)}${r.label ? ` <em>(${esc(r.label)})</em>` : ""}`}</span></li>`).join("")}</ol></section>` : "";
   let reviewHtml = "";
   if (review) {
     const cards = Object.entries(PILLAR_INFO).map(([key, p]) => {

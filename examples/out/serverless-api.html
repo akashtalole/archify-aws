@@ -28,8 +28,7 @@ footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px
 <main>
 <section class="card diagram" id="stage"><svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1250 713" width="1250" height="713" role="img" aria-label="Serverless REST API with asynchronous processing">
 <title>Serverless REST API with asynchronous processing</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -157,47 +156,47 @@ footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px
 <text class="elabel" x="646.5" y="284" text-anchor="middle">enqueue</text>
 <g class="badge"><circle cx="576" cy="321" r="11"/><text x="576" y="325.5" text-anchor="middle">4</text></g>
 </g>
-<g class="node" data-id="client"><title>Mobile / web client (Mobile client)</title>
+<g class="node" data-id="client" data-label="Mobile / web client" data-service="Mobile client" data-category="General"><title>Mobile / web client (Mobile client)</title>
 <use href="#gen-Mobile-client" x="56" y="375" width="64" height="64"/>
 <text class="nlabel" x="88" y="456" text-anchor="middle">Mobile / web</text>
 <text class="nlabel" x="88" y="470" text-anchor="middle">client</text>
 </g>
-<g class="node" data-id="cognito"><title>Amazon Cognito (Amazon Cognito)</title>
+<g class="node" data-id="cognito" data-label="Amazon Cognito" data-service="Amazon Cognito" data-category="Security-Identity"><title>Amazon Cognito (Amazon Cognito)</title>
 <use href="#svc-Amazon-Cognito" x="270" y="213" width="64" height="64"/>
 <text class="nlabel" x="302" y="294" text-anchor="middle">Amazon Cognito</text>
 </g>
-<g class="node" data-id="apigw"><title>Amazon API Gateway (Amazon API Gateway)</title>
+<g class="node" data-id="apigw" data-label="Amazon API Gateway" data-service="Amazon API Gateway" data-category="Networking-Content-Delivery"><title>Amazon API Gateway (Amazon API Gateway)</title>
 <use href="#svc-Amazon-API-Gateway" x="270" y="375" width="64" height="64"/>
 <text class="nlabel" x="302" y="456" text-anchor="middle">Amazon API Gateway</text>
 </g>
-<g class="node" data-id="waf"><title>AWS WAF (AWS WAF)</title>
+<g class="node" data-id="waf" data-label="AWS WAF" data-service="AWS WAF" data-category="Security-Identity"><title>AWS WAF (AWS WAF)</title>
 <use href="#svc-AWS-WAF" x="270" y="537" width="64" height="64"/>
 <text class="nlabel" x="302" y="618" text-anchor="middle">AWS WAF</text>
 </g>
-<g class="node" data-id="fnapi"><title>AWS Lambda (AWS Lambda)</title>
+<g class="node" data-id="fnapi" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title>
 <use href="#svc-AWS-Lambda" x="488" y="289" width="64" height="64"/>
 <text class="nlabel" x="520" y="370" text-anchor="middle">AWS Lambda</text>
 <text class="nsub" x="520" y="384" text-anchor="middle">API handler</text>
 </g>
-<g class="node" data-id="ddb"><title>Amazon DynamoDB (Amazon DynamoDB)</title>
+<g class="node" data-id="ddb" data-label="Amazon DynamoDB" data-service="Amazon DynamoDB" data-category="Databases"><title>Amazon DynamoDB (Amazon DynamoDB)</title>
 <use href="#svc-Amazon-DynamoDB" x="488" y="461" width="64" height="64"/>
 <text class="nlabel" x="520" y="542" text-anchor="middle">Amazon DynamoDB</text>
 </g>
-<g class="node" data-id="sqs"><title>Amazon SQS (Amazon Simple Queue Service)</title>
+<g class="node" data-id="sqs" data-label="Amazon SQS" data-service="Amazon Simple Queue Service" data-category="Application-Integration"><title>Amazon SQS (Amazon Simple Queue Service)</title>
 <use href="#svc-Amazon-Simple-Queue-Service" x="692" y="260" width="64" height="64"/>
 <text class="nlabel" x="724" y="341" text-anchor="middle">Amazon SQS</text>
 </g>
-<g class="node" data-id="fnwork"><title>AWS Lambda (AWS Lambda)</title>
+<g class="node" data-id="fnwork" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title>
 <use href="#svc-AWS-Lambda" x="875" y="260" width="64" height="64"/>
 <text class="nlabel" x="907" y="341" text-anchor="middle">AWS Lambda</text>
 <text class="nsub" x="907" y="355" text-anchor="middle">worker</text>
 </g>
-<g class="node" data-id="s3"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="s3" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="1058" y="260" width="64" height="64"/>
 <text class="nlabel" x="1090" y="341" text-anchor="middle">Amazon S3</text>
 <text class="nsub" x="1090" y="355" text-anchor="middle">results</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="875" y="442" width="64" height="64"/>
 <text class="nlabel" x="907" y="523" text-anchor="middle">Amazon CloudWatch</text>
 <text class="nsub" x="907" y="537" text-anchor="middle">logs, metrics, alarms</text>

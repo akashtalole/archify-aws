@@ -81,7 +81,11 @@ export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = 
   let best = null;
   for (const c of cands) {
     const pts = c.pts;
-    let score = 0, ok = true;
+    let score = 0;
+    // a route must leave and enter through the port normal, otherwise it grazes the box edge
+    const dirOf = (p, q) => [Math.sign(q[0] - p[0]), Math.sign(q[1] - p[1])];
+    const d0 = dirOf(pts[0], pts[1]), dn = dirOf(pts[pts.length - 1], pts[pts.length - 2]);
+    if (d0[0] !== DIRS[c.sa][0] || d0[1] !== DIRS[c.sa][1] || dn[0] !== DIRS[c.sb][0] || dn[1] !== DIRS[c.sb][1]) score += 50000;
     // exits must leave away from the box (stub direction already guarantees) — penalize U-turns
     for (let i = 0; i < pts.length - 1; i++) {
       const p = pts[i], q = pts[i + 1];

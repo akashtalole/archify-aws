@@ -7,7 +7,7 @@ export const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&am
 
 const symCache = new Map();
 /** Turn an AWS icon SVG file into a <symbol>, namespacing ids so gradients never collide. */
-function symbol(symId, file) {
+export function symbol(symId, file) {
   if (symCache.has(symId + file)) return symCache.get(symId + file);
   let svg = fs.readFileSync(file, "utf8").replace(/<\?xml[^>]*\?>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   const root = svg.match(/<svg\b([^>]*)>/);
@@ -26,15 +26,15 @@ function symbol(symId, file) {
   return out;
 }
 
-const THEMES = {
+export const THEMES = {
   light: { bg: "#ffffff", fg: "#000000", muted: "#545b64", line: "#232F3E", halo: "#ffffff", badge: "#000000", badgeFg: "#ffffff" },
   dark: { bg: "#161E2D", fg: "#ffffff", muted: "#aab4c3", line: "#d5dbdb", halo: "#161E2D", badge: "#ffffff", badgeFg: "#000000" },
 };
-const cssVars = (t) => Object.entries(THEMES[t]).map(([k, v]) => `--${k}:${v}`).join(";");
+export const cssVars = (t) => Object.entries(THEMES[t]).map(([k, v]) => `--${k}:${v}`).join(";");
 
-const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-function pathD(pts) { return pts.map((p, i) => `${i ? "L" : "M"}${p[0]} ${p[1]}`).join(" "); }
-const segLen = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+export const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+export function pathD(pts) { return pts.map((p, i) => `${i ? "L" : "M"}${p[0]} ${p[1]}`).join(" "); }
+export const segLen = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 
 /** Returns the standalone SVG markup. */
 export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
@@ -134,15 +134,27 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
   for (const n of Object.values(nodes)) {
     const sym = use(n.icon.kind === "service" ? "svc-" + n.icon.entry.key : `${n.icon.kind === "resource" ? "res" : "gen"}-${n.icon.entry.key}`, iconFile(n.icon.entry));
     const ir = n.iconRect, cx = ir.x + ir.w / 2;
-    body.push(`<g class="node" data-id="${esc(n.id)}"><title>${esc(n.item.label || n.id)} (${esc(n.icon.entry.name)})</title>`);
+    body.push(`<g class="node" data-id="${esc(n.id)}" data-label="${esc(n.item.label || n.id)}" data-service="${esc(n.icon.entry.name)}" data-category="${esc(n.icon.entry.category || "General")}"><title>${esc(n.item.label || n.id)} (${esc(n.icon.entry.name)})</title>`);
     body.push(`<use href="#${sym}" x="${ir.x}" y="${ir.y}" width="${ir.w}" height="${ir.h}"/>`);
     n.lines.forEach((ln, i) => body.push(`<text class="nlabel" x="${cx}" y="${ir.y + ir.h + 17 + i * K.LINE}" text-anchor="middle">${esc(ln)}</text>`));
     if (n.item.sublabel) body.push(`<text class="nsub" x="${cx}" y="${ir.y + ir.h + 17 + n.lines.length * K.LINE}" text-anchor="middle">${esc(n.item.sublabel)}</text>`);
     body.push(`</g>`);
   }
 
-  const css = `
-.aws{${cssVars("light")}}
+  const css = baseCss();
+
+  const marker = ARROW_MARKER;
+  return `<svg xmlns="http://www.w3.org/2000/svg" class="aws theme-${theme}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${esc(spec.meta.title)}">
+<title>${esc(spec.meta.title)}</title>
+<style>${css}</style>
+<defs>${marker}${[...defs.values()].join("")}</defs>
+<rect class="bg" width="${width}" height="${height}"/>
+${body.join("\n")}
+</svg>`;
+}
+
+export function baseCss() {
+  return `.aws{${cssVars("light")}}
 .aws.theme-dark{${cssVars("dark")}}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -159,13 +171,5 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
 .aws .dim{opacity:.18}.aws .hl .eline{stroke-width:3}
 .aws .edge,.aws .node{transition:opacity .12s}`;
-
-  const marker = `<marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="arw" d="M1.5 1.5 L8.5 5 L1.5 8.5"/></marker>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" class="aws theme-${theme}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${esc(spec.meta.title)}">
-<title>${esc(spec.meta.title)}</title>
-<style>${css}</style>
-<defs>${marker}${[...defs.values()].join("")}</defs>
-<rect class="bg" width="${width}" height="${height}"/>
-${body.join("\n")}
-</svg>`;
 }
+export const ARROW_MARKER = `<marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="arw" d="M1.5 1.5 L8.5 5 L1.5 8.5"/></marker>`;
