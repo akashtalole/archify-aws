@@ -134,3 +134,24 @@ test("router approaches every port along its normal (no edge grazing an icon)", 
     assert.ok(onIconEdge, `${r.edge.from}->${r.edge.to} must meet the icon perpendicular to its side`);
   }
 });
+
+// ---- viewer runtime (needs Chrome; skipped otherwise)
+test("viewer: deep links drive reach and route over authored edges only", async (t) => {
+  const { chromeAvailable, dumpDom } = await import("../src/browser.mjs");
+  if (!iconsAvailable() || !chromeAvailable()) return t.skip("needs icons and Chrome");
+  const { execFileSync } = await import("node:child_process");
+  const out = path.join(ROOT, ".cache", "viewer-test.html");
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  execFileSync(process.execPath, [path.join(ROOT, "bin", "archify-aws.mjs"), "render", path.join(ROOT, "examples", "genai-rag.json"), "-o", out, "--no-review"]);
+  const bar = (dom) => ((dom.match(/<div id="bar"[^>]*>([\s\S]*?)<\/div>/) || [])[1] || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  let r = dumpDom(out, { hash: "#route=users~fm" });
+  assert.match(bar(r.dom), /3 hops/);
+  assert.equal(r.errors.length, 0);
+  r = dumpDom(out, { hash: "#route=fm~users" });
+  assert.match(bar(r.dom), /no directed route/);
+  r = dumpDom(out, { hash: "#focus=orch&reach=downstream" });
+  assert.match(bar(r.dom), /4 node\(s\), 4 relationship/);
+  r = dumpDom(out, { search: "?present=1&theme=dark" });
+  assert.match(r.dom, /<body[^>]*class="[^"]*present/);
+  assert.match(r.dom, /<body[^>]*class="[^"]*dark/);
+});

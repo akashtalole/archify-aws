@@ -62,7 +62,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
     }
     const r = g.rect;
     const fill = st.fillLight === "none" ? "none" : theme === "dark" ? st.fillDark : st.fillLight;
-    body.push(`<g class="group" data-id="${esc(g.id || "")}">`);
+    body.push(`<g class="group" data-id="${esc(g.id || "")}" data-label="${esc(g.label || g.id || "")}">`);
     body.push(`<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${fill}" stroke="${color}" stroke-width="1.25"${st.dash ? ` stroke-dasharray="${st.dash}"` : ""} data-fill-light="${st.fillLight}" data-fill-dark="${st.fillDark}" class="grect"/>`);
     if (iconUse) {
       if (iconUseDark) {
@@ -116,7 +116,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
     const dash = e.style === "dashed" ? ' stroke-dasharray="6 4"' : "";
     const arrow = e.arrow || "end";
     const mk = `${arrow === "none" ? "" : ' marker-end="url(#arw)"'}${arrow === "both" ? ' marker-start="url(#arw)"' : ""}`;
-    body.push(`<g class="edge" data-from="${esc(e.from)}" data-to="${esc(e.to)}" data-step="${e.step ?? ""}">`);
+    body.push(`<g class="edge" data-from="${esc(e.from)}" data-to="${esc(e.to)}" data-step="${e.step ?? ""}" data-label="${esc(e.label || "")}">`);
     body.push(`<path d="${pathD(pts)}" fill="none" class="eline" stroke-width="2"${dash}${mk}/>`);
     const lp = labelPos[i];
     if (lp) body.push(lp.horiz

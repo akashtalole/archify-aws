@@ -79,74 +79,74 @@
 <line class="life" x1="1360" y1="276" x2="1360" y2="1261"/>
 <g class="frag"><rect x="410" y="652" width="1020" height="425" fill="none"/><path class="fragtab" d="M410 652 h124 v18 l-8 8 h-116 z"/><text class="fraglabel" x="416" y="666">opt [tool needed]</text>
 </g>
-<g class="edge" data-from="user" data-to="api" data-step="1">
+<g class="edge" data-from="user" data-to="api" data-step="1" data-label="Summarize last visit for patient 123">
 <path class="eline" fill="none" stroke-width="2" d="M128 346 H304" marker-end="url(#arw)"/>
 <text class="elabel" x="216" y="324" text-anchor="middle">Summarize last visit for patient</text>
 <text class="elabel" x="216" y="338" text-anchor="middle">123</text>
 <g class="badge"><circle cx="146" cy="346" r="11"/><text x="146" y="350.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="api" data-to="runtime" data-step="2">
+<g class="edge" data-from="api" data-to="runtime" data-step="2" data-label="invoke agent (identity propagated)">
 <path class="eline" fill="none" stroke-width="2" d="M304 407 H480" marker-end="url(#arw)"/>
 <text class="elabel" x="392" y="399" text-anchor="middle">invoke agent (identity propagated)</text>
 <g class="badge"><circle cx="322" cy="407" r="11"/><text x="322" y="411.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="3">
+<g class="edge" data-from="runtime" data-to="guard" data-step="3" data-label="screen prompt">
 <path class="eline" fill="none" stroke-width="2" d="M480 461 H656" marker-end="url(#arw)"/>
 <text class="elabel" x="568" y="453" text-anchor="middle">screen prompt</text>
 <g class="badge"><circle cx="498" cy="461" r="11"/><text x="498" y="465.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="guard" data-to="runtime" data-step="4">
+<g class="edge" data-from="guard" data-to="runtime" data-step="4" data-label="allowed">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M656 515 H480" marker-end="url(#arw)"/>
 <text class="elabel" x="568" y="507" text-anchor="middle">allowed</text>
 </g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="4">
+<g class="edge" data-from="runtime" data-to="fm" data-step="4" data-label="plan next step">
 <path class="eline" fill="none" stroke-width="2" d="M480 569 H832" marker-end="url(#arw)"/>
 <text class="elabel" x="656" y="561" text-anchor="middle">plan next step</text>
 <g class="badge"><circle cx="498" cy="569" r="11"/><text x="498" y="573.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="fm" data-to="runtime" data-step="5">
+<g class="edge" data-from="fm" data-to="runtime" data-step="5" data-label="tool call: get_patient_summary">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M832 623 H480" marker-end="url(#arw)"/>
 <text class="elabel" x="656" y="615" text-anchor="middle">tool call: get_patient_summary</text>
 </g>
-<g class="edge" data-from="runtime" data-to="gw" data-step="5">
+<g class="edge" data-from="runtime" data-to="gw" data-step="5" data-label="call tool via MCP">
 <path class="eline" fill="none" stroke-width="2" d="M480 699 H1008" marker-end="url(#arw)"/>
 <text class="elabel" x="744" y="691" text-anchor="middle">call tool via MCP</text>
 <g class="badge"><circle cx="498" cy="699" r="11"/><text x="498" y="703.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="policy" data-step="6">
+<g class="edge" data-from="gw" data-to="policy" data-step="6" data-label="authorize (role, patient, purpose)">
 <path class="eline" fill="none" stroke-width="2" d="M1008 753 H1184" marker-end="url(#arw)"/>
 <text class="elabel" x="1096" y="745" text-anchor="middle">authorize (role, patient, purpose)</text>
 <g class="badge"><circle cx="1026" cy="753" r="11"/><text x="1026" y="757.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="policy" data-to="gw" data-step="7">
+<g class="edge" data-from="policy" data-to="gw" data-step="7" data-label="permit">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1184 807 H1008" marker-end="url(#arw)"/>
 <text class="elabel" x="1096" y="799" text-anchor="middle">permit</text>
 </g>
-<g class="edge" data-from="gw" data-to="hl" data-step="7">
+<g class="edge" data-from="gw" data-to="hl" data-step="7" data-label="FHIR search">
 <path class="eline" fill="none" stroke-width="2" d="M1008 861 H1360" marker-end="url(#arw)"/>
 <text class="elabel" x="1184" y="853" text-anchor="middle">FHIR search</text>
 <g class="badge"><circle cx="1026" cy="861" r="11"/><text x="1026" y="865.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="hl" data-to="gw" data-step="8">
+<g class="edge" data-from="hl" data-to="gw" data-step="8" data-label="Bundle">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1360 915 H1008" marker-end="url(#arw)"/>
 <text class="elabel" x="1184" y="907" text-anchor="middle">Bundle</text>
 </g>
-<g class="edge" data-from="gw" data-to="runtime" data-step="8">
+<g class="edge" data-from="gw" data-to="runtime" data-step="8" data-label="tool result">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1008 969 H480" marker-end="url(#arw)"/>
 <text class="elabel" x="744" y="961" text-anchor="middle">tool result</text>
 </g>
 <g class="note"><rect x="968" y="1002" width="256" height="71"/><text x="1096" y="1020" text-anchor="middle">On deny, Gateway returns an error</text><text x="1096" y="1035" text-anchor="middle">and the agent explains it cannot</text><text x="1096" y="1050" text-anchor="middle">access the record.</text></g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="8">
+<g class="edge" data-from="runtime" data-to="fm" data-step="8" data-label="compose answer">
 <path class="eline" fill="none" stroke-width="2" d="M480 1106 H832" marker-end="url(#arw)"/>
 <text class="elabel" x="656" y="1098" text-anchor="middle">compose answer</text>
 <g class="badge"><circle cx="498" cy="1106" r="11"/><text x="498" y="1110.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="9">
+<g class="edge" data-from="runtime" data-to="guard" data-step="9" data-label="screen response (PHI / PII)">
 <path class="eline" fill="none" stroke-width="2" d="M480 1160 H656" marker-end="url(#arw)"/>
 <text class="elabel" x="568" y="1152" text-anchor="middle">screen response (PHI / PII)</text>
 <g class="badge"><circle cx="498" cy="1160" r="11"/><text x="498" y="1164.5" text-anchor="middle">9</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="user" data-step="10">
+<g class="edge" data-from="runtime" data-to="user" data-step="10" data-label="summary with sources">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M480 1214 H128" marker-end="url(#arw)"/>
 <text class="elabel" x="304" y="1206" text-anchor="middle">summary with sources</text>
 </g>

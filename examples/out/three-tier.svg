@@ -85,85 +85,85 @@
 <rect class="bg" width="1423" height="912"/>
 <text class="title" x="40" y="46">Highly available three-tier web application</text>
 <text class="subtitle" x="40" y="70">CloudFront → ALB → EC2 Auto Scaling → Amazon RDS Multi-AZ, across two Availability Zones</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="226" y="116" width="1157" height="756" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="226" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="226" y="116" width="32" height="32"/>
 <text class="glabel" x="266" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="region">
+<g class="group" data-id="region" data-label="Region">
 <rect x="437" y="164" width="735" height="684" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="2 3" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Region" x="437" y="164" width="32" height="32"/>
 <text class="glabel" x="477" y="185">Region</text>
 </g>
-<g class="group" data-id="vpc">
+<g class="group" data-id="vpc" data-label="VPC">
 <rect x="461" y="212" width="687" height="612" fill="none" stroke="#8C4FFF" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Virtual-private-cloud-VPC" x="461" y="212" width="32" height="32"/>
 <text class="glabel" x="501" y="233">VPC</text>
 </g>
-<g class="group" data-id="az1">
+<g class="group" data-id="az1" data-label="Availability Zone 1">
 <rect x="666" y="260" width="458" height="256" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="676" y="280">Availability Zone 1</text>
 </g>
-<g class="group" data-id="az2">
+<g class="group" data-id="az2" data-label="Availability Zone 2">
 <rect x="666" y="544" width="458" height="256" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="676" y="564">Availability Zone 2</text>
 </g>
-<g class="group" data-id="app1">
+<g class="group" data-id="app1" data-label="Auto Scaling group">
 <rect x="690" y="308" width="182" height="184" fill="none" stroke="#ED7100" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Auto-Scaling-group" x="690" y="308" width="32" height="32"/>
 <text class="glabel" x="730" y="329">Auto Scaling group</text>
 </g>
-<g class="group" data-id="data1">
+<g class="group" data-id="data1" data-label="Private subnet">
 <rect x="944" y="308" width="156" height="184" fill="#E6F6F7" stroke="#00A4A6" stroke-width="1.25" data-fill-light="#E6F6F7" data-fill-dark="#00A4A618" class="grect"/>
 <use href="#grp-Private-subnet" x="944" y="308" width="32" height="32"/>
 <text class="glabel" x="984" y="329">Private subnet</text>
 </g>
-<g class="group" data-id="app2">
+<g class="group" data-id="app2" data-label="Auto Scaling group">
 <rect x="690" y="592" width="182" height="184" fill="none" stroke="#ED7100" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Auto-Scaling-group" x="690" y="592" width="32" height="32"/>
 <text class="glabel" x="730" y="613">Auto Scaling group</text>
 </g>
-<g class="group" data-id="data2">
+<g class="group" data-id="data2" data-label="Private subnet">
 <rect x="944" y="592" width="156" height="184" fill="#E6F6F7" stroke="#00A4A6" stroke-width="1.25" data-fill-light="#E6F6F7" data-fill-dark="#00A4A618" class="grect"/>
 <use href="#grp-Private-subnet" x="944" y="592" width="32" height="32"/>
 <text class="glabel" x="984" y="613">Private subnet</text>
 </g>
-<g class="edge" data-from="users" data-to="cf" data-step="1">
+<g class="edge" data-from="users" data-to="cf" data-step="1" data-label="HTTPS">
 <path d="M120 530 L276.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="198.25" y="522" text-anchor="middle">HTTPS</text>
 <g class="badge"><circle cx="144" cy="530" r="11"/><text x="144" y="534.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="cf" data-to="alb" data-step="2">
+<g class="edge" data-from="cf" data-to="alb" data-step="2" data-label="">
 <path d="M340.5 530 L508.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="364.5" cy="530" r="11"/><text x="364.5" y="534.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="ec2a" data-to="rds1" data-step="4">
+<g class="edge" data-from="ec2a" data-to="rds1" data-step="4" data-label="SQL">
 <path d="M813 388 L990 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="901.5" y="380" text-anchor="middle">SQL</text>
 <g class="badge"><circle cx="837" cy="388" r="11"/><text x="837" y="392.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="ec2b" data-to="rds2" data-step="4">
+<g class="edge" data-from="ec2b" data-to="rds2" data-step="4" data-label="">
 <path d="M813 672 L990 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="837" cy="672" r="11"/><text x="837" y="676.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="waf" data-to="cf" data-step="">
+<g class="edge" data-from="waf" data-to="cf" data-step="" data-label="inspects">
 <path d="M308.5 442 L308.5 498" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="326.5" y="474" text-anchor="start">inspects</text>
 </g>
-<g class="edge" data-from="rds1" data-to="rds2" data-step="">
+<g class="edge" data-from="rds1" data-to="rds2" data-step="" data-label="sync replication">
 <path d="M1022 468 L1022 640" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="1040" y="558" text-anchor="start">sync replication</text>
 </g>
-<g class="edge" data-from="cf" data-to="s3" data-step="">
+<g class="edge" data-from="cf" data-to="s3" data-step="" data-label="static assets">
 <path d="M308.5 610 L308.5 666" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="326.5" y="642" text-anchor="start">static assets</text>
 </g>
-<g class="edge" data-from="alb" data-to="ec2a" data-step="3">
+<g class="edge" data-from="alb" data-to="ec2a" data-step="3" data-label="">
 <path d="M540.5 498 L540.5 388 L749 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="540.5" cy="474" r="11"/><text x="540.5" y="478.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="alb" data-to="ec2b" data-step="3">
+<g class="edge" data-from="alb" data-to="ec2b" data-step="3" data-label="">
 <path d="M572.5 530 L636.75 530 L636.75 672 L749 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="596.5" cy="530" r="11"/><text x="596.5" y="534.5" text-anchor="middle">3</text></g>
 </g>

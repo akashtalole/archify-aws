@@ -77,71 +77,71 @@
 <rect class="bg" width="1191" height="572"/>
 <text class="title" x="40" y="46">Clinical notes ingestion and retrieval pipeline</text>
 <text class="subtitle" x="40" y="70">Ambient scribe → structured FHIR data → searchable knowledge for agents</text>
-<g class="group" data-id="src">
+<g class="group" data-id="src" data-label="Sources">
 <rect x="40" y="164" width="152" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="50" y="184">Sources</text>
 </g>
-<g class="group" data-id="aws-boundary1">
+<g class="group" data-id="aws-boundary1" data-label="AWS Cloud">
 <rect x="256" y="116" width="895" height="416" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="256" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="256" y="116" width="32" height="32"/>
 <text class="glabel" x="296" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="ingest">
+<g class="group" data-id="ingest" data-label="Ingest">
 <rect x="280" y="164" width="159" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="290" y="184">Ingest</text>
 </g>
-<g class="group" data-id="process">
+<g class="group" data-id="process" data-label="Process">
 <rect x="503" y="164" width="172" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="513" y="184">Process</text>
 </g>
-<g class="group" data-id="store">
+<g class="group" data-id="store" data-label="Store">
 <rect x="739" y="164" width="165" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="749" y="184">Store</text>
 </g>
-<g class="group" data-id="serve">
+<g class="group" data-id="serve" data-label="Serve">
 <rect x="968" y="244" width="159" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="978" y="264">Serve</text>
 </g>
-<g class="edge" data-from="clin" data-to="scribe" data-step="1">
+<g class="edge" data-from="clin" data-to="scribe" data-step="1" data-label="audio">
 <path d="M148 244 L327.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="237.75" y="236" text-anchor="middle">audio</text>
 <g class="badge"><circle cx="172" cy="244" r="11"/><text x="172" y="248.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="scribe" data-to="land" data-step="2">
+<g class="edge" data-from="scribe" data-to="land" data-step="2" data-label="note JSON">
 <path d="M359.5 324 L359.5 372" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="377.5" y="352" text-anchor="start">note JSON</text>
 <g class="badge"><circle cx="359.5" cy="348" r="11"/><text x="359.5" y="352.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="ehr" data-to="land" data-step="2">
+<g class="edge" data-from="ehr" data-to="land" data-step="2" data-label="HL7 / FHIR">
 <path d="M148 404 L327.5 404" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="237.75" y="396" text-anchor="middle">HL7 / FHIR</text>
 <g class="badge"><circle cx="172" cy="404" r="11"/><text x="172" y="408.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="land" data-to="flow" data-step="3">
+<g class="edge" data-from="land" data-to="flow" data-step="3" data-label="event">
 <path d="M391.5 404 L557 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="474.25" y="396" text-anchor="middle">event</text>
 <g class="badge"><circle cx="415.5" cy="404" r="11"/><text x="415.5" y="408.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="flow" data-to="cmed" data-step="4">
+<g class="edge" data-from="flow" data-to="cmed" data-step="4" data-label="">
 <path d="M589 372 L589 324" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="589" cy="348" r="11"/><text x="589" y="352.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="cmed" data-to="hl" data-step="5">
+<g class="edge" data-from="cmed" data-to="hl" data-step="5" data-label="FHIR resources">
 <path d="M621 244 L789.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="705.25" y="236" text-anchor="middle">FHIR resources</text>
 <g class="badge"><circle cx="645" cy="244" r="11"/><text x="645" y="248.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="flow" data-to="kb" data-step="5">
+<g class="edge" data-from="flow" data-to="kb" data-step="5" data-label="embeddings">
 <path d="M621 404 L789.5 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="705.25" y="396" text-anchor="middle">embeddings</text>
 <g class="badge"><circle cx="645" cy="404" r="11"/><text x="645" y="408.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="hl" data-to="agent" data-step="6">
+<g class="edge" data-from="hl" data-to="agent" data-step="6" data-label="">
 <path d="M853.5 244 L934.5 244 L934.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="877.5" cy="244" r="11"/><text x="877.5" y="248.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="kb" data-to="agent" data-step="6">
+<g class="edge" data-from="kb" data-to="agent" data-step="6" data-label="">
 <path d="M853.5 404 L982.5 404 L982.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="877.5" cy="404" r="11"/><text x="877.5" y="408.5" text-anchor="middle">6</text></g>
 </g>

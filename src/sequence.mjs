@@ -121,7 +121,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
     const kind = m.kind || "sync";
     const x1 = x[m.from], x2 = x[m.to];
     const dash = kind === "return" ? ' stroke-dasharray="6 4"' : "";
-    out.push(`<g class="edge" data-from="${esc(m.from)}" data-to="${esc(m.to)}" data-step="${m.step === false ? "" : stepNo + 1}">`);
+    out.push(`<g class="edge" data-from="${esc(m.from)}" data-to="${esc(m.to)}" data-step="${m.step === false ? "" : stepNo + 1}" data-label="${esc(m.label || "")}">`);
     let bx, by = r.y;
     if (kind === "self") {
       out.push(`<path class="eline" fill="none" stroke-width="2" d="M${x1} ${r.y - 12} h40 v24 h-40" marker-end="url(#arw)"/>`);
