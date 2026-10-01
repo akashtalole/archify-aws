@@ -11,7 +11,8 @@ export function buildModel(spec) {
   const boxOf = (id) => {
     if (L.nodes[id]) { const n = L.nodes[id]; return { id, box: n.iconRect, bottomPad: n.cell.h - n.iconRect.h, cell: { x: n.iconRect.x, y: n.cell.y, w: n.iconRect.w, h: n.cell.h }, isNode: true }; }
     const g = L.groups.find((x) => x.id === id);
-    return { id, box: g.rect, bottomPad: 0, cell: null, isNode: false };
+    // L/R ports sit on the group's icon centre line so links to aligned neighbours stay straight
+    return { id, box: { ...g.rect, cy: g.anchorY }, bottomPad: 0, cell: null, isNode: false };
   };
   const allCells = Object.values(L.nodes).map((n) => ({ id: n.id, ...n.cell }));
   const bounds = { x: 8, y: K.MARGIN + 20, w: L.width - 16, h: L.height - K.MARGIN - 12 };
@@ -26,7 +27,7 @@ export function buildModel(spec) {
   const placed = [];
   const routes = [];
   // straight (aligned) connections claim their lines first; the rest are routed around them
-  const aligned = (e) => { const a = boxOf(e.from).box, b = boxOf(e.to).box; return Math.abs(a.y + a.h / 2 - b.y - b.h / 2) < 2 || Math.abs(a.x + a.w / 2 - b.x - b.w / 2) < 2 ? 0 : 1; };
+  const aligned = (e) => { const a = boxOf(e.from).box, b = boxOf(e.to).box; return Math.abs((a.cy ?? a.y + a.h / 2) - (b.cy ?? b.y + b.h / 2)) < 2 || Math.abs(a.x + a.w / 2 - b.x - b.w / 2) < 2 ? 0 : 1; };
   const ordered = (spec.edges || []).map((e, i) => ({ e, i, al: aligned(e) })).sort((a, b) => a.al - b.al || (a.e.step ?? 1e3) - (b.e.step ?? 1e3) || a.i - b.i);
   for (const { e } of ordered) {
     const a = boxOf(e.from), b = boxOf(e.to);

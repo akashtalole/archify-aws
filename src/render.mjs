@@ -102,7 +102,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
       const horiz = a[1] === b[1];
       for (const t of [0.5, 0.35, 0.65, 0.22, 0.78]) {
         const cx = a[0] + (b[0] - a[0]) * t, cy = a[1] + (b[1] - a[1]) * t;
-        const r = horiz ? { x: cx - tw / 2, y: cy - 22, w: tw, h: 16 } : { x: cx + 8, y: cy - 8, w: tw, h: 16 };
+        const r = horiz ? { x: cx - tw / 2, y: cy - 22, w: tw, h: 16 } : { x: cx + 18, y: cy - 8, w: tw, h: 16 };
         const cand = { r, horiz, cx, cy };
         first ??= cand;
         if (sg.len >= tw + 12 * horiz && !hit(r) && !lineHit(r, ri)) { taken.push(r); return cand; }
@@ -121,7 +121,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
     const lp = labelPos[i];
     if (lp) body.push(lp.horiz
       ? `<text class="elabel" x="${lp.cx}" y="${lp.cy - 8}" text-anchor="middle">${esc(e.label)}</text>`
-      : `<text class="elabel" x="${lp.cx + 10}" y="${lp.cy + 4}" text-anchor="start">${esc(e.label)}</text>`);
+      : `<text class="elabel" x="${lp.cx + 18}" y="${lp.cy + 4}" text-anchor="start">${esc(e.label)}</text>`);
     const bp = badgePos[i];
     if (bp) {
       body.push(`<g class="badge"><circle cx="${bp[0]}" cy="${bp[1]}" r="11"/><text x="${bp[0]}" y="${bp[1] + 4.5}" text-anchor="middle">${e.step}</text></g>`);

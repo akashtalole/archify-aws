@@ -42,7 +42,7 @@ test("layout-only stacks cannot be edge endpoints", () => {
   assert.ok(validateSpec(spec).errors.some((e) => /layout-only/.test(e)));
 });
 
-for (const name of ["three-tier", "serverless-api", "genai-rag"]) {
+for (const name of ["three-tier", "serverless-api", "genai-rag", "healthcare-agentic-platform", "healthcare-governance"]) {
   test(`example ${name} renders with no routing warnings and aligned connected icons`, needIcons, async () => {
     const { buildModel } = await import("../src/build.mjs");
     const { renderSvg } = await import("../src/render.mjs");

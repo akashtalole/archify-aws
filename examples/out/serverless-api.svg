@@ -101,7 +101,7 @@
 </g>
 <g class="edge" data-from="fnapi" data-to="ddb" data-step="3">
 <path d="M520 401 L520 461" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<text class="elabel" x="530" y="435" text-anchor="start">read / write</text>
+<text class="elabel" x="538" y="435" text-anchor="start">read / write</text>
 <g class="badge"><circle cx="520" cy="425" r="11"/><text x="520" y="429.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="sqs" data-to="fnwork" data-step="5">
@@ -114,11 +114,11 @@
 </g>
 <g class="edge" data-from="cognito" data-to="apigw" data-step="">
 <path d="M302 325 L302 375" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="312" y="354" text-anchor="start">authorizer</text>
+<text class="elabel" x="320" y="354" text-anchor="start">authorizer</text>
 </g>
 <g class="edge" data-from="fnwork" data-to="cw" data-step="">
 <path d="M907 372 L907 442" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="917" y="411" text-anchor="start">logs &amp; metrics</text>
+<text class="elabel" x="925" y="411" text-anchor="start">logs &amp; metrics</text>
 </g>
 <g class="edge" data-from="apigw" data-to="fnapi" data-step="2">
 <path d="M334 407 L411 407 L411 321 L488 321" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>

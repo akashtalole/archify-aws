@@ -150,15 +150,15 @@
 </g>
 <g class="edge" data-from="waf" data-to="cf" data-step="">
 <path d="M308.5 442 L308.5 498" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="318.5" y="474" text-anchor="start">inspects</text>
+<text class="elabel" x="326.5" y="474" text-anchor="start">inspects</text>
 </g>
 <g class="edge" data-from="rds1" data-to="rds2" data-step="">
 <path d="M1022 468 L1022 640" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)" marker-start="url(#arw)"/>
-<text class="elabel" x="1032" y="558" text-anchor="start">sync replication</text>
+<text class="elabel" x="1040" y="558" text-anchor="start">sync replication</text>
 </g>
 <g class="edge" data-from="cf" data-to="s3" data-step="">
 <path d="M308.5 610 L308.5 666" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="318.5" y="642" text-anchor="start">static assets</text>
+<text class="elabel" x="326.5" y="642" text-anchor="start">static assets</text>
 </g>
 <g class="edge" data-from="alb" data-to="ec2a" data-step="3">
 <path d="M540.5 498 L540.5 388 L749 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>

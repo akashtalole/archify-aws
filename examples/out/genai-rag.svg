@@ -122,11 +122,11 @@
 </g>
 <g class="edge" data-from="cognito" data-to="apigw" data-step="">
 <path d="M302 372 L302 428" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="312" y="404" text-anchor="start">authorizer</text>
+<text class="elabel" x="320" y="404" text-anchor="start">authorizer</text>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="">
 <path d="M302 596 L302 540" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="312" y="572" text-anchor="start">protects</text>
+<text class="elabel" x="320" y="572" text-anchor="start">protects</text>
 </g>
 <g class="edge" data-from="docs" data-to="kb" data-step="">
 <path d="M978 628 L772 628" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -134,7 +134,7 @@
 </g>
 <g class="edge" data-from="orch" data-to="kb" data-step="3">
 <path d="M548 460 L580 460 L580 628 L708 628" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<text class="elabel" x="590" y="548" text-anchor="start">retrieve</text>
+<text class="elabel" x="598" y="548" text-anchor="start">retrieve</text>
 <g class="badge"><circle cx="684" cy="628" r="11"/><text x="684" y="632.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="orch" data-to="guard" data-step="4">
@@ -144,7 +144,7 @@
 </g>
 <g class="edge" data-from="fm" data-to="cw" data-step="">
 <path d="M772 460 L875 460 L875 292 L978 292" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<text class="elabel" x="885" y="380" text-anchor="start">logs</text>
+<text class="elabel" x="893" y="380" text-anchor="start">logs</text>
 </g>
 <g class="node" data-id="users"><title>Users (Users)</title>
 <use href="#gen-Users" x="56" y="428" width="64" height="64"/>

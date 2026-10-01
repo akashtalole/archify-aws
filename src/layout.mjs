@@ -104,7 +104,7 @@ function place(item, x, y, out, depth, parent) {
   }
   const isRoot = depth === 0;
   const pad = isRoot ? { top: 0, side: 0, bottom: 0 } : item._pad;
-  if (!isRoot && item.kind !== "stack") out.groups.push({ id: item.id, item, kind: item.kind, depth, rect: { x, y, w: m.w, h: m.h }, label: item._label, parent: parent?.id ?? null });
+  if (!isRoot && item.kind !== "stack") out.groups.push({ id: item.id, item, kind: item.kind, depth, rect: { x, y, w: m.w, h: m.h }, anchorY: y + item._anchor, label: item._label, parent: parent?.id ?? null });
   const inner = item._inner || m;
   const ix = x + pad.side + (m.w - 2 * pad.side - inner.w) / 2;
   const iy = y + pad.top;

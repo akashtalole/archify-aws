@@ -51,7 +51,7 @@ function trim(pts) {
   return o;
 }
 const portOf = (box, side, pad = 0) => {
-  const cx = box.x + box.w / 2, cy = box.y + box.h / 2;
+  const cx = box.x + box.w / 2, cy = box.cy ?? box.y + box.h / 2;
   return side === "L" ? [box.x, cy] : side === "R" ? [box.x + box.w, cy] : side === "T" ? [cx, box.y] : [cx, box.y + box.h + pad];
 };
 
