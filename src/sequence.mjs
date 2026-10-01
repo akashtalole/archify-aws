@@ -53,7 +53,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
   const ps = spec.participants.map((p) => ({ ...p, icon: resolveIcon(p.icon) }));
   const n = ps.length;
   const labelW = Math.max(...ps.map((p) => Math.max(...wrapLabel(p.label || "").map((l) => l.length * 6.4), (p.sublabel || "").length * 5.8)));
-  const colW = Math.max(176, Math.ceil(labelW + 40));
+  const colW = Math.max(190, Math.ceil(labelW + 40));
   const x = Object.fromEntries(ps.map((p, i) => [p.id, M + colW * (i + 0.5)]));
   const hasGroups = (spec.groups || []).length > 0;
   const top = M + 76 + (hasGroups ? 48 : 0);
@@ -63,7 +63,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
   const msgs = spec.messages;
   // vertical layout
   let y = top + HEAD_H + 36;
-  const fragStart = new Set((spec.fragments || []).map((f) => f.from));
+  const fragStart = new Set((spec.fragments || []).flatMap((f) => [f.from, ...(f.elseAt !== undefined ? [f.elseAt] : [])])); // rows that need room for a fragment tab / else label
   const rows = msgs.map((m, mi) => {
     let h = ROW, lines = [];
     if (m.note !== undefined) { lines = wrapLabel(m.note, 34); h = 26 + lines.length * 15 + 12; }
@@ -73,7 +73,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
       h = ROW + Math.max(0, lines.length - 1) * 14;
     }
     const pad = fragStart.has(mi) ? 22 : 0; // room for the fragment tab above the first message
-    const row = { y: y + pad + (h - pad) / 2 + pad / 2, top: y, h: h + pad, lines };
+    const row = { y: y + pad + (h - pad) / 2 + pad / 2, top: y, h: h + pad, lines, pad };
     y += h + pad;
     return row;
   });
@@ -105,7 +105,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
   for (const f of spec.fragments || []) {
     const used = msgs.slice(f.from, f.to + 1).flatMap((m) => (m.note !== undefined ? m.over || [] : [m.from, m.to]));
     const cols = used.map((id) => ps.findIndex((p) => p.id === id));
-    const x0 = M + colW * Math.min(...cols) + colW * 0.5 - 70, x1 = M + colW * Math.max(...cols) + colW * 0.5 + 70;
+    const x0 = M + colW * Math.min(...cols) + colW * 0.5 - 92, x1 = M + colW * Math.max(...cols) + colW * 0.5 + 92;
     const y0 = rows[f.from].top + 2, y1 = rows[f.to].top + rows[f.to].h - 2;
     out.push(`<g class="frag"><rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" fill="none"/><path class="fragtab" d="M${x0} ${y0} h${Math.max(54, (f.label || "").length * 6 + 58)} v18 l-8 8 h-${Math.max(54, (f.label || "").length * 6 + 58) - 8} z"/><text class="fraglabel" x="${x0 + 6}" y="${y0 + 14}">${esc(f.kind)}${f.label ? ` [${esc(f.label)}]` : ""}</text>`);
     if (f.elseAt !== undefined && rows[f.elseAt]) out.push(`<line class="fragelse" x1="${x0}" y1="${rows[f.elseAt].top}" x2="${x1}" y2="${rows[f.elseAt].top}"/><text class="fraglabel" x="${x0 + 6}" y="${rows[f.elseAt].top + 14}">${esc(f.elseLabel ? `[${f.elseLabel}]` : "[else]")}</text>`);
@@ -118,7 +118,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
     if (m.note !== undefined) {
       const over = (m.over && m.over.length ? m.over : [ps[0].id]).map((id) => x[id]);
       const cx = (Math.min(...over) + Math.max(...over)) / 2, w = Math.max(160, Math.max(...over) - Math.min(...over) + 80);
-      out.push(`<g class="note"><rect x="${cx - w / 2}" y="${r.top + 6}" width="${w}" height="${r.h - 12}"/>${r.lines.map((ln, k) => `<text x="${cx}" y="${r.top + 24 + k * 15}" text-anchor="middle">${esc(ln)}</text>`).join("")}</g>`);
+      out.push(`<g class="note"><rect x="${cx - w / 2}" y="${r.top + r.pad + 6}" width="${w}" height="${r.h - r.pad - 12}"/>${r.lines.map((ln, k) => `<text x="${cx}" y="${r.top + r.pad + 24 + k * 15}" text-anchor="middle">${esc(ln)}</text>`).join("")}</g>`);
       return;
     }
     const kind = m.kind || "sync";

@@ -308,11 +308,11 @@ test("guide suggests companion diagrams for human-in-the-loop and deployment sce
 });
 
 // ---- compliance review assistant use case (end-to-end through finalize)
-for (const f of ["architecture.json", "review-run.sequence.json", "lifecycle.dataflow.json"]) {
+for (const f of ["compliance/architecture.json", "compliance/review-run.sequence.json", "compliance/lifecycle.dataflow.json", "compliance-agentcore/architecture.json", "compliance-agentcore/review-run.sequence.json"]) {
   test(`compliance example ${f} passes finalize`, async (t) => {
     if (!iconsAvailable()) return t.skip("icons not fetched");
     const { finalize } = await import("../src/finalize.mjs");
-    const r = finalize(path.join(ROOT, "examples", "compliance", f), { outHtml: path.join(ROOT, ".cache", "compliance", f.replace(/\.json$/, ".html")), png: false });
+    const r = finalize(path.join(ROOT, "examples", f), { outHtml: path.join(ROOT, ".cache", "compliance", f.replace(/\//g, "-").replace(/\.json$/, ".html")), png: false });
     assert.equal(r.ok, true, JSON.stringify(r.stages.filter((s) => s.status === "fail")));
   });
 }
@@ -327,5 +327,26 @@ test("router keeps edges out of groups that neither endpoint belongs to", async 
     const [a, b] = [sfnToHitl.pts[i], sfnToHitl.pts[i + 1]];
     const through = Math.max(a[0], b[0]) > engine.x + 2 && Math.min(a[0], b[0]) < engine.x + engine.w - 2 && Math.max(a[1], b[1]) > engine.y + 2 && Math.min(a[1], b[1]) < engine.y + engine.h - 2;
     assert.ok(!through, "human-review route must go around the check engine group");
+  }
+});
+
+test("sequence: else-branch notes get label room and fragments contain their notes", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const { renderSequence } = await import("../src/sequence.mjs");
+  const spec = JSON.parse(fs.readFileSync(path.join(ROOT, "examples", "compliance-agentcore", "review-run.sequence.json"), "utf8"));
+  const svg = renderSequence(spec).svg;
+  const alt = spec.fragments.find((f) => f.kind === "alt");
+  assert.equal(spec.messages[alt.elseAt].note !== undefined, true, "fixture has a note in the else branch");
+  const label = svg.match(/<text class="fraglabel"[^>]*y="([\d.]+)">\[all pass/);
+  const note = svg.match(/<g class="note"><rect x="[\d.]+" y="([\d.]+)"/g).pop().match(/y="([\d.]+)"/);
+  assert.ok(Number(note[1]) > Number(label[1]) + 4, "note starts below the else label");
+});
+
+test("AgentCore Policy is drawn with the AgentCore icon, never the Verified Permissions icon", () => {
+  for (const f of ["agent-tool-call.sequence.json", "compliance-agentcore/review-run.sequence.json", "healthcare-agentcore-services.json", "compliance-agentcore/architecture.json"]) {
+    const txt = fs.readFileSync(path.join(ROOT, "examples", f), "utf8");
+    const j = JSON.parse(txt);
+    const walk = (o) => { if (Array.isArray(o)) o.forEach(walk); else if (o && typeof o === "object") { if (/AgentCore Policy/.test(o.label || "")) assert.notEqual(o.icon, "verified-permissions", f); Object.values(o).forEach(walk); } };
+    walk(j);
   }
 });

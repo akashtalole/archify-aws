@@ -1,0 +1,282 @@
+{
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "One review run on AgentCore: parallel checks, human decision, policy-gated final decision",
+    "subtitle": "Each tool call is authorized by Policy at the Gateway; the run checkpoints while a reviewer decides",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/compliance-agentcore/out/review-run.html"
+  },
+  "participants": [
+    {
+      "id": "owner",
+      "icon": "gen:users",
+      "label": "Document owner"
+    },
+    {
+      "id": "s3",
+      "icon": "simple-storage-service",
+      "label": "Amazon S3",
+      "sublabel": "intake + EventBridge"
+    },
+    {
+      "id": "sup",
+      "icon": "bedrock-agentcore",
+      "label": "Supervisor agent",
+      "sublabel": "AgentCore Runtime"
+    },
+    {
+      "id": "mem",
+      "icon": "bedrock-agentcore",
+      "label": "AgentCore Memory"
+    },
+    {
+      "id": "chk",
+      "icon": "bedrock-agentcore",
+      "label": "Check-family agent",
+      "sublabel": "AgentCore Runtime, A2A"
+    },
+    {
+      "id": "gw",
+      "icon": "bedrock-agentcore",
+      "label": "AgentCore Gateway"
+    },
+    {
+      "id": "pol",
+      "icon": "bedrock-agentcore",
+      "label": "AgentCore Policy",
+      "sublabel": "Cedar"
+    },
+    {
+      "id": "tools",
+      "icon": "lambda",
+      "label": "AWS Lambda",
+      "sublabel": "tool targets"
+    },
+    {
+      "id": "fm",
+      "icon": "bedrock",
+      "label": "Amazon Bedrock",
+      "sublabel": "with Guardrails"
+    },
+    {
+      "id": "q",
+      "icon": "simple-queue-service",
+      "label": "Amazon SQS",
+      "sublabel": "review queue"
+    },
+    {
+      "id": "reviewer",
+      "icon": "gen:user",
+      "label": "Compliance reviewer"
+    }
+  ],
+  "groups": [
+    {
+      "kind": "aws-cloud",
+      "label": "AWS Cloud",
+      "members": [
+        "s3",
+        "sup",
+        "mem",
+        "chk",
+        "gw",
+        "pol",
+        "tools",
+        "fm",
+        "q"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "from": "owner",
+      "to": "s3",
+      "label": "upload document"
+    },
+    {
+      "from": "s3",
+      "to": "sup",
+      "kind": "async",
+      "label": "EventBridge: start run"
+    },
+    {
+      "from": "sup",
+      "to": "mem",
+      "label": "load run state + feedback"
+    },
+    {
+      "from": "mem",
+      "to": "sup",
+      "kind": "return",
+      "label": "context"
+    },
+    {
+      "from": "sup",
+      "to": "gw",
+      "label": "get_document_text (MCP)"
+    },
+    {
+      "from": "gw",
+      "to": "pol",
+      "label": "authorize call"
+    },
+    {
+      "from": "pol",
+      "to": "gw",
+      "kind": "return",
+      "label": "permit"
+    },
+    {
+      "from": "gw",
+      "to": "tools",
+      "label": "invoke Textract target"
+    },
+    {
+      "from": "tools",
+      "to": "gw",
+      "kind": "return",
+      "label": "structured text"
+    },
+    {
+      "from": "gw",
+      "to": "sup",
+      "kind": "return",
+      "label": "document text"
+    },
+    {
+      "from": "sup",
+      "to": "chk",
+      "label": "delegate check family (A2A)"
+    },
+    {
+      "from": "chk",
+      "to": "gw",
+      "label": "search_policy_library"
+    },
+    {
+      "from": "gw",
+      "to": "chk",
+      "kind": "return",
+      "label": "criteria + passages"
+    },
+    {
+      "from": "chk",
+      "to": "fm",
+      "label": "judge each check, cite spans"
+    },
+    {
+      "from": "fm",
+      "to": "chk",
+      "kind": "return",
+      "label": "verdicts + confidence"
+    },
+    {
+      "from": "chk",
+      "to": "gw",
+      "label": "record_verdict"
+    },
+    {
+      "from": "chk",
+      "to": "sup",
+      "kind": "return",
+      "label": "family results"
+    },
+    {
+      "from": "sup",
+      "to": "sup",
+      "kind": "self",
+      "label": "any fail or low confidence?"
+    },
+    {
+      "from": "sup",
+      "to": "gw",
+      "label": "request_human_review"
+    },
+    {
+      "from": "gw",
+      "to": "q",
+      "kind": "async",
+      "label": "task + cited evidence"
+    },
+    {
+      "from": "sup",
+      "to": "mem",
+      "label": "checkpoint, end session"
+    },
+    {
+      "from": "reviewer",
+      "to": "q",
+      "label": "confirm or override"
+    },
+    {
+      "from": "q",
+      "to": "sup",
+      "kind": "async",
+      "label": "decisions: resume run"
+    },
+    {
+      "note": "All checks pass with high confidence: no review needed, continue to the final decision.",
+      "over": [
+        "sup"
+      ]
+    },
+    {
+      "note": "Policy rule (temporal): record_final_decision is forbidden when any check failed unless a reviewer approval exists for this run. The agent cannot talk its way past it.",
+      "over": [
+        "gw",
+        "pol"
+      ]
+    },
+    {
+      "from": "sup",
+      "to": "gw",
+      "label": "record_final_decision"
+    },
+    {
+      "from": "gw",
+      "to": "pol",
+      "label": "authorize (approval?)"
+    },
+    {
+      "from": "pol",
+      "to": "gw",
+      "kind": "return",
+      "label": "permit"
+    },
+    {
+      "from": "gw",
+      "to": "tools",
+      "label": "write decision + audit record"
+    },
+    {
+      "from": "sup",
+      "to": "mem",
+      "label": "store feedback for evaluation"
+    },
+    {
+      "from": "sup",
+      "to": "owner",
+      "kind": "async",
+      "label": "report + decisions"
+    }
+  ],
+  "fragments": [
+    {
+      "kind": "loop",
+      "label": "each check family, in parallel",
+      "from": 11,
+      "to": 16
+    },
+    {
+      "kind": "alt",
+      "label": "needs human review",
+      "from": 18,
+      "to": 23,
+      "elseAt": 23,
+      "elseLabel": "all pass, high confidence"
+    }
+  ]
+}

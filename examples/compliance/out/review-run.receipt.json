@@ -52,16 +52,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/review-run.html",
-      "sha256": "58b764aefef11184c8a7e0cc95dca82c032c056b9bfdcb5af9e5f869e1191b7c",
-      "bytes": 88428
+      "sha256": "c97e01defecfc5ff00639f6ba632ce79c6e930ae9d95e2d090cab11942c7d8aa",
+      "bytes": 88294
     },
     "svg": {
       "path": "examples/compliance/out/review-run.svg",
-      "sha256": "930acb6f8e534f3921aeac41189a04399a7d18defe0ecd18f746810fff1469dd"
+      "sha256": "49635fb99a0461bcf9bf3e2a910096c7e5a0bf2e9346497eb74b618207e396ac"
     },
     "png": {
       "path": "examples/compliance/out/review-run.png",
-      "sha256": "debb4018891479079d9b93685b493a4ff272ff83067a9a39ff73cd28aafff4ce"
+      "sha256": "9f48c2033ae340a6aac4c033e6a3c3d68554859eeaad61a155c5b74eabad850c"
     }
   },
   "summary": {
@@ -70,8 +70,8 @@
     "groups": 1,
     "edges": 20,
     "size": {
-      "width": 2192,
-      "height": 1759
+      "width": 2360,
+      "height": 1753
     }
   },
   "review": {

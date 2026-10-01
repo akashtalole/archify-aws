@@ -6,3 +6,4 @@ assets/aws-icons/
 !examples/out/*.png
 
 .cache/
+!examples/**/out/*.png

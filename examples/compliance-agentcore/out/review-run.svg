@@ -1,0 +1,280 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 2170 2337" width="2170" height="2337" role="img" aria-label="One review run on AgentCore: parallel checks, human decision, policy-gated final decision">
+<title>One review run on AgentCore: parallel checks, human decision, policy-gated final decision</title>
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+.aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
+.aws .bg{fill:var(--bg)}
+.aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
+.aws .title{font-size:22px;font-weight:700}
+.aws .subtitle{font-size:13px;fill:var(--muted)}
+.aws .glabel,.aws .nlabel,.aws .elabel{font-size:12px}
+.aws .nsub{font-size:10.5px;fill:var(--muted)}
+.aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
+.aws .eline{stroke:var(--line)}
+.aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
+.aws .badge circle{fill:var(--badge)}
+.aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
+.aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
+.aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
+.aws .dim{opacity:.18}.aws .hl .eline{stroke-width:3}
+.aws .edge,.aws .node{transition:opacity .12s}
+.aws .life{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 4;opacity:.7}
+.aws .asyncdot{fill:var(--line)}
+.aws .note rect{fill:none;stroke:var(--muted);stroke-width:1.25}.aws .note text{font-size:11.5px}
+.aws .frag rect{stroke:var(--muted);stroke-width:1.25}.aws .fragtab{fill:var(--bg);stroke:var(--muted);stroke-width:1.25}
+.aws .fraglabel{font-size:11px;font-weight:700}.aws .fragelse{stroke:var(--muted);stroke-dasharray:6 4}</style>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="arw" d="M1.5 1.5 L8.5 5 L1.5 8.5"/></marker><symbol id="grp-AWS-Cloud" viewBox="0 0 40 40"><g id="grp-AWS-Cloud__Icon-Architecture-Group_32_AWS-Cloud_32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="grp-AWS-Cloud__Rectangle" fill="#242F3E" x="0" y="0" width="40" height="40"></rect>
+        <path d="M28.993,27.9952689 L11.487,27.9762689 C9.121,27.9742689 7.154,26.1292689 7.012,23.7752689 C7.004,23.6522689 7,23.5262689 7,23.3972689 C7,20.2992689 9.091,19.2872689 10.337,18.9592689 C10.577,18.8962689 10.735,18.6662689 10.707,18.4192689 C10.676,18.1492689 10.659,17.8752689 10.659,17.5962689 C10.659,15.1322689 12.308,12.4822689 14.415,11.5632689 C15.359,11.1502689 16.232,10.9862689 17.023,10.9862689 C19.276,10.9862689 20.867,12.3152689 21.561,13.0332689 C22.329,13.8262689 22.927,14.8382689 23.34,16.0422689 C23.4,16.2192689 23.555,16.3472689 23.74,16.3742689 C23.918,16.4012689 24.109,16.3232689 24.219,16.1712689 C24.807,15.3502689 25.766,14.9822689 26.659,15.2392689 C27.782,15.5602689 28.516,16.7272689 28.62,18.3072689 C28.578,18.5762689 28.759,18.8292689 29.027,18.8772689 C30.222,19.0892689 33,19.9572689 33,23.4402689 C33,27.5892689 29.114,27.9822689 28.993,27.9952689 M29.594,17.9742689 C29.379,16.0672689 28.4,14.6962689 26.934,14.2782689 C25.899,13.9822689 24.811,14.2452689 23.989,14.9502689 C23.553,13.9362689 22.979,13.0602689 22.28,12.3382689 C20.023,10.0052689 16.933,9.37226889 14.014,10.6462689 C11.531,11.7302689 9.659,14.7182689 9.659,17.5962689 C9.659,17.7702689 9.665,17.9432689 9.676,18.1142689 C8.319,18.5732689 6,19.8752689 6,23.3972689 C6,23.5492689 6.004,23.6962689 6.014,23.8382689 C6.188,26.7162689 8.593,28.9732689 11.486,28.9762689 L29.034,28.9932689 C29.084,28.9892689 34,28.5192689 34,23.4402689 C34,19.5022689 31.003,18.3142689 29.594,17.9742689" id="grp-AWS-Cloud__Fill-1" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="gen-Users" viewBox="0 0 48 48"><g id="gen-Users__Icon-Resource_General-Resource_Res_Users_48" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M28.639,9.286 C28.639,6.371 31.052,4 34.019,4 C36.985,4 39.397,6.371 39.397,9.286 C39.397,12.201 36.985,14.572 34.019,14.572 C31.052,14.572 28.639,12.201 28.639,9.286 L28.639,9.286 Z M40.163,16.334 C39.516,15.932 38.833,15.6 38.128,15.333 C40.098,14.023 41.397,11.802 41.397,9.286 C41.397,5.269 38.087,2 34.019,2 C29.95,2 26.639,5.269 26.639,9.286 C26.639,11.796 27.932,14.014 29.895,15.325 C28.614,15.808 27.41,16.515 26.349,17.425 L27.652,18.943 C29.434,17.414 31.689,16.572 34,16.572 C35.802,16.572 37.569,17.077 39.109,18.033 C41.849,19.735 43.647,22.725 43.953,26 L34,26 L34,28 L45,28 C45.553,28 46,27.553 46,27 C46,22.657 43.764,18.57 40.163,16.334 L40.163,16.334 Z M8.639,9.286 C8.639,6.371 11.052,4 14.019,4 C16.985,4 19.397,6.371 19.397,9.286 C19.397,12.201 16.985,14.572 14.019,14.572 C11.052,14.572 8.639,12.201 8.639,9.286 L8.639,9.286 Z M14,26 L4.046,26 C4.53,20.717 8.81,16.572 14,16.572 C15.802,16.572 17.569,17.077 19.109,18.033 C19.541,18.302 19.958,18.608 20.349,18.943 L21.652,17.426 C21.184,17.024 20.684,16.657 20.163,16.334 C19.516,15.932 18.833,15.6 18.128,15.333 C20.098,14.023 21.397,11.802 21.397,9.286 C21.397,5.269 18.087,2 14.019,2 C9.95,2 6.639,5.269 6.639,9.286 C6.639,11.801 7.937,14.023 9.907,15.332 C5.302,17.071 2,21.638 2,27 C2,27.553 2.448,28 3,28 L14,28 L14,26 Z M14.046,44 C14.53,38.717 18.81,34.572 24,34.572 C25.802,34.572 27.569,35.077 29.109,36.033 C31.849,37.735 33.647,40.725 33.953,44 L14.046,44 Z M18.639,27.286 C18.639,24.371 21.052,22 24.019,22 C26.985,22 29.397,24.371 29.397,27.286 C29.397,30.201 26.985,32.572 24.019,32.572 C21.052,32.572 18.639,30.201 18.639,27.286 L18.639,27.286 Z M30.163,34.334 C29.516,33.932 28.833,33.6 28.128,33.333 C30.098,32.023 31.397,29.802 31.397,27.286 C31.397,23.269 28.087,20 24.019,20 C19.95,20 16.639,23.269 16.639,27.286 C16.639,29.801 17.937,32.023 19.907,33.332 C15.302,35.071 12,39.638 12,45 C12,45.553 12.448,46 13,46 L35,46 C35.553,46 36,45.553 36,45 C36,40.657 33.764,36.57 30.163,34.334 L30.163,34.334 Z" id="gen-Users__Fill-1" fill="#242F3E"></path>
+    </g></symbol><symbol id="svc-Amazon-Simple-Storage-Service" viewBox="0 0 80 80"><g id="svc-Amazon-Simple-Storage-Service__Icon-Architecture_64_Arch_Amazon-Simple-Storage-Service_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-Simple-Storage-Service__Icon-Architecture-BG_64_Storage" fill="#7AA116">
+            <rect id="svc-Amazon-Simple-Storage-Service__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-Amazon-Simple-Storage-Service__Icon-Service_64_Amazon-Simple-Storage-Service_64" transform="translate(12.999900, 11.999600)" fill="#FFFFFF">
+            <path d="M47.836,30.893 L48.22,28.189 C51.761,30.31 51.807,31.186 51.8060132,31.21 C51.8,31.215 51.196,31.719 47.836,30.893 L47.836,30.893 Z M45.893,30.353 C39.773,28.501 31.25,24.591 27.801,22.961 C27.801,22.947 27.805,22.934 27.805,22.92 C27.805,21.595 26.727,20.517 25.401,20.517 C24.077,20.517 22.999,21.595 22.999,22.92 C22.999,24.245 24.077,25.323 25.401,25.323 C25.983,25.323 26.511,25.106 26.928,24.761 C30.986,26.682 39.443,30.535 45.608,32.355 L43.17,49.561 C43.163,49.608 43.16,49.655 43.16,49.702 C43.16,51.217 36.453,54 25.494,54 C14.419,54 7.641,51.217 7.641,49.702 C7.641,49.656 7.638,49.611 7.632,49.566 L2.538,12.359 C6.947,15.394 16.43,17 25.5,17 C34.556,17 44.023,15.4 48.441,12.374 L45.893,30.353 Z M2,8.478 C2.072,7.162 9.634,2 25.5,2 C41.364,2 48.927,7.161 49,8.478 L49,8.927 C48.13,11.878 38.33,15 25.5,15 C12.648,15 2.843,11.868 2,8.913 L2,8.478 Z M51,8.5 C51,5.035 41.066,0 25.5,0 C9.934,0 0,5.035 0,8.5 L0.094,9.254 L5.642,49.778 C5.775,54.31 17.861,56 25.494,56 C34.966,56 45.029,53.822 45.159,49.781 L47.555,32.884 C48.888,33.203 49.985,33.366 50.866,33.366 C52.049,33.366 52.849,33.077 53.334,32.499 C53.732,32.025 53.884,31.451 53.77,30.84 C53.511,29.456 51.868,27.964 48.522,26.055 L50.898,9.293 L51,8.5 Z" id="svc-Amazon-Simple-Storage-Service__Amazon-Simple-Storage-Service-Icon_64_Squid"></path>
+        </g>
+    </g></symbol><symbol id="svc-Amazon-Bedrock-AgentCore" viewBox="0 0 80 80"><g clip-path="url(#svc-Amazon-Bedrock-AgentCore__clip0_211_73)">
+<rect width="80" height="80" fill="#01A88D"/>
+<path d="M67.3721 28.0727L64.1777 26.792L62.9326 23.6338C62.7812 23.2519 62.4121 23.001 62.0019 23.001C61.5908 23.0014 61.2217 23.2529 61.0713 23.6357L59.8144 26.8379L56.6377 28.0708C56.2529 28.2202 55.999 28.5918 56 29.0054C56.001 29.4189 56.2568 29.7895 56.6426 29.937L59.8896 31.1777L61.0625 34.3481C61.2051 34.7353 61.5722 34.9946 61.9853 35.001H62C62.4072 35.001 62.7744 34.7539 62.9277 34.375L64.2314 31.1416L67.3603 29.9341C67.7431 29.7861 67.9971 29.4184 68 29.0073C68.0029 28.5967 67.7539 28.2256 67.3721 28.0727ZM63.1064 29.4316C62.8486 29.5317 62.6426 29.7339 62.5391 29.9907L62.0401 31.2275L61.6074 30.0581C61.5078 29.7881 61.2959 29.5742 61.0274 29.4712L59.7822 28.9956L60.9473 28.5434C61.207 28.4424 61.4141 28.2368 61.5156 27.9765L62.0039 26.7319L62.4346 27.8222C62.5225 28.1421 62.7666 28.3984 63.0791 28.5058L64.2686 28.9834L63.1064 29.4316ZM64.0527 38.6001L54.9141 34.9345L51.3506 25.9018C51.123 25.3252 50.5752 24.9531 49.9551 24.9531C49.335 24.9536 48.7861 25.3271 48.5596 25.9048L44.958 35.0825L42 36.2304V16C42 15.5693 41.7246 15.1875 41.3164 15.0512L32.3164 12.0512C32.042 11.9609 31.7441 11.9907 31.4961 12.1362L19.4961 19.1362C19.1885 19.3154 19 19.6445 19 20V29.4199L12.5039 33.1318C12.1924 33.3095 12 33.6411 12 34V46C12 46.3589 12.1924 46.6904 12.5039 46.8681L19 50.58V60C19 60.3554 19.1885 60.6845 19.4961 60.8637L31.4961 67.8637C31.6504 67.9541 31.8252 68 32 68C32.1064 68 32.2129 67.9829 32.3164 67.9487L41.3164 64.9487C41.7246 64.8125 42 64.4306 42 64V43.7384L45.2002 44.9614L48.5606 54.0458C48.7774 54.6318 49.3203 55.0165 49.9453 55.0263H49.9688C50.584 55.0263 51.1279 54.6596 51.3594 54.0874L55.0889 44.8452L64.0352 41.3916C64.6143 41.1679 64.9912 40.6225 64.9951 40.0014C64.999 39.3808 64.6289 38.831 64.0527 38.6001ZM32.1133 65.9082L28.8654 64.0136L35.5303 59.8481L34.4697 58.1518L26.913 62.8748L21 59.4257V50.5351L26.5547 46.832L25.4453 45.1679L19.9595 48.8252L14 45.4199V40.5802L20.4961 36.8681L19.5039 35.1318L14 38.2769V34.5801L20 31.1516L26 34.5802V38.4336L21.4853 41.1425L22.5147 42.8574L27 40.1662L31.4853 42.8574L32.5147 41.1425L28 38.4337V34.5351L33.5547 30.832C33.833 30.6465 34 30.3344 34 30V23H32V29.4648L26.9595 32.8252L21 29.4198V20.5742L26 17.6577V26H28V16.4911L32.1133 14.0918L40 16.7207V45.4338L25.4853 54.1426L26.5147 55.8574L40 47.7662V63.2793L32.1133 65.9082ZM53.9639 43.1352C53.7061 43.2353 53.501 43.4375 53.3965 43.6943L49.9883 52.1401L46.918 43.8423C46.8184 43.5722 46.6065 43.3584 46.3379 43.2553L42 41.5971V38.3752L46.0899 36.7881C46.3506 36.687 46.5576 36.4814 46.6592 36.2212L49.957 27.8183L53.1397 35.8862C53.209 36.2524 53.4863 36.5483 53.8399 36.6587L62.1289 39.9834L53.9639 43.1352Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="svc-Amazon-Bedrock-AgentCore__clip0_211_73">
+<rect width="80" height="80" fill="white"/>
+</clipPath>
+</defs></symbol><symbol id="svc-AWS-Lambda" viewBox="0 0 80 80"><g id="svc-AWS-Lambda__Icon-Architecture_64_Arch_AWS-Lambda_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-AWS-Lambda__Icon-Architecture-BG_64_Compute" fill="#ED7100">
+            <rect id="svc-AWS-Lambda__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <path d="M28.0075352,66 L15.5907274,66 L29.3235885,37.296 L35.5460249,50.106 L28.0075352,66 Z M30.2196674,34.553 C30.0512768,34.208 29.7004629,33.989 29.3175745,33.989 L29.3145676,33.989 C28.9286723,33.99 28.5778583,34.211 28.4124746,34.558 L13.097944,66.569 C12.9495999,66.879 12.9706487,67.243 13.1550766,67.534 C13.3374998,67.824 13.6582439,68 14.0020416,68 L28.6420072,68 C29.0299071,68 29.3817234,67.777 29.5481094,67.428 L37.563706,50.528 C37.693006,50.254 37.6920037,49.937 37.5586944,49.665 L30.2196674,34.553 Z M64.9953491,66 L52.6587274,66 L32.866809,24.57 C32.7014253,24.222 32.3486067,24 31.9617091,24 L23.8899822,24 L23.8990031,14 L39.7197081,14 L59.4204149,55.429 C59.5857986,55.777 59.9386172,56 60.3255148,56 L64.9953491,56 L64.9953491,66 Z M65.9976745,54 L60.9599868,54 L41.25928,12.571 C41.0938963,12.223 40.7410777,12 40.3531778,12 L22.89768,12 C22.3453987,12 21.8963569,12.447 21.8953545,12.999 L21.884329,24.999 C21.884329,25.265 21.9885708,25.519 22.1780103,25.707 C22.3654452,25.895 22.6200358,26 22.8866544,26 L31.3292417,26 L51.1221625,67.43 C51.2885485,67.778 51.6393624,68 52.02626,68 L65.9976745,68 C66.5519605,68 67,67.552 67,67 L67,55 C67,54.448 66.5519605,54 65.9976745,54 L65.9976745,54 Z" id="svc-AWS-Lambda__AWS-Lambda_Icon_64_Squid" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="svc-Amazon-Bedrock" viewBox="0 0 80 80"><g id="svc-Amazon-Bedrock__Icon-Architecture_64_Arch_Amazon-Bedrock_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-Bedrock__Icon-Architecture-BG_64_Machine-Learning" fill="#01A88D">
+            <rect id="svc-Amazon-Bedrock__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-Amazon-Bedrock__Icon-Service_64_Amazon-Bedrock_64" transform="translate(12.000000, 12.000000)" fill="#FFFFFF">
+            <path d="M52,26.9998918 C50.897,26.9998918 50,26.1028918 50,24.9998918 C50,23.8968918 50.897,22.9998918 52,22.9998918 C53.103,22.9998918 54,23.8968918 54,24.9998918 C54,26.1028918 53.103,26.9998918 52,26.9998918 L52,26.9998918 Z M20.113,53.9078918 L16.865,52.0138918 L23.53,47.8478918 L22.47,46.1518918 L14.913,50.8748918 L9,47.4258918 L9,38.5348918 L14.555,34.8318918 L13.445,33.1678918 L7.959,36.8248918 L2,33.4198918 L2,28.5798918 L8.496,24.8678918 L7.504,23.1318918 L2,26.2768918 L2,22.5798918 L8,19.1518918 L14,22.5798918 L14,26.4338918 L9.485,29.1428918 L10.515,30.8568918 L15,28.1658918 L19.485,30.8568918 L20.515,29.1428918 L16,26.4338918 L16,22.5348918 L21.555,18.8318918 C21.833,18.6458918 22,18.3338918 22,17.9998918 L22,10.9998918 L20,10.9998918 L20,17.4648918 L14.959,20.8248918 L9,17.4198918 L9,8.57389181 L14,5.65789181 L14,13.9998918 L16,13.9998918 L16,4.49089181 L20.113,2.09189181 L28,4.72089181 L28,33.4338918 L13.485,42.1428918 L14.515,43.8568918 L28,35.7658918 L28,51.2788918 L20.113,53.9078918 Z M50,37.9998918 C50,39.1028918 49.103,39.9998918 48,39.9998918 C46.897,39.9998918 46,39.1028918 46,37.9998918 C46,36.8968918 46.897,35.9998918 48,35.9998918 C49.103,35.9998918 50,36.8968918 50,37.9998918 L50,37.9998918 Z M40,47.9998918 C40,49.1028918 39.103,49.9998918 38,49.9998918 C36.897,49.9998918 36,49.1028918 36,47.9998918 C36,46.8968918 36.897,45.9998918 38,45.9998918 C39.103,45.9998918 40,46.8968918 40,47.9998918 L40,47.9998918 Z M39,7.99989181 C39,6.89689181 39.897,5.99989181 41,5.99989181 C42.103,5.99989181 43,6.89689181 43,7.99989181 C43,9.10289181 42.103,9.99989181 41,9.99989181 C39.897,9.99989181 39,9.10289181 39,7.99989181 L39,7.99989181 Z M52,20.9998918 C50.141,20.9998918 48.589,22.2798918 48.142,23.9998918 L30,23.9998918 L30,18.9998918 L41,18.9998918 C41.553,18.9998918 42,18.5518918 42,17.9998918 L42,11.8578918 C43.72,11.4108918 45,9.85789181 45,7.99989181 C45,5.79389181 43.206,3.99989181 41,3.99989181 C38.794,3.99989181 37,5.79389181 37,7.99989181 C37,9.85789181 38.28,11.4108918 40,11.8578918 L40,16.9998918 L30,16.9998918 L30,3.99989181 C30,3.56889181 29.725,3.18789181 29.316,3.05089181 L20.316,0.050891811 C20.042,-0.039108189 19.744,-0.00910818904 19.496,0.135891811 L7.496,7.13589181 C7.188,7.31489181 7,7.64489181 7,7.99989181 L7,17.4198918 L0.504,21.1318918 C0.192,21.3098918 0,21.6408918 0,21.9998918 L0,33.9998918 C0,34.3588918 0.192,34.6898918 0.504,34.8678918 L7,38.5798918 L7,47.9998918 C7,48.3548918 7.188,48.6848918 7.496,48.8638918 L19.496,55.8638918 C19.65,55.9538918 19.825,55.9998918 20,55.9998918 C20.106,55.9998918 20.213,55.9828918 20.316,55.9488918 L29.316,52.9488918 C29.725,52.8118918 30,52.4308918 30,51.9998918 L30,39.9998918 L37,39.9998918 L37,44.1418918 C35.28,44.5888918 34,46.1418918 34,47.9998918 C34,50.2058918 35.794,51.9998918 38,51.9998918 C40.206,51.9998918 42,50.2058918 42,47.9998918 C42,46.1418918 40.72,44.5888918 39,44.1418918 L39,38.9998918 C39,38.4478918 38.553,37.9998918 38,37.9998918 L30,37.9998918 L30,32.9998918 L42.5,32.9998918 L44.638,35.8498918 C44.239,36.4718918 44,37.2068918 44,37.9998918 C44,40.2058918 45.794,41.9998918 48,41.9998918 C50.206,41.9998918 52,40.2058918 52,37.9998918 C52,35.7938918 50.206,33.9998918 48,33.9998918 C47.316,33.9998918 46.682,34.1878918 46.119,34.4918918 L43.8,31.3998918 C43.611,31.1478918 43.314,30.9998918 43,30.9998918 L30,30.9998918 L30,25.9998918 L48.142,25.9998918 C48.589,27.7198918 50.141,28.9998918 52,28.9998918 C54.206,28.9998918 56,27.2058918 56,24.9998918 C56,22.7938918 54.206,20.9998918 52,20.9998918 L52,20.9998918 Z" id="svc-Amazon-Bedrock__Fill-1"></path>
+        </g>
+    </g></symbol><symbol id="svc-Amazon-Simple-Queue-Service" viewBox="0 0 80 80"><g id="svc-Amazon-Simple-Queue-Service__Icon-Architecture_64_Arch_Amazon-Simple-Queue-Service_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-Simple-Queue-Service__Icon-Architecture-BG_64_Application-Integration" fill="#E7157B">
+            <rect id="svc-Amazon-Simple-Queue-Service__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <path d="M28.7169966,43.6876756 L31.7189265,40.721826 C31.9070474,40.5359011 32.0131156,40.2833614 32.0141233,40.019885 C32.0151169,39.7564086 31.9100493,39.5028747 31.722929,39.3159556 L28.7209992,36.3163014 L27.3020871,37.7181948 L28.5899149,39.0057494 L24.0089701,39.0057494 L24.0089701,40.9942506 L28.6059252,40.9942506 L27.3060896,42.2778282 L28.7169966,43.6876756 Z M51.627725,43.7781524 L55.630298,40.793412 C55.8804589,40.6054986 56.0295547,40.3112004 56.0295547,39.9990057 C56.0295547,39.6858168 55.8804589,39.3905244 55.6292974,39.202611 L51.6267243,36.2218476 L50.4259524,37.8126486 L52.0269816,39.0057494 L48.0244085,39.0057494 L48.0244085,40.9942506 L52.025981,40.9942506 L50.4249518,42.1873514 L51.627725,43.7781524 Z M35.2081695,40 C35.2081695,42.1107941 34.8429347,44.1012839 34.160496,45.8332685 C35.9606533,45.14127 37.9909585,44.7952708 40.0192624,44.7952708 C42.0475663,44.7952708 44.0778715,45.14127 45.8770281,45.8332685 C45.19559,44.1012839 44.8303552,42.1107941 44.8303552,40 C44.8303552,37.8892059 45.19559,35.8997104 45.8770281,34.1667315 C42.2777142,35.5497341 37.7608105,35.5497341 34.160496,34.1667315 C34.8429347,35.8997104 35.2081695,37.8892059 35.2081695,40 L35.2081695,40 Z M30.3060182,49.6511909 C30.1108927,49.4573121 30.0128297,49.2027839 30.0128297,48.9482557 C30.0128297,48.6937276 30.1108927,48.4391994 30.3060182,48.2453205 C32.1221857,46.4407556 33.206883,43.3575844 33.206883,40 C33.206883,36.6424156 32.1221857,33.5592444 30.3060182,31.7546795 C30.1108927,31.5608006 30.0128297,31.3062724 30.0128297,31.0517443 C30.0128297,30.7972161 30.1108927,30.5426879 30.3060182,30.3488091 C30.6972697,29.9600571 31.3296762,29.9600571 31.7209277,30.3488091 C35.5984204,34.2015303 44.4401044,34.2015303 48.317597,30.3488091 C48.7088485,29.9600571 49.3412551,29.9600571 49.7325066,30.3488091 C49.927632,30.5426879 50.0256951,30.7972161 50.0256951,31.0517443 C50.0256951,31.3062724 49.927632,31.5608006 49.7325066,31.7546795 C47.9163391,33.5592444 46.8316418,36.6424156 46.8316418,40 C46.8316418,43.3575844 47.9163391,46.4407556 49.7325066,48.2453205 C49.927632,48.4391994 50.0256951,48.6937276 50.0256951,48.9482557 C50.0256951,49.2027839 49.927632,49.4573121 49.7325066,49.6511909 C49.5373812,49.8450698 49.2812165,49.9425064 49.0250518,49.9425064 C48.7688871,49.9425064 48.5127225,49.8450698 48.317597,49.6511909 C44.4401044,45.7984697 35.5984204,45.7984697 31.7209277,49.6511909 C31.3296762,50.0399429 30.6972697,50.0399429 30.3060182,49.6511909 L30.3060182,49.6511909 Z M66.0009649,40.0049713 C66.0009649,39.0783297 65.6377314,38.2073661 64.9783075,37.5521549 C64.2978701,36.8750702 63.403295,36.5380193 62.5097205,36.5380193 C61.6161461,36.5380193 60.721571,36.8750702 60.0411336,37.5521549 C58.6792581,38.9043358 58.6792581,41.1046125 60.0411336,42.4577876 C61.4020084,43.8099684 63.6154313,43.8109627 64.9783075,42.4577876 C65.6377314,41.8025764 66.0009649,40.9316128 66.0009649,40.0049713 L66.0009649,40.0049713 Z M66.3932171,43.863658 C65.3225288,44.9275062 63.916625,45.4594303 62.5097205,45.4594303 C61.1028161,45.4594303 59.6969123,44.9275062 58.626224,43.863658 C56.4838468,41.7359616 56.4838468,38.2739809 58.626224,36.1462845 C60.7686012,34.0165997 64.2528411,34.0185882 66.3932171,36.1462845 C68.5355943,38.2739809 68.5355943,41.7359616 66.3932171,43.863658 L66.3932171,43.863658 Z M20.9800229,40.027839 C20.9800229,39.1011974 20.6167894,38.2302339 19.9573654,37.5750227 C19.2979415,36.9198115 18.421378,36.5588985 17.4887785,36.5588985 C16.5571796,36.5588985 15.6806161,36.9198115 15.0201916,37.5750227 C14.3607676,38.2302339 13.9985348,39.1011974 13.9985348,40.027839 C13.9985348,40.9534864 14.3607676,41.8244499 15.0201916,42.4806553 C16.34004,43.7900834 18.6385176,43.7900834 19.9573654,42.4806553 C20.6167894,41.8244499 20.9800229,40.9534864 20.9800229,40.027839 L20.9800229,40.027839 Z M21.372275,43.8865257 C20.3015867,44.9503739 18.8956829,45.482298 17.4887785,45.482298 C16.0828747,45.482298 14.6769709,44.9503739 13.605282,43.8865257 C11.464906,41.7588294 11.464906,38.2968487 13.605282,36.1691523 C15.7476592,34.0414559 19.2308984,34.0414559 21.372275,36.1691523 C23.5136516,38.2968487 23.5136516,41.7588294 21.372275,43.8865257 L21.372275,43.8865257 Z M54.8958259,54.856093 C50.901258,58.8261358 45.5888428,61.0114987 39.9392109,61.0114987 C34.2875777,61.0114987 28.9761632,58.8261358 24.9815953,54.856093 C22.241834,52.134829 20.7338646,48.8826352 19.9513616,46.6346345 L18.0601458,47.2848744 C18.9116932,49.730731 20.5577514,53.273246 23.5666857,56.2619634 C27.9394968,60.607833 33.7532342,63 39.9392109,63 C46.124187,63 51.9379244,60.607833 56.3107355,56.2619634 C58.8373597,53.7534691 60.8496533,50.563913 61.9793796,47.2818917 L60.0861625,46.6376173 C59.0534987,49.6382657 57.2103138,52.5573856 54.8958259,54.856093 L54.8958259,54.856093 Z M19.9503609,33.3663597 L18.0611465,32.7141313 C19.2719248,29.2501621 21.229183,26.0606061 23.5726896,23.7330653 C27.9434994,19.3911728 33.7552355,17 39.9392109,17 C46.1231863,17 51.9349225,19.3911728 56.3047316,23.7330653 C58.7713173,26.1838931 60.8396469,29.4569662 61.9773783,32.7141313 L60.0881638,33.3663597 C59.0444929,30.3836078 57.1502752,27.3849479 54.889822,25.1389357 C50.898256,21.1718757 45.5878422,18.9885013 39.9392109,18.9885013 C34.289579,18.9885013 28.9801658,21.1718757 24.9875992,25.1389357 C22.8542277,27.2596723 21.0650775,30.181775 19.9503609,33.3663597 L19.9503609,33.3663597 Z" id="svc-Amazon-Simple-Queue-Service__AWS-Simple-Queue-Service_Icon_64_Squid" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="gen-User" viewBox="0 0 48 48"><g id="gen-User__Icon-Resource_General-Resource_Res_User_48" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M6.025,44 C6.524,34.085 14.395,26.178 24,26.178 C27.248,26.178 30.43,27.092 33.205,28.822 C38.354,32.033 41.653,37.783 41.974,44 L6.025,44 Z M14.192,13.878 C14.192,8.432 18.592,4 24.001,4 C29.408,4 33.807,8.432 33.807,13.878 C33.807,19.325 29.408,23.757 24.001,23.757 C18.592,23.757 14.192,19.325 14.192,13.878 L14.192,13.878 Z M34.263,27.125 C32.53,26.044 30.65,25.26 28.698,24.771 C32.877,22.939 35.807,18.749 35.807,13.878 C35.807,7.329 30.51,2 24.001,2 C17.489,2 12.192,7.329 12.192,13.878 C12.192,18.755 15.13,22.95 19.317,24.778 C10.545,26.981 4,35.2 4,45 C4,45.552 4.447,46 5,46 L43,46 C43.552,46 44,45.552 44,45 C44,37.719 40.269,30.87 34.263,27.125 L34.263,27.125 Z" id="gen-User__Fill-1" fill="#242F3E"></path>
+    </g></symbol></defs>
+<rect class="bg" width="2170" height="2337"/>
+<text class="title" x="40" y="46">One review run on AgentCore: parallel checks, human decision, policy-gated final decision</text>
+<text class="subtitle" x="40" y="70">Each tool call is authorized by Policy at the Gateway; the run checkpoints while a reviewer decides</text>
+<g class="group"><rect x="238" y="116" width="1694" height="2181" fill="none" stroke="#232F3E" stroke-width="1.25"/>
+<use href="#grp-AWS-Cloud" x="238" y="116" width="32" height="32"/>
+<text class="glabel" x="278" y="137">AWS Cloud</text>
+</g>
+<line class="life" x1="135" y1="276" x2="135" y2="2287"/>
+<line class="life" x1="325" y1="276" x2="325" y2="2287"/>
+<line class="life" x1="515" y1="276" x2="515" y2="2287"/>
+<line class="life" x1="705" y1="276" x2="705" y2="2287"/>
+<line class="life" x1="895" y1="276" x2="895" y2="2287"/>
+<line class="life" x1="1085" y1="276" x2="1085" y2="2287"/>
+<line class="life" x1="1275" y1="276" x2="1275" y2="2287"/>
+<line class="life" x1="1465" y1="276" x2="1465" y2="2287"/>
+<line class="life" x1="1655" y1="276" x2="1655" y2="2287"/>
+<line class="life" x1="1845" y1="276" x2="1845" y2="2287"/>
+<line class="life" x1="2035" y1="276" x2="2035" y2="2287"/>
+<g class="frag"><rect x="423" y="936" width="1324" height="356" fill="none"/><path class="fragtab" d="M423 936 h238 v18 l-8 8 h-230 z"/><text class="fraglabel" x="429" y="950">loop [each check family, in parallel]</text>
+</g>
+<g class="frag"><rect x="423" y="1364" width="1704" height="421" fill="none"/><path class="fragtab" d="M423 1364 h166 v18 l-8 8 h-158 z"/><text class="fraglabel" x="429" y="1378">alt [needs human review]</text>
+<line class="fragelse" x1="423" y1="1682" x2="2127" y2="1682"/><text class="fraglabel" x="429" y="1696">[all pass, high confidence]</text>
+</g>
+<g class="edge" data-from="owner" data-to="s3" data-step="1" data-label="upload document">
+<path class="eline" fill="none" stroke-width="2" d="M135 339 H325" marker-end="url(#arw)"/>
+<text class="elabel" x="230" y="331" text-anchor="middle">upload document</text>
+<g class="badge"><circle cx="135" cy="339" r="11"/><text x="135" y="343.5" text-anchor="middle">1</text></g>
+</g>
+<g class="edge" data-from="s3" data-to="sup" data-step="2" data-label="EventBridge: start run">
+<path class="eline" fill="none" stroke-width="2" d="M325 400 H515" marker-end="url(#arw)"/>
+<circle class="asyncdot" cx="325" cy="400" r="3.5"/>
+<text class="elabel" x="420" y="378" text-anchor="middle">EventBridge: start</text>
+<text class="elabel" x="420" y="392" text-anchor="middle">run</text>
+<g class="badge"><circle cx="325" cy="400" r="11"/><text x="325" y="404.5" text-anchor="middle">2</text></g>
+</g>
+<g class="edge" data-from="sup" data-to="mem" data-step="3" data-label="load run state + feedback">
+<path class="eline" fill="none" stroke-width="2" d="M515 468 H705" marker-end="url(#arw)"/>
+<text class="elabel" x="610" y="446" text-anchor="middle">load run state +</text>
+<text class="elabel" x="610" y="460" text-anchor="middle">feedback</text>
+<g class="badge"><circle cx="515" cy="468" r="11"/><text x="515" y="472.5" text-anchor="middle">3</text></g>
+</g>
+<g class="edge" data-from="mem" data-to="sup" data-step="4" data-label="context">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M705 529 H515" marker-end="url(#arw)"/>
+<text class="elabel" x="610" y="521" text-anchor="middle">context</text>
+</g>
+<g class="edge" data-from="sup" data-to="gw" data-step="4" data-label="get_document_text (MCP)">
+<path class="eline" fill="none" stroke-width="2" d="M515 583 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="800" y="575" text-anchor="middle">get_document_text (MCP)</text>
+<g class="badge"><circle cx="515" cy="583" r="11"/><text x="515" y="587.5" text-anchor="middle">4</text></g>
+</g>
+<g class="edge" data-from="gw" data-to="pol" data-step="5" data-label="authorize call">
+<path class="eline" fill="none" stroke-width="2" d="M1085 637 H1275" marker-end="url(#arw)"/>
+<text class="elabel" x="1180" y="629" text-anchor="middle">authorize call</text>
+<g class="badge"><circle cx="1085" cy="637" r="11"/><text x="1085" y="641.5" text-anchor="middle">5</text></g>
+</g>
+<g class="edge" data-from="pol" data-to="gw" data-step="6" data-label="permit">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 691 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="1180" y="683" text-anchor="middle">permit</text>
+</g>
+<g class="edge" data-from="gw" data-to="tools" data-step="6" data-label="invoke Textract target">
+<path class="eline" fill="none" stroke-width="2" d="M1085 745 H1465" marker-end="url(#arw)"/>
+<text class="elabel" x="1275" y="737" text-anchor="middle">invoke Textract target</text>
+<g class="badge"><circle cx="1085" cy="745" r="11"/><text x="1085" y="749.5" text-anchor="middle">6</text></g>
+</g>
+<g class="edge" data-from="tools" data-to="gw" data-step="7" data-label="structured text">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1465 799 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="1275" y="791" text-anchor="middle">structured text</text>
+</g>
+<g class="edge" data-from="gw" data-to="sup" data-step="7" data-label="document text">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1085 853 H515" marker-end="url(#arw)"/>
+<text class="elabel" x="800" y="845" text-anchor="middle">document text</text>
+</g>
+<g class="edge" data-from="sup" data-to="chk" data-step="7" data-label="delegate check family (A2A)">
+<path class="eline" fill="none" stroke-width="2" d="M515 907 H895" marker-end="url(#arw)"/>
+<text class="elabel" x="705" y="899" text-anchor="middle">delegate check family (A2A)</text>
+<g class="badge"><circle cx="515" cy="907" r="11"/><text x="515" y="911.5" text-anchor="middle">7</text></g>
+</g>
+<g class="edge" data-from="chk" data-to="gw" data-step="8" data-label="search_policy_library">
+<path class="eline" fill="none" stroke-width="2" d="M895 983 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="990" y="975" text-anchor="middle">search_policy_library</text>
+<g class="badge"><circle cx="895" cy="983" r="11"/><text x="895" y="987.5" text-anchor="middle">8</text></g>
+</g>
+<g class="edge" data-from="gw" data-to="chk" data-step="9" data-label="criteria + passages">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1085 1044 H895" marker-end="url(#arw)"/>
+<text class="elabel" x="990" y="1022" text-anchor="middle">criteria +</text>
+<text class="elabel" x="990" y="1036" text-anchor="middle">passages</text>
+</g>
+<g class="edge" data-from="chk" data-to="fm" data-step="9" data-label="judge each check, cite spans">
+<path class="eline" fill="none" stroke-width="2" d="M895 1105 H1655" marker-end="url(#arw)"/>
+<text class="elabel" x="1275" y="1097" text-anchor="middle">judge each check, cite spans</text>
+<g class="badge"><circle cx="895" cy="1105" r="11"/><text x="895" y="1109.5" text-anchor="middle">9</text></g>
+</g>
+<g class="edge" data-from="fm" data-to="chk" data-step="10" data-label="verdicts + confidence">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1655 1159 H895" marker-end="url(#arw)"/>
+<text class="elabel" x="1275" y="1151" text-anchor="middle">verdicts + confidence</text>
+</g>
+<g class="edge" data-from="chk" data-to="gw" data-step="10" data-label="record_verdict">
+<path class="eline" fill="none" stroke-width="2" d="M895 1213 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="990" y="1205" text-anchor="middle">record_verdict</text>
+<g class="badge"><circle cx="895" cy="1213" r="11"/><text x="895" y="1217.5" text-anchor="middle">10</text></g>
+</g>
+<g class="edge" data-from="chk" data-to="sup" data-step="11" data-label="family results">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M895 1267 H515" marker-end="url(#arw)"/>
+<text class="elabel" x="705" y="1259" text-anchor="middle">family results</text>
+</g>
+<g class="edge" data-from="sup" data-to="sup" data-step="11" data-label="any fail or low confidence?">
+<path class="eline" fill="none" stroke-width="2" d="M515 1316 h40 v24 h-40" marker-end="url(#arw)"/>
+<text class="elabel" x="565" y="1325">any fail or low</text>
+<text class="elabel" x="565" y="1339">confidence?</text>
+<g class="badge"><circle cx="537" cy="1316" r="11"/><text x="537" y="1320.5" text-anchor="middle">11</text></g>
+</g>
+<g class="edge" data-from="sup" data-to="gw" data-step="12" data-label="request_human_review">
+<path class="eline" fill="none" stroke-width="2" d="M515 1411 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="800" y="1403" text-anchor="middle">request_human_review</text>
+<g class="badge"><circle cx="515" cy="1411" r="11"/><text x="515" y="1415.5" text-anchor="middle">12</text></g>
+</g>
+<g class="edge" data-from="gw" data-to="q" data-step="13" data-label="task + cited evidence">
+<path class="eline" fill="none" stroke-width="2" d="M1085 1465 H1845" marker-end="url(#arw)"/>
+<circle class="asyncdot" cx="1085" cy="1465" r="3.5"/>
+<text class="elabel" x="1465" y="1457" text-anchor="middle">task + cited evidence</text>
+<g class="badge"><circle cx="1085" cy="1465" r="11"/><text x="1085" y="1469.5" text-anchor="middle">13</text></g>
+</g>
+<g class="edge" data-from="sup" data-to="mem" data-step="14" data-label="checkpoint, end session">
+<path class="eline" fill="none" stroke-width="2" d="M515 1526 H705" marker-end="url(#arw)"/>
+<text class="elabel" x="610" y="1504" text-anchor="middle">checkpoint, end</text>
+<text class="elabel" x="610" y="1518" text-anchor="middle">session</text>
+<g class="badge"><circle cx="515" cy="1526" r="11"/><text x="515" y="1530.5" text-anchor="middle">14</text></g>
+</g>
+<g class="edge" data-from="reviewer" data-to="q" data-step="15" data-label="confirm or override">
+<path class="eline" fill="none" stroke-width="2" d="M2035 1594 H1845" marker-end="url(#arw)"/>
+<text class="elabel" x="1940" y="1572" text-anchor="middle">confirm or</text>
+<text class="elabel" x="1940" y="1586" text-anchor="middle">override</text>
+<g class="badge"><circle cx="2035" cy="1594" r="11"/><text x="2035" y="1598.5" text-anchor="middle">15</text></g>
+</g>
+<g class="edge" data-from="q" data-to="sup" data-step="16" data-label="decisions: resume run">
+<path class="eline" fill="none" stroke-width="2" d="M1845 1655 H515" marker-end="url(#arw)"/>
+<circle class="asyncdot" cx="1845" cy="1655" r="3.5"/>
+<text class="elabel" x="1180" y="1647" text-anchor="middle">decisions: resume run</text>
+<g class="badge"><circle cx="1845" cy="1655" r="11"/><text x="1845" y="1659.5" text-anchor="middle">16</text></g>
+</g>
+<g class="note"><rect x="435" y="1710" width="160" height="71"/><text x="515" y="1728" text-anchor="middle">All checks pass with high</text><text x="515" y="1743" text-anchor="middle">confidence: no review needed,</text><text x="515" y="1758" text-anchor="middle">continue to the final decision.</text></g>
+<g class="note"><rect x="1045" y="1793" width="270" height="116"/><text x="1180" y="1811" text-anchor="middle">Policy rule (temporal):</text><text x="1180" y="1826" text-anchor="middle">record_final_decision is forbidden</text><text x="1180" y="1841" text-anchor="middle">when any check failed unless a</text><text x="1180" y="1856" text-anchor="middle">reviewer approval exists for this</text><text x="1180" y="1871" text-anchor="middle">run. The agent cannot talk its way</text><text x="1180" y="1886" text-anchor="middle">past it.</text></g>
+<g class="edge" data-from="sup" data-to="gw" data-step="17" data-label="record_final_decision">
+<path class="eline" fill="none" stroke-width="2" d="M515 1942 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="800" y="1934" text-anchor="middle">record_final_decision</text>
+<g class="badge"><circle cx="515" cy="1942" r="11"/><text x="515" y="1946.5" text-anchor="middle">17</text></g>
+</g>
+<g class="edge" data-from="gw" data-to="pol" data-step="18" data-label="authorize (approval?)">
+<path class="eline" fill="none" stroke-width="2" d="M1085 2003 H1275" marker-end="url(#arw)"/>
+<text class="elabel" x="1180" y="1981" text-anchor="middle">authorize</text>
+<text class="elabel" x="1180" y="1995" text-anchor="middle">(approval?)</text>
+<g class="badge"><circle cx="1085" cy="2003" r="11"/><text x="1085" y="2007.5" text-anchor="middle">18</text></g>
+</g>
+<g class="edge" data-from="pol" data-to="gw" data-step="19" data-label="permit">
+<path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 2064 H1085" marker-end="url(#arw)"/>
+<text class="elabel" x="1180" y="2056" text-anchor="middle">permit</text>
+</g>
+<g class="edge" data-from="gw" data-to="tools" data-step="19" data-label="write decision + audit record">
+<path class="eline" fill="none" stroke-width="2" d="M1085 2118 H1465" marker-end="url(#arw)"/>
+<text class="elabel" x="1275" y="2110" text-anchor="middle">write decision + audit record</text>
+<g class="badge"><circle cx="1085" cy="2118" r="11"/><text x="1085" y="2122.5" text-anchor="middle">19</text></g>
+</g>
+<g class="edge" data-from="sup" data-to="mem" data-step="20" data-label="store feedback for evaluation">
+<path class="eline" fill="none" stroke-width="2" d="M515 2179 H705" marker-end="url(#arw)"/>
+<text class="elabel" x="610" y="2157" text-anchor="middle">store feedback for</text>
+<text class="elabel" x="610" y="2171" text-anchor="middle">evaluation</text>
+<g class="badge"><circle cx="515" cy="2179" r="11"/><text x="515" y="2183.5" text-anchor="middle">20</text></g>
+</g>
+<g class="edge" data-from="sup" data-to="owner" data-step="21" data-label="report + decisions">
+<path class="eline" fill="none" stroke-width="2" d="M515 2240 H135" marker-end="url(#arw)"/>
+<circle class="asyncdot" cx="515" cy="2240" r="3.5"/>
+<text class="elabel" x="325" y="2232" text-anchor="middle">report + decisions</text>
+<g class="badge"><circle cx="515" cy="2240" r="11"/><text x="515" y="2244.5" text-anchor="middle">21</text></g>
+</g>
+<g class="node" data-id="owner" data-label="Document owner" data-service="Users" data-category="General"><title>Document owner (Users)</title><use href="#gen-Users" x="103" y="164" width="64" height="64"/>
+<text class="nlabel" x="135" y="245" text-anchor="middle">Document owner</text>
+</g>
+<g class="node" data-id="s3" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title><use href="#svc-Amazon-Simple-Storage-Service" x="293" y="164" width="64" height="64"/>
+<text class="nlabel" x="325" y="245" text-anchor="middle">Amazon S3</text>
+<text class="nsub" x="325" y="259" text-anchor="middle">intake + EventBridge</text>
+</g>
+<g class="node" data-id="sup" data-label="Supervisor agent" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>Supervisor agent (Amazon Bedrock AgentCore)</title><use href="#svc-Amazon-Bedrock-AgentCore" x="483" y="164" width="64" height="64"/>
+<text class="nlabel" x="515" y="245" text-anchor="middle">Supervisor agent</text>
+<text class="nsub" x="515" y="259" text-anchor="middle">AgentCore Runtime</text>
+</g>
+<g class="node" data-id="mem" data-label="AgentCore Memory" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>AgentCore Memory (Amazon Bedrock AgentCore)</title><use href="#svc-Amazon-Bedrock-AgentCore" x="673" y="164" width="64" height="64"/>
+<text class="nlabel" x="705" y="245" text-anchor="middle">AgentCore Memory</text>
+</g>
+<g class="node" data-id="chk" data-label="Check-family agent" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>Check-family agent (Amazon Bedrock AgentCore)</title><use href="#svc-Amazon-Bedrock-AgentCore" x="863" y="164" width="64" height="64"/>
+<text class="nlabel" x="895" y="245" text-anchor="middle">Check-family agent</text>
+<text class="nsub" x="895" y="259" text-anchor="middle">AgentCore Runtime, A2A</text>
+</g>
+<g class="node" data-id="gw" data-label="AgentCore Gateway" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>AgentCore Gateway (Amazon Bedrock AgentCore)</title><use href="#svc-Amazon-Bedrock-AgentCore" x="1053" y="164" width="64" height="64"/>
+<text class="nlabel" x="1085" y="245" text-anchor="middle">AgentCore Gateway</text>
+</g>
+<g class="node" data-id="pol" data-label="AgentCore Policy" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>AgentCore Policy (Amazon Bedrock AgentCore)</title><use href="#svc-Amazon-Bedrock-AgentCore" x="1243" y="164" width="64" height="64"/>
+<text class="nlabel" x="1275" y="245" text-anchor="middle">AgentCore Policy</text>
+<text class="nsub" x="1275" y="259" text-anchor="middle">Cedar</text>
+</g>
+<g class="node" data-id="tools" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title><use href="#svc-AWS-Lambda" x="1433" y="164" width="64" height="64"/>
+<text class="nlabel" x="1465" y="245" text-anchor="middle">AWS Lambda</text>
+<text class="nsub" x="1465" y="259" text-anchor="middle">tool targets</text>
+</g>
+<g class="node" data-id="fm" data-label="Amazon Bedrock" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Amazon Bedrock (Amazon Bedrock)</title><use href="#svc-Amazon-Bedrock" x="1623" y="164" width="64" height="64"/>
+<text class="nlabel" x="1655" y="245" text-anchor="middle">Amazon Bedrock</text>
+<text class="nsub" x="1655" y="259" text-anchor="middle">with Guardrails</text>
+</g>
+<g class="node" data-id="q" data-label="Amazon SQS" data-service="Amazon Simple Queue Service" data-category="Application-Integration"><title>Amazon SQS (Amazon Simple Queue Service)</title><use href="#svc-Amazon-Simple-Queue-Service" x="1813" y="164" width="64" height="64"/>
+<text class="nlabel" x="1845" y="245" text-anchor="middle">Amazon SQS</text>
+<text class="nsub" x="1845" y="259" text-anchor="middle">review queue</text>
+</g>
+<g class="node" data-id="reviewer" data-label="Compliance reviewer" data-service="User" data-category="General"><title>Compliance reviewer (User)</title><use href="#gen-User" x="2003" y="164" width="64" height="64"/>
+<text class="nlabel" x="2035" y="245" text-anchor="middle">Compliance</text>
+<text class="nlabel" x="2035" y="259" text-anchor="middle">reviewer</text>
+</g>
+</svg>

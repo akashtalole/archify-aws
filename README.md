@@ -11,6 +11,8 @@ explorable HTML (plus SVG/PNG) and a receipt of what was checked.
 
 Compliance review assistant (100 checks + human in the loop): [architecture](examples/compliance/out/architecture.png) · [one review run](examples/compliance/out/review-run.png) · [check-library lifecycle](examples/compliance/out/lifecycle.png)
 
+Compliance review assistant on AgentCore (supervisor + check-family agents, Gateway + Policy, checkpoint-and-resume human review): [architecture](examples/compliance-agentcore/out/architecture.png) · [one review run](examples/compliance-agentcore/out/review-run.png) · [how it differs from the Step Functions design](examples/compliance-agentcore/README.md)
+
 Healthcare enterprise agentic platform (examples): [platform](examples/out/healthcare-agentic-platform.png) ·
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)

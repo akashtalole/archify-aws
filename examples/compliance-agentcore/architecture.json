@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "title": "Compliance review assistant on Amazon Bedrock AgentCore",
+    "subtitle": "A supervisor agent delegates check families to specialist agents; every tool call passes Gateway and Policy; flagged checks wait for a human, and the final decision is blocked until a reviewer has approved",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/compliance-agentcore/out/architecture.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 60,
+    "children": [
+      {
+        "id": "owners",
+        "icon": "gen:users",
+        "label": "Document owners"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 60,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 50,
+            "children": [
+              {
+                "id": "cognito",
+                "icon": "cognito",
+                "label": "Amazon Cognito",
+                "sublabel": "federates the corporate IdP"
+              },
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway"
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 90,
+            "children": [
+              {
+                "id": "intake",
+                "kind": "generic",
+                "label": "Intake",
+                "layout": "column",
+                "gap": 50,
+                "children": [
+                  {
+                    "id": "s3in",
+                    "icon": "simple-storage-service",
+                    "label": "Amazon S3",
+                    "sublabel": "document intake"
+                  },
+                  {
+                    "id": "eb",
+                    "icon": "eventbridge",
+                    "label": "Amazon EventBridge",
+                    "sublabel": "upload rule starts a run"
+                  }
+                ]
+              },
+              {
+                "id": "platform",
+                "kind": "custom",
+                "icon": "bedrock-agentcore",
+                "label": "Amazon Bedrock AgentCore",
+                "layout": "grid",
+                "columns": 2,
+                "gap": 40,
+                "align": "start",
+                "children": [
+                  {
+                    "id": "g-agents",
+                    "kind": "generic",
+                    "label": "Agents on Runtime",
+                    "layout": "row",
+                    "gap": 44,
+                    "children": [
+                      {
+                        "id": "sup",
+                        "icon": "bedrock-agentcore",
+                        "label": "Supervisor agent",
+                        "sublabel": "plans and tracks the run"
+                      },
+                      {
+                        "id": "chk",
+                        "icon": "bedrock-agentcore",
+                        "label": "Check-family agents",
+                        "sublabel": "A2A, run in parallel"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "g-tools",
+                    "kind": "generic",
+                    "label": "Governed tool access",
+                    "layout": "row",
+                    "gap": 44,
+                    "children": [
+                      {
+                        "id": "gw",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Gateway",
+                        "sublabel": "MCP tools"
+                      },
+                      {
+                        "id": "pol",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Policy",
+                        "sublabel": "Cedar, temporal rules"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "g-ctx",
+                    "kind": "generic",
+                    "label": "Identity, memory, sandbox",
+                    "layout": "row",
+                    "gap": 44,
+                    "children": [
+                      {
+                        "id": "idn",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Identity",
+                        "sublabel": "user and agent identity"
+                      },
+                      {
+                        "id": "mem",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Memory",
+                        "sublabel": "run state, reviewer feedback"
+                      },
+                      {
+                        "id": "ci",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Code Interpreter",
+                        "sublabel": "date and table math"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "g-q",
+                    "kind": "generic",
+                    "label": "Observe and improve",
+                    "layout": "row",
+                    "gap": 44,
+                    "children": [
+                      {
+                        "id": "obs",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Observability",
+                        "sublabel": "OpenTelemetry traces to CloudWatch"
+                      },
+                      {
+                        "id": "ev",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Evaluations",
+                        "sublabel": "golden-set quality"
+                      },
+                      {
+                        "id": "reg",
+                        "icon": "bedrock-agentcore",
+                        "label": "AgentCore Registry",
+                        "sublabel": "approved check library"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "right",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 36,
+                "children": [
+                  {
+                    "id": "models",
+                    "kind": "custom",
+                    "icon": "bedrock",
+                    "label": "Models",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "fm",
+                        "icon": "bedrock",
+                        "label": "Amazon Bedrock",
+                        "sublabel": "judge with citations"
+                      },
+                      {
+                        "id": "guard",
+                        "icon": "bedrock",
+                        "label": "Bedrock Guardrails",
+                        "sublabel": "grounding, PII, safety"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "data",
+                    "kind": "generic",
+                    "label": "Tool targets behind Gateway",
+                    "layout": "grid",
+                    "columns": 2,
+                    "gap": 44,
+                    "children": [
+                      {
+                        "id": "tx",
+                        "icon": "textract",
+                        "label": "Amazon Textract",
+                        "sublabel": "text, tables, forms"
+                      },
+                      {
+                        "id": "kb",
+                        "icon": "opensearch-service",
+                        "label": "Amazon OpenSearch Service",
+                        "sublabel": "policy library"
+                      },
+                      {
+                        "id": "ddb",
+                        "icon": "dynamodb",
+                        "label": "Amazon DynamoDB",
+                        "sublabel": "verdicts, run state"
+                      },
+                      {
+                        "id": "evid",
+                        "icon": "simple-storage-service",
+                        "label": "Amazon S3",
+                        "sublabel": "audit evidence (Object Lock)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "review",
+                    "kind": "generic",
+                    "label": "Human review",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "wb",
+                        "icon": "amplify",
+                        "label": "Reviewer workbench",
+                        "sublabel": "flagged checks + evidence"
+                      },
+                      {
+                        "id": "q",
+                        "icon": "simple-queue-service",
+                        "label": "Amazon SQS",
+                        "sublabel": "review queue"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ops",
+                    "kind": "generic-dashed",
+                    "label": "Security and observability",
+                    "layout": "row",
+                    "gap": 50,
+                    "children": [
+                      {
+                        "id": "cw",
+                        "icon": "cloudwatch",
+                        "label": "Amazon CloudWatch",
+                        "sublabel": "traces, policy decisions"
+                      },
+                      {
+                        "id": "ct",
+                        "icon": "cloudtrail",
+                        "label": "AWS CloudTrail"
+                      },
+                      {
+                        "id": "kms",
+                        "icon": "key-management-service",
+                        "label": "AWS KMS"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reviewers",
+        "icon": "gen:users",
+        "label": "Compliance reviewers"
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "owners",
+      "to": "apigw",
+      "step": 1,
+      "label": "upload",
+      "desc": "An owner signs in through the corporate IdP and uploads a document with the check set to apply."
+    },
+    {
+      "from": "waf",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "cognito",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "authorizer"
+    },
+    {
+      "from": "apigw",
+      "to": "intake",
+      "step": 2,
+      "label": "presigned upload",
+      "desc": "The document lands in the KMS-encrypted intake bucket."
+    },
+    {
+      "from": "intake",
+      "to": "platform",
+      "step": 3,
+      "label": "invoke agent",
+      "desc": "An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id."
+    },
+    {
+      "from": "sup",
+      "to": "chk",
+      "step": 4,
+      "label": "delegate (A2A)",
+      "desc": "The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel."
+    },
+    {
+      "from": "chk",
+      "to": "gw",
+      "step": 5,
+      "label": "tool calls (MCP)",
+      "desc": "Agents reach every tool through Gateway; nothing is called directly."
+    },
+    {
+      "from": "pol",
+      "to": "gw",
+      "style": "dashed",
+      "label": "authorize each call"
+    },
+    {
+      "from": "platform",
+      "to": "models",
+      "step": 6,
+      "label": "invoke",
+      "desc": "Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output."
+    },
+    {
+      "from": "platform",
+      "to": "data",
+      "step": 7,
+      "label": "MCP targets",
+      "desc": "Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket."
+    },
+    {
+      "from": "platform",
+      "to": "review",
+      "step": 8,
+      "label": "flag + resume",
+      "desc": "Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.",
+      "arrow": "both"
+    },
+    {
+      "from": "review",
+      "to": "reviewers",
+      "step": 9,
+      "arrow": "both",
+      "label": "task and decision"
+    }
+  ]
+}

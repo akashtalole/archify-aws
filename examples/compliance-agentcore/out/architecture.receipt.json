@@ -4,18 +4,18 @@
   "version": "0.1.0",
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
-    "path": "examples/agent-tool-call.sequence.json",
-    "sha256": "d820972408aee25108a3d413fb26aaf4cfd692b0146d63b21d952356b692f586"
+    "path": "examples/compliance-agentcore/architecture.json",
+    "sha256": "1a25e70bdb02260a8300dcff718df2e92f55a6e532f267c3109562c2c9282a04"
   },
   "stages": [
     {
       "name": "validate",
       "status": "pass",
       "detail": {
-        "type": "sequence",
-        "nodes": 8,
-        "groups": 1,
-        "edges": 15
+        "type": "architecture",
+        "nodes": 28,
+        "groups": 12,
+        "edges": 12
       }
     },
     {
@@ -39,8 +39,8 @@
         "minFontPx": 10.5,
         "overflowX": 0,
         "consoleErrors": 0,
-        "viewerNodes": 8,
-        "viewerEdges": 15
+        "viewerNodes": 28,
+        "viewerEdges": 12
       }
     },
     {
@@ -51,51 +51,51 @@
   ],
   "outputs": {
     "html": {
-      "path": "examples/out/agent-tool-call.html",
-      "sha256": "b090e975ceee1c75ec1d4581366ef0b26bc2e6bd5dd3c960131be3972450e161",
-      "bytes": 59305
+      "path": "examples/compliance-agentcore/out/architecture.html",
+      "sha256": "ac4b5a26b39e65974b4c316823df14dc852026823cf0ca9146979da7d66a234f",
+      "bytes": 117945
     },
     "svg": {
-      "path": "examples/out/agent-tool-call.svg",
-      "sha256": "bb056576af237e7593e7076bd46e77b8d4aae3c89fc4403d68af372661622bf3"
+      "path": "examples/compliance-agentcore/out/architecture.svg",
+      "sha256": "6448b20f4637b0e4f5889573c9bccd4cd264a64b41575dfaf60d708b05fd0497"
     },
     "png": {
-      "path": "examples/out/agent-tool-call.png",
-      "sha256": "e0ead59e620dcb4bb59a654e9f89ec79c939b99071acf52da8ec11df21acb5ed"
+      "path": "examples/compliance-agentcore/out/architecture.png",
+      "sha256": "371d822cedbd3bf495509129160ecf86533e6bf766e187b64a2faeecb2239adc"
     }
   },
   "summary": {
-    "type": "sequence",
-    "nodes": 8,
-    "groups": 1,
-    "edges": 15,
+    "type": "architecture",
+    "nodes": 28,
+    "groups": 12,
+    "edges": 12,
     "size": {
-      "width": 1600,
-      "height": 1381
+      "width": 2834,
+      "height": 1300
     }
   },
   "review": {
     "advisory": true,
     "summary": {
       "operational-excellence": {
-        "gap": 2,
+        "gap": 0,
         "consider": 1,
-        "ok": 0
+        "ok": 2
       },
       "security": {
-        "gap": 1,
-        "consider": 3,
-        "ok": 1
+        "gap": 0,
+        "consider": 1,
+        "ok": 6
       },
       "reliability": {
         "gap": 0,
-        "consider": 1,
+        "consider": 2,
         "ok": 0
       },
       "performance-efficiency": {
         "gap": 0,
-        "consider": 2,
-        "ok": 0
+        "consider": 1,
+        "ok": 1
       },
       "cost-optimization": {
         "gap": 0,
@@ -104,26 +104,19 @@
       },
       "sustainability": {
         "gap": 0,
-        "consider": 2,
-        "ok": 0
+        "consider": 1,
+        "ok": 1
       }
     },
-    "gaps": [
-      "OPS-OBSERVE",
-      "GENAI-OBSERVE",
-      "SEC-EDGE"
-    ],
+    "gaps": [],
     "considerations": [
       "OPS-IAC",
-      "SEC-IDENTITY",
-      "SEC-DETECT",
       "GENAI-AGENCY",
+      "REL-BACKUP",
       "GENAI-RESILIENCE",
       "PERF-EDGE",
-      "GENAI-RETRIEVAL",
       "COST-VISIBILITY",
       "GENAI-COST",
-      "SUS-MANAGED",
       "GENAI-SUS"
     ]
   },
