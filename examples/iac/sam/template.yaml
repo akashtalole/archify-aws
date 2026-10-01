@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Fixture - clinical notes processor (SAM)
+Resources:
+  NotesBucket:
+    Type: AWS::S3::Bucket
+  NotesQueue:
+    Type: AWS::SQS::Queue
+  Intake:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.handler
+      Environment:
+        Variables:
+          BUCKET: !Ref NotesBucket
+          TABLE: !Ref NotesTable
+      Events:
+        Upload:
+          Type: Api
+          Properties:
+            Path: /notes
+            Method: post
+  Processor:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: proc.handler
+      Environment:
+        Variables:
+          TABLE: !Ref NotesTable
+          KEY: !GetAtt NotesKey.Arn
+      Events:
+        FromQueue:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt NotesQueue.Arn
+        Nightly:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
+  NotesTable:
+    Type: AWS::DynamoDB::Table
+  NotesKey:
+    Type: AWS::KMS::Key
+  Topic:
+    Type: AWS::SNS::Topic
+  Subscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref Topic
+      Endpoint: !GetAtt NotesQueue.Arn
+      Protocol: sqs

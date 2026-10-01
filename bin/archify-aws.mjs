@@ -8,6 +8,7 @@ import { renderPage } from "../src/page.mjs";
 import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
 import { importMermaid } from "../src/mermaid.mjs";
+import { importIac } from "../src/iac.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
@@ -19,6 +20,7 @@ Usage
   archify-aws icons info <id>                        resolve an id or alias
   archify-aws icons categories | groups              list categories / group kinds
   archify-aws import mermaid <file.mmd|-> [-o spec.json] [--title T] [--number] [--render] [--json]
+  archify-aws import iac <dir|file> [-o spec.json] [--include logs,iam] [--title T] [--render] [--json]   (Terraform, CloudFormation, SAM)
   archify-aws init [three-tier|serverless-api|genai-rag] [-o spec.json]
   archify-aws fetch-icons [icons.zip|url]            download the official icon package
   archify-aws doctor
@@ -113,7 +115,24 @@ switch (cmd) {
       if (flag("--render")) { needIcons(); const rr = spawnSync(process.execPath, [process.argv[1], "render", dest, "--png"], { stdio: "inherit" }); process.exit(rr.status ?? 0); }
       break;
     }
-    die("usage: archify-aws import mermaid <file.mmd|->");
+    if (kind === "iac") {
+      if (!src) die("usage: archify-aws import iac <dir|file>");
+      let r; try { r = importIac(src, { include: (opt("--include", "") || "").split(",").filter(Boolean), title: opt("--title") }); } catch (e) { die(e.message); }
+      const dest = path.resolve(opt("-o", "iac-diagram.json"));
+      r.spec.meta.output = path.relative(process.cwd(), dest.replace(/\.json$/, ".html"));
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      fs.writeFileSync(dest, JSON.stringify(r.spec, null, 2) + "\n");
+      if (json) out({ ok: true, spec: dest, type: r.type, ...r.report });
+      else {
+        console.log(`Wrote ${dest} — ${r.report.formats.join(" + ")}: ${r.report.resources} resources → ${r.report.nodes} nodes, ${r.report.edges} relationships`);
+        const sk = Object.entries(r.report.skipped);
+        if (sk.length) console.log("Skipped (not architecture-level; --include logs,iam to show some): " + sk.map(([k, v]) => `${k}×${v}`).join(", "));
+        r.report.warnings.forEach((w) => console.log("warning:", w));
+      }
+      if (flag("--render")) { needIcons(); const rr = spawnSync(process.execPath, [process.argv[1], "render", dest, "--png"], { stdio: "inherit" }); process.exit(rr.status ?? 0); }
+      break;
+    }
+    die("usage: archify-aws import mermaid <file.mmd|-> | import iac <dir|file>");
   }
   case "init": {
     const name = rest[0] || "three-tier";

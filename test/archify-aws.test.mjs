@@ -207,3 +207,40 @@ test("imported specs validate and render", needIcons, async () => {
   }
   assert.throws(() => importMermaid("pie title x\n a: 1"), /unrecognized/);
 });
+
+// ---- IaC import
+test("terraform import resolves glue resources into source->target edges and groups VPC-attached nodes", async () => {
+  const { importIac } = await import("../src/iac.mjs");
+  const r = importIac(path.join(ROOT, "examples", "iac", "terraform"));
+  const e = (a, b) => r.spec.edges.find((x) => x.from === a && x.to === b);
+  assert.ok(e("web", "site"), "cloudfront -> s3 origin");
+  assert.ok(e("orders_2", "orders") || r.spec.edges.some((x) => /orders/.test(x.from) && /orders/.test(x.to)), "api -> lambda via integration/permission");
+  const labels = r.spec.edges.map((x) => x.label).filter(Boolean);
+  assert.ok(labels.includes("subscribes") && labels.includes("triggers"));
+  assert.deepEqual(Object.keys(r.report.skipped).sort(), ["aws_db_subnet_group", "aws_subnet", "iam", "logs"]);
+  assert.match(JSON.stringify(r.spec.root), /"kind":"vpc"/);
+  // logs/iam can be opted in
+  const r2 = importIac(path.join(ROOT, "examples", "iac", "terraform"), { include: ["logs", "iam"] });
+  assert.ok(r2.report.nodes > r.report.nodes);
+});
+
+test("SAM import: implicit API, SQS/schedule events with direction, no reversed duplicate refs", async () => {
+  const { importIac } = await import("../src/iac.mjs");
+  const r = importIac(path.join(ROOT, "examples", "iac", "sam"));
+  const has = (a, b) => r.spec.edges.some((x) => x.from === a && x.to === b);
+  assert.ok(has("ServerlessApi", "Intake"));
+  assert.ok(has("NotesQueue", "Processor"), "SQS event: queue triggers function");
+  assert.ok(!has("Processor", "NotesQueue"), "event refs must not also create the reverse edge");
+  assert.ok(has("Topic", "NotesQueue"), "subscription glue: topic -> queue");
+  assert.ok(r.spec.edges.some((x) => /rate\(1 day\)/.test(x.label || "")));
+});
+
+test("iac import errors clearly on empty input and renders", needIcons, async () => {
+  const { importIac } = await import("../src/iac.mjs");
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  assert.throws(() => importIac(path.join(ROOT, "references")), /no Terraform or CloudFormation/);
+  for (const d of ["terraform", "sam"]) {
+    const spec = importIac(path.join(ROOT, "examples", "iac", d)).spec;
+    assert.deepEqual(buildDiagram(spec).warnings.filter((w) => !/more than one edge/.test(w)), []);
+  }
+});

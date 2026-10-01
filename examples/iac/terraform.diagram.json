@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "title": "Orders API (from Terraform)",
+    "subtitle": "10 resources, 8 relationships inferred from references; verify against the deployed system",
+    "output": "examples/iac/terraform.diagram.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 70,
+    "children": [
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 64,
+        "children": [
+          {
+            "id": "layer0_0",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "web",
+                "icon": "cloudfront",
+                "label": "Web",
+                "sublabel": "cloudfront_distribution"
+              },
+              {
+                "id": "receipts",
+                "icon": "simple-storage-service",
+                "label": "Receipts",
+                "sublabel": "s3_bucket"
+              }
+            ]
+          },
+          {
+            "id": "layer0_1",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "site",
+                "icon": "simple-storage-service",
+                "label": "Site",
+                "sublabel": "s3_bucket"
+              },
+              {
+                "id": "orders",
+                "icon": "api-gateway",
+                "label": "Orders",
+                "sublabel": "apigatewayv2_api"
+              }
+            ]
+          },
+          {
+            "id": "layer0_2",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "vpc",
+                "kind": "vpc",
+                "label": "VPC",
+                "children": [
+                  {
+                    "id": "layer1_0",
+                    "kind": "stack",
+                    "layout": "column",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "lambda_function_orders",
+                        "icon": "lambda",
+                        "label": "Orders",
+                        "sublabel": "lambda_function"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "layer1_1",
+                    "kind": "stack",
+                    "layout": "column",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "reports",
+                        "icon": "rds",
+                        "label": "Reports",
+                        "sublabel": "db_instance"
+                      }
+                    ]
+                  }
+                ],
+                "layout": "row",
+                "gap": 56
+              }
+            ]
+          },
+          {
+            "id": "layer0_3",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "dynamodb_table_orders",
+                "icon": "dynamodb",
+                "label": "Orders",
+                "sublabel": "dynamodb_table"
+              },
+              {
+                "id": "events",
+                "icon": "simple-notification-service",
+                "label": "Events",
+                "sublabel": "sns_topic"
+              }
+            ]
+          },
+          {
+            "id": "layer0_4",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "fulfilment",
+                "icon": "simple-queue-service",
+                "label": "Fulfilment",
+                "sublabel": "sqs_queue"
+              }
+            ]
+          },
+          {
+            "id": "layer0_5",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "worker",
+                "icon": "lambda",
+                "label": "Worker",
+                "sublabel": "lambda_function"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "web",
+      "to": "site"
+    },
+    {
+      "from": "web",
+      "to": "orders"
+    },
+    {
+      "from": "lambda_function_orders",
+      "to": "dynamodb_table_orders"
+    },
+    {
+      "from": "lambda_function_orders",
+      "to": "events"
+    },
+    {
+      "from": "lambda_function_orders",
+      "to": "reports"
+    },
+    {
+      "from": "orders",
+      "to": "lambda_function_orders"
+    },
+    {
+      "from": "events",
+      "to": "fulfilment",
+      "label": "subscribes"
+    },
+    {
+      "from": "fulfilment",
+      "to": "worker",
+      "label": "triggers"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "title": "Notes processor (from SAM)",
+    "subtitle": "9 resources, 8 relationships inferred from references; verify against the deployed system",
+    "output": "examples/iac/sam.diagram.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 70,
+    "children": [
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 64,
+        "children": [
+          {
+            "id": "layer0_0",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "Topic",
+                "icon": "simple-notification-service",
+                "label": "Topic",
+                "sublabel": "SNS Topic"
+              },
+              {
+                "id": "ServerlessApi",
+                "icon": "api-gateway",
+                "label": "API Gateway",
+                "sublabel": "implicit (SAM events)"
+              },
+              {
+                "id": "RuleProcessor",
+                "icon": "eventbridge",
+                "label": "Schedule / event rule",
+                "sublabel": "Schedule"
+              }
+            ]
+          },
+          {
+            "id": "layer0_1",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "NotesQueue",
+                "icon": "simple-queue-service",
+                "label": "Notes Queue",
+                "sublabel": "SQS Queue"
+              },
+              {
+                "id": "Intake",
+                "icon": "lambda",
+                "label": "Intake",
+                "sublabel": "Serverless Function"
+              }
+            ]
+          },
+          {
+            "id": "layer0_2",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "NotesBucket",
+                "icon": "simple-storage-service",
+                "label": "Notes Bucket",
+                "sublabel": "S3 Bucket"
+              },
+              {
+                "id": "Processor",
+                "icon": "lambda",
+                "label": "Processor",
+                "sublabel": "Serverless Function"
+              }
+            ]
+          },
+          {
+            "id": "layer0_3",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "NotesTable",
+                "icon": "dynamodb",
+                "label": "Notes Table",
+                "sublabel": "DynamoDB Table"
+              },
+              {
+                "id": "NotesKey",
+                "icon": "key-management-service",
+                "label": "Notes Key",
+                "sublabel": "KMS Key"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "Intake",
+      "to": "NotesBucket"
+    },
+    {
+      "from": "Intake",
+      "to": "NotesTable"
+    },
+    {
+      "from": "Processor",
+      "to": "NotesTable"
+    },
+    {
+      "from": "Processor",
+      "to": "NotesKey"
+    },
+    {
+      "from": "Topic",
+      "to": "NotesQueue"
+    },
+    {
+      "from": "ServerlessApi",
+      "to": "Intake",
+      "label": "POST /notes"
+    },
+    {
+      "from": "NotesQueue",
+      "to": "Processor",
+      "label": "sqs",
+      "style": "dashed"
+    },
+    {
+      "from": "RuleProcessor",
+      "to": "Processor",
+      "label": "rate(1 day)"
+    }
+  ]
+}
