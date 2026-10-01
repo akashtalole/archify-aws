@@ -1,0 +1,93 @@
+{
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Checkout (imported from Mermaid)",
+    "subtitle": "Imported from Mermaid; verify icon choices",
+    "output": "examples/mermaid/checkout.sequence.html"
+  },
+  "participants": [
+    {
+      "id": "U",
+      "icon": "gen:users",
+      "label": "Customer Browser"
+    },
+    {
+      "id": "A",
+      "icon": "api-gateway",
+      "label": "API Gateway"
+    },
+    {
+      "id": "L",
+      "icon": "lambda",
+      "label": "Orders Lambda"
+    },
+    {
+      "id": "D",
+      "icon": "dynamodb",
+      "label": "DynamoDB"
+    },
+    {
+      "id": "Q",
+      "icon": "simple-queue-service",
+      "label": "Order Queue"
+    }
+  ],
+  "messages": [
+    {
+      "from": "U",
+      "to": "A",
+      "label": "POST /orders"
+    },
+    {
+      "from": "A",
+      "to": "L",
+      "label": "invoke"
+    },
+    {
+      "from": "L",
+      "to": "D",
+      "label": "put order"
+    },
+    {
+      "from": "D",
+      "to": "L",
+      "label": "ok",
+      "kind": "return"
+    },
+    {
+      "from": "L",
+      "to": "Q",
+      "label": "OrderCreated",
+      "kind": "async"
+    },
+    {
+      "from": "L",
+      "to": "A",
+      "label": "201",
+      "kind": "return"
+    },
+    {
+      "note": "Idempotency key prevents duplicates",
+      "over": [
+        "L",
+        "D"
+      ]
+    },
+    {
+      "from": "A",
+      "to": "U",
+      "label": "201 Created",
+      "kind": "return"
+    }
+  ],
+  "fragments": [
+    {
+      "kind": "par",
+      "label": "notify",
+      "elseAt": 5,
+      "elseLabel": "respond",
+      "from": 4,
+      "to": 5
+    }
+  ]
+}

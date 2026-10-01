@@ -1,0 +1,13 @@
+flowchart LR
+  Customer([Customer Browser]) -->|HTTPS| CDN[CloudFront CDN]
+  CDN --> APIGW[API Gateway]
+  subgraph AWS Cloud
+    APIGW --> Orders[Orders Lambda]
+    Orders -->|write| DB[(Orders DynamoDB)]
+    Orders -->|publish| Topic{{Order Events SNS}}
+    Topic --> Queue[Fulfilment Queue]
+    Queue --> Worker[Fulfilment Worker Function]
+    Worker --> Bucket[(Receipts S3 Bucket)]
+    Orders -.-> Logs[CloudWatch Logs]
+  end
+  Worker -.->|status| Payment[Payment Gateway]

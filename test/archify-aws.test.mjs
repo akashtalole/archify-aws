@@ -155,3 +155,55 @@ test("viewer: deep links drive reach and route over authored edges only", async 
   assert.match(r.dom, /<body[^>]*class="[^"]*present/);
   assert.match(r.dom, /<body[^>]*class="[^"]*dark/);
 });
+
+// ---- Mermaid import
+test("mermaid flowchart import: shapes, chains, subgraphs, labels and icon mapping with confidence", async () => {
+  const { importMermaid } = await import("../src/mermaid.mjs");
+  const r = importMermaid(`flowchart LR
+    U([Customer Browser]) -->|HTTPS| CDN[CloudFront CDN] --> API[API Gateway]
+    subgraph AWS Cloud
+      API --> F[Orders Lambda]
+      F -.-> D[(Orders DynamoDB)]
+    end
+    F --> P[Payment Gateway]`);
+  assert.equal(r.type, "architecture");
+  const map = Object.fromEntries(r.report.mappings.map((m) => [m.id, m]));
+  assert.equal(map.CDN.icon, "cloudfront");
+  assert.equal(map.F.icon, "lambda");
+  assert.equal(map.D.icon, "dynamodb");
+  assert.equal(map.P.confidence, "fallback", "unknown services are reported, not guessed");
+  assert.deepEqual(r.report.unmapped, ["P"]);
+  assert.equal(r.spec.edges.length, 5);
+  assert.ok(r.spec.edges.some((e) => e.from === "F" && e.to === "D" && e.style === "dashed"));
+  assert.ok(r.spec.edges.some((e) => e.label === "HTTPS"));
+  const groups = JSON.stringify(r.spec.root).match(/"kind":"aws-cloud"/g);
+  assert.equal(groups.length, 1, "subgraph named AWS Cloud becomes the aws-cloud group");
+});
+
+test("mermaid sequence import: message kinds, notes and fragments", async () => {
+  const { importMermaid } = await import("../src/mermaid.mjs");
+  const r = importMermaid(`sequenceDiagram
+    participant A as API Gateway
+    participant L as Orders Lambda
+    A->>L: invoke
+    L-->>A: ok
+    loop retry
+      L-)A: event
+    end
+    Note over A,L: shared note
+    L->>L: validate`);
+  assert.equal(r.type, "sequence");
+  assert.deepEqual(r.spec.messages.map((m) => m.kind || (m.note ? "note" : "sync")), ["sync", "return", "async", "note", "self"]);
+  assert.deepEqual(r.spec.fragments, [{ kind: "loop", label: "retry", from: 2, to: 2 }]);
+});
+
+test("imported specs validate and render", needIcons, async () => {
+  const { importMermaid } = await import("../src/mermaid.mjs");
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  for (const f of ["orders-flow.mmd", "checkout.sequence.mmd"]) {
+    const r = importMermaid(fs.readFileSync(path.join(ROOT, "examples", "mermaid", f), "utf8"));
+    const d = buildDiagram(r.spec);
+    assert.match(d.svg("light"), /^<svg /);
+  }
+  assert.throws(() => importMermaid("pie title x\n a: 1"), /unrecognized/);
+});

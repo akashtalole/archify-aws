@@ -7,6 +7,7 @@ import { buildDiagram, SpecError, typeOf } from "../src/pipeline.mjs";
 import { renderPage } from "../src/page.mjs";
 import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
+import { importMermaid } from "../src/mermaid.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
@@ -17,6 +18,7 @@ Usage
   archify-aws icons search <term> [--limit n]        find service/resource/general icon ids
   archify-aws icons info <id>                        resolve an id or alias
   archify-aws icons categories | groups              list categories / group kinds
+  archify-aws import mermaid <file.mmd|-> [-o spec.json] [--title T] [--number] [--render] [--json]
   archify-aws init [three-tier|serverless-api|genai-rag] [-o spec.json]
   archify-aws fetch-icons [icons.zip|url]            download the official icon package
   archify-aws doctor
@@ -92,6 +94,26 @@ switch (cmd) {
     else if (sub === "groups") out(Object.fromEntries(Object.entries(GROUP_KINDS).map(([k, v]) => [k, { defaultLabel: v.label, color: v.color, border: v.dash ? "dashed" : "solid" }])));
     else die(HELP);
     break;
+  }
+  case "import": {
+    const [kind, src] = rest;
+    if (kind === "mermaid") {
+      const text = src === "-" || !src ? fs.readFileSync(0, "utf8") : fs.readFileSync(src, "utf8");
+      let r; try { r = importMermaid(text, { title: opt("--title"), number: flag("--number") }); } catch (e) { die(e.message); }
+      const dest = path.resolve(opt("-o", (src && src !== "-" ? src.replace(/\.mmd$|\.md$/, "") : "imported") + ".json"));
+      r.spec.meta.output = path.relative(process.cwd(), dest.replace(/\.json$/, ".html")); // output paths resolve from the working directory
+      fs.writeFileSync(dest, JSON.stringify(r.spec, null, 2) + "\n");
+      if (json) out({ ok: true, spec: dest, type: r.type, ...r.report });
+      else {
+        console.log(`Wrote ${dest} (${r.type})`);
+        const low = r.report.mappings.filter((m) => m.confidence !== "exact");
+        if (low.length) console.log("Icon mapping to review:\n" + low.map((m) => `  ${m.id.padEnd(14)} "${m.label}" → ${m.icon} (${m.confidence})`).join("\n"));
+        r.report.warnings.forEach((w) => console.log("warning:", w));
+      }
+      if (flag("--render")) { needIcons(); const rr = spawnSync(process.execPath, [process.argv[1], "render", dest, "--png"], { stdio: "inherit" }); process.exit(rr.status ?? 0); }
+      break;
+    }
+    die("usage: archify-aws import mermaid <file.mmd|->");
   }
   case "init": {
     const name = rest[0] || "three-tier";
