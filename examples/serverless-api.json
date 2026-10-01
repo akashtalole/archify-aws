@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "title": "Serverless REST API with asynchronous processing",
+    "subtitle": "API Gateway \u2192 Lambda \u2192 DynamoDB, with SQS-buffered background work",
+    "output": "examples/out/serverless-api.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 80,
+    "children": [
+      {
+        "id": "client",
+        "icon": "mobile",
+        "label": "Mobile / web client"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 80,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 50,
+            "children": [
+              {
+                "id": "cognito",
+                "icon": "cognito",
+                "label": "Amazon Cognito"
+              },
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway"
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 80,
+            "children": [
+              {
+                "id": "api",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 60,
+                "children": [
+                  {
+                    "id": "fnapi",
+                    "icon": "lambda",
+                    "label": "AWS Lambda",
+                    "sublabel": "API handler"
+                  },
+                  {
+                    "id": "ddb",
+                    "icon": "dynamodb",
+                    "label": "Amazon DynamoDB"
+                  }
+                ]
+              },
+              {
+                "id": "bg",
+                "kind": "generic-dashed",
+                "label": "Background processing",
+                "layout": "grid",
+                "gap": 70,
+                "children": [
+                  {
+                    "id": "sqs",
+                    "icon": "sqs",
+                    "label": "Amazon SQS"
+                  },
+                  {
+                    "id": "fnwork",
+                    "icon": "lambda",
+                    "label": "AWS Lambda",
+                    "sublabel": "worker"
+                  },
+                  {
+                    "id": "s3",
+                    "icon": "s3",
+                    "label": "Amazon S3",
+                    "sublabel": "results"
+                  },
+                  {
+                    "spacer": 8
+                  },
+                  {
+                    "id": "cw",
+                    "icon": "cloudwatch",
+                    "label": "Amazon CloudWatch",
+                    "sublabel": "logs, metrics, alarms"
+                  },
+                  {
+                    "spacer": 8
+                  }
+                ],
+                "columns": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "client",
+      "to": "apigw",
+      "step": 1,
+      "label": "HTTPS"
+    },
+    {
+      "from": "cognito",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "authorizer"
+    },
+    {
+      "from": "apigw",
+      "to": "fnapi",
+      "step": 2
+    },
+    {
+      "from": "fnapi",
+      "to": "ddb",
+      "step": 3,
+      "label": "read / write"
+    },
+    {
+      "from": "fnapi",
+      "to": "sqs",
+      "step": 4,
+      "label": "enqueue"
+    },
+    {
+      "from": "sqs",
+      "to": "fnwork",
+      "step": 5
+    },
+    {
+      "from": "fnwork",
+      "to": "s3",
+      "step": 6
+    },
+    {
+      "from": "fnwork",
+      "to": "cw",
+      "style": "dashed",
+      "label": "logs & metrics"
+    }
+  ]
+}
