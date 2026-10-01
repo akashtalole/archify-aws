@@ -13,6 +13,8 @@ Compliance review assistant (100 checks + human in the loop): [architecture](exa
 
 Compliance review assistant on AgentCore (supervisor + check-family agents, Gateway + Policy, checkpoint-and-resume human review): [architecture](examples/compliance-agentcore/out/architecture.png) · [one review run](examples/compliance-agentcore/out/review-run.png) · [how it differs from the Step Functions design](examples/compliance-agentcore/README.md)
 
+Enterprise product catalog search (hybrid keyword + vector search, event-driven indexing, analytics): [architecture](examples/out/product-catalog-search.png) · [page with cost and review](examples/out/product-catalog-search.html)
+
 Healthcare enterprise agentic platform (examples): [platform](examples/out/healthcare-agentic-platform.png) ·
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)

@@ -539,3 +539,15 @@ test("page has Diagram, Cost and Well-Architected tabs with a full ledger", () =
   assert.ok(html.includes("CONFIDENTIAL"));
   assert.ok(!renderPageWa(d, null, "light", null).includes('id="tab-wa"'));
 });
+
+test("embedding models with input-only pricing are priced (Titan Embedding V2)", async () => {
+  const { loadPriceBook } = await import("../src/cost/pricebook.mjs");
+  const { findBedrockModel } = await import("../src/cost/pricers.mjs");
+  const pb = loadPriceBook("us-east-1");
+  assert.equal(findBedrockModel(pb, "Titan Embeddings V2").name, "Titan Embedding V2 Text");
+  const d = buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/product-catalog-search.json", import.meta.url), "utf8")));
+  const { estimateCost: est } = await import("../src/cost/estimate.mjs");
+  const n = est(d).nodes.find((x) => x.id === "embed");
+  assert.equal(n.status, "estimated");
+  assert.equal(n.lines.length, 1);
+});

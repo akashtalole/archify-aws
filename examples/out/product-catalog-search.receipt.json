@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/product-catalog-search.json",
+    "sha256": "b7a53221b43b52d17ba16f76584e78d2fd568d5ea8f55afcc3b3c1722a1a14ef"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 20,
+        "groups": 3,
+        "edges": 19
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 20,
+        "viewerEdges": 19
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/product-catalog-search.html",
+      "sha256": "743c867a9d503cd676ada522e6ae855c3f1a41e922370509eef99ed9ed893375",
+      "bytes": 343705
+    },
+    "svg": {
+      "path": "examples/out/product-catalog-search.svg",
+      "sha256": "a7a073740286a3fd3e17b4ab67f7a67e79b90f71b21dea29c7155c289b3982de"
+    },
+    "png": {
+      "path": "examples/out/product-catalog-search.png",
+      "sha256": "50d4736f57aa4dfe1b815602e25fee50086de69ca35a59acdd21e9343442b5d2"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 20,
+    "groups": 3,
+    "edges": 19,
+    "size": {
+      "width": 1323,
+      "height": 1334
+    }
+  },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 1302.3752,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 20,
+      "estimated": 13,
+      "override": 1,
+      "noCharge": 0,
+      "notBillable": 3,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 3,
+      "error": 0
+    }
+  },
+  "review": {
+    "advisory": true,
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    "evidenced": 17,
+    "bps": 307,
+    "ids": [
+      "F-001"
+    ]
+  },
+  "visualReview": "not-performed"
+}

@@ -13,14 +13,14 @@ export function line(label, rows, qty, { variable = true, qtyLabel } = {}) {
 const sumLines = (ls) => ls.reduce((s, l) => s + l.usd, 0);
 
 // ---------------------------------------------------------------- generic helpers for Bedrock model matching
-const normModel = (s) => String(s || "").toLowerCase().replace(/\(amazon bedrock edition\)/g, "").replace(/[^a-z0-9.]+/g, " ").trim();
+const normModel = (s) => String(s || "").toLowerCase().replace(/embeddings/g, "embedding").replace(/\(amazon bedrock edition\)/g, "").replace(/[^a-z0-9.]+/g, " ").trim();
 export function findBedrockModel(pb, text) {
   const q = normModel(text);
   if (!q) throw new PricingError("usage.model is required (e.g. \"Claude Sonnet 5.5\" or \"Nova 2.0 Lite\")");
   const names = new Map();
   for (const code of ["AmazonBedrock", "AmazonBedrockFoundationModels"]) {
     if (!pb.has(code)) continue;
-    for (const r of pb.rows(code)) { const n = r.a.model || r.a.servicename; if (n) names.set(n, code); }
+    for (const r of pb.rows(code)) { const n = bedrockModelName(r); if (n) names.set(n, code); }
   }
   const all = [...names.keys()];
   const exact = all.filter((n) => normModel(n) === q);
@@ -28,6 +28,14 @@ export function findBedrockModel(pb, text) {
   if (!pick.length) throw new PricingError(`no Bedrock model matches "${text}" in the price book`);
   if (pick.length > 1 && !exact.length) throw new PricingError(`"${text}" matches several Bedrock models (${pick.slice(0, 6).join("; ")}) — use the full model name`);
   return { name: pick[0], code: names.get(pick[0]) };
+}
+/** Model name for a Price List row. Titan rows carry no `model` attribute, so it is derived from the usage type
+ *  (e.g. "TitanEmbeddingV2-Text-input-tokens" -> "Titan Embedding V2 Text"). */
+export function bedrockModelName(r) {
+  if (r.a.model) return r.a.model;
+  const t = /^(Titan[A-Za-z0-9]*(?:-[A-Za-z]+)?)-(?:input|output)-tokens/.exec(r.u);
+  if (t) return t[1].replace(/([a-z])([A-Z])/g, "$1 $2").replace(/-/g, " ");
+  return r.a.servicename;
 }
 function classifyTokenRow(r) {
   const u = r.u.toLowerCase();
@@ -42,7 +50,7 @@ function classifyTokenRow(r) {
 function bedrockRates(pb, model, mode) {
   const out = {};
   for (const r of pb.rows(model.code)) {
-    if ((r.a.model || r.a.servicename) !== model.name) continue;
+    if (bedrockModelName(r) !== model.name) continue;
     const c = classifyTokenRow(r);
     if (c && c.mode === mode && !out[c.kind]) out[c.kind] = r;
   }
@@ -250,11 +258,11 @@ export const PRICERS = {
       const model = findBedrockModel(pb, modelText);
       const mode = u("mode", "standard");
       const rates = bedrockRates(pb, model, mode);
-      if (!rates.input || !rates.output) throw new PricingError(`no ${mode} input/output token rates for ${model.name} in the price book`);
+      if (!rates.input) throw new PricingError(`no ${mode} input token rate for ${model.name} in the price book`);
       const inTok = vol("inputTokensPerMonth", 5e6), outTok = vol("outputTokensPerMonth", 1e6), cacheRead = vol("cacheReadTokensPerMonth", 0);
       const q = (r, tokens) => tokens / unitDiv(r.unit);
       const lines = [line(`${model.name}: input tokens (${mode})`, [rates.input], q(rates.input, inTok), { qtyLabel: `${Math.round(inTok).toLocaleString("en-US")} tokens` }),
-        line(`${model.name}: output tokens (${mode})`, [rates.output], q(rates.output, outTok), { qtyLabel: `${Math.round(outTok).toLocaleString("en-US")} tokens` })];
+        ...(rates.output ? [line(`${model.name}: output tokens (${mode})`, [rates.output], q(rates.output, outTok), { qtyLabel: `${Math.round(outTok).toLocaleString("en-US")} tokens` })] : [])]; // embedding models have no output rate
       if (cacheRead > 0 && rates.cacheRead) lines.push(line("Prompt cache reads", [rates.cacheRead], q(rates.cacheRead, cacheRead)));
       return { lines, model: model.name, notes: [`Model matched in the Price List: ${model.name}. Rates are on-demand ${mode} inference in this region.`] };
     },
