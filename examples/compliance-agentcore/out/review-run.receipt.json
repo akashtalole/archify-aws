@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
-    "path": "examples/agent-tool-call.sequence.json",
-    "sha256": "d820972408aee25108a3d413fb26aaf4cfd692b0146d63b21d952356b692f586"
+    "path": "examples/compliance-agentcore/review-run.sequence.json",
+    "sha256": "e61c10a5513b44d61274f0fdbac3cd3b918432815b20f83fe1642edde060716e"
   },
   "stages": [
     {
@@ -13,9 +13,9 @@
       "status": "pass",
       "detail": {
         "type": "sequence",
-        "nodes": 8,
+        "nodes": 11,
         "groups": 1,
-        "edges": 15
+        "edges": 29
       }
     },
     {
@@ -39,8 +39,8 @@
         "minFontPx": 10.5,
         "overflowX": 0,
         "consoleErrors": 0,
-        "viewerNodes": 8,
-        "viewerEdges": 15
+        "viewerNodes": 11,
+        "viewerEdges": 29
       }
     },
     {
@@ -51,27 +51,27 @@
   ],
   "outputs": {
     "html": {
-      "path": "examples/out/agent-tool-call.html",
-      "sha256": "b090e975ceee1c75ec1d4581366ef0b26bc2e6bd5dd3c960131be3972450e161",
-      "bytes": 59305
+      "path": "examples/compliance-agentcore/out/review-run.html",
+      "sha256": "03b645a9024df6ccd1d424e448ef618a29080d78f270c8567491f432b31eec9b",
+      "bytes": 75471
     },
     "svg": {
-      "path": "examples/out/agent-tool-call.svg",
-      "sha256": "bb056576af237e7593e7076bd46e77b8d4aae3c89fc4403d68af372661622bf3"
+      "path": "examples/compliance-agentcore/out/review-run.svg",
+      "sha256": "01202c50e8b81f42c794570c5b0d446185ecff45c048e45b52c2c33a6929592b"
     },
     "png": {
-      "path": "examples/out/agent-tool-call.png",
-      "sha256": "e0ead59e620dcb4bb59a654e9f89ec79c939b99071acf52da8ec11df21acb5ed"
+      "path": "examples/compliance-agentcore/out/review-run.png",
+      "sha256": "6ee7aa4a7c98ce7548a594c1a8200c6ca8945dd9510825f645338c183834a1b2"
     }
   },
   "summary": {
     "type": "sequence",
-    "nodes": 8,
+    "nodes": 11,
     "groups": 1,
-    "edges": 15,
+    "edges": 29,
     "size": {
-      "width": 1600,
-      "height": 1381
+      "width": 2170,
+      "height": 2337
     }
   },
   "review": {
@@ -83,18 +83,18 @@
         "ok": 0
       },
       "security": {
-        "gap": 1,
+        "gap": 0,
         "consider": 3,
         "ok": 1
       },
       "reliability": {
         "gap": 0,
-        "consider": 1,
+        "consider": 2,
         "ok": 0
       },
       "performance-efficiency": {
         "gap": 0,
-        "consider": 2,
+        "consider": 1,
         "ok": 0
       },
       "cost-optimization": {
@@ -104,26 +104,24 @@
       },
       "sustainability": {
         "gap": 0,
-        "consider": 2,
-        "ok": 0
+        "consider": 1,
+        "ok": 1
       }
     },
     "gaps": [
       "OPS-OBSERVE",
-      "GENAI-OBSERVE",
-      "SEC-EDGE"
+      "GENAI-OBSERVE"
     ],
     "considerations": [
       "OPS-IAC",
-      "SEC-IDENTITY",
+      "SEC-ENCRYPT",
       "SEC-DETECT",
       "GENAI-AGENCY",
+      "REL-BACKUP",
       "GENAI-RESILIENCE",
-      "PERF-EDGE",
       "GENAI-RETRIEVAL",
       "COST-VISIBILITY",
       "GENAI-COST",
-      "SUS-MANAGED",
       "GENAI-SUS"
     ]
   },
