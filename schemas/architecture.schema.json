@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akashtalole/archify-aws/schemas/architecture.schema.json",
+  "title": "archify-aws architecture diagram",
+  "$defs": {
+    "groupKind": {
+      "enum": [
+        "aws-cloud",
+        "region",
+        "az",
+        "vpc",
+        "public-subnet",
+        "private-subnet",
+        "security-group",
+        "asg",
+        "account",
+        "corporate-dc",
+        "server-contents",
+        "ec2-contents",
+        "spot-fleet",
+        "generic",
+        "generic-dashed",
+        "stack",
+        "custom"
+      ]
+    },
+    "edgeStyle": {
+      "enum": [
+        "solid",
+        "dashed"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "theme": {
+          "enum": [
+            "light",
+            "dark"
+          ]
+        },
+        "lens": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "framework",
+              "generative-ai"
+            ]
+          }
+        },
+        "review": {
+          "type": "boolean"
+        },
+        "guardrails": {
+          "type": "boolean",
+          "description": "Declare that guardrails exist outside the drawing (silences GENAI-GUARDRAILS)."
+        },
+        "boundary": {
+          "type": "boolean",
+          "description": "Dataflow only: false disables the AWS Cloud boundary."
+        },
+        "output": {
+          "type": "string",
+          "description": "Output .html path, resolved from the working directory."
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "id",
+        "icon"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][\\w-]*$"
+        },
+        "icon": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Service id or alias (e.g. lambda, s3, alb), res:<id> resource icon, or gen:<id> general icon. Find with `archify-aws icons search <term>`."
+        },
+        "label": {
+          "type": "string"
+        },
+        "sublabel": {
+          "type": "string"
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "required": [
+        "kind",
+        "children"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][\\w-]*$"
+        },
+        "kind": {
+          "$ref": "#/$defs/groupKind"
+        },
+        "label": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Service id or alias (e.g. lambda, s3, alb), res:<id> resource icon, or gen:<id> general icon. Find with `archify-aws icons search <term>`."
+        },
+        "color": {
+          "type": "string"
+        },
+        "layout": {
+          "enum": [
+            "row",
+            "column",
+            "grid"
+          ]
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gap": {
+          "type": "number",
+          "minimum": 0
+        },
+        "align": {
+          "enum": [
+            "center",
+            "start",
+            "end"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/child"
+          }
+        }
+      }
+    },
+    "spacer": {
+      "type": "object",
+      "required": [
+        "spacer"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "spacer": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "w": {
+                  "type": "number"
+                },
+                "h": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "child": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/node"
+        },
+        {
+          "$ref": "#/$defs/group"
+        },
+        {
+          "$ref": "#/$defs/spacer"
+        }
+      ]
+    },
+    "edge": {
+      "type": "object",
+      "required": [
+        "from",
+        "to"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "type": "string",
+          "pattern": "^[A-Za-z][\\w-]*$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^[A-Za-z][\\w-]*$"
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "label": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "style": {
+          "$ref": "#/$defs/edgeStyle"
+        },
+        "arrow": {
+          "enum": [
+            "end",
+            "both",
+            "none"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "meta",
+    "root"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "diagram_type": {
+      "const": "architecture"
+    },
+    "meta": {
+      "$ref": "#/$defs/meta"
+    },
+    "root": {
+      "type": "object",
+      "required": [
+        "children"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "enum": [
+            "row",
+            "column",
+            "grid"
+          ]
+        },
+        "columns": {
+          "type": "integer"
+        },
+        "gap": {
+          "type": "number"
+        },
+        "align": {
+          "enum": [
+            "center",
+            "start",
+            "end"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/child"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
+    }
+  }
+}

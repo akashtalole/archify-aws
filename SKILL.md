@@ -19,6 +19,17 @@ node bin/archify-aws.mjs doctor
 ```
 No npm dependencies. PNG export additionally needs Chrome/Chromium (`CHROME_PATH`, or Playwright's browser).
 
+## Diagram types
+| Type | Use for | Start from |
+|---|---|---|
+| `architecture` (default) | Topology: accounts, VPCs, AZs, services, data stores | `init three-tier` / `serverless-api` / `genai-rag` |
+| `sequence` | API call chains, request lifecycles, agent tool calls, retries, async handoffs | `init sequence` |
+| `dataflow` | Pipelines, ETL/ELT, ingestion → store → serve, lineage | `init dataflow` |
+
+Unsure? `node bin/archify-aws.mjs guide "<scenario>" --json`. Existing assets: a Mermaid flowchart/sequence
+(`import mermaid`) or a Terraform/CloudFormation/SAM repo (`import iac`) — see [references/importers.md](references/importers.md);
+review the icon mappings it lists and the relationships it inferred before delivering.
+
 ## Workflow
 1. **Understand the workload.** Identify entry point, main request path, data stores, async paths, identity, and
    observability. For generative AI also: model access, guardrails, retrieval/grounding data, logging, agent tools.
@@ -29,10 +40,13 @@ No npm dependencies. PNG export additionally needs Chrome/Chromium (`CHROME_PATH
 3. **Read** [references/spec.md](references/spec.md) once, and the closest example in `examples/`
    (`three-tier` VPC/AZ, `serverless-api`, `genai-rag`). Start from `node bin/archify-aws.mjs init <template>`.
 4. **Author the spec** (see *Authoring rules*). Put it in `.archify-aws/<slug>-<timestamp>/spec.json`, with `meta.output` beside it.
-5. **Render:** `node bin/archify-aws.mjs render <spec.json> --png --strict --json`.
-   Exit 1 = invalid spec (fix every listed error); exit 2 = routing/layout warning — reorder `children`, change
-   `layout`, widen `gap`, or move a node next to its main neighbour, then rerun. Max ~4 repair rounds; then report what remains.
-6. **Look at the PNG** (open it) — the checks cannot see aesthetics. Fix collisions, tangled routes, unclear labels.
+5. **Finalize** (the one command): `node bin/archify-aws.mjs finalize <spec.json> --json`.
+   It validates, renders, runs strict artifact checks and a real-browser check, exports the PNG and writes
+   `<out>.receipt.json`. A non-zero exit is never success: exit 1 = a gate failed — read `stages[].detail.errors`, fix
+   every listed item (unknown icons come with suggestions); layout warnings mean reorder `children`, change `layout`,
+   widen `gap`, or move a node next to its main neighbour. Rerun the whole command after each edit; max ~4 repair rounds, then report what remains.
+   (`render --strict` is the quick loop while iterating.)
+6. **Look at the PNG** (open it) — the receipt says `visualReview: "not-performed"` because mechanics are checked, aesthetics are not. Fix collisions, tangled routes, unclear labels.
 7. **Review.** Read `review` in the receipt (or `archify-aws review spec.json`). Do not paper over gaps by adding
    decorative icons: either the architecture really has the control (add it, with its connection) or say it's out of scope.
 8. **Report:** absolute paths to `.html` (and `.svg`/`.png`), node/edge counts, warnings, the gaps/considerations, and
@@ -50,10 +64,11 @@ No npm dependencies. PNG export additionally needs Chrome/Chromium (`CHROME_PATH
 * Generative AI: draw clients → authenticated API layer → orchestrator → (guardrails, retrieval, model) → logging.
   Name the guardrail node "… Guardrails" so the review recognises it; show the vector store / knowledge source and where
   invocation logs go. See [references/well-architected.md](references/well-architected.md).
+* Readers get Reach, Route, Finder, Passport, presentation and export for free; point users at them and at deep links (`#focus=…&reach=downstream`, `#route=a~b`) — see [references/viewer-runtime.md](references/viewer-runtime.md). Reach/Route are authored reachability, not impact analysis: say so.
 * Diagram conventions from the AWS deck are summarised in [references/aws-diagram-guidelines.md](references/aws-diagram-guidelines.md).
 
 ## Commands
-`render`, `validate`, `review`, `icons search|info|categories|groups`, `init`, `fetch-icons`, `doctor` — run
+`finalize`, `render`, `validate`, `review`, `import mermaid|iac`, `icons search|info|categories|groups`, `guide`, `schema`, `init`, `fetch-icons`, `doctor` — run
 `node bin/archify-aws.mjs --help`. Always pass `--json` when parsing results.
 
 ## Don't

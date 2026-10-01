@@ -1,0 +1,31 @@
+{
+  "diagram_type": "dataflow",
+  "meta": { "title": "Clinical notes ingestion and retrieval pipeline", "subtitle": "Ambient scribe → structured FHIR data → searchable knowledge for agents", "output": "examples/out/clinical-notes.html" },
+  "stages": [
+    { "id": "src", "label": "Sources", "external": true, "items": [
+      { "id": "clin", "icon": "users", "label": "Clinician visit" },
+      { "id": "ehr", "icon": "gen:server", "label": "EHR export" } ] },
+    { "id": "ingest", "label": "Ingest", "items": [
+      { "id": "scribe", "icon": "healthscribe", "label": "AWS HealthScribe", "sublabel": "ambient notes" },
+      { "id": "land", "icon": "s3", "label": "Amazon S3", "sublabel": "landing zone" } ] },
+    { "id": "process", "label": "Process", "items": [
+      { "id": "cmed", "icon": "comprehend-medical", "label": "Amazon Comprehend Medical", "sublabel": "entities, PHI" },
+      { "id": "flow", "icon": "step-functions", "label": "AWS Step Functions" } ] },
+    { "id": "store", "label": "Store", "items": [
+      { "id": "hl", "icon": "healthlake", "label": "AWS HealthLake", "sublabel": "FHIR" },
+      { "id": "kb", "icon": "opensearch-service", "label": "Amazon OpenSearch Service", "sublabel": "vector index" } ] },
+    { "id": "serve", "label": "Serve", "items": [
+      { "id": "agent", "icon": "bedrock-agentcore", "label": "AgentCore agents" } ] }
+  ],
+  "edges": [
+    { "from": "clin", "to": "scribe", "step": 1, "label": "audio" },
+    { "from": "scribe", "to": "land", "step": 2, "label": "note JSON" },
+    { "from": "ehr", "to": "land", "step": 2, "style": "dashed", "label": "HL7 / FHIR" },
+    { "from": "land", "to": "flow", "step": 3, "label": "event" },
+    { "from": "flow", "to": "cmed", "step": 4 },
+    { "from": "cmed", "to": "hl", "step": 5, "label": "FHIR resources" },
+    { "from": "flow", "to": "kb", "step": 5, "label": "embeddings" },
+    { "from": "hl", "to": "agent", "step": 6, "style": "dashed" },
+    { "from": "kb", "to": "agent", "step": 6, "style": "dashed" }
+  ]
+}

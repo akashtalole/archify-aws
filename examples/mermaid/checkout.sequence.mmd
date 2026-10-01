@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant U as Customer Browser
+  participant A as API Gateway
+  participant L as Orders Lambda
+  participant D as DynamoDB
+  participant Q as Order Queue
+  U->>A: POST /orders
+  A->>L: invoke
+  L->>D: put order
+  D-->>L: ok
+  par notify
+    L-)Q: OrderCreated
+  and respond
+    L-->>A: 201
+  end
+  Note over L,D: Idempotency key prevents duplicates
+  A-->>U: 201 Created

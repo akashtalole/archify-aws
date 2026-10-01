@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1250 713" width="1250" height="713" role="img" aria-label="Serverless REST API with asynchronous processing">
 <title>Serverless REST API with asynchronous processing</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -79,97 +78,97 @@
 <rect class="bg" width="1250" height="713"/>
 <text class="title" x="40" y="46">Serverless REST API with asynchronous processing</text>
 <text class="subtitle" x="40" y="70">API Gateway → Lambda → DynamoDB, with SQS-buffered background work</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="216" y="116" width="994" height="557" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="216" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="216" y="116" width="32" height="32"/>
 <text class="glabel" x="256" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="region">
+<g class="group" data-id="region" data-label="Region">
 <rect x="444" y="164" width="742" height="438" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="2 3" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Region" x="444" y="164" width="32" height="32"/>
 <text class="glabel" x="484" y="185">Region</text>
 </g>
-<g class="group" data-id="bg">
+<g class="group" data-id="bg" data-label="Background processing">
 <rect x="652" y="212" width="510" height="366" fill="none" stroke="#7D8998" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="662" y="232">Background processing</text>
 </g>
-<g class="edge" data-from="client" data-to="apigw" data-step="1">
+<g class="edge" data-from="client" data-to="apigw" data-step="1" data-label="HTTPS">
 <path d="M120 407 L270 407" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="195" y="399" text-anchor="middle">HTTPS</text>
 <g class="badge"><circle cx="144" cy="407" r="11"/><text x="144" y="411.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="fnapi" data-to="ddb" data-step="3">
+<g class="edge" data-from="fnapi" data-to="ddb" data-step="3" data-label="read / write">
 <path d="M520 401 L520 461" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="538" y="435" text-anchor="start">read / write</text>
 <g class="badge"><circle cx="520" cy="425" r="11"/><text x="520" y="429.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="sqs" data-to="fnwork" data-step="5">
+<g class="edge" data-from="sqs" data-to="fnwork" data-step="5" data-label="">
 <path d="M756 292 L875 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="780" cy="292" r="11"/><text x="780" y="296.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="fnwork" data-to="s3" data-step="6">
+<g class="edge" data-from="fnwork" data-to="s3" data-step="6" data-label="">
 <path d="M939 292 L1058 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="963" cy="292" r="11"/><text x="963" y="296.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="cognito" data-to="apigw" data-step="">
+<g class="edge" data-from="cognito" data-to="apigw" data-step="" data-label="authorizer">
 <path d="M302 325 L302 375" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="320" y="354" text-anchor="start">authorizer</text>
 </g>
-<g class="edge" data-from="fnwork" data-to="cw" data-step="">
+<g class="edge" data-from="fnwork" data-to="cw" data-step="" data-label="logs &amp; metrics">
 <path d="M907 372 L907 442" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="925" y="411" text-anchor="start">logs &amp; metrics</text>
 </g>
-<g class="edge" data-from="apigw" data-to="fnapi" data-step="2">
+<g class="edge" data-from="apigw" data-to="fnapi" data-step="2" data-label="">
 <path d="M334 407 L411 407 L411 321 L488 321" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="358" cy="407" r="11"/><text x="358" y="411.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="fnapi" data-to="sqs" data-step="4">
+<g class="edge" data-from="fnapi" data-to="sqs" data-step="4" data-label="enqueue">
 <path d="M552 321 L622 321 L622 292 L692 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="646.5" y="284" text-anchor="middle">enqueue</text>
 <g class="badge"><circle cx="576" cy="321" r="11"/><text x="576" y="325.5" text-anchor="middle">4</text></g>
 </g>
-<g class="node" data-id="client"><title>Mobile / web client (Mobile client)</title>
+<g class="node" data-id="client" data-label="Mobile / web client" data-service="Mobile client" data-category="General"><title>Mobile / web client (Mobile client)</title>
 <use href="#gen-Mobile-client" x="56" y="375" width="64" height="64"/>
 <text class="nlabel" x="88" y="456" text-anchor="middle">Mobile / web</text>
 <text class="nlabel" x="88" y="470" text-anchor="middle">client</text>
 </g>
-<g class="node" data-id="cognito"><title>Amazon Cognito (Amazon Cognito)</title>
+<g class="node" data-id="cognito" data-label="Amazon Cognito" data-service="Amazon Cognito" data-category="Security-Identity"><title>Amazon Cognito (Amazon Cognito)</title>
 <use href="#svc-Amazon-Cognito" x="270" y="213" width="64" height="64"/>
 <text class="nlabel" x="302" y="294" text-anchor="middle">Amazon Cognito</text>
 </g>
-<g class="node" data-id="apigw"><title>Amazon API Gateway (Amazon API Gateway)</title>
+<g class="node" data-id="apigw" data-label="Amazon API Gateway" data-service="Amazon API Gateway" data-category="Networking-Content-Delivery"><title>Amazon API Gateway (Amazon API Gateway)</title>
 <use href="#svc-Amazon-API-Gateway" x="270" y="375" width="64" height="64"/>
 <text class="nlabel" x="302" y="456" text-anchor="middle">Amazon API Gateway</text>
 </g>
-<g class="node" data-id="waf"><title>AWS WAF (AWS WAF)</title>
+<g class="node" data-id="waf" data-label="AWS WAF" data-service="AWS WAF" data-category="Security-Identity"><title>AWS WAF (AWS WAF)</title>
 <use href="#svc-AWS-WAF" x="270" y="537" width="64" height="64"/>
 <text class="nlabel" x="302" y="618" text-anchor="middle">AWS WAF</text>
 </g>
-<g class="node" data-id="fnapi"><title>AWS Lambda (AWS Lambda)</title>
+<g class="node" data-id="fnapi" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title>
 <use href="#svc-AWS-Lambda" x="488" y="289" width="64" height="64"/>
 <text class="nlabel" x="520" y="370" text-anchor="middle">AWS Lambda</text>
 <text class="nsub" x="520" y="384" text-anchor="middle">API handler</text>
 </g>
-<g class="node" data-id="ddb"><title>Amazon DynamoDB (Amazon DynamoDB)</title>
+<g class="node" data-id="ddb" data-label="Amazon DynamoDB" data-service="Amazon DynamoDB" data-category="Databases"><title>Amazon DynamoDB (Amazon DynamoDB)</title>
 <use href="#svc-Amazon-DynamoDB" x="488" y="461" width="64" height="64"/>
 <text class="nlabel" x="520" y="542" text-anchor="middle">Amazon DynamoDB</text>
 </g>
-<g class="node" data-id="sqs"><title>Amazon SQS (Amazon Simple Queue Service)</title>
+<g class="node" data-id="sqs" data-label="Amazon SQS" data-service="Amazon Simple Queue Service" data-category="Application-Integration"><title>Amazon SQS (Amazon Simple Queue Service)</title>
 <use href="#svc-Amazon-Simple-Queue-Service" x="692" y="260" width="64" height="64"/>
 <text class="nlabel" x="724" y="341" text-anchor="middle">Amazon SQS</text>
 </g>
-<g class="node" data-id="fnwork"><title>AWS Lambda (AWS Lambda)</title>
+<g class="node" data-id="fnwork" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title>
 <use href="#svc-AWS-Lambda" x="875" y="260" width="64" height="64"/>
 <text class="nlabel" x="907" y="341" text-anchor="middle">AWS Lambda</text>
 <text class="nsub" x="907" y="355" text-anchor="middle">worker</text>
 </g>
-<g class="node" data-id="s3"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="s3" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="1058" y="260" width="64" height="64"/>
 <text class="nlabel" x="1090" y="341" text-anchor="middle">Amazon S3</text>
 <text class="nsub" x="1090" y="355" text-anchor="middle">results</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="875" y="442" width="64" height="64"/>
 <text class="nlabel" x="907" y="523" text-anchor="middle">Amazon CloudWatch</text>
 <text class="nsub" x="907" y="537" text-anchor="middle">logs, metrics, alarms</text>

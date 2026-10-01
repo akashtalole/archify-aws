@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1192 820" width="1192" height="820" role="img" aria-label="RAG chat assistant on Amazon Bedrock">
 <title>RAG chat assistant on Amazon Bedrock</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -86,113 +85,113 @@
 <rect class="bg" width="1192" height="820"/>
 <text class="title" x="40" y="46">RAG chat assistant on Amazon Bedrock</text>
 <text class="subtitle" x="40" y="70">Authenticated API → orchestrator → guarded model call grounded by a vector store, with invocation logging</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="216" y="116" width="936" height="664" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="216" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="216" y="116" width="32" height="32"/>
 <text class="glabel" x="256" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="region">
+<g class="group" data-id="region" data-label="Region">
 <rect x="444" y="164" width="684" height="592" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="2 3" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Region" x="444" y="164" width="32" height="32"/>
 <text class="glabel" x="484" y="185">Region</text>
 </g>
-<g class="group" data-id="ai">
+<g class="group" data-id="ai" data-label="Generative AI">
 <rect x="654" y="212" width="172" height="520" fill="none" stroke="#01A88D" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#svc-Amazon-Bedrock" x="654" y="212" width="32" height="32"/>
 <text class="glabel" x="694" y="233">Generative AI</text>
 </g>
-<g class="group" data-id="data">
+<g class="group" data-id="data" data-label="Data and operations">
 <rect x="916" y="212" width="188" height="520" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="926" y="232">Data and operations</text>
 </g>
-<g class="edge" data-from="users" data-to="apigw" data-step="1">
+<g class="edge" data-from="users" data-to="apigw" data-step="1" data-label="HTTPS + JWT">
 <path d="M120 460 L270 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="195" y="452" text-anchor="middle">HTTPS + JWT</text>
 <g class="badge"><circle cx="144" cy="460" r="11"/><text x="144" y="464.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="orch" data-step="2">
+<g class="edge" data-from="apigw" data-to="orch" data-step="2" data-label="">
 <path d="M334 460 L484 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="358" cy="460" r="11"/><text x="358" y="464.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="orch" data-to="fm" data-step="5">
+<g class="edge" data-from="orch" data-to="fm" data-step="5" data-label="invoke">
 <path d="M548 460 L708 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="628" y="452" text-anchor="middle">invoke</text>
 <g class="badge"><circle cx="592" cy="460" r="11"/><text x="592" y="464.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="cognito" data-to="apigw" data-step="">
+<g class="edge" data-from="cognito" data-to="apigw" data-step="" data-label="authorizer">
 <path d="M302 372 L302 428" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="320" y="404" text-anchor="start">authorizer</text>
 </g>
-<g class="edge" data-from="waf" data-to="apigw" data-step="">
+<g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M302 596 L302 540" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="320" y="572" text-anchor="start">protects</text>
 </g>
-<g class="edge" data-from="docs" data-to="kb" data-step="">
+<g class="edge" data-from="docs" data-to="kb" data-step="" data-label="ingest">
 <path d="M978 628 L772 628" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="875" y="620" text-anchor="middle">ingest</text>
 </g>
-<g class="edge" data-from="orch" data-to="kb" data-step="3">
+<g class="edge" data-from="orch" data-to="kb" data-step="3" data-label="retrieve">
 <path d="M548 460 L580 460 L580 628 L708 628" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="598" y="548" text-anchor="start">retrieve</text>
 <g class="badge"><circle cx="684" cy="628" r="11"/><text x="684" y="632.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="orch" data-to="guard" data-step="4">
+<g class="edge" data-from="orch" data-to="guard" data-step="4" data-label="check prompt">
 <path d="M516 428 L516 292 L708 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="612" y="284" text-anchor="middle">check prompt</text>
 <g class="badge"><circle cx="516" cy="404" r="11"/><text x="516" y="408.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="fm" data-to="cw" data-step="">
+<g class="edge" data-from="fm" data-to="cw" data-step="" data-label="logs">
 <path d="M772 460 L875 460 L875 292 L978 292" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="893" y="380" text-anchor="start">logs</text>
 </g>
-<g class="node" data-id="users"><title>Users (Users)</title>
+<g class="node" data-id="users" data-label="Users" data-service="Users" data-category="General"><title>Users (Users)</title>
 <use href="#gen-Users" x="56" y="428" width="64" height="64"/>
 <text class="nlabel" x="88" y="509" text-anchor="middle">Users</text>
 </g>
-<g class="node" data-id="cognito"><title>Amazon Cognito (Amazon Cognito)</title>
+<g class="node" data-id="cognito" data-label="Amazon Cognito" data-service="Amazon Cognito" data-category="Security-Identity"><title>Amazon Cognito (Amazon Cognito)</title>
 <use href="#svc-Amazon-Cognito" x="270" y="260" width="64" height="64"/>
 <text class="nlabel" x="302" y="341" text-anchor="middle">Amazon Cognito</text>
 </g>
-<g class="node" data-id="apigw"><title>Amazon API Gateway (Amazon API Gateway)</title>
+<g class="node" data-id="apigw" data-label="Amazon API Gateway" data-service="Amazon API Gateway" data-category="Networking-Content-Delivery"><title>Amazon API Gateway (Amazon API Gateway)</title>
 <use href="#svc-Amazon-API-Gateway" x="270" y="428" width="64" height="64"/>
 <text class="nlabel" x="302" y="509" text-anchor="middle">Amazon API Gateway</text>
 </g>
-<g class="node" data-id="waf"><title>AWS WAF (AWS WAF)</title>
+<g class="node" data-id="waf" data-label="AWS WAF" data-service="AWS WAF" data-category="Security-Identity"><title>AWS WAF (AWS WAF)</title>
 <use href="#svc-AWS-WAF" x="270" y="596" width="64" height="64"/>
 <text class="nlabel" x="302" y="677" text-anchor="middle">AWS WAF</text>
 </g>
-<g class="node" data-id="orch"><title>AWS Lambda (AWS Lambda)</title>
+<g class="node" data-id="orch" data-label="AWS Lambda" data-service="AWS Lambda" data-category="Compute"><title>AWS Lambda (AWS Lambda)</title>
 <use href="#svc-AWS-Lambda" x="484" y="428" width="64" height="64"/>
 <text class="nlabel" x="516" y="509" text-anchor="middle">AWS Lambda</text>
 <text class="nsub" x="516" y="523" text-anchor="middle">orchestrator</text>
 </g>
-<g class="node" data-id="guard"><title>Bedrock Guardrails (Amazon Bedrock)</title>
+<g class="node" data-id="guard" data-label="Bedrock Guardrails" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Bedrock Guardrails (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="708" y="260" width="64" height="64"/>
 <text class="nlabel" x="740" y="341" text-anchor="middle">Bedrock Guardrails</text>
 </g>
-<g class="node" data-id="fm"><title>Amazon Bedrock (Amazon Bedrock)</title>
+<g class="node" data-id="fm" data-label="Amazon Bedrock" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Amazon Bedrock (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="708" y="428" width="64" height="64"/>
 <text class="nlabel" x="740" y="509" text-anchor="middle">Amazon Bedrock</text>
 <text class="nsub" x="740" y="523" text-anchor="middle">foundation model</text>
 </g>
-<g class="node" data-id="kb"><title>Amazon OpenSearch Service (Amazon OpenSearch Service)</title>
+<g class="node" data-id="kb" data-label="Amazon OpenSearch Service" data-service="Amazon OpenSearch Service" data-category="Analytics"><title>Amazon OpenSearch Service (Amazon OpenSearch Service)</title>
 <use href="#svc-Amazon-OpenSearch-Service" x="708" y="596" width="64" height="64"/>
 <text class="nlabel" x="740" y="677" text-anchor="middle">Amazon OpenSearch</text>
 <text class="nlabel" x="740" y="691" text-anchor="middle">Service</text>
 <text class="nsub" x="740" y="705" text-anchor="middle">vector store</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="978" y="260" width="64" height="64"/>
 <text class="nlabel" x="1010" y="341" text-anchor="middle">Amazon CloudWatch</text>
 <text class="nsub" x="1010" y="355" text-anchor="middle">invocation logs</text>
 </g>
-<g class="node" data-id="kms"><title>AWS KMS (AWS Key Management Service)</title>
+<g class="node" data-id="kms" data-label="AWS KMS" data-service="AWS Key Management Service" data-category="Security-Identity"><title>AWS KMS (AWS Key Management Service)</title>
 <use href="#svc-AWS-Key-Management-Service" x="978" y="428" width="64" height="64"/>
 <text class="nlabel" x="1010" y="509" text-anchor="middle">AWS KMS</text>
 <text class="nsub" x="1010" y="523" text-anchor="middle">encryption keys</text>
 </g>
-<g class="node" data-id="docs"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="docs" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="978" y="596" width="64" height="64"/>
 <text class="nlabel" x="1010" y="677" text-anchor="middle">Amazon S3</text>
 <text class="nsub" x="1010" y="691" text-anchor="middle">source documents</text>

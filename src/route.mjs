@@ -56,7 +56,11 @@ const portOf = (box, side, pad = 0) => {
 };
 
 /** ends: {box, cell?}. obstacles: rects to avoid. placed: previously routed polylines. */
-export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = []) {
+export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = [], regions = []) {
+  // regions: groups that contain neither endpoint — a route should go around them, not through them
+  const inside = (r, box) => { const cx = box.x + box.w / 2, cy = box.cy ?? box.y + box.h / 2; return cx >= r.x && cx <= r.x + r.w && cy >= r.y && cy <= r.y + r.h; };
+  const foreign = regions.filter((r) => !inside(r, a.box) && !inside(r, b.box));
+  const chanY = foreign.flatMap((r) => [r.y - 18, r.y + r.h + 18]), chanX = foreign.flatMap((r) => [r.x - 18, r.x + r.w + 18]);
   const cands = [];
   for (const sa of Object.keys(DIRS)) for (const sb of Object.keys(DIRS)) {
     const pa = portOf(a.box, sa, a.bottomPad || 0), pb = portOf(b.box, sb, b.bottomPad || 0);
@@ -69,11 +73,11 @@ export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = 
     if (hA && hB) {
       for (const o of [0, -24, 24, -48, 48]) add([[mx + o, p1[1]], [mx + o, q1[1]]]);
       // detour around: via top/bottom channel
-      const ys = [Math.min(p1[1], q1[1]) - 60, Math.max(p1[1], q1[1]) + 60];
+      const ys = [Math.min(p1[1], q1[1]) - 60, Math.max(p1[1], q1[1]) + 60, ...chanY];
       for (const yy of ys) add([[p1[0], yy], [q1[0], yy]]);
     } else if (!hA && !hB) {
       for (const o of [0, -24, 24, -48, 48]) add([[p1[0], my + o], [q1[0], my + o]]);
-      const xs = [Math.min(p1[0], q1[0]) - 60, Math.max(p1[0], q1[0]) + 60];
+      const xs = [Math.min(p1[0], q1[0]) - 60, Math.max(p1[0], q1[0]) + 60, ...chanX];
       for (const xx of xs) add([[xx, p1[1]], [xx, q1[1]]]);
     } else if (hA && !hB) add([[q1[0], p1[1]]]);
     else add([[p1[0], q1[1]]]);
@@ -81,7 +85,11 @@ export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = 
   let best = null;
   for (const c of cands) {
     const pts = c.pts;
-    let score = 0, ok = true;
+    let score = 0;
+    // a route must leave and enter through the port normal, otherwise it grazes the box edge
+    const dirOf = (p, q) => [Math.sign(q[0] - p[0]), Math.sign(q[1] - p[1])];
+    const d0 = dirOf(pts[0], pts[1]), dn = dirOf(pts[pts.length - 1], pts[pts.length - 2]);
+    if (d0[0] !== DIRS[c.sa][0] || d0[1] !== DIRS[c.sa][1] || dn[0] !== DIRS[c.sb][0] || dn[1] !== DIRS[c.sb][1]) score += 50000;
     // exits must leave away from the box (stub direction already guarantees) — penalize U-turns
     for (let i = 0; i < pts.length - 1; i++) {
       const p = pts[i], q = pts[i + 1];
@@ -103,6 +111,8 @@ export function routeEdge(a, b, obstacles, placed, bounds, soft = [], borders = 
     if (a.bottomPad && c.sa === "B") score += 220;
     if (b.bottomPad && c.sb === "B") score += 220;
     if (c.sa === "T" || c.sb === "T") score += 25;
+    // crossing a group that neither endpoint belongs to is confusing: it reads as passing "through" that boundary
+    for (const r of foreign) for (let i = 0; i < pts.length - 1; i++) if (segHitsRect(pts[i], pts[i + 1], inflate(r, -2))) { score += 320; break; }
     score += (pts.length - 2) * 60;
     // facing penalty: leaving a side that points away from the target
     const first = pts[0], second = pts[1];

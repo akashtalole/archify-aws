@@ -1,0 +1,34 @@
+{
+  "diagram_type": "sequence",
+  "meta": { "title": "Agent tool call through AgentCore Gateway and Policy", "subtitle": "A clinician asks for a patient summary; the agent fetches FHIR data under policy and guardrails", "lens": ["framework", "generative-ai"], "output": "examples/out/agent-tool-call.html" },
+  "participants": [
+    { "id": "user", "icon": "users", "label": "Clinician" },
+    { "id": "api", "icon": "api-gateway", "label": "Amazon API Gateway" },
+    { "id": "runtime", "icon": "bedrock-agentcore", "label": "AgentCore Runtime", "sublabel": "agent session" },
+    { "id": "guard", "icon": "bedrock", "label": "Bedrock Guardrails" },
+    { "id": "fm", "icon": "bedrock", "label": "Amazon Bedrock", "sublabel": "foundation model" },
+    { "id": "gw", "icon": "bedrock-agentcore", "label": "AgentCore Gateway" },
+    { "id": "policy", "icon": "verified-permissions", "label": "AgentCore Policy" },
+    { "id": "hl", "icon": "healthlake", "label": "AWS HealthLake" }
+  ],
+  "groups": [ { "kind": "aws-cloud", "label": "AWS Cloud", "members": ["api", "runtime", "guard", "fm", "gw", "policy", "hl"] } ],
+  "messages": [
+    { "from": "user", "to": "api", "label": "Summarize last visit for patient 123", "desc": "Clinician prompt over HTTPS with a workforce token." },
+    { "from": "api", "to": "runtime", "label": "invoke agent (identity propagated)" },
+    { "from": "runtime", "to": "guard", "label": "screen prompt" },
+    { "from": "guard", "to": "runtime", "kind": "return", "label": "allowed" },
+    { "from": "runtime", "to": "fm", "label": "plan next step" },
+    { "from": "fm", "to": "runtime", "kind": "return", "label": "tool call: get_patient_summary" },
+    { "from": "runtime", "to": "gw", "label": "call tool via MCP" },
+    { "from": "gw", "to": "policy", "label": "authorize (role, patient, purpose)" },
+    { "from": "policy", "to": "gw", "kind": "return", "label": "permit" },
+    { "from": "gw", "to": "hl", "label": "FHIR search" },
+    { "from": "hl", "to": "gw", "kind": "return", "label": "Bundle" },
+    { "from": "gw", "to": "runtime", "kind": "return", "label": "tool result" },
+    { "note": "On deny, Gateway returns an error and the agent explains it cannot access the record.", "over": ["gw", "policy"] },
+    { "from": "runtime", "to": "fm", "label": "compose answer" },
+    { "from": "runtime", "to": "guard", "label": "screen response (PHI / PII)" },
+    { "from": "runtime", "to": "user", "kind": "return", "label": "summary with sources" }
+  ],
+  "fragments": [ { "kind": "opt", "label": "tool needed", "from": 6, "to": 12 } ]
+}

@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1191 572" width="1191" height="572" role="img" aria-label="Clinical notes ingestion and retrieval pipeline">
+<title>Clinical notes ingestion and retrieval pipeline</title>
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+.aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
+.aws .bg{fill:var(--bg)}
+.aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
+.aws .title{font-size:22px;font-weight:700}
+.aws .subtitle{font-size:13px;fill:var(--muted)}
+.aws .glabel,.aws .nlabel,.aws .elabel{font-size:12px}
+.aws .nsub{font-size:10.5px;fill:var(--muted)}
+.aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
+.aws .eline{stroke:var(--line)}
+.aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
+.aws .badge circle{fill:var(--badge)}
+.aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
+.aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
+.aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
+.aws .dim{opacity:.18}.aws .hl .eline{stroke-width:3}
+.aws .edge,.aws .node{transition:opacity .12s}</style>
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="arw" d="M1.5 1.5 L8.5 5 L1.5 8.5"/></marker><symbol id="grp-AWS-Cloud" viewBox="0 0 40 40"><g id="grp-AWS-Cloud__Icon-Architecture-Group_32_AWS-Cloud_32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="grp-AWS-Cloud__Rectangle" fill="#242F3E" x="0" y="0" width="40" height="40"></rect>
+        <path d="M28.993,27.9952689 L11.487,27.9762689 C9.121,27.9742689 7.154,26.1292689 7.012,23.7752689 C7.004,23.6522689 7,23.5262689 7,23.3972689 C7,20.2992689 9.091,19.2872689 10.337,18.9592689 C10.577,18.8962689 10.735,18.6662689 10.707,18.4192689 C10.676,18.1492689 10.659,17.8752689 10.659,17.5962689 C10.659,15.1322689 12.308,12.4822689 14.415,11.5632689 C15.359,11.1502689 16.232,10.9862689 17.023,10.9862689 C19.276,10.9862689 20.867,12.3152689 21.561,13.0332689 C22.329,13.8262689 22.927,14.8382689 23.34,16.0422689 C23.4,16.2192689 23.555,16.3472689 23.74,16.3742689 C23.918,16.4012689 24.109,16.3232689 24.219,16.1712689 C24.807,15.3502689 25.766,14.9822689 26.659,15.2392689 C27.782,15.5602689 28.516,16.7272689 28.62,18.3072689 C28.578,18.5762689 28.759,18.8292689 29.027,18.8772689 C30.222,19.0892689 33,19.9572689 33,23.4402689 C33,27.5892689 29.114,27.9822689 28.993,27.9952689 M29.594,17.9742689 C29.379,16.0672689 28.4,14.6962689 26.934,14.2782689 C25.899,13.9822689 24.811,14.2452689 23.989,14.9502689 C23.553,13.9362689 22.979,13.0602689 22.28,12.3382689 C20.023,10.0052689 16.933,9.37226889 14.014,10.6462689 C11.531,11.7302689 9.659,14.7182689 9.659,17.5962689 C9.659,17.7702689 9.665,17.9432689 9.676,18.1142689 C8.319,18.5732689 6,19.8752689 6,23.3972689 C6,23.5492689 6.004,23.6962689 6.014,23.8382689 C6.188,26.7162689 8.593,28.9732689 11.486,28.9762689 L29.034,28.9932689 C29.084,28.9892689 34,28.5192689 34,23.4402689 C34,19.5022689 31.003,18.3142689 29.594,17.9742689" id="grp-AWS-Cloud__Fill-1" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="grp-AWS-Cloud-dark" viewBox="0 0 40 40"><g id="grp-AWS-Cloud-dark__Icon-Architecture-Group_32_AWS-Cloud_32" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="grp-AWS-Cloud-dark__Rectangle" fill="#FFFFFF" x="0" y="0" width="40" height="40"></rect>
+        <path d="M28.993,27.9952689 L11.487,27.9762689 C9.121,27.9742689 7.154,26.1292689 7.012,23.7752689 C7.004,23.6522689 7,23.5262689 7,23.3972689 C7,20.2992689 9.091,19.2872689 10.337,18.9592689 C10.577,18.8962689 10.735,18.6662689 10.707,18.4192689 C10.676,18.1492689 10.659,17.8752689 10.659,17.5962689 C10.659,15.1322689 12.308,12.4822689 14.415,11.5632689 C15.359,11.1502689 16.232,10.9862689 17.023,10.9862689 C19.276,10.9862689 20.867,12.3152689 21.561,13.0332689 C22.329,13.8262689 22.927,14.8382689 23.34,16.0422689 C23.4,16.2192689 23.555,16.3472689 23.74,16.3742689 C23.918,16.4012689 24.109,16.3232689 24.219,16.1712689 C24.807,15.3502689 25.766,14.9822689 26.659,15.2392689 C27.782,15.5602689 28.516,16.7272689 28.62,18.3072689 C28.578,18.5762689 28.759,18.8292689 29.027,18.8772689 C30.222,19.0892689 33,19.9572689 33,23.4402689 C33,27.5892689 29.114,27.9822689 28.993,27.9952689 M29.594,17.9742689 C29.379,16.0672689 28.4,14.6962689 26.934,14.2782689 C25.899,13.9822689 24.811,14.2452689 23.989,14.9502689 C23.553,13.9362689 22.979,13.0602689 22.28,12.3382689 C20.023,10.0052689 16.933,9.37226889 14.014,10.6462689 C11.531,11.7302689 9.659,14.7182689 9.659,17.5962689 C9.659,17.7702689 9.665,17.9432689 9.676,18.1142689 C8.319,18.5732689 6,19.8752689 6,23.3972689 C6,23.5492689 6.004,23.6962689 6.014,23.8382689 C6.188,26.7162689 8.593,28.9732689 11.486,28.9762689 L29.034,28.9932689 C29.084,28.9892689 34,28.5192689 34,23.4402689 C34,19.5022689 31.003,18.3142689 29.594,17.9742689" id="grp-AWS-Cloud-dark__Fill-1" fill="#232F3E"></path>
+    </g></symbol><symbol id="gen-Users" viewBox="0 0 48 48"><g id="gen-Users__Icon-Resource_General-Resource_Res_Users_48" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M28.639,9.286 C28.639,6.371 31.052,4 34.019,4 C36.985,4 39.397,6.371 39.397,9.286 C39.397,12.201 36.985,14.572 34.019,14.572 C31.052,14.572 28.639,12.201 28.639,9.286 L28.639,9.286 Z M40.163,16.334 C39.516,15.932 38.833,15.6 38.128,15.333 C40.098,14.023 41.397,11.802 41.397,9.286 C41.397,5.269 38.087,2 34.019,2 C29.95,2 26.639,5.269 26.639,9.286 C26.639,11.796 27.932,14.014 29.895,15.325 C28.614,15.808 27.41,16.515 26.349,17.425 L27.652,18.943 C29.434,17.414 31.689,16.572 34,16.572 C35.802,16.572 37.569,17.077 39.109,18.033 C41.849,19.735 43.647,22.725 43.953,26 L34,26 L34,28 L45,28 C45.553,28 46,27.553 46,27 C46,22.657 43.764,18.57 40.163,16.334 L40.163,16.334 Z M8.639,9.286 C8.639,6.371 11.052,4 14.019,4 C16.985,4 19.397,6.371 19.397,9.286 C19.397,12.201 16.985,14.572 14.019,14.572 C11.052,14.572 8.639,12.201 8.639,9.286 L8.639,9.286 Z M14,26 L4.046,26 C4.53,20.717 8.81,16.572 14,16.572 C15.802,16.572 17.569,17.077 19.109,18.033 C19.541,18.302 19.958,18.608 20.349,18.943 L21.652,17.426 C21.184,17.024 20.684,16.657 20.163,16.334 C19.516,15.932 18.833,15.6 18.128,15.333 C20.098,14.023 21.397,11.802 21.397,9.286 C21.397,5.269 18.087,2 14.019,2 C9.95,2 6.639,5.269 6.639,9.286 C6.639,11.801 7.937,14.023 9.907,15.332 C5.302,17.071 2,21.638 2,27 C2,27.553 2.448,28 3,28 L14,28 L14,26 Z M14.046,44 C14.53,38.717 18.81,34.572 24,34.572 C25.802,34.572 27.569,35.077 29.109,36.033 C31.849,37.735 33.647,40.725 33.953,44 L14.046,44 Z M18.639,27.286 C18.639,24.371 21.052,22 24.019,22 C26.985,22 29.397,24.371 29.397,27.286 C29.397,30.201 26.985,32.572 24.019,32.572 C21.052,32.572 18.639,30.201 18.639,27.286 L18.639,27.286 Z M30.163,34.334 C29.516,33.932 28.833,33.6 28.128,33.333 C30.098,32.023 31.397,29.802 31.397,27.286 C31.397,23.269 28.087,20 24.019,20 C19.95,20 16.639,23.269 16.639,27.286 C16.639,29.801 17.937,32.023 19.907,33.332 C15.302,35.071 12,39.638 12,45 C12,45.553 12.448,46 13,46 L35,46 C35.553,46 36,45.553 36,45 C36,40.657 33.764,36.57 30.163,34.334 L30.163,34.334 Z" id="gen-Users__Fill-1" fill="#242F3E"></path>
+    </g></symbol><symbol id="gen-Server" viewBox="0 0 48 48"><g id="gen-Server__Icon-Resource_General-Resource_Res_Traditional-server_48" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M15.437,21.52 L32.064,21.52 L32.064,19.52 L15.437,19.52 L15.437,21.52 Z M15.437,17.196 L32.064,17.196 L32.064,15.196 L15.437,15.196 L15.437,17.196 Z M15.437,12.762 L32.064,12.762 L32.064,10.762 L15.437,10.762 L15.437,12.762 Z M15.437,8.494 L32.064,8.494 L32.064,6.494 L15.437,6.494 L15.437,8.494 Z M13,44.013 L34.499,44.013 L34.499,4 L13,4 L13,44.013 Z M35.032,2 L12.468,2 C11.659,2 11,2.659 11,3.469 L11,44.545 C11,45.355 11.659,46.013 12.468,46.013 L35.032,46.013 C35.841,46.013 36.499,45.355 36.499,44.545 L36.499,3.469 C36.499,2.659 35.841,2 35.032,2 L35.032,2 Z" id="gen-Server__Fill-18" fill="#232F3D"></path>
+    </g></symbol><symbol id="svc-AWS-HealthScribe" viewBox="0 0 80 80"><g id="svc-AWS-HealthScribe__Icon-Architecture_64_Arch_AWS-HealthScribe_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-AWS-HealthScribe__Icon-Architecture-BG_64_Machine-Learning" fill="#01A88D">
+            <rect id="svc-AWS-HealthScribe__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-AWS-HealthScribe__Icon-Service_64_AWS-HealthScribe_64" transform="translate(12.510000, 12.000000)" fill="#FFFFFF">
+            <path d="M24.011,41.959 C22.956,40.58 20.304,39.796 17.497,39.646 L17.497,34.723 L20.866,33.612 C20.912,33.596 20.957,33.578 21,33.556 C21.401,33.355 21.876,33.425 22.207,33.727 C24.303,35.636 28.057,38.709 31.094,39.306 C29.443,40.325 26.218,41.754 24.011,41.959 L24.011,41.959 Z M16.497,45 C12.56,45 10.497,43.743 10.497,43.308 C10.497,42.873 12.56,41.615 16.497,41.615 C20.433,41.615 22.497,42.873 22.497,43.308 C22.497,43.743 20.433,45 16.497,45 L16.497,45 Z M20.497,48.5 C20.497,49.029 18.978,50 16.497,50 C14.015,50 12.497,49.029 12.497,48.5 C12.497,47.971 14.015,47 16.497,47 C18.978,47 20.497,47.971 20.497,48.5 L20.497,48.5 Z M11.945,33.727 C12.277,33.423 12.75,33.357 13.179,33.57 L15.497,34.64 L15.497,39.646 C12.691,39.796 10.039,40.58 8.983,41.958 C6.856,41.75 4.031,40.346 2.693,39.367 C5.613,38.993 9.291,36.144 11.945,33.727 L11.945,33.727 Z M13.497,26 C13.497,24.346 14.843,23 16.497,23 C18.151,23 19.497,24.346 19.497,26 C19.497,27.654 18.151,29 16.497,29 C14.843,29 13.497,27.654 13.497,26 L13.497,26 Z M33.198,37.585 C32.908,37.465 32.553,37.409 32.082,37.409 C30.289,37.409 27.101,35.48 23.553,32.248 C22.623,31.401 21.304,31.203 20.177,31.733 L17.497,32.617 L17.497,30.899 C19.776,30.434 21.497,28.415 21.497,26 C21.497,23.243 19.254,21 16.497,21 C13.74,21 11.497,23.243 11.497,26 C11.497,28.415 13.218,30.434 15.497,30.899 L15.497,32.438 L14.046,31.768 C12.902,31.193 11.547,31.383 10.598,32.248 C7.05,35.48 3.861,37.409 2.07,37.409 C1.556,37.409 1.154,37.479 0.839,37.622 C0.314,37.862 -3.55271368e-15,38.327 -3.55271368e-15,38.867 C-3.55271368e-15,40.871 5.382,43.468 8.6,43.923 C8.933,45.006 10.131,45.811 11.735,46.325 C10.955,46.914 10.497,47.663 10.497,48.5 C10.497,50.295 12.587,51.689 15.497,51.952 L15.497,56 L17.497,56 L17.497,51.952 C20.407,51.689 22.497,50.295 22.497,48.5 C22.497,47.663 22.038,46.914 21.258,46.325 C22.863,45.811 24.062,45.005 24.395,43.921 C27.679,43.458 34.047,40.837 34.047,38.785 C34.047,38.252 33.73,37.803 33.198,37.585 L33.198,37.585 Z M30.497,26 L37.497,26 L37.497,24 L30.497,24 L30.497,26 Z M30.497,13 L39.497,13 L39.497,11 L30.497,11 L30.497,13 Z M30.497,20 L49.497,20 L49.497,18 L30.497,18 L30.497,20 Z M36.497,32 L49.497,32 L49.497,30 L36.497,30 L36.497,32 Z M40.497,26 L49.497,26 L49.497,24 L40.497,24 L40.497,26 Z M45.497,3.587 L52.236,11 L45.497,11 L45.497,3.587 Z M55.237,11.327 L45.237,0.327 C45.048,0.119 44.779,3.55271368e-15 44.497,3.55271368e-15 L24.497,3.55271368e-15 C23.944,3.55271368e-15 23.497,0.448 23.497,1 L23.497,27 L25.497,27 L25.497,2 L43.497,2 L43.497,12 C43.497,12.552 43.944,13 44.497,13 L53.497,13 L53.497,41 L38.497,41 L38.497,43 L54.497,43 C55.05,43 55.497,42.552 55.497,42 L55.497,12 C55.497,11.752 55.404,11.511 55.237,11.327 L55.237,11.327 Z" id="svc-AWS-HealthScribe__Fill-7"></path>
+        </g>
+    </g></symbol><symbol id="svc-Amazon-Simple-Storage-Service" viewBox="0 0 80 80"><g id="svc-Amazon-Simple-Storage-Service__Icon-Architecture_64_Arch_Amazon-Simple-Storage-Service_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-Simple-Storage-Service__Icon-Architecture-BG_64_Storage" fill="#7AA116">
+            <rect id="svc-Amazon-Simple-Storage-Service__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-Amazon-Simple-Storage-Service__Icon-Service_64_Amazon-Simple-Storage-Service_64" transform="translate(12.999900, 11.999600)" fill="#FFFFFF">
+            <path d="M47.836,30.893 L48.22,28.189 C51.761,30.31 51.807,31.186 51.8060132,31.21 C51.8,31.215 51.196,31.719 47.836,30.893 L47.836,30.893 Z M45.893,30.353 C39.773,28.501 31.25,24.591 27.801,22.961 C27.801,22.947 27.805,22.934 27.805,22.92 C27.805,21.595 26.727,20.517 25.401,20.517 C24.077,20.517 22.999,21.595 22.999,22.92 C22.999,24.245 24.077,25.323 25.401,25.323 C25.983,25.323 26.511,25.106 26.928,24.761 C30.986,26.682 39.443,30.535 45.608,32.355 L43.17,49.561 C43.163,49.608 43.16,49.655 43.16,49.702 C43.16,51.217 36.453,54 25.494,54 C14.419,54 7.641,51.217 7.641,49.702 C7.641,49.656 7.638,49.611 7.632,49.566 L2.538,12.359 C6.947,15.394 16.43,17 25.5,17 C34.556,17 44.023,15.4 48.441,12.374 L45.893,30.353 Z M2,8.478 C2.072,7.162 9.634,2 25.5,2 C41.364,2 48.927,7.161 49,8.478 L49,8.927 C48.13,11.878 38.33,15 25.5,15 C12.648,15 2.843,11.868 2,8.913 L2,8.478 Z M51,8.5 C51,5.035 41.066,0 25.5,0 C9.934,0 0,5.035 0,8.5 L0.094,9.254 L5.642,49.778 C5.775,54.31 17.861,56 25.494,56 C34.966,56 45.029,53.822 45.159,49.781 L47.555,32.884 C48.888,33.203 49.985,33.366 50.866,33.366 C52.049,33.366 52.849,33.077 53.334,32.499 C53.732,32.025 53.884,31.451 53.77,30.84 C53.511,29.456 51.868,27.964 48.522,26.055 L50.898,9.293 L51,8.5 Z" id="svc-Amazon-Simple-Storage-Service__Amazon-Simple-Storage-Service-Icon_64_Squid"></path>
+        </g>
+    </g></symbol><symbol id="svc-Amazon-Comprehend-Medical" viewBox="0 0 80 80"><g id="svc-Amazon-Comprehend-Medical__Icon-Architecture_64_Arch_Amazon-Comprehend-Medical_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-Comprehend-Medical__Icon-Architecture-BG_64_Machine-Learning" fill="#01A88D">
+            <rect id="svc-Amazon-Comprehend-Medical__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-Amazon-Comprehend-Medical__Icon-Service_64_Amazon-Comprehend-Medical_64" transform="translate(12.000000, 12.000000)" fill="#FFFFFF">
+            <path d="M8.96593273,6.581 L8.96593273,41.908 L2.17593273,7.978 L8.96593273,6.581 Z M39.9659327,3.227 L45.3359327,8 L39.9659327,8 L39.9659327,3.227 Z M10.9659327,2 L37.9659327,2 L37.9659327,9 C37.9659327,9.553 38.4129327,10 38.9659327,10 L46.9659327,10 L46.9659327,33 L48.9659327,33 L48.9659327,9 C48.9659327,8.715 48.8439327,8.443 48.6299327,8.253 L39.6299327,0.253 C39.4469327,0.09 39.2109327,-3.55271368e-15 38.9659327,-3.55271368e-15 L9.96593273,-3.55271368e-15 C9.41293273,-3.55271368e-15 8.96593273,0.448 8.96593273,1 L8.96593273,4.539 L0.79893273,6.22 C0.25993273,6.331 -0.0890672699,6.856 0.0199327301,7.395 L8.98593273,52.197 L9.00493273,52.193 C9.09693273,52.65 9.48193273,53 9.96593273,53 L33.9659327,53 L33.9659327,51 L10.9659327,51 L10.9659327,2 Z M14.9659327,39 L32.9659327,39 L32.9659327,37 L14.9659327,37 L14.9659327,39 Z M14.9659327,33 L39.9659327,33 L39.9659327,31 L14.9659327,31 L14.9659327,33 Z M14.9659327,15 L33.9659327,15 L33.9659327,13 L14.9659327,13 L14.9659327,15 Z M14.9659327,27 L41.9659327,27 L41.9659327,25 L14.9659327,25 L14.9659327,27 Z M23.9659327,21 L41.9659327,21 L41.9659327,19 L23.9659327,19 L23.9659327,21 Z M14.9659327,21 L21.9659327,21 L21.9659327,19 L14.9659327,19 L14.9659327,21 Z M53.9659327,48 L48.9659327,48 C48.4129327,48 47.9659327,48.448 47.9659327,49 L47.9659327,54 L42.9659327,54 L42.9659327,49 C42.9659327,48.448 42.5189327,48 41.9659327,48 L36.9659327,48 L36.9659327,43 L41.9659327,43 C42.5189327,43 42.9659327,42.553 42.9659327,42 L42.9659327,37 L47.9659327,37 L47.9659327,42 C47.9659327,42.553 48.4129327,43 48.9659327,43 L53.9659327,43 L53.9659327,48 Z M54.9659327,41 L49.9659327,41 L49.9659327,36 C49.9659327,35.448 49.5189327,35 48.9659327,35 L41.9659327,35 C41.4129327,35 40.9659327,35.448 40.9659327,36 L40.9659327,41 L35.9659327,41 C35.4129327,41 34.9659327,41.448 34.9659327,42 L34.9659327,49 C34.9659327,49.553 35.4129327,50 35.9659327,50 L40.9659327,50 L40.9659327,55 C40.9659327,55.553 41.4129327,56 41.9659327,56 L48.9659327,56 C49.5189327,56 49.9659327,55.553 49.9659327,55 L49.9659327,50 L54.9659327,50 C55.5189327,50 55.9659327,49.553 55.9659327,49 L55.9659327,42 C55.9659327,41.448 55.5189327,41 54.9659327,41 L54.9659327,41 Z" id="svc-Amazon-Comprehend-Medical__Fill-1"></path>
+        </g>
+    </g></symbol><symbol id="svc-AWS-Step-Functions" viewBox="0 0 80 80"><g id="svc-AWS-Step-Functions__Icon-Architecture_64_Arch_AWS-Step-Functions_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-AWS-Step-Functions__Icon-Architecture-BG_64_Application-Integration" fill="#E7157B">
+            <rect id="svc-AWS-Step-Functions__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <path d="M45,44 L66,44 L66,37 L45,37 L45,44 Z M67,35 L44,35 C43.447,35 43,35.448 43,36 L43,45 C43,45.552 43.447,46 44,46 L67,46 C67.553,46 68,45.552 68,45 L68,36 C68,35.448 67.553,35 67,35 L67,35 Z M43.5,62.5 C43.5,64.43 41.93,66 40,66 C38.07,66 36.5,64.43 36.5,62.5 C36.5,60.57 38.07,59 40,59 C41.93,59 43.5,60.57 43.5,62.5 L43.5,62.5 Z M14,47 L32,47 L32,43 L14,43 L14,47 Z M14,37 L32,37 L32,33 L14,33 L14,37 Z M36.5,17.5 C36.5,15.57 38.07,14 40,14 C41.93,14 43.5,15.57 43.5,17.5 C43.5,19.43 41.93,21 40,21 C38.07,21 36.5,19.43 36.5,17.5 L36.5,17.5 Z M56,53 L24,53 L24,49 L33,49 C33.553,49 34,48.552 34,48 L34,42 C34,41.448 33.553,41 33,41 L24,41 L24,39 L33,39 C33.553,39 34,38.552 34,38 L34,32 C34,31.448 33.553,31 33,31 L24,31 L24,28 L56,28 L56,32 L58,32 L58,27 C58,26.448 57.553,26 57,26 L41,26 L41,22.904 C43.556,22.432 45.5,20.191 45.5,17.5 C45.5,14.467 43.032,12 40,12 C36.968,12 34.5,14.467 34.5,17.5 C34.5,20.191 36.444,22.432 39,22.904 L39,26 L23,26 C22.447,26 22,26.448 22,27 L22,31 L13,31 C12.447,31 12,31.448 12,32 L12,38 C12,38.552 12.447,39 13,39 L22,39 L22,41 L13,41 C12.447,41 12,41.448 12,42 L12,48 C12,48.552 12.447,49 13,49 L22,49 L22,54 C22,54.552 22.447,55 23,55 L39,55 L39,57.096 C36.444,57.568 34.5,59.809 34.5,62.5 C34.5,65.533 36.968,68 40,68 C43.032,68 45.5,65.533 45.5,62.5 C45.5,59.809 43.556,57.568 41,57.096 L41,55 L57,55 C57.553,55 58,54.552 58,54 L58,49.027 L56,49.027 L56,53 Z" id="svc-AWS-Step-Functions__AWS_Step_Functions_Icon_64_Squid" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="svc-AWS-HealthLake" viewBox="0 0 80 80"><g id="svc-AWS-HealthLake__Icon-Architecture_64_Arch_AWS-HealthLake_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-AWS-HealthLake__Icon-Architecture-BG_64_Machine-Learning" fill="#01A88D">
+            <rect id="svc-AWS-HealthLake__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <g id="svc-AWS-HealthLake__Icon-Service_64_AWS-HealthLake_64" transform="translate(12.000000, 12.000000)" fill="#FFFFFF">
+            <path d="M47,36 L49,36 L49,30 L47,30 L47,36 Z M54,45 L50,45 C49.447,45 49,44.552 49,44 L49,40 L45,40 L45,44 C45,44.552 44.553,45 44,45 L40,45 L40,49 L44,49 C44.553,49 45,49.448 45,50 L45,54 L49,54 L49,50 C49,49.448 49.447,49 50,49 L54,49 L54,45 Z M56,44 L56,50 C56,50.552 55.553,51 55,51 L51,51 L51,55 C51,55.552 50.553,56 50,56 L44,56 C43.447,56 43,55.552 43,55 L43,51 L39,51 C38.447,51 38,50.552 38,50 L38,44 C38,43.448 38.447,43 39,43 L43,43 L43,39 C43,38.448 43.447,38 44,38 L50,38 C50.553,38 51,38.448 51,39 L51,43 L55,43 C55.553,43 56,43.448 56,44 L56,44 Z M21,7 L35,7 L35,2 L21,2 L21,7 Z M19,8 L19,1 C19,0.448 19.447,0 20,0 L36,0 C36.553,0 37,0.448 37,1 L37,8 C37,8.552 36.553,9 36,9 L20,9 C19.447,9 19,8.552 19,8 L19,8 Z M9,5.545 C9,4.693 9.693,4 10.546,4 L17,4 L17,2 L10.546,2 C8.591,2 7,3.59 7,5.545 L7,21 L9,21 L9,5.545 Z M47,5.545 L47,21 L49,21 L49,5.545 C49,3.59 47.409,2 45.454,2 L39,2 L39,4 L45.454,4 C46.307,4 47,4.693 47,5.545 L47,5.545 Z M9,52.455 L9,30 L7,30 L7,52.455 C7,54.41 8.591,56 10.546,56 L40,56 L40,54 L10.546,54 C9.693,54 9,53.307 9,52.455 L9,52.455 Z M39.618,25 L34.895,15.553 C34.723,15.209 34.4,15.011 33.984,15 C33.6,15.006 33.253,15.232 33.092,15.581 L27.841,26.958 L22.832,19.445 C22.461,18.889 21.539,18.889 21.168,19.445 L17.465,25 L0,25 L0,27 L18,27 C18.334,27 18.646,26.833 18.832,26.555 L22,21.803 L27.168,29.555 C27.354,29.834 27.667,30 28,30 C28.025,30 28.052,29.999 28.078,29.997 C28.438,29.969 28.756,29.748 28.908,29.419 L34.036,18.308 L38.105,26.447 C38.275,26.786 38.621,27 39,27 L56,27 L56,25 L39.618,25 Z M13,42 L31,42 L31,40 L13,40 L13,42 Z M13,48 L31,48 L31,46 L13,46 L13,48 Z" id="svc-AWS-HealthLake__Fill-6"></path>
+        </g>
+    </g></symbol><symbol id="svc-Amazon-OpenSearch-Service" viewBox="0 0 80 80"><g id="svc-Amazon-OpenSearch-Service__Icon-Architecture_64_Arch_Amazon-OpenSearch-Service_64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svc-Amazon-OpenSearch-Service__Icon-Architecture-BG_64_Analytics" fill="#8C4FFF">
+            <rect id="svc-Amazon-OpenSearch-Service__Rectangle" x="0" y="0" width="80" height="80"></rect>
+        </g>
+        <path d="M44.26,51.33 C39.843,51.33 36.25,47.737 36.25,43.321 C36.25,38.904 39.843,35.311 44.26,35.311 C48.677,35.311 52.27,38.904 52.27,43.321 C52.27,47.737 48.677,51.33 44.26,51.33 L44.26,51.33 Z M44.26,33.311 C38.74,33.311 34.25,37.801 34.25,43.321 C34.25,48.84 38.74,53.33 44.26,53.33 C49.78,53.33 54.27,48.84 54.27,43.321 C54.27,37.801 49.78,33.311 44.26,33.311 L44.26,33.311 Z M64.548,61.346 C63.897,62.067 62.777,62.127 62.052,61.477 L53.712,53.954 C54.593,53.17 55.384,52.29 56.049,51.313 L64.416,58.851 C65.139,59.503 65.197,60.624 64.548,61.346 L64.548,61.346 Z M32.011,43.321 C32.011,36.566 37.506,31.071 44.26,31.071 C51.014,31.071 56.509,36.566 56.509,43.321 C56.509,50.075 51.014,55.57 44.26,55.57 C37.506,55.57 32.011,50.075 32.011,43.321 L32.011,43.321 Z M57.063,49.535 C57.98,47.654 58.509,45.55 58.509,43.321 C58.509,35.463 52.117,29.071 44.26,29.071 C36.403,29.071 30.011,35.463 30.011,43.321 C30.011,51.178 36.403,57.57 44.26,57.57 C47.159,57.57 49.856,56.695 52.109,55.202 L60.714,62.964 C61.432,63.609 62.333,63.927 63.232,63.9260024 C64.263,63.9260024 65.29,63.508 66.034,62.685 C67.42,61.143 67.296,58.757 65.756,57.366 L57.063,49.535 Z M67,20 L67,54 L65,54 L65,21 L57,21 L57,32 L55,32 L55,20 C55,19.448 55.448,19 56,19 L66,19 C66.553,19 67,19.448 67,20 L67,20 Z M51,61 L53,61 L53,66 C53,66.553 52.553,67 52,67 L42,67 C41.447,67 41,66.553 41,66 L41,60 L43,60 L43,65 L51,65 L51,61 Z M43,26 L41,26 L41,14 C41,13.448 41.447,13 42,13 L52,13 C52.553,13 53,13.448 53,14 L53,28 L51,28 L51,15 L43,15 L43,26 Z M37,59 L39,59 L39,66 C39,66.553 38.553,67 38,67 L28,67 C27.448,67 27,66.553 27,66 L27,51 L29,51 L29,65 L37,65 L37,59 Z M29,36 L27,36 L27,23 C27,22.448 27.448,22 28,22 L38,22 C38.553,22 39,22.448 39,23 L39,27 L37,27 L37,24 L29,24 L29,36 Z M15,65 L23,65 L23,31 L15,31 L15,65 Z M24,29 L14,29 C13.448,29 13,29.448 13,30 L13,66 C13,66.553 13.448,67 14,67 L24,67 C24.553,67 25,66.553 25,66 L25,30 C25,29.448 24.553,29 24,29 L24,29 Z" id="svc-Amazon-OpenSearch-Service__Amazon-OpenSearch-Service_Icon_64_Squid" fill="#FFFFFF"></path>
+    </g></symbol><symbol id="svc-Amazon-Bedrock-AgentCore" viewBox="0 0 80 80"><g clip-path="url(#svc-Amazon-Bedrock-AgentCore__clip0_211_73)">
+<rect width="80" height="80" fill="#01A88D"/>
+<path d="M67.3721 28.0727L64.1777 26.792L62.9326 23.6338C62.7812 23.2519 62.4121 23.001 62.0019 23.001C61.5908 23.0014 61.2217 23.2529 61.0713 23.6357L59.8144 26.8379L56.6377 28.0708C56.2529 28.2202 55.999 28.5918 56 29.0054C56.001 29.4189 56.2568 29.7895 56.6426 29.937L59.8896 31.1777L61.0625 34.3481C61.2051 34.7353 61.5722 34.9946 61.9853 35.001H62C62.4072 35.001 62.7744 34.7539 62.9277 34.375L64.2314 31.1416L67.3603 29.9341C67.7431 29.7861 67.9971 29.4184 68 29.0073C68.0029 28.5967 67.7539 28.2256 67.3721 28.0727ZM63.1064 29.4316C62.8486 29.5317 62.6426 29.7339 62.5391 29.9907L62.0401 31.2275L61.6074 30.0581C61.5078 29.7881 61.2959 29.5742 61.0274 29.4712L59.7822 28.9956L60.9473 28.5434C61.207 28.4424 61.4141 28.2368 61.5156 27.9765L62.0039 26.7319L62.4346 27.8222C62.5225 28.1421 62.7666 28.3984 63.0791 28.5058L64.2686 28.9834L63.1064 29.4316ZM64.0527 38.6001L54.9141 34.9345L51.3506 25.9018C51.123 25.3252 50.5752 24.9531 49.9551 24.9531C49.335 24.9536 48.7861 25.3271 48.5596 25.9048L44.958 35.0825L42 36.2304V16C42 15.5693 41.7246 15.1875 41.3164 15.0512L32.3164 12.0512C32.042 11.9609 31.7441 11.9907 31.4961 12.1362L19.4961 19.1362C19.1885 19.3154 19 19.6445 19 20V29.4199L12.5039 33.1318C12.1924 33.3095 12 33.6411 12 34V46C12 46.3589 12.1924 46.6904 12.5039 46.8681L19 50.58V60C19 60.3554 19.1885 60.6845 19.4961 60.8637L31.4961 67.8637C31.6504 67.9541 31.8252 68 32 68C32.1064 68 32.2129 67.9829 32.3164 67.9487L41.3164 64.9487C41.7246 64.8125 42 64.4306 42 64V43.7384L45.2002 44.9614L48.5606 54.0458C48.7774 54.6318 49.3203 55.0165 49.9453 55.0263H49.9688C50.584 55.0263 51.1279 54.6596 51.3594 54.0874L55.0889 44.8452L64.0352 41.3916C64.6143 41.1679 64.9912 40.6225 64.9951 40.0014C64.999 39.3808 64.6289 38.831 64.0527 38.6001ZM32.1133 65.9082L28.8654 64.0136L35.5303 59.8481L34.4697 58.1518L26.913 62.8748L21 59.4257V50.5351L26.5547 46.832L25.4453 45.1679L19.9595 48.8252L14 45.4199V40.5802L20.4961 36.8681L19.5039 35.1318L14 38.2769V34.5801L20 31.1516L26 34.5802V38.4336L21.4853 41.1425L22.5147 42.8574L27 40.1662L31.4853 42.8574L32.5147 41.1425L28 38.4337V34.5351L33.5547 30.832C33.833 30.6465 34 30.3344 34 30V23H32V29.4648L26.9595 32.8252L21 29.4198V20.5742L26 17.6577V26H28V16.4911L32.1133 14.0918L40 16.7207V45.4338L25.4853 54.1426L26.5147 55.8574L40 47.7662V63.2793L32.1133 65.9082ZM53.9639 43.1352C53.7061 43.2353 53.501 43.4375 53.3965 43.6943L49.9883 52.1401L46.918 43.8423C46.8184 43.5722 46.6065 43.3584 46.3379 43.2553L42 41.5971V38.3752L46.0899 36.7881C46.3506 36.687 46.5576 36.4814 46.6592 36.2212L49.957 27.8183L53.1397 35.8862C53.209 36.2524 53.4863 36.5483 53.8399 36.6587L62.1289 39.9834L53.9639 43.1352Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="svc-Amazon-Bedrock-AgentCore__clip0_211_73">
+<rect width="80" height="80" fill="white"/>
+</clipPath>
+</defs></symbol></defs>
+<rect class="bg" width="1191" height="572"/>
+<text class="title" x="40" y="46">Clinical notes ingestion and retrieval pipeline</text>
+<text class="subtitle" x="40" y="70">Ambient scribe → structured FHIR data → searchable knowledge for agents</text>
+<g class="group" data-id="src" data-label="Sources">
+<rect x="40" y="164" width="152" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<text class="glabel" x="50" y="184">Sources</text>
+</g>
+<g class="group" data-id="aws-boundary1" data-label="AWS Cloud">
+<rect x="256" y="116" width="895" height="416" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<use class="only-light" href="#grp-AWS-Cloud" x="256" y="116" width="32" height="32"/>
+<use class="only-dark" href="#grp-AWS-Cloud-dark" x="256" y="116" width="32" height="32"/>
+<text class="glabel" x="296" y="137">AWS Cloud</text>
+</g>
+<g class="group" data-id="ingest" data-label="Ingest">
+<rect x="280" y="164" width="159" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<text class="glabel" x="290" y="184">Ingest</text>
+</g>
+<g class="group" data-id="process" data-label="Process">
+<rect x="503" y="164" width="172" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<text class="glabel" x="513" y="184">Process</text>
+</g>
+<g class="group" data-id="store" data-label="Store">
+<rect x="739" y="164" width="165" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<text class="glabel" x="749" y="184">Store</text>
+</g>
+<g class="group" data-id="serve" data-label="Serve">
+<rect x="968" y="244" width="159" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
+<text class="glabel" x="978" y="264">Serve</text>
+</g>
+<g class="edge" data-from="clin" data-to="scribe" data-step="1" data-label="audio">
+<path d="M148 244 L327.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<text class="elabel" x="237.75" y="236" text-anchor="middle">audio</text>
+<g class="badge"><circle cx="172" cy="244" r="11"/><text x="172" y="248.5" text-anchor="middle">1</text></g>
+</g>
+<g class="edge" data-from="scribe" data-to="land" data-step="2" data-label="note JSON">
+<path d="M359.5 324 L359.5 372" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<text class="elabel" x="377.5" y="352" text-anchor="start">note JSON</text>
+<g class="badge"><circle cx="359.5" cy="348" r="11"/><text x="359.5" y="352.5" text-anchor="middle">2</text></g>
+</g>
+<g class="edge" data-from="ehr" data-to="land" data-step="2" data-label="HL7 / FHIR">
+<path d="M148 404 L327.5 404" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
+<text class="elabel" x="237.75" y="396" text-anchor="middle">HL7 / FHIR</text>
+<g class="badge"><circle cx="172" cy="404" r="11"/><text x="172" y="408.5" text-anchor="middle">2</text></g>
+</g>
+<g class="edge" data-from="land" data-to="flow" data-step="3" data-label="event">
+<path d="M391.5 404 L557 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<text class="elabel" x="474.25" y="396" text-anchor="middle">event</text>
+<g class="badge"><circle cx="415.5" cy="404" r="11"/><text x="415.5" y="408.5" text-anchor="middle">3</text></g>
+</g>
+<g class="edge" data-from="flow" data-to="cmed" data-step="4" data-label="">
+<path d="M589 372 L589 324" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<g class="badge"><circle cx="589" cy="348" r="11"/><text x="589" y="352.5" text-anchor="middle">4</text></g>
+</g>
+<g class="edge" data-from="cmed" data-to="hl" data-step="5" data-label="FHIR resources">
+<path d="M621 244 L789.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<text class="elabel" x="705.25" y="236" text-anchor="middle">FHIR resources</text>
+<g class="badge"><circle cx="645" cy="244" r="11"/><text x="645" y="248.5" text-anchor="middle">5</text></g>
+</g>
+<g class="edge" data-from="flow" data-to="kb" data-step="5" data-label="embeddings">
+<path d="M621 404 L789.5 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
+<text class="elabel" x="705.25" y="396" text-anchor="middle">embeddings</text>
+<g class="badge"><circle cx="645" cy="404" r="11"/><text x="645" y="408.5" text-anchor="middle">5</text></g>
+</g>
+<g class="edge" data-from="hl" data-to="agent" data-step="6" data-label="">
+<path d="M853.5 244 L934.5 244 L934.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
+<g class="badge"><circle cx="877.5" cy="244" r="11"/><text x="877.5" y="248.5" text-anchor="middle">6</text></g>
+</g>
+<g class="edge" data-from="kb" data-to="agent" data-step="6" data-label="">
+<path d="M853.5 404 L982.5 404 L982.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
+<g class="badge"><circle cx="877.5" cy="404" r="11"/><text x="877.5" y="408.5" text-anchor="middle">6</text></g>
+</g>
+<g class="node" data-id="clin" data-label="Clinician visit" data-service="Users" data-category="General"><title>Clinician visit (Users)</title>
+<use href="#gen-Users" x="84" y="212" width="64" height="64"/>
+<text class="nlabel" x="116" y="293" text-anchor="middle">Clinician visit</text>
+</g>
+<g class="node" data-id="ehr" data-label="EHR export" data-service="Server" data-category="General"><title>EHR export (Server)</title>
+<use href="#gen-Server" x="84" y="372" width="64" height="64"/>
+<text class="nlabel" x="116" y="453" text-anchor="middle">EHR export</text>
+</g>
+<g class="node" data-id="scribe" data-label="AWS HealthScribe" data-service="AWS HealthScribe" data-category="Artificial-Intelligence"><title>AWS HealthScribe (AWS HealthScribe)</title>
+<use href="#svc-AWS-HealthScribe" x="327.5" y="212" width="64" height="64"/>
+<text class="nlabel" x="359.5" y="293" text-anchor="middle">AWS HealthScribe</text>
+<text class="nsub" x="359.5" y="307" text-anchor="middle">ambient notes</text>
+</g>
+<g class="node" data-id="land" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<use href="#svc-Amazon-Simple-Storage-Service" x="327.5" y="372" width="64" height="64"/>
+<text class="nlabel" x="359.5" y="453" text-anchor="middle">Amazon S3</text>
+<text class="nsub" x="359.5" y="467" text-anchor="middle">landing zone</text>
+</g>
+<g class="node" data-id="cmed" data-label="Amazon Comprehend Medical" data-service="Amazon Comprehend Medical" data-category="Artificial-Intelligence"><title>Amazon Comprehend Medical (Amazon Comprehend Medical)</title>
+<use href="#svc-Amazon-Comprehend-Medical" x="557" y="212" width="64" height="64"/>
+<text class="nlabel" x="589" y="293" text-anchor="middle">Amazon Comprehend</text>
+<text class="nlabel" x="589" y="307" text-anchor="middle">Medical</text>
+<text class="nsub" x="589" y="321" text-anchor="middle">entities, PHI</text>
+</g>
+<g class="node" data-id="flow" data-label="AWS Step Functions" data-service="AWS Step Functions" data-category="Application-Integration"><title>AWS Step Functions (AWS Step Functions)</title>
+<use href="#svc-AWS-Step-Functions" x="557" y="372" width="64" height="64"/>
+<text class="nlabel" x="589" y="453" text-anchor="middle">AWS Step Functions</text>
+</g>
+<g class="node" data-id="hl" data-label="AWS HealthLake" data-service="AWS HealthLake" data-category="Artificial-Intelligence"><title>AWS HealthLake (AWS HealthLake)</title>
+<use href="#svc-AWS-HealthLake" x="789.5" y="212" width="64" height="64"/>
+<text class="nlabel" x="821.5" y="293" text-anchor="middle">AWS HealthLake</text>
+<text class="nsub" x="821.5" y="307" text-anchor="middle">FHIR</text>
+</g>
+<g class="node" data-id="kb" data-label="Amazon OpenSearch Service" data-service="Amazon OpenSearch Service" data-category="Analytics"><title>Amazon OpenSearch Service (Amazon OpenSearch Service)</title>
+<use href="#svc-Amazon-OpenSearch-Service" x="789.5" y="372" width="64" height="64"/>
+<text class="nlabel" x="821.5" y="453" text-anchor="middle">Amazon OpenSearch</text>
+<text class="nlabel" x="821.5" y="467" text-anchor="middle">Service</text>
+<text class="nsub" x="821.5" y="481" text-anchor="middle">vector index</text>
+</g>
+<g class="node" data-id="agent" data-label="AgentCore agents" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>AgentCore agents (Amazon Bedrock AgentCore)</title>
+<use href="#svc-Amazon-Bedrock-AgentCore" x="1015.5" y="292" width="64" height="64"/>
+<text class="nlabel" x="1047.5" y="373" text-anchor="middle">AgentCore agents</text>
+</g>
+</svg>

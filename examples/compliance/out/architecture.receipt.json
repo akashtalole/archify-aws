@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/compliance/architecture.json",
+    "sha256": "67f1db0a9016801d2013783af5516a15d354d4235b2d67401b16a56774a5fee2"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 19,
+        "groups": 7,
+        "edges": 10
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 19,
+        "viewerEdges": 10
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/compliance/out/architecture.html",
+      "sha256": "32987f0c4cef38ec2fee70f82b91e93a510861cc791eaa0257c1f377c2fac0a6",
+      "bytes": 108138
+    },
+    "svg": {
+      "path": "examples/compliance/out/architecture.svg",
+      "sha256": "e2dfd7b845af323273194c85ba9b0cc3a3ab0ae911261e08f8c43cac19287e28"
+    },
+    "png": {
+      "path": "examples/compliance/out/architecture.png",
+      "sha256": "d207b548ad1d397035dd9f60b7674b4e44cf57bd8d9ffbdbf7e37c97568a834c"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 19,
+    "groups": 7,
+    "edges": 10,
+    "size": {
+      "width": 2102,
+      "height": 952
+    }
+  },
+  "review": {
+    "advisory": true,
+    "summary": {
+      "operational-excellence": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 2
+      },
+      "security": {
+        "gap": 0,
+        "consider": 0,
+        "ok": 6
+      },
+      "reliability": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "performance-efficiency": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      },
+      "cost-optimization": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "sustainability": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      }
+    },
+    "gaps": [],
+    "considerations": [
+      "OPS-IAC",
+      "REL-BACKUP",
+      "GENAI-RESILIENCE",
+      "PERF-EDGE",
+      "COST-VISIBILITY",
+      "GENAI-COST",
+      "GENAI-SUS"
+    ]
+  },
+  "visualReview": "not-performed"
+}

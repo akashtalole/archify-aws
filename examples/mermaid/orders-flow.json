@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "title": "Order processing (imported from Mermaid)",
+    "subtitle": "Imported from Mermaid; verify icon choices",
+    "output": "examples/mermaid/orders-flow.html"
+  },
+  "root": {
+    "layout": "row",
+    "gap": 70,
+    "children": [
+      {
+        "id": "layer0_0",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 56,
+        "children": [
+          {
+            "id": "Customer",
+            "label": "Customer Browser",
+            "icon": "gen:users"
+          }
+        ]
+      },
+      {
+        "id": "layer0_1",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 56,
+        "children": [
+          {
+            "id": "CDN",
+            "label": "CloudFront CDN",
+            "icon": "cloudfront"
+          }
+        ]
+      },
+      {
+        "id": "layer0_2",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 56,
+        "children": [
+          {
+            "id": "APIGW",
+            "label": "API Gateway",
+            "icon": "api-gateway"
+          }
+        ]
+      },
+      {
+        "id": "layer0_3",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 56,
+        "children": [
+          {
+            "id": "AWS_Cloud",
+            "kind": "aws-cloud",
+            "label": "AWS Cloud",
+            "children": [
+              {
+                "id": "layer1_0",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "Orders",
+                    "label": "Orders Lambda",
+                    "icon": "lambda"
+                  }
+                ]
+              },
+              {
+                "id": "layer1_1",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "DB",
+                    "label": "Orders DynamoDB",
+                    "icon": "dynamodb"
+                  },
+                  {
+                    "id": "Topic",
+                    "label": "Order Events SNS",
+                    "icon": "simple-notification-service"
+                  },
+                  {
+                    "id": "Logs",
+                    "label": "CloudWatch Logs",
+                    "icon": "cloudwatch"
+                  }
+                ]
+              },
+              {
+                "id": "layer1_2",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "Queue",
+                    "label": "Fulfilment Queue",
+                    "icon": "simple-queue-service"
+                  }
+                ]
+              },
+              {
+                "id": "layer1_3",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "Worker",
+                    "label": "Fulfilment Worker Function",
+                    "icon": "lambda"
+                  }
+                ]
+              },
+              {
+                "id": "layer1_4",
+                "kind": "stack",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "Bucket",
+                    "label": "Receipts S3 Bucket",
+                    "icon": "simple-storage-service"
+                  }
+                ]
+              }
+            ],
+            "layout": "row",
+            "gap": 56
+          }
+        ]
+      },
+      {
+        "id": "layer0_4",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 56,
+        "children": [
+          {
+            "id": "Payment",
+            "label": "Payment Gateway",
+            "icon": "gen:generic-application"
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "Customer",
+      "to": "CDN",
+      "label": "HTTPS",
+      "step": 1
+    },
+    {
+      "from": "CDN",
+      "to": "APIGW",
+      "step": 2
+    },
+    {
+      "from": "APIGW",
+      "to": "Orders",
+      "step": 3
+    },
+    {
+      "from": "Orders",
+      "to": "DB",
+      "label": "write",
+      "step": 4
+    },
+    {
+      "from": "Orders",
+      "to": "Topic",
+      "label": "publish",
+      "step": 5
+    },
+    {
+      "from": "Topic",
+      "to": "Queue",
+      "step": 6
+    },
+    {
+      "from": "Queue",
+      "to": "Worker",
+      "step": 7
+    },
+    {
+      "from": "Worker",
+      "to": "Bucket",
+      "step": 8
+    },
+    {
+      "from": "Orders",
+      "to": "Logs",
+      "style": "dashed",
+      "step": 9
+    },
+    {
+      "from": "Worker",
+      "to": "Payment",
+      "label": "status",
+      "style": "dashed",
+      "step": 10
+    }
+  ]
+}

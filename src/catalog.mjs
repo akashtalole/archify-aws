@@ -37,22 +37,26 @@ export function resolveIcon(ref) {
   return null;
 }
 
-/** Ranked search over services, resources and general icons. */
+/** Ranked search over services, resources and general icons. Tokens match whole words (or word prefixes),
+ *  never arbitrary substrings, so "ses" does not hit "databases". Aliases always qualify. */
 export function searchIcons(query, limit = 15) {
   const toks = norm(query).split("-").filter(Boolean);
   const rows = [
-    ...catalog.services.map((e) => ({ kind: "service", id: e.id, name: e.name, cat: e.category, hay: `${e.id} ${e.key} ${e.category}` })),
+    ...catalog.services.map((e) => ({ kind: "service", id: e.id, name: e.name, cat: e.category, hay: `${e.id} ${e.key}` })),
     ...catalog.resources.map((e) => ({ kind: "resource", id: "res:" + e.id, name: e.name, cat: e.category, hay: `${e.id} ${e.key}` })),
     ...catalog.general.map((e) => ({ kind: "general", id: "gen:" + e.id, name: e.name, cat: "General", hay: e.id })),
   ];
-  const aliasHits = Object.entries(aliases.service).filter(([a]) => toks.includes(a)).map(([, v]) => v);
+  const aliasHits = new Set(Object.entries(aliases.service).filter(([a]) => toks.includes(a)).map(([, v]) => v));
+  const words = (h) => h.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
   return rows
     .map((r) => {
-      const h = r.hay.toLowerCase().replace(/[^a-z0-9:]+/g, " ");
-      let score = toks.reduce((n, t) => n + (h.includes(t) ? 1 : 0), 0);
-      if (score < toks.length) return null;
+      const w = words(r.hay);
+      const hit = (t) => w.includes(t) || (t.length >= 3 && w.some((x) => x.startsWith(t)));
+      const isAlias = r.kind === "service" && aliasHits.has(r.id);
+      let score = toks.reduce((n, t) => n + (hit(t) ? 1 : 0), 0);
+      if (score < toks.length && !isAlias) return null;
       if (r.kind === "service") score += 1;
-      if (aliasHits.includes(r.id)) score += 3;
+      if (isAlias) score += 4;
       if (norm(r.id.replace(/^\w+:/, "")) === norm(query)) score += 5;
       return { ...r, score };
     })
@@ -67,3 +71,16 @@ export function groupIconFile(key, dark = false) {
   return g ? path.join(ICON_DIR, g.file) : null;
 }
 export function iconsAvailable() { return fs.existsSync(path.join(ICON_DIR, "service")); }
+
+const lev = (a, b) => {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+};
+/** Closest service/alias ids for a mistyped icon reference (edit distance), for validator hints. */
+export function didYouMean(ref, n = 3) {
+  const q = norm(String(ref).replace(/^\w+:/, ""));
+  const pool = [...new Set([...catalog.services.map((s) => s.id), ...Object.keys(aliases.service), ...catalog.general.map((g) => g.id)])];
+  return pool.map((id) => ({ id, d: lev(q, id) })).filter((x) => x.d <= Math.max(2, Math.floor(q.length * 0.35))).sort((a, b) => a.d - b.d || a.id.length - b.id.length).slice(0, n).map((x) => x.id);
+}

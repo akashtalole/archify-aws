@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1831 748" width="1831" height="748" role="img" aria-label="Healthcare agentic platform — multi-account governance and data foundation">
 <title>Healthcare agentic platform — multi-account governance and data foundation</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -122,137 +121,137 @@
 <rect class="bg" width="1831" height="748"/>
 <text class="title" x="40" y="46">Healthcare agentic platform — multi-account governance and data foundation</text>
 <text class="subtitle" x="40" y="70">Landing zone, preventive guardrails, central security and audit, governed clinical data. Verify HIPAA eligibility of each service and sign the BAA before handling PHI.</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="40" y="116" width="1751" height="592" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="40" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="40" y="116" width="32" height="32"/>
 <text class="glabel" x="80" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="mgmt">
+<g class="group" data-id="mgmt" data-label="Management account">
 <rect x="64" y="164" width="259" height="520" fill="none" stroke="#E7157B" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-AWS-Account" x="64" y="164" width="32" height="32"/>
 <text class="glabel" x="104" y="185">Management account</text>
 </g>
-<g class="group" data-id="work">
+<g class="group" data-id="work" data-label="Agent platform account">
 <rect x="495" y="198" width="489" height="184" fill="none" stroke="#E7157B" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-AWS-Account" x="495" y="198" width="32" height="32"/>
 <text class="glabel" x="535" y="219">Agent platform account</text>
 </g>
-<g class="group" data-id="datalake">
+<g class="group" data-id="datalake" data-label="Clinical data account">
 <rect x="1126" y="198" width="641" height="184" fill="none" stroke="#E7157B" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-AWS-Account" x="1126" y="198" width="32" height="32"/>
 <text class="glabel" x="1166" y="219">Clinical data account</text>
 </g>
-<g class="group" data-id="sec">
+<g class="group" data-id="sec" data-label="Security and audit account">
 <rect x="413" y="442" width="653" height="184" fill="none" stroke="#E7157B" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-AWS-Account" x="413" y="442" width="32" height="32"/>
 <text class="glabel" x="453" y="463">Security and audit account</text>
 </g>
-<g class="group" data-id="resil">
+<g class="group" data-id="resil" data-label="Operations and recovery account">
 <rect x="1195" y="442" width="503" height="184" fill="none" stroke="#E7157B" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-AWS-Account" x="1195" y="442" width="32" height="32"/>
 <text class="glabel" x="1235" y="463">Operations and recovery account</text>
 </g>
-<g class="edge" data-from="work" data-to="datalake" data-step="1">
+<g class="edge" data-from="work" data-to="datalake" data-step="1" data-label="governed data access">
 <path d="M984 278 L1126 278" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1055" y="270" text-anchor="middle">governed data access</text>
 <g class="badge"><circle cx="1008" cy="278" r="11"/><text x="1008" y="282.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="work" data-to="sec" data-step="2">
+<g class="edge" data-from="work" data-to="sec" data-step="2" data-label="logs + findings">
 <path d="M739.5 382 L739.5 442" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="757.5" y="416" text-anchor="start">logs + findings</text>
 <g class="badge"><circle cx="739.5" cy="406" r="11"/><text x="739.5" y="410.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="datalake" data-to="resil" data-step="3">
+<g class="edge" data-from="datalake" data-to="resil" data-step="3" data-label="backup">
 <path d="M1446.5 382 L1446.5 442" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1464.5" y="416" text-anchor="start">backup</text>
 <g class="badge"><circle cx="1446.5" cy="406" r="11"/><text x="1446.5" y="410.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="mgmt" data-to="work" data-step="">
+<g class="edge" data-from="mgmt" data-to="work" data-step="" data-label="SCPs + baseline">
 <path d="M323 412 L409 412 L409 278 L495 278" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="427" y="349" text-anchor="start">SCPs + baseline</text>
 </g>
-<g class="edge" data-from="mgmt" data-to="sec" data-step="">
+<g class="edge" data-from="mgmt" data-to="sec" data-step="" data-label="">
 <path d="M323 412 L344 412 L344 522 L413 522" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 </g>
-<g class="node" data-id="orgs"><title>AWS Organizations (AWS Organizations)</title>
+<g class="node" data-id="orgs" data-label="AWS Organizations" data-service="AWS Organizations" data-category="Management-Tools"><title>AWS Organizations (AWS Organizations)</title>
 <use href="#svc-AWS-Organizations" x="161.5" y="212" width="64" height="64"/>
 <text class="nlabel" x="193.5" y="293" text-anchor="middle">AWS Organizations</text>
 <text class="nsub" x="193.5" y="307" text-anchor="middle">SCPs: regions, services, encryption</text>
 </g>
-<g class="node" data-id="ctower"><title>AWS Control Tower (AWS Control Tower)</title>
+<g class="node" data-id="ctower" data-label="AWS Control Tower" data-service="AWS Control Tower" data-category="Management-Tools"><title>AWS Control Tower (AWS Control Tower)</title>
 <use href="#svc-AWS-Control-Tower" x="161.5" y="380" width="64" height="64"/>
 <text class="nlabel" x="193.5" y="461" text-anchor="middle">AWS Control Tower</text>
 <text class="nsub" x="193.5" y="475" text-anchor="middle">landing zone baseline</text>
 </g>
-<g class="node" data-id="idc"><title>IAM Identity Center (AWS IAM Identity Center)</title>
+<g class="node" data-id="idc" data-label="IAM Identity Center" data-service="AWS IAM Identity Center" data-category="Security-Identity"><title>IAM Identity Center (AWS IAM Identity Center)</title>
 <use href="#svc-AWS-IAM-Identity-Center" x="161.5" y="548" width="64" height="64"/>
 <text class="nlabel" x="193.5" y="629" text-anchor="middle">IAM Identity</text>
 <text class="nlabel" x="193.5" y="643" text-anchor="middle">Center</text>
 <text class="nsub" x="193.5" y="657" text-anchor="middle">workforce access</text>
 </g>
-<g class="node" data-id="agentcore"><title>Amazon Bedrock AgentCore (Amazon Bedrock AgentCore)</title>
+<g class="node" data-id="agentcore" data-label="Amazon Bedrock AgentCore" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>Amazon Bedrock AgentCore (Amazon Bedrock AgentCore)</title>
 <use href="#svc-Amazon-Bedrock-AgentCore" x="536" y="246" width="64" height="64"/>
 <text class="nlabel" x="568" y="327" text-anchor="middle">Amazon Bedrock</text>
 <text class="nlabel" x="568" y="341" text-anchor="middle">AgentCore</text>
 </g>
-<g class="node" data-id="fm"><title>Amazon Bedrock (Amazon Bedrock)</title>
+<g class="node" data-id="fm" data-label="Amazon Bedrock" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Amazon Bedrock (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="694.5" y="246" width="64" height="64"/>
 <text class="nlabel" x="726.5" y="327" text-anchor="middle">Amazon Bedrock</text>
 <text class="nsub" x="726.5" y="341" text-anchor="middle">private endpoints</text>
 </g>
-<g class="node" data-id="guard"><title>Bedrock Guardrails (Amazon Bedrock)</title>
+<g class="node" data-id="guard" data-label="Bedrock Guardrails" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Bedrock Guardrails (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="866" y="246" width="64" height="64"/>
 <text class="nlabel" x="898" y="327" text-anchor="middle">Bedrock Guardrails</text>
 </g>
-<g class="node" data-id="hl"><title>AWS HealthLake (AWS HealthLake)</title>
+<g class="node" data-id="hl" data-label="AWS HealthLake" data-service="AWS HealthLake" data-category="Artificial-Intelligence"><title>AWS HealthLake (AWS HealthLake)</title>
 <use href="#svc-AWS-HealthLake" x="1167" y="246" width="64" height="64"/>
 <text class="nlabel" x="1199" y="327" text-anchor="middle">AWS HealthLake</text>
 </g>
-<g class="node" data-id="s3"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="s3" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="1325.5" y="246" width="64" height="64"/>
 <text class="nlabel" x="1357.5" y="327" text-anchor="middle">Amazon S3</text>
 <text class="nsub" x="1357.5" y="341" text-anchor="middle">curated data lake</text>
 </g>
-<g class="node" data-id="lf"><title>AWS Lake Formation (AWS Lake Formation)</title>
+<g class="node" data-id="lf" data-label="AWS Lake Formation" data-service="AWS Lake Formation" data-category="Analytics"><title>AWS Lake Formation (AWS Lake Formation)</title>
 <use href="#svc-AWS-Lake-Formation" x="1497" y="246" width="64" height="64"/>
 <text class="nlabel" x="1529" y="327" text-anchor="middle">AWS Lake Formation</text>
 <text class="nsub" x="1529" y="341" text-anchor="middle">fine-grained access</text>
 </g>
-<g class="node" data-id="macie"><title>Amazon Macie (Amazon Macie)</title>
+<g class="node" data-id="macie" data-label="Amazon Macie" data-service="Amazon Macie" data-category="Security-Identity"><title>Amazon Macie (Amazon Macie)</title>
 <use href="#svc-Amazon-Macie" x="1663" y="246" width="64" height="64"/>
 <text class="nlabel" x="1695" y="327" text-anchor="middle">Amazon Macie</text>
 <text class="nsub" x="1695" y="341" text-anchor="middle">PHI discovery</text>
 </g>
-<g class="node" data-id="ct"><title>AWS CloudTrail (AWS CloudTrail)</title>
+<g class="node" data-id="ct" data-label="AWS CloudTrail" data-service="AWS CloudTrail" data-category="Management-Tools"><title>AWS CloudTrail (AWS CloudTrail)</title>
 <use href="#svc-AWS-CloudTrail" x="454" y="490" width="64" height="64"/>
 <text class="nlabel" x="486" y="571" text-anchor="middle">AWS CloudTrail</text>
 <text class="nsub" x="486" y="585" text-anchor="middle">org trail</text>
 </g>
-<g class="node" data-id="gd"><title>Amazon GuardDuty (Amazon GuardDuty)</title>
+<g class="node" data-id="gd" data-label="Amazon GuardDuty" data-service="Amazon GuardDuty" data-category="Security-Identity"><title>Amazon GuardDuty (Amazon GuardDuty)</title>
 <use href="#svc-Amazon-GuardDuty" x="614.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="646.5" y="571" text-anchor="middle">Amazon GuardDuty</text>
 </g>
-<g class="node" data-id="sh"><title>AWS Security Hub (AWS Security Hub)</title>
+<g class="node" data-id="sh" data-label="AWS Security Hub" data-service="AWS Security Hub" data-category="Security-Identity"><title>AWS Security Hub (AWS Security Hub)</title>
 <use href="#svc-AWS-Security-Hub" x="781.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="813.5" y="571" text-anchor="middle">AWS Security Hub</text>
 </g>
-<g class="node" data-id="am"><title>AWS Audit Manager (AWS Audit Manager)</title>
+<g class="node" data-id="am" data-label="AWS Audit Manager" data-service="AWS Audit Manager" data-category="Security-Identity"><title>AWS Audit Manager (AWS Audit Manager)</title>
 <use href="#svc-AWS-Audit-Manager" x="951.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="983.5" y="571" text-anchor="middle">AWS Audit Manager</text>
 <text class="nsub" x="983.5" y="585" text-anchor="middle">evidence</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="1245.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="1277.5" y="571" text-anchor="middle">Amazon CloudWatch</text>
 <text class="nsub" x="1277.5" y="585" text-anchor="middle">dashboards, alarms</text>
 </g>
-<g class="node" data-id="bk"><title>AWS Backup (AWS Backup)</title>
+<g class="node" data-id="bk" data-label="AWS Backup" data-service="AWS Backup" data-category="Storage"><title>AWS Backup (AWS Backup)</title>
 <use href="#svc-AWS-Backup" x="1419.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="1451.5" y="571" text-anchor="middle">AWS Backup</text>
 <text class="nsub" x="1451.5" y="585" text-anchor="middle">cross-account vault</text>
 </g>
-<g class="node" data-id="cfg"><title>AWS Config (AWS Config)</title>
+<g class="node" data-id="cfg" data-label="AWS Config" data-service="AWS Config" data-category="Management-Tools"><title>AWS Config (AWS Config)</title>
 <use href="#svc-AWS-Config" x="1588.5" y="490" width="64" height="64"/>
 <text class="nlabel" x="1620.5" y="571" text-anchor="middle">AWS Config</text>
 <text class="nsub" x="1620.5" y="585" text-anchor="middle">conformance packs</text>

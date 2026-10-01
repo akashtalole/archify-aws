@@ -24,6 +24,7 @@ export function buildModel(spec) {
     const { x, y, w, h } = g.rect;
     return [[[x, y], [x + w, y]], [[x, y + h], [x + w, y + h]], [[x, y], [x, y + h]], [[x + w, y], [x + w, y + h]]];
   });
+  const regions = L.groups.map((g) => ({ id: g.id, ...g.rect }));
   const placed = [];
   const routes = [];
   // straight (aligned) connections claim their lines first; the rest are routed around them
@@ -33,7 +34,7 @@ export function buildModel(spec) {
     const a = boxOf(e.from), b = boxOf(e.to);
     const obstacles = allCells.filter((c) => c.id !== e.from && c.id !== e.to).map((c) => ({ x: c.x - 3, y: c.y - 3, w: c.w + 6, h: c.h + 6 }));
     const soft = headers.filter((h) => h.id !== e.from && h.id !== e.to);
-    const r = routeEdge(a, b, obstacles, placed, bounds, soft, borders);
+    const r = routeEdge(a, b, obstacles, placed, bounds, soft, borders, regions);
     if (r.score >= 6000) warnings.push(`edge ${e.from} -> ${e.to}: no clean route found (it crosses another node); move nodes or reorder children`);
     placed.push(r.pts);
     routes.push({ edge: e, pts: r.pts, score: r.score });

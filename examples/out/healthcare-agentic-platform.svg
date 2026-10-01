@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1900 924" width="1900" height="924" role="img" aria-label="Healthcare enterprise agentic AI platform on AWS">
 <title>Healthcare enterprise agentic AI platform on AWS</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -130,174 +129,174 @@
 <rect class="bg" width="1900" height="924"/>
 <text class="title" x="40" y="46">Healthcare enterprise agentic AI platform on AWS</text>
 <text class="subtitle" x="40" y="70">Workforce apps → governed agent runtime (Amazon Bedrock AgentCore) → models, clinical AI and FHIR data, with private EHR connectivity</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="208" y="116" width="1194" height="768" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="208" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="208" y="116" width="32" height="32"/>
 <text class="glabel" x="248" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="onprem">
+<g class="group" data-id="onprem" data-label="Hospital data center">
 <rect x="1666" y="432" width="194" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Corporate-data-center" x="1666" y="432" width="32" height="32"/>
 <text class="glabel" x="1706" y="453">Hospital data center</text>
 </g>
-<g class="group" data-id="region">
+<g class="group" data-id="region" data-label="Region">
 <rect x="426" y="164" width="952" height="696" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="2 3" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Region" x="426" y="164" width="32" height="32"/>
 <text class="glabel" x="466" y="185">Region</text>
 </g>
-<g class="group" data-id="agents">
+<g class="group" data-id="agents" data-label="Agent platform">
 <rect x="450" y="264" width="254" height="520" fill="none" stroke="#01A88D" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#svc-Amazon-Bedrock-AgentCore" x="450" y="264" width="32" height="32"/>
 <text class="glabel" x="490" y="285">Agent platform</text>
 </g>
-<g class="group" data-id="models">
+<g class="group" data-id="models" data-label="Foundation models and clinical AI">
 <rect x="841.5" y="212" width="495" height="184" fill="none" stroke="#01A88D" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#svc-Amazon-Bedrock" x="841.5" y="212" width="32" height="32"/>
 <text class="glabel" x="881.5" y="233">Foundation models and clinical AI</text>
 </g>
-<g class="group" data-id="data">
+<g class="group" data-id="data" data-label="Clinical data and knowledge">
 <rect x="833" y="432" width="512" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="843" y="452">Clinical data and knowledge</text>
 </g>
-<g class="group" data-id="ops">
+<g class="group" data-id="ops" data-label="Security and observability">
 <rect x="824" y="652" width="530" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="834" y="672">Security and observability</text>
 </g>
-<g class="edge" data-from="staff" data-to="apigw" data-step="1">
+<g class="edge" data-from="staff" data-to="apigw" data-step="1" data-label="HTTPS">
 <path d="M121 512 L262 512" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="191.5" y="504" text-anchor="middle">HTTPS</text>
 <g class="badge"><circle cx="145" cy="512" r="11"/><text x="145" y="516.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="agentcore" data-step="2">
+<g class="edge" data-from="apigw" data-to="agentcore" data-step="2" data-label="">
 <path d="M326 512 L545 512" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="350" cy="512" r="11"/><text x="350" y="516.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="agentcore" data-to="guard" data-step="3">
+<g class="edge" data-from="agentcore" data-to="guard" data-step="3" data-label="screen I/O">
 <path d="M577 480 L577 424" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="595" y="456" text-anchor="start">screen I/O</text>
 <g class="badge"><circle cx="577" cy="456" r="11"/><text x="577" y="460.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="agentcore" data-to="avp" data-step="4">
+<g class="edge" data-from="agentcore" data-to="avp" data-step="4" data-label="authorize">
 <path d="M577 592 L577 648" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="595" y="624" text-anchor="start">authorize</text>
 <g class="badge"><circle cx="577" cy="616" r="11"/><text x="577" y="620.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="agentcore" data-to="data" data-step="6">
+<g class="edge" data-from="agentcore" data-to="data" data-step="6" data-label="tools + RAG">
 <path d="M609 512 L833 512" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="721" y="504" text-anchor="middle">tools + RAG</text>
 <g class="badge"><circle cx="809" cy="512" r="11"/><text x="809" y="516.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="idc" data-to="apigw" data-step="">
+<g class="edge" data-from="idc" data-to="apigw" data-step="" data-label="OIDC / SSO">
 <path d="M294 424 L294 480" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="312" y="456" text-anchor="start">OIDC / SSO</text>
 </g>
-<g class="edge" data-from="waf" data-to="apigw" data-step="">
+<g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M294 648 L294 592" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="312" y="624" text-anchor="start">protects</text>
 </g>
-<g class="edge" data-from="data" data-to="dx" data-step="">
+<g class="edge" data-from="data" data-to="dx" data-step="" data-label="FHIR / HL7">
 <path d="M1345 512 L1502 512" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="1423.5" y="504" text-anchor="middle">FHIR / HL7</text>
 </g>
-<g class="edge" data-from="dx" data-to="onprem" data-step="">
+<g class="edge" data-from="dx" data-to="onprem" data-step="" data-label="">
 <path d="M1566 512 L1666 512" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)" marker-start="url(#arw)"/>
 </g>
-<g class="edge" data-from="agentcore" data-to="models" data-step="5">
+<g class="edge" data-from="agentcore" data-to="models" data-step="5" data-label="invoke">
 <path d="M609 512 L677.25 512 L677.25 292 L841.5 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="695.25" y="406" text-anchor="start">invoke</text>
 <g class="badge"><circle cx="817.5" cy="292" r="11"/><text x="817.5" y="296.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="agentcore" data-to="ops" data-step="">
+<g class="edge" data-from="agentcore" data-to="ops" data-step="" data-label="telemetry + audit">
 <path d="M577 592 L577 598 L1089 598 L1089 652" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="756.2" y="590" text-anchor="middle">telemetry + audit</text>
 </g>
-<g class="node" data-id="staff"><title>Clinicians and staff (Users)</title>
+<g class="node" data-id="staff" data-label="Clinicians and staff" data-service="Users" data-category="General"><title>Clinicians and staff (Users)</title>
 <use href="#gen-Users" x="57" y="480" width="64" height="64"/>
 <text class="nlabel" x="89" y="561" text-anchor="middle">Clinicians and</text>
 <text class="nlabel" x="89" y="575" text-anchor="middle">staff</text>
 </g>
-<g class="node" data-id="idc"><title>IAM Identity Center (AWS IAM Identity Center)</title>
+<g class="node" data-id="idc" data-label="IAM Identity Center" data-service="AWS IAM Identity Center" data-category="Security-Identity"><title>IAM Identity Center (AWS IAM Identity Center)</title>
 <use href="#svc-AWS-IAM-Identity-Center" x="262" y="312" width="64" height="64"/>
 <text class="nlabel" x="294" y="393" text-anchor="middle">IAM Identity</text>
 <text class="nlabel" x="294" y="407" text-anchor="middle">Center</text>
 <text class="nsub" x="294" y="421" text-anchor="middle">workforce SSO + MFA</text>
 </g>
-<g class="node" data-id="apigw"><title>Amazon API Gateway (Amazon API Gateway)</title>
+<g class="node" data-id="apigw" data-label="Amazon API Gateway" data-service="Amazon API Gateway" data-category="Networking-Content-Delivery"><title>Amazon API Gateway (Amazon API Gateway)</title>
 <use href="#svc-Amazon-API-Gateway" x="262" y="480" width="64" height="64"/>
 <text class="nlabel" x="294" y="561" text-anchor="middle">Amazon API Gateway</text>
 </g>
-<g class="node" data-id="waf"><title>AWS WAF (AWS WAF)</title>
+<g class="node" data-id="waf" data-label="AWS WAF" data-service="AWS WAF" data-category="Security-Identity"><title>AWS WAF (AWS WAF)</title>
 <use href="#svc-AWS-WAF" x="262" y="648" width="64" height="64"/>
 <text class="nlabel" x="294" y="729" text-anchor="middle">AWS WAF</text>
 </g>
-<g class="node" data-id="guard"><title>Bedrock Guardrails (Amazon Bedrock)</title>
+<g class="node" data-id="guard" data-label="Bedrock Guardrails" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Bedrock Guardrails (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="545" y="312" width="64" height="64"/>
 <text class="nlabel" x="577" y="393" text-anchor="middle">Bedrock Guardrails</text>
 <text class="nsub" x="577" y="407" text-anchor="middle">PHI / PII, safety</text>
 </g>
-<g class="node" data-id="agentcore"><title>Amazon Bedrock AgentCore (Amazon Bedrock AgentCore)</title>
+<g class="node" data-id="agentcore" data-label="Amazon Bedrock AgentCore" data-service="Amazon Bedrock AgentCore" data-category="Artificial-Intelligence"><title>Amazon Bedrock AgentCore (Amazon Bedrock AgentCore)</title>
 <use href="#svc-Amazon-Bedrock-AgentCore" x="545" y="480" width="64" height="64"/>
 <text class="nlabel" x="577" y="561" text-anchor="middle">Amazon Bedrock</text>
 <text class="nlabel" x="577" y="575" text-anchor="middle">AgentCore</text>
 <text class="nsub" x="577" y="589" text-anchor="middle">runtime, identity, memory, gateway</text>
 </g>
-<g class="node" data-id="avp"><title>Verified Permissions (Amazon Verified Permissions)</title>
+<g class="node" data-id="avp" data-label="Verified Permissions" data-service="Amazon Verified Permissions" data-category="Security-Identity"><title>Verified Permissions (Amazon Verified Permissions)</title>
 <use href="#svc-Amazon-Verified-Permissions" x="545" y="648" width="64" height="64"/>
 <text class="nlabel" x="577" y="729" text-anchor="middle">Verified</text>
 <text class="nlabel" x="577" y="743" text-anchor="middle">Permissions</text>
 <text class="nsub" x="577" y="757" text-anchor="middle">tool authorization</text>
 </g>
-<g class="node" data-id="fm"><title>Amazon Bedrock (Amazon Bedrock)</title>
+<g class="node" data-id="fm" data-label="Amazon Bedrock" data-service="Amazon Bedrock" data-category="Artificial-Intelligence"><title>Amazon Bedrock (Amazon Bedrock)</title>
 <use href="#svc-Amazon-Bedrock" x="887" y="260" width="64" height="64"/>
 <text class="nlabel" x="919" y="341" text-anchor="middle">Amazon Bedrock</text>
 <text class="nsub" x="919" y="355" text-anchor="middle">foundation models</text>
 </g>
-<g class="node" data-id="cmed"><title>Amazon Comprehend Medical (Amazon Comprehend Medical)</title>
+<g class="node" data-id="cmed" data-label="Amazon Comprehend Medical" data-service="Amazon Comprehend Medical" data-category="Artificial-Intelligence"><title>Amazon Comprehend Medical (Amazon Comprehend Medical)</title>
 <use href="#svc-Amazon-Comprehend-Medical" x="1055" y="260" width="64" height="64"/>
 <text class="nlabel" x="1087" y="341" text-anchor="middle">Amazon Comprehend</text>
 <text class="nlabel" x="1087" y="355" text-anchor="middle">Medical</text>
 </g>
-<g class="node" data-id="scribe"><title>AWS HealthScribe (AWS HealthScribe)</title>
+<g class="node" data-id="scribe" data-label="AWS HealthScribe" data-service="AWS HealthScribe" data-category="Artificial-Intelligence"><title>AWS HealthScribe (AWS HealthScribe)</title>
 <use href="#svc-AWS-HealthScribe" x="1225" y="260" width="64" height="64"/>
 <text class="nlabel" x="1257" y="341" text-anchor="middle">AWS HealthScribe</text>
 </g>
-<g class="node" data-id="hl"><title>AWS HealthLake (AWS HealthLake)</title>
+<g class="node" data-id="hl" data-label="AWS HealthLake" data-service="AWS HealthLake" data-category="Artificial-Intelligence"><title>AWS HealthLake (AWS HealthLake)</title>
 <use href="#svc-AWS-HealthLake" x="874" y="480" width="64" height="64"/>
 <text class="nlabel" x="906" y="561" text-anchor="middle">AWS HealthLake</text>
 <text class="nsub" x="906" y="575" text-anchor="middle">FHIR store</text>
 </g>
-<g class="node" data-id="kb"><title>Amazon OpenSearch Service (Amazon OpenSearch Service)</title>
+<g class="node" data-id="kb" data-label="Amazon OpenSearch Service" data-service="Amazon OpenSearch Service" data-category="Analytics"><title>Amazon OpenSearch Service (Amazon OpenSearch Service)</title>
 <use href="#svc-Amazon-OpenSearch-Service" x="1044" y="480" width="64" height="64"/>
 <text class="nlabel" x="1076" y="561" text-anchor="middle">Amazon OpenSearch</text>
 <text class="nlabel" x="1076" y="575" text-anchor="middle">Service</text>
 <text class="nsub" x="1076" y="589" text-anchor="middle">vector knowledge base</text>
 </g>
-<g class="node" data-id="lake"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="lake" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="1227" y="480" width="64" height="64"/>
 <text class="nlabel" x="1259" y="561" text-anchor="middle">Amazon S3</text>
 <text class="nsub" x="1259" y="575" text-anchor="middle">policies, guidelines</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="887" y="700" width="64" height="64"/>
 <text class="nlabel" x="919" y="781" text-anchor="middle">Amazon CloudWatch</text>
 <text class="nsub" x="919" y="795" text-anchor="middle">traces, invocation logs</text>
 </g>
-<g class="node" data-id="ct"><title>AWS CloudTrail (AWS CloudTrail)</title>
+<g class="node" data-id="ct" data-label="AWS CloudTrail" data-service="AWS CloudTrail" data-category="Management-Tools"><title>AWS CloudTrail (AWS CloudTrail)</title>
 <use href="#svc-AWS-CloudTrail" x="1063" y="700" width="64" height="64"/>
 <text class="nlabel" x="1095" y="781" text-anchor="middle">AWS CloudTrail</text>
 <text class="nsub" x="1095" y="795" text-anchor="middle">audit trail</text>
 </g>
-<g class="node" data-id="kms"><title>AWS KMS (AWS Key Management Service)</title>
+<g class="node" data-id="kms" data-label="AWS KMS" data-service="AWS Key Management Service" data-category="Security-Identity"><title>AWS KMS (AWS Key Management Service)</title>
 <use href="#svc-AWS-Key-Management-Service" x="1233" y="700" width="64" height="64"/>
 <text class="nlabel" x="1265" y="781" text-anchor="middle">AWS KMS</text>
 <text class="nsub" x="1265" y="795" text-anchor="middle">customer managed keys</text>
 </g>
-<g class="node" data-id="dx"><title>AWS Direct Connect (AWS Direct Connect)</title>
+<g class="node" data-id="dx" data-label="AWS Direct Connect" data-service="AWS Direct Connect" data-category="Networking-Content-Delivery"><title>AWS Direct Connect (AWS Direct Connect)</title>
 <use href="#svc-AWS-Direct-Connect" x="1502" y="480" width="64" height="64"/>
 <text class="nlabel" x="1534" y="561" text-anchor="middle">AWS Direct Connect</text>
 </g>
-<g class="node" data-id="ehr"><title>EHR, PACS, lab systems (Server)</title>
+<g class="node" data-id="ehr" data-label="EHR, PACS, lab systems" data-service="Server" data-category="General"><title>EHR, PACS, lab systems (Server)</title>
 <use href="#gen-Server" x="1731" y="480" width="64" height="64"/>
 <text class="nlabel" x="1763" y="561" text-anchor="middle">EHR, PACS, lab</text>
 <text class="nlabel" x="1763" y="575" text-anchor="middle">systems</text>

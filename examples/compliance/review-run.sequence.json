@@ -1,0 +1,229 @@
+{
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "One document review: 100 checks, then a human decision where needed",
+    "subtitle": "Every flagged check is shown to a reviewer with its cited evidence; auto-approval only when all checks pass with high confidence",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/compliance/out/review-run.html"
+  },
+  "participants": [
+    {
+      "id": "owner",
+      "icon": "gen:users",
+      "label": "Document owner"
+    },
+    {
+      "id": "api",
+      "icon": "api-gateway",
+      "label": "Amazon API Gateway"
+    },
+    {
+      "id": "s3",
+      "icon": "simple-storage-service",
+      "label": "Amazon S3",
+      "sublabel": "intake"
+    },
+    {
+      "id": "sfn",
+      "icon": "step-functions",
+      "label": "AWS Step Functions"
+    },
+    {
+      "id": "tx",
+      "icon": "textract",
+      "label": "Amazon Textract"
+    },
+    {
+      "id": "runner",
+      "icon": "lambda",
+      "label": "AWS Lambda",
+      "sublabel": "check runner"
+    },
+    {
+      "id": "kb",
+      "icon": "opensearch-service",
+      "label": "Amazon OpenSearch Service",
+      "sublabel": "policy library"
+    },
+    {
+      "id": "fm",
+      "icon": "bedrock",
+      "label": "Amazon Bedrock",
+      "sublabel": "with Guardrails"
+    },
+    {
+      "id": "ddb",
+      "icon": "dynamodb",
+      "label": "Amazon DynamoDB"
+    },
+    {
+      "id": "a2i",
+      "icon": "augmented-ai-a2i",
+      "label": "Amazon Augmented AI"
+    },
+    {
+      "id": "sns",
+      "icon": "simple-notification-service",
+      "label": "Amazon SNS"
+    },
+    {
+      "id": "reviewer",
+      "icon": "gen:user",
+      "label": "Compliance reviewer"
+    }
+  ],
+  "groups": [
+    {
+      "kind": "aws-cloud",
+      "label": "AWS Cloud",
+      "members": [
+        "api",
+        "s3",
+        "sfn",
+        "tx",
+        "runner",
+        "kb",
+        "fm",
+        "ddb",
+        "a2i",
+        "sns"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "from": "owner",
+      "to": "api",
+      "label": "submit document + check set"
+    },
+    {
+      "from": "api",
+      "to": "s3",
+      "label": "presigned PUT"
+    },
+    {
+      "from": "s3",
+      "to": "sfn",
+      "kind": "async",
+      "label": "ObjectCreated: start review"
+    },
+    {
+      "from": "sfn",
+      "to": "tx",
+      "label": "extract text, tables, forms"
+    },
+    {
+      "from": "tx",
+      "to": "sfn",
+      "kind": "return",
+      "label": "structured document"
+    },
+    {
+      "from": "sfn",
+      "to": "runner",
+      "label": "Distributed Map: check i of 100"
+    },
+    {
+      "from": "runner",
+      "to": "kb",
+      "label": "retrieve criteria + regulation passages"
+    },
+    {
+      "from": "kb",
+      "to": "runner",
+      "kind": "return",
+      "label": "evidence passages"
+    },
+    {
+      "from": "runner",
+      "to": "fm",
+      "label": "judge check i, cite spans"
+    },
+    {
+      "from": "fm",
+      "to": "runner",
+      "kind": "return",
+      "label": "verdict, confidence, citations"
+    },
+    {
+      "from": "runner",
+      "to": "ddb",
+      "label": "store verdict + evidence"
+    },
+    {
+      "from": "sfn",
+      "to": "sfn",
+      "kind": "self",
+      "label": "any fail or confidence < threshold?"
+    },
+    {
+      "from": "sfn",
+      "to": "a2i",
+      "label": "create review task (task token)"
+    },
+    {
+      "from": "a2i",
+      "to": "reviewer",
+      "kind": "async",
+      "label": "flagged checks + cited evidence"
+    },
+    {
+      "from": "reviewer",
+      "to": "a2i",
+      "label": "confirm, override or comment"
+    },
+    {
+      "from": "a2i",
+      "to": "sfn",
+      "kind": "return",
+      "label": "decisions (task token callback)"
+    },
+    {
+      "from": "sfn",
+      "to": "ddb",
+      "label": "auto-complete: all checks pass"
+    },
+    {
+      "from": "sfn",
+      "to": "ddb",
+      "label": "final decision + audit record"
+    },
+    {
+      "note": "Overrides require a comment and are stored with the reviewer's identity; they also become labelled examples for the next evaluation.",
+      "over": [
+        "a2i",
+        "reviewer"
+      ]
+    },
+    {
+      "from": "sfn",
+      "to": "sns",
+      "label": "publish result"
+    },
+    {
+      "from": "sns",
+      "to": "owner",
+      "kind": "async",
+      "label": "report + decisions"
+    }
+  ],
+  "fragments": [
+    {
+      "kind": "loop",
+      "label": "each of 100 checks, in parallel",
+      "from": 5,
+      "to": 10
+    },
+    {
+      "kind": "alt",
+      "label": "needs human review",
+      "from": 12,
+      "to": 16,
+      "elseAt": 16,
+      "elseLabel": "all pass, high confidence"
+    }
+  ]
+}

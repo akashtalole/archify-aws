@@ -1,0 +1,126 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/compliance/lifecycle.dataflow.json",
+    "sha256": "8c5b1afb5c8574b641143f2fed092a8147a6626e76fecc1a03df66ca68ddde8d"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "dataflow",
+        "nodes": 11,
+        "groups": 7,
+        "edges": 10
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 1,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 11,
+        "viewerEdges": 10
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/compliance/out/lifecycle.html",
+      "sha256": "14d4863bad5436c78d091262eaca259d30df5dbdff91101df95c32a0027ff45d",
+      "bytes": 78354
+    },
+    "svg": {
+      "path": "examples/compliance/out/lifecycle.svg",
+      "sha256": "c4f4dfe748e3177d2545b401cf61f85daeda4b6ee440f1828002782d9e70c3ac"
+    },
+    "png": {
+      "path": "examples/compliance/out/lifecycle.png",
+      "sha256": "ba440a4fafd69a908017b06e44bf649cb506437bc51f13078c7906e7f6fb9a9a"
+    }
+  },
+  "summary": {
+    "type": "dataflow",
+    "nodes": 11,
+    "groups": 7,
+    "edges": 10,
+    "size": {
+      "width": 1635,
+      "height": 892
+    }
+  },
+  "review": {
+    "advisory": true,
+    "summary": {
+      "operational-excellence": {
+        "gap": 0,
+        "consider": 0,
+        "ok": 3
+      },
+      "security": {
+        "gap": 1,
+        "consider": 2,
+        "ok": 0
+      },
+      "reliability": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "performance-efficiency": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 0
+      },
+      "cost-optimization": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "sustainability": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      }
+    },
+    "gaps": [
+      "GENAI-GUARDRAILS"
+    ],
+    "considerations": [
+      "SEC-ENCRYPT",
+      "SEC-DETECT",
+      "REL-BACKUP",
+      "GENAI-RESILIENCE",
+      "GENAI-RETRIEVAL",
+      "COST-VISIBILITY",
+      "GENAI-COST",
+      "GENAI-SUS"
+    ]
+  },
+  "visualReview": "not-performed"
+}

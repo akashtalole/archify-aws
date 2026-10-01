@@ -9,6 +9,8 @@ explorable HTML (plus SVG/PNG) and a receipt of what was checked.
 |---|---|
 | ![three-tier](examples/out/three-tier.png) | ![genai-rag](examples/out/genai-rag.png) |
 
+Compliance review assistant (100 checks + human in the loop): [architecture](examples/compliance/out/architecture.png) · [one review run](examples/compliance/out/review-run.png) · [check-library lifecycle](examples/compliance/out/lifecycle.png)
+
 Healthcare enterprise agentic platform (examples): [platform](examples/out/healthcare-agentic-platform.png) ·
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)
@@ -27,6 +29,16 @@ Node ≥ 20, **no npm dependencies**. PNG export needs Chrome/Chromium (`CHROME_
 *"Use archify-aws to diagram a multi-AZ web app on ECS Fargate with Aurora, and review it against the Well-Architected pillars."*
 The agent searches icons, authors the spec, renders with `--strict --json`, repairs warnings, looks at the PNG, and reports.
 
+## Beyond one-off diagrams (Archify-style workflow)
+* **Three diagram types** — `architecture`, `sequence` (AWS icons as lifelines, boundaries, fragments), `dataflow` (stage columns).
+* **`finalize`** — validate → render → strict checks → real-browser check → PNG → deterministic `*.receipt.json`.
+  Never claims visual quality: it records `visualReview: "not-performed"`.
+* **Viewer runtime** — click a node for its Passport; Reach (↓ ↑), Route probe, Finder (`/`), presentation (`p`), deep links
+  (`#focus=orch&reach=downstream`, `#route=users~fm`), export to PNG/JPEG/WebP/dual-theme SVG. See [references/viewer-runtime.md](references/viewer-runtime.md).
+* **Import** — `import mermaid` (flowchart + sequenceDiagram → AWS icons, with mapping confidence) and
+  `import iac` (Terraform, CloudFormation, SAM → architecture; resolves API integrations, SNS subscriptions, event-source mappings). See [references/importers.md](references/importers.md).
+* **Schemas + routing** — `schema` (JSON Schemas for editors/agents), `guide "<scenario>"` (which type and template).
+
 ## What you get
 * **Official look** — service icons unmodified at 64px; group styles for AWS Cloud, Region, AZ, VPC, public/private
   subnet, security group, Auto Scaling, account, corporate data center, custom service groups; 12px Arial labels
@@ -41,8 +53,9 @@ The agent searches icons, authors the spec, renders with `--strict --json`, repa
 
 ## Commands
 ```text
-archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme dark] [--no-review] [--strict] [--json]
-archify-aws validate <spec.json>          archify-aws review <spec.json>
+archify-aws finalize <spec.json> [--json]      archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme dark] [--no-review] [--strict] [--json]
+archify-aws validate <spec.json>              archify-aws review <spec.json>
+archify-aws import mermaid <file|-> | import iac <dir>       archify-aws guide "<scenario>"      archify-aws schema <type>
 archify-aws icons search|info|categories|groups
 archify-aws init three-tier|serverless-api|genai-rag      archify-aws fetch-icons | doctor
 ```
@@ -63,7 +76,8 @@ review rules: [references/well-architected.md](references/well-architected.md).
 * **Icons are not committed.** AWS distributes them under its own terms; `icons:fetch` pulls release 24-2026.07.31
   from AWS. Rendered diagrams embed the icons they use. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 * Not a drop-in for Archify's pipeline: this is an independent AWS-specific renderer (Archify's built-in icon set is
-  generic and can't embed custom SVGs), so Archify's `finalize`/browser-check gates don't apply; `render --strict` and the tests are the gates here.
+  generic and can't embed custom SVGs). `finalize` is the equivalent gate here.
+* Not implemented vs. Archify: `workflow` and `lifecycle` diagram types, motion/trace animation, Share Cards, WebM export, locale packs, brand-mark capture, update checks.
 * The router is heuristic. Complex diagrams may need `children` reordering; the warnings say where.
 * `npm test` runs the unit and example-render tests (needs the icons fetched).
 

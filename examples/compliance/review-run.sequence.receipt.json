@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/compliance/review-run.sequence.json",
+    "sha256": "894c907b134604742676cc4cb37b7513a6d7d65192f787141c21d744d1b251ca"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "fail",
+      "detail": {
+        "errors": [
+          "group #1: members must be adjacent participants"
+        ]
+      }
+    }
+  ],
+  "outputs": {},
+  "summary": {}
+}

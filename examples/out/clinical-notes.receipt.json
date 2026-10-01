@@ -1,0 +1,120 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/clinical-notes.dataflow.json",
+    "sha256": "9985fd6c1dbbb432c6196b9ac8905dd09159789bb3e82b412661cb0061105b37"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "dataflow",
+        "nodes": 9,
+        "groups": 6,
+        "edges": 9
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 3,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 9,
+        "viewerEdges": 9
+      }
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/clinical-notes.html",
+      "sha256": "a9afe8b10cda35a8b4369d7d90b178f3ef41afc5a2263df1c1079df7b317252d",
+      "bytes": 66521
+    },
+    "svg": {
+      "path": "examples/out/clinical-notes.svg",
+      "sha256": "306a719c3535e97dd7c7da199bf019dbc8bf0da2b6323108b5f8ac6d54caa568"
+    }
+  },
+  "summary": {
+    "type": "dataflow",
+    "nodes": 9,
+    "groups": 6,
+    "edges": 9,
+    "size": {
+      "width": 1191,
+      "height": 572
+    }
+  },
+  "review": {
+    "advisory": true,
+    "summary": {
+      "operational-excellence": {
+        "gap": 2,
+        "consider": 1,
+        "ok": 0
+      },
+      "security": {
+        "gap": 1,
+        "consider": 3,
+        "ok": 1
+      },
+      "reliability": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "performance-efficiency": {
+        "gap": 0,
+        "consider": 0,
+        "ok": 1
+      },
+      "cost-optimization": {
+        "gap": 0,
+        "consider": 2,
+        "ok": 0
+      },
+      "sustainability": {
+        "gap": 0,
+        "consider": 1,
+        "ok": 1
+      }
+    },
+    "gaps": [
+      "OPS-OBSERVE",
+      "GENAI-OBSERVE",
+      "GENAI-GUARDRAILS"
+    ],
+    "considerations": [
+      "OPS-IAC",
+      "SEC-ENCRYPT",
+      "SEC-DETECT",
+      "GENAI-AGENCY",
+      "REL-BACKUP",
+      "GENAI-RESILIENCE",
+      "COST-VISIBILITY",
+      "GENAI-COST",
+      "GENAI-SUS"
+    ]
+  },
+  "visualReview": "not-performed"
+}

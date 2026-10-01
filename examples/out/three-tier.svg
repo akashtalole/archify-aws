@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="aws theme-light" viewBox="0 0 1423 912" width="1423" height="912" role="img" aria-label="Highly available three-tier web application">
 <title>Highly available three-tier web application</title>
-<style>
-.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
+<style>.aws{--bg:#ffffff;--fg:#000000;--muted:#545b64;--line:#232F3E;--halo:#ffffff;--badge:#000000;--badgeFg:#ffffff}
 .aws.theme-dark{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}
 .aws .bg{fill:var(--bg)}
 .aws text{font-family:Arial,Helvetica,sans-serif;fill:var(--fg)}
@@ -86,132 +85,132 @@
 <rect class="bg" width="1423" height="912"/>
 <text class="title" x="40" y="46">Highly available three-tier web application</text>
 <text class="subtitle" x="40" y="70">CloudFront → ALB → EC2 Auto Scaling → Amazon RDS Multi-AZ, across two Availability Zones</text>
-<g class="group" data-id="cloud">
+<g class="group" data-id="cloud" data-label="AWS Cloud">
 <rect x="226" y="116" width="1157" height="756" fill="none" stroke="#232F3E" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use class="only-light" href="#grp-AWS-Cloud" x="226" y="116" width="32" height="32"/>
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="226" y="116" width="32" height="32"/>
 <text class="glabel" x="266" y="137">AWS Cloud</text>
 </g>
-<g class="group" data-id="region">
+<g class="group" data-id="region" data-label="Region">
 <rect x="437" y="164" width="735" height="684" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="2 3" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Region" x="437" y="164" width="32" height="32"/>
 <text class="glabel" x="477" y="185">Region</text>
 </g>
-<g class="group" data-id="vpc">
+<g class="group" data-id="vpc" data-label="VPC">
 <rect x="461" y="212" width="687" height="612" fill="none" stroke="#8C4FFF" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Virtual-private-cloud-VPC" x="461" y="212" width="32" height="32"/>
 <text class="glabel" x="501" y="233">VPC</text>
 </g>
-<g class="group" data-id="az1">
+<g class="group" data-id="az1" data-label="Availability Zone 1">
 <rect x="666" y="260" width="458" height="256" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="676" y="280">Availability Zone 1</text>
 </g>
-<g class="group" data-id="az2">
+<g class="group" data-id="az2" data-label="Availability Zone 2">
 <rect x="666" y="544" width="458" height="256" fill="none" stroke="#00A4A6" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="676" y="564">Availability Zone 2</text>
 </g>
-<g class="group" data-id="app1">
+<g class="group" data-id="app1" data-label="Auto Scaling group">
 <rect x="690" y="308" width="182" height="184" fill="none" stroke="#ED7100" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Auto-Scaling-group" x="690" y="308" width="32" height="32"/>
 <text class="glabel" x="730" y="329">Auto Scaling group</text>
 </g>
-<g class="group" data-id="data1">
+<g class="group" data-id="data1" data-label="Private subnet">
 <rect x="944" y="308" width="156" height="184" fill="#E6F6F7" stroke="#00A4A6" stroke-width="1.25" data-fill-light="#E6F6F7" data-fill-dark="#00A4A618" class="grect"/>
 <use href="#grp-Private-subnet" x="944" y="308" width="32" height="32"/>
 <text class="glabel" x="984" y="329">Private subnet</text>
 </g>
-<g class="group" data-id="app2">
+<g class="group" data-id="app2" data-label="Auto Scaling group">
 <rect x="690" y="592" width="182" height="184" fill="none" stroke="#ED7100" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <use href="#grp-Auto-Scaling-group" x="690" y="592" width="32" height="32"/>
 <text class="glabel" x="730" y="613">Auto Scaling group</text>
 </g>
-<g class="group" data-id="data2">
+<g class="group" data-id="data2" data-label="Private subnet">
 <rect x="944" y="592" width="156" height="184" fill="#E6F6F7" stroke="#00A4A6" stroke-width="1.25" data-fill-light="#E6F6F7" data-fill-dark="#00A4A618" class="grect"/>
 <use href="#grp-Private-subnet" x="944" y="592" width="32" height="32"/>
 <text class="glabel" x="984" y="613">Private subnet</text>
 </g>
-<g class="edge" data-from="users" data-to="cf" data-step="1">
+<g class="edge" data-from="users" data-to="cf" data-step="1" data-label="HTTPS">
 <path d="M120 530 L276.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="198.25" y="522" text-anchor="middle">HTTPS</text>
 <g class="badge"><circle cx="144" cy="530" r="11"/><text x="144" y="534.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="cf" data-to="alb" data-step="2">
+<g class="edge" data-from="cf" data-to="alb" data-step="2" data-label="">
 <path d="M340.5 530 L508.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="364.5" cy="530" r="11"/><text x="364.5" y="534.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="ec2a" data-to="rds1" data-step="4">
+<g class="edge" data-from="ec2a" data-to="rds1" data-step="4" data-label="SQL">
 <path d="M813 388 L990 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="901.5" y="380" text-anchor="middle">SQL</text>
 <g class="badge"><circle cx="837" cy="388" r="11"/><text x="837" y="392.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="ec2b" data-to="rds2" data-step="4">
+<g class="edge" data-from="ec2b" data-to="rds2" data-step="4" data-label="">
 <path d="M813 672 L990 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="837" cy="672" r="11"/><text x="837" y="676.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="waf" data-to="cf" data-step="">
+<g class="edge" data-from="waf" data-to="cf" data-step="" data-label="inspects">
 <path d="M308.5 442 L308.5 498" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="326.5" y="474" text-anchor="start">inspects</text>
 </g>
-<g class="edge" data-from="rds1" data-to="rds2" data-step="">
+<g class="edge" data-from="rds1" data-to="rds2" data-step="" data-label="sync replication">
 <path d="M1022 468 L1022 640" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="1040" y="558" text-anchor="start">sync replication</text>
 </g>
-<g class="edge" data-from="cf" data-to="s3" data-step="">
+<g class="edge" data-from="cf" data-to="s3" data-step="" data-label="static assets">
 <path d="M308.5 610 L308.5 666" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="326.5" y="642" text-anchor="start">static assets</text>
 </g>
-<g class="edge" data-from="alb" data-to="ec2a" data-step="3">
+<g class="edge" data-from="alb" data-to="ec2a" data-step="3" data-label="">
 <path d="M540.5 498 L540.5 388 L749 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="540.5" cy="474" r="11"/><text x="540.5" y="478.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="alb" data-to="ec2b" data-step="3">
+<g class="edge" data-from="alb" data-to="ec2b" data-step="3" data-label="">
 <path d="M572.5 530 L636.75 530 L636.75 672 L749 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <g class="badge"><circle cx="596.5" cy="530" r="11"/><text x="596.5" y="534.5" text-anchor="middle">3</text></g>
 </g>
-<g class="node" data-id="users"><title>Users (Users)</title>
+<g class="node" data-id="users" data-label="Users" data-service="Users" data-category="General"><title>Users (Users)</title>
 <use href="#gen-Users" x="56" y="498" width="64" height="64"/>
 <text class="nlabel" x="88" y="579" text-anchor="middle">Users</text>
 </g>
-<g class="node" data-id="waf"><title>AWS WAF (AWS WAF)</title>
+<g class="node" data-id="waf" data-label="AWS WAF" data-service="AWS WAF" data-category="Security-Identity"><title>AWS WAF (AWS WAF)</title>
 <use href="#svc-AWS-WAF" x="276.5" y="330" width="64" height="64"/>
 <text class="nlabel" x="308.5" y="411" text-anchor="middle">AWS WAF</text>
 </g>
-<g class="node" data-id="cf"><title>Amazon CloudFront (Amazon CloudFront)</title>
+<g class="node" data-id="cf" data-label="Amazon CloudFront" data-service="Amazon CloudFront" data-category="Networking-Content-Delivery"><title>Amazon CloudFront (Amazon CloudFront)</title>
 <use href="#svc-Amazon-CloudFront" x="276.5" y="498" width="64" height="64"/>
 <text class="nlabel" x="308.5" y="579" text-anchor="middle">Amazon CloudFront</text>
 </g>
-<g class="node" data-id="s3"><title>Amazon S3 (Amazon Simple Storage Service)</title>
+<g class="node" data-id="s3" data-label="Amazon S3" data-service="Amazon Simple Storage Service" data-category="Storage"><title>Amazon S3 (Amazon Simple Storage Service)</title>
 <use href="#svc-Amazon-Simple-Storage-Service" x="276.5" y="666" width="64" height="64"/>
 <text class="nlabel" x="308.5" y="747" text-anchor="middle">Amazon S3</text>
 </g>
-<g class="node" data-id="alb"><title>Application Load Balancer (Elastic Load Balancing)</title>
+<g class="node" data-id="alb" data-label="Application Load Balancer" data-service="Elastic Load Balancing" data-category="Networking-Content-Delivery"><title>Application Load Balancer (Elastic Load Balancing)</title>
 <use href="#svc-Elastic-Load-Balancing" x="508.5" y="498" width="64" height="64"/>
 <text class="nlabel" x="540.5" y="579" text-anchor="middle">Application Load</text>
 <text class="nlabel" x="540.5" y="593" text-anchor="middle">Balancer</text>
 </g>
-<g class="node" data-id="ec2a"><title>Amazon EC2 (Amazon EC2)</title>
+<g class="node" data-id="ec2a" data-label="Amazon EC2" data-service="Amazon EC2" data-category="Compute"><title>Amazon EC2 (Amazon EC2)</title>
 <use href="#svc-Amazon-EC2" x="749" y="356" width="64" height="64"/>
 <text class="nlabel" x="781" y="437" text-anchor="middle">Amazon EC2</text>
 </g>
-<g class="node" data-id="rds1"><title>Amazon RDS (Amazon RDS)</title>
+<g class="node" data-id="rds1" data-label="Amazon RDS" data-service="Amazon RDS" data-category="Databases"><title>Amazon RDS (Amazon RDS)</title>
 <use href="#svc-Amazon-RDS" x="990" y="356" width="64" height="64"/>
 <text class="nlabel" x="1022" y="437" text-anchor="middle">Amazon RDS</text>
 <text class="nsub" x="1022" y="451" text-anchor="middle">primary</text>
 </g>
-<g class="node" data-id="ec2b"><title>Amazon EC2 (Amazon EC2)</title>
+<g class="node" data-id="ec2b" data-label="Amazon EC2" data-service="Amazon EC2" data-category="Compute"><title>Amazon EC2 (Amazon EC2)</title>
 <use href="#svc-Amazon-EC2" x="749" y="640" width="64" height="64"/>
 <text class="nlabel" x="781" y="721" text-anchor="middle">Amazon EC2</text>
 </g>
-<g class="node" data-id="rds2"><title>Amazon RDS (Amazon RDS)</title>
+<g class="node" data-id="rds2" data-label="Amazon RDS" data-service="Amazon RDS" data-category="Databases"><title>Amazon RDS (Amazon RDS)</title>
 <use href="#svc-Amazon-RDS" x="990" y="640" width="64" height="64"/>
 <text class="nlabel" x="1022" y="721" text-anchor="middle">Amazon RDS</text>
 <text class="nsub" x="1022" y="735" text-anchor="middle">standby</text>
 </g>
-<g class="node" data-id="cw"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
+<g class="node" data-id="cw" data-label="Amazon CloudWatch" data-service="Amazon CloudWatch" data-category="Management-Tools"><title>Amazon CloudWatch (Amazon CloudWatch)</title>
 <use href="#svc-Amazon-CloudWatch" x="1268.5" y="422" width="64" height="64"/>
 <text class="nlabel" x="1300.5" y="503" text-anchor="middle">Amazon CloudWatch</text>
 </g>
-<g class="node" data-id="kms"><title>AWS KMS (AWS Key Management Service)</title>
+<g class="node" data-id="kms" data-label="AWS KMS" data-service="AWS Key Management Service" data-category="Security-Identity"><title>AWS KMS (AWS Key Management Service)</title>
 <use href="#svc-AWS-Key-Management-Service" x="1268.5" y="574" width="64" height="64"/>
 <text class="nlabel" x="1300.5" y="655" text-anchor="middle">AWS KMS</text>
 </g>

@@ -1,0 +1,173 @@
+{
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Check-library lifecycle: author, evaluate, human approval, deploy, monitor",
+    "subtitle": "Rule and prompt changes reach production only after automated evaluation on a golden set and a human approval gate; reviewer overrides feed the next evaluation",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/compliance/out/lifecycle.html"
+  },
+  "stages": [
+    {
+      "id": "st_author",
+      "label": "Author",
+      "external": true,
+      "items": [
+        {
+          "id": "lead",
+          "icon": "gen:user",
+          "label": "Compliance author"
+        },
+        {
+          "id": "repo",
+          "icon": "gen:git-repository",
+          "label": "Rule library repo",
+          "sublabel": "checks, prompts, thresholds"
+        }
+      ]
+    },
+    {
+      "id": "st_build",
+      "label": "Build and evaluate",
+      "items": [
+        {
+          "id": "pipe",
+          "icon": "codepipeline",
+          "label": "AWS CodePipeline"
+        },
+        {
+          "id": "build",
+          "icon": "codebuild",
+          "label": "AWS CodeBuild",
+          "sublabel": "schema + unit tests"
+        },
+        {
+          "id": "eval",
+          "icon": "bedrock",
+          "label": "Amazon Bedrock",
+          "sublabel": "score on golden set"
+        },
+        {
+          "id": "gold",
+          "icon": "simple-storage-service",
+          "label": "Amazon S3",
+          "sublabel": "labelled golden set"
+        }
+      ]
+    },
+    {
+      "id": "st_approve",
+      "label": "Human approval",
+      "external": true,
+      "items": [
+        {
+          "id": "qa",
+          "icon": "gen:users",
+          "label": "Compliance lead + QA",
+          "sublabel": "review metrics, approve or reject"
+        }
+      ]
+    },
+    {
+      "id": "st_deploy",
+      "label": "Deploy",
+      "items": [
+        {
+          "id": "cfg",
+          "icon": "appconfig",
+          "label": "AWS AppConfig",
+          "sublabel": "versioned library, staged rollout"
+        },
+        {
+          "id": "runner",
+          "icon": "lambda",
+          "label": "AWS Lambda",
+          "sublabel": "check runners"
+        }
+      ]
+    },
+    {
+      "id": "st_monitor",
+      "label": "Monitor and learn",
+      "items": [
+        {
+          "id": "cw",
+          "icon": "cloudwatch",
+          "label": "Amazon CloudWatch",
+          "sublabel": "precision, recall, drift alarms to approvers"
+        },
+        {
+          "id": "a2i",
+          "icon": "augmented-ai-a2i",
+          "label": "Amazon Augmented AI",
+          "sublabel": "reviewer overrides"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "lead",
+      "to": "repo",
+      "step": 1,
+      "label": "propose change"
+    },
+    {
+      "from": "repo",
+      "to": "pipe",
+      "step": 2,
+      "label": "webhook"
+    },
+    {
+      "from": "pipe",
+      "to": "build",
+      "step": 3
+    },
+    {
+      "from": "build",
+      "to": "eval",
+      "step": 4,
+      "label": "run 100 checks"
+    },
+    {
+      "from": "gold",
+      "to": "eval",
+      "step": 4,
+      "style": "dashed",
+      "label": "labelled docs"
+    },
+    {
+      "from": "eval",
+      "to": "qa",
+      "step": 5,
+      "label": "metrics report"
+    },
+    {
+      "from": "qa",
+      "to": "cfg",
+      "step": 6,
+      "label": "approve release"
+    },
+    {
+      "from": "cfg",
+      "to": "runner",
+      "step": 7,
+      "label": "staged rollout"
+    },
+    {
+      "from": "runner",
+      "to": "cw",
+      "step": 8,
+      "style": "dashed",
+      "label": "quality metrics"
+    },
+    {
+      "from": "a2i",
+      "to": "gold",
+      "style": "dashed",
+      "label": "overrides become labels"
+    }
+  ]
+}
