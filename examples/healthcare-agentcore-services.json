@@ -1,12 +1,15 @@
 {
   "meta": {
-    "title": "Healthcare agentic platform \u2014 Amazon Bedrock AgentCore shared services and use-case onboarding",
+    "title": "Healthcare agentic platform — Amazon Bedrock AgentCore shared services and use-case onboarding",
     "subtitle": "One governed platform, many use cases: each team ships an agent on AgentCore Runtime and reaches enterprise tools only through Gateway and Policy",
     "lens": [
       "framework",
       "generative-ai"
     ],
-    "output": "examples/out/healthcare-agentcore-services.html"
+    "output": "examples/out/healthcare-agentcore-services.html",
+    "cost": {
+      "note": "Illustrative: five use cases sharing the model. AgentCore components use the defaults shown in the Cost tab."
+    }
   },
   "root": {
     "layout": "row",
@@ -91,7 +94,7 @@
                     "id": "platform",
                     "kind": "custom",
                     "icon": "bedrock-agentcore",
-                    "label": "Amazon Bedrock AgentCore \u2014 shared services",
+                    "label": "Amazon Bedrock AgentCore — shared services",
                     "layout": "grid",
                     "columns": 2,
                     "gap": 40,
@@ -227,13 +230,25 @@
                         "id": "fm",
                         "icon": "bedrock",
                         "label": "Amazon Bedrock",
-                        "sublabel": "foundation models"
+                        "sublabel": "foundation models",
+                        "usage": {
+                          "model": "Claude Sonnet 5.5",
+                          "inputTokensPerMonth": 300000000,
+                          "outputTokensPerMonth": 30000000
+                        }
                       },
                       {
                         "id": "guard",
                         "icon": "bedrock",
                         "label": "Bedrock Guardrails",
-                        "sublabel": "PHI / PII, safety"
+                        "sublabel": "PHI / PII, safety",
+                        "usage": {
+                          "textUnitsPerMonth": 500000,
+                          "policies": [
+                            "content",
+                            "pii"
+                          ]
+                        }
                       }
                     ]
                   },

@@ -1,37 +1,197 @@
 {
-  "meta": { "title": "RAG chat assistant on Amazon Bedrock", "subtitle": "Authenticated API → orchestrator → guarded model call grounded by a vector store, with invocation logging", "lens": ["framework", "generative-ai"], "output": "examples/out/genai-rag.html" },
-  "root": { "layout": "row", "gap": 80, "children": [
-    { "id": "users", "icon": "users", "label": "Users" },
-    { "id": "cloud", "kind": "aws-cloud", "layout": "row", "gap": 80, "children": [
-      { "id": "front", "kind": "stack", "layout": "column", "gap": 56, "children": [
-        { "id": "cognito", "icon": "cognito", "label": "Amazon Cognito" },
-        { "id": "apigw", "icon": "api-gateway", "label": "Amazon API Gateway" },
-        { "id": "waf", "icon": "waf", "label": "AWS WAF" }
-      ]},
-      { "id": "region", "kind": "region", "layout": "row", "gap": 90, "children": [
-        { "id": "orch", "icon": "lambda", "label": "AWS Lambda", "sublabel": "orchestrator" },
-        { "id": "ai", "kind": "custom", "icon": "bedrock", "label": "Generative AI", "layout": "column", "gap": 56, "children": [
-          { "id": "guard", "icon": "bedrock", "label": "Bedrock Guardrails" },
-          { "id": "fm", "icon": "bedrock", "label": "Amazon Bedrock", "sublabel": "foundation model" },
-          { "id": "kb", "icon": "opensearch-service", "label": "Amazon OpenSearch Service", "sublabel": "vector store" }
-        ]},
-        { "id": "data", "kind": "generic", "label": "Data and operations", "layout": "column", "gap": 56, "children": [
-          { "id": "cw", "icon": "cloudwatch", "label": "Amazon CloudWatch", "sublabel": "invocation logs" },
-          { "id": "kms", "icon": "kms", "label": "AWS KMS", "sublabel": "encryption keys" },
-          { "id": "docs", "icon": "s3", "label": "Amazon S3", "sublabel": "source documents" }
-        ]}
-      ]}
-    ]}
-  ]},
+  "meta": {
+    "title": "RAG chat assistant on Amazon Bedrock",
+    "subtitle": "Authenticated API → orchestrator → guarded model call grounded by a vector store, with invocation logging",
+    "lens": [
+      "framework",
+      "generative-ai"
+    ],
+    "output": "examples/out/genai-rag.html",
+    "cost": {
+      "note": "Illustrative: 200,000 questions/month, about 750 input and 75 output tokens each after retrieval."
+    }
+  },
+  "root": {
+    "layout": "row",
+    "gap": 80,
+    "children": [
+      {
+        "id": "users",
+        "icon": "users",
+        "label": "Users"
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "row",
+        "gap": 80,
+        "children": [
+          {
+            "id": "front",
+            "kind": "stack",
+            "layout": "column",
+            "gap": 56,
+            "children": [
+              {
+                "id": "cognito",
+                "icon": "cognito",
+                "label": "Amazon Cognito",
+                "usage": {
+                  "mau": 5000
+                }
+              },
+              {
+                "id": "apigw",
+                "icon": "api-gateway",
+                "label": "Amazon API Gateway",
+                "usage": {
+                  "requestsPerMonth": 200000
+                }
+              },
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF"
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "row",
+            "gap": 90,
+            "children": [
+              {
+                "id": "orch",
+                "icon": "lambda",
+                "label": "AWS Lambda",
+                "sublabel": "orchestrator"
+              },
+              {
+                "id": "ai",
+                "kind": "custom",
+                "icon": "bedrock",
+                "label": "Generative AI",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "guard",
+                    "icon": "bedrock",
+                    "label": "Bedrock Guardrails",
+                    "usage": {
+                      "textUnitsPerMonth": 300000,
+                      "policies": [
+                        "content",
+                        "pii"
+                      ]
+                    }
+                  },
+                  {
+                    "id": "fm",
+                    "icon": "bedrock",
+                    "label": "Amazon Bedrock",
+                    "sublabel": "foundation model",
+                    "usage": {
+                      "model": "Claude Sonnet 5.5",
+                      "inputTokensPerMonth": 150000000,
+                      "outputTokensPerMonth": 15000000
+                    }
+                  },
+                  {
+                    "id": "kb",
+                    "icon": "opensearch-service",
+                    "label": "Amazon OpenSearch Service",
+                    "sublabel": "vector store"
+                  }
+                ]
+              },
+              {
+                "id": "data",
+                "kind": "generic",
+                "label": "Data and operations",
+                "layout": "column",
+                "gap": 56,
+                "children": [
+                  {
+                    "id": "cw",
+                    "icon": "cloudwatch",
+                    "label": "Amazon CloudWatch",
+                    "sublabel": "invocation logs"
+                  },
+                  {
+                    "id": "kms",
+                    "icon": "kms",
+                    "label": "AWS KMS",
+                    "sublabel": "encryption keys"
+                  },
+                  {
+                    "id": "docs",
+                    "icon": "s3",
+                    "label": "Amazon S3",
+                    "sublabel": "source documents"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "edges": [
-    { "from": "users", "to": "apigw", "step": 1, "label": "HTTPS + JWT" },
-    { "from": "cognito", "to": "apigw", "style": "dashed", "label": "authorizer" },
-    { "from": "waf", "to": "apigw", "style": "dashed", "label": "protects" },
-    { "from": "apigw", "to": "orch", "step": 2 },
-    { "from": "orch", "to": "kb", "step": 3, "label": "retrieve" },
-    { "from": "orch", "to": "guard", "step": 4, "label": "check prompt" },
-    { "from": "orch", "to": "fm", "step": 5, "label": "invoke" },
-    { "from": "docs", "to": "kb", "style": "dashed", "label": "ingest" },
-    { "from": "fm", "to": "cw", "style": "dashed", "label": "logs" }
+    {
+      "from": "users",
+      "to": "apigw",
+      "step": 1,
+      "label": "HTTPS + JWT"
+    },
+    {
+      "from": "cognito",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "authorizer"
+    },
+    {
+      "from": "waf",
+      "to": "apigw",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "apigw",
+      "to": "orch",
+      "step": 2
+    },
+    {
+      "from": "orch",
+      "to": "kb",
+      "step": 3,
+      "label": "retrieve"
+    },
+    {
+      "from": "orch",
+      "to": "guard",
+      "step": 4,
+      "label": "check prompt"
+    },
+    {
+      "from": "orch",
+      "to": "fm",
+      "step": 5,
+      "label": "invoke"
+    },
+    {
+      "from": "docs",
+      "to": "kb",
+      "style": "dashed",
+      "label": "ingest"
+    },
+    {
+      "from": "fm",
+      "to": "cw",
+      "style": "dashed",
+      "label": "logs"
+    }
   ]
 }

@@ -5,13 +5,12 @@
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
     "path": "examples/genai-rag.json",
-    "sha256": "a4371e28abafab7f9f9c0a238121488ce934f20c47c93b990abc4ad7b90e2768"
+    "sha256": "6dc17d8e7a277fda5002c26f9a6ccd444669749e31b7a74f4c73f112590d982a"
   },
   "stages": [
     {
       "name": "validate",
       "status": "pass",
-      "ms": 23,
       "detail": {
         "type": "architecture",
         "nodes": 11,
@@ -20,15 +19,21 @@
       }
     },
     {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
       "name": "render",
       "status": "pass",
-      "ms": 7,
       "detail": {}
     },
     {
       "name": "check",
       "status": "pass",
-      "ms": 1,
       "detail": {
         "warnings": 0,
         "standalone": true
@@ -37,7 +42,6 @@
     {
       "name": "browser-check",
       "status": "pass",
-      "ms": 561,
       "detail": {
         "viewport": "1440x900",
         "minFontPx": 10.5,
@@ -50,15 +54,14 @@
     {
       "name": "export-png",
       "status": "pass",
-      "ms": 753,
       "detail": {}
     }
   ],
   "outputs": {
     "html": {
       "path": "examples/out/genai-rag.html",
-      "sha256": "35d0b8f12f30bb8ff8b6404bdd4d414e974b4d76a3f5f9daf2ffd8977bbe10e9",
-      "bytes": 78671
+      "sha256": "60ccdb4dede068cee39135f932a83e026bcbcb71a80969b9c059e94fbedd6b76",
+      "bytes": 307399
     },
     "svg": {
       "path": "examples/out/genai-rag.svg",
@@ -79,50 +82,37 @@
       "height": 820
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 943.1867,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 11,
+      "estimated": 10,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 1,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 0,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 2
-      },
-      "security": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 5
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
     },
-    "gaps": [],
-    "considerations": [
-      "OPS-IAC",
-      "SEC-DETECT",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "PERF-EDGE",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 13,
+    "bps": 307,
+    "ids": [
+      "F-001"
     ]
   },
   "visualReview": "not-performed"

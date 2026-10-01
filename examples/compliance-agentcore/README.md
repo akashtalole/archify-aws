@@ -29,3 +29,5 @@ agents that judge each check family.
 * **Memory:** reviewer feedback is stored for *evaluation*; it is deliberately not auto-applied to the check library — changes go through
   the approval gate in `../compliance/lifecycle.json`.
 * AgentCore services reuse the single AgentCore icon (AWS ships no per-component icons); the label identifies each service.
+
+Each page also has a **Cost** tab (~$5,973/month at 2,000 documents × 40 pages × 100 checks, about 91% AI) and a **Well-Architected review** tab. The Step Functions variant is ~$6,065/month. Volumes are illustrative: edit each node's `usage` and re-run `archify-aws finalize`.

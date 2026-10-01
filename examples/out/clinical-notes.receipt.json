@@ -5,7 +5,7 @@
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
     "path": "examples/clinical-notes.dataflow.json",
-    "sha256": "9985fd6c1dbbb432c6196b9ac8905dd09159789bb3e82b412661cb0061105b37"
+    "sha256": "93060718b743cfdd640d97f40740e1c672eb1d894b3a093c0d3bc71cda3586a4"
   },
   "stages": [
     {
@@ -16,6 +16,14 @@
         "nodes": 9,
         "groups": 6,
         "edges": 9
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
       }
     },
     {
@@ -42,17 +50,26 @@
         "viewerNodes": 9,
         "viewerEdges": 9
       }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
     }
   ],
   "outputs": {
     "html": {
       "path": "examples/out/clinical-notes.html",
-      "sha256": "a9afe8b10cda35a8b4369d7d90b178f3ef41afc5a2263df1c1079df7b317252d",
-      "bytes": 66521
+      "sha256": "6b33bfb636698725aba69e59ba5775f72f11fd7062ea0b582d0848713925c373",
+      "bytes": 293149
     },
     "svg": {
       "path": "examples/out/clinical-notes.svg",
       "sha256": "306a719c3535e97dd7c7da199bf019dbc8bf0da2b6323108b5f8ac6d54caa568"
+    },
+    "png": {
+      "path": "examples/out/clinical-notes.png",
+      "sha256": "29a6ddc89b3200fe658428ab685ba16b73ae8989fc5317f1934b6ea259a2ee8c"
     }
   },
   "summary": {
@@ -65,55 +82,39 @@
       "height": 572
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 3372.67,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 9,
+      "estimated": 5,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 2,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 2,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 2,
-        "consider": 1,
-        "ok": 0
-      },
-      "security": {
-        "gap": 1,
-        "consider": 3,
-        "ok": 1
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 0,
-        "ok": 1
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 2,
+      "Low": 0
     },
-    "gaps": [
-      "OPS-OBSERVE",
-      "GENAI-OBSERVE",
-      "GENAI-GUARDRAILS"
-    ],
-    "considerations": [
-      "OPS-IAC",
-      "SEC-ENCRYPT",
-      "SEC-DETECT",
-      "GENAI-AGENCY",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 11,
+    "bps": 307,
+    "ids": [
+      "F-001",
+      "F-002",
+      "F-003"
     ]
   },
   "visualReview": "not-performed"

@@ -60,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/architecture.html",
-      "sha256": "0ee1d9c672089bd83ea73a377c696357f284361fcf82c83ef0b73ccdb0b659d2",
-      "bytes": 340771
+      "sha256": "7757aaccd8bb2e6b3d8ca4c149c77d6ccf51363994ccf0e9bb53a2b227b99aa5",
+      "bytes": 340929
     },
     "svg": {
       "path": "examples/compliance/out/architecture.svg",

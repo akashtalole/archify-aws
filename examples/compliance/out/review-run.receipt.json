@@ -19,6 +19,14 @@
       }
     },
     {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
       "name": "render",
       "status": "pass",
       "detail": {}
@@ -52,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/review-run.html",
-      "sha256": "c97e01defecfc5ff00639f6ba632ce79c6e930ae9d95e2d090cab11942c7d8aa",
-      "bytes": 88294
+      "sha256": "07509a72496a0eddca8411009bd4223feb0b451bae3e8e5136bfe572890b2daf",
+      "bytes": 317740
     },
     "svg": {
       "path": "examples/compliance/out/review-run.svg",
@@ -74,56 +82,39 @@
       "height": 1753
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 368.0367,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 12,
+      "estimated": 9,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 2,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 1,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 2,
-        "consider": 1,
-        "ok": 0
-      },
-      "security": {
-        "gap": 1,
-        "consider": 3,
-        "ok": 2
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 3,
+      "Low": 0
     },
-    "gaps": [
-      "OPS-OBSERVE",
-      "GENAI-OBSERVE",
-      "SEC-EDGE"
-    ],
-    "considerations": [
-      "OPS-IAC",
-      "SEC-ENCRYPT",
-      "SEC-IDENTITY",
-      "SEC-DETECT",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "PERF-EDGE",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 11,
+    "bps": 307,
+    "ids": [
+      "F-001",
+      "F-002",
+      "F-003"
     ]
   },
   "visualReview": "not-performed"

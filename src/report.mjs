@@ -9,7 +9,7 @@ const chip = (s) => `<span class="st ${STATUS_CLASS[s] || "cd"}">${esc(s)}</span
 const risk = (r) => `<span class="rk ${slug(r)}">${esc(r)}</span>`;
 const pillarName = (r, id) => (r.pillars.concat(r.lensPillars).find((p) => p.id === id) || {}).name || id;
 
-export function costTab(cost) {
+export function costTab(cost, note) {
   if (!cost) return `<section class="card"><h2>Cost estimate</h2><p class="muted">Cost estimation was turned off for this render.</p></section>`;
   const t = cost.totals, cov = cost.coverage;
   const cats = Object.entries(t.byCategory).sort((a, b) => b[1] - a[1]);
@@ -23,6 +23,7 @@ export function costTab(cost) {
 <div class="tiles"><div class="tile"><b>${usd(t.monthlyUsd)}</b><span>per month</span></div><div class="tile"><b>${usd(t.annualUsd)}</b><span>per year</span></div>
 <div class="tile"><b>${cov.estimated + cov.override}/${cov.nodes}</b><span>components priced</span></div><div class="tile"><b>${cov.notItemized + cov.needsInput + cov.notEstimated}</b><span>not priced (see below)</span></div></div>
 <p class="muted">${esc(cost.basis)}</p>
+${note ? `<p><b>Usage basis.</b> ${esc(note)}</p>` : ""}
 <label class="tog"><input type="checkbox" id="costOverlay"> Show monthly cost on the diagram</label></section>
 <section class="card"><h2>By category</h2><div class="bars">${cats.map(([k, v]) => `<div class="bar"><span>${esc(k)}</span><i style="width:${Math.max(1, 100 * v / max)}%"></i><b>${usd(v)} · ${Math.round(100 * v / t.monthlyUsd)}%</b></div>`).join("")}</div></section>
 <section class="card"><h2>By component <small>click a row to highlight it on the diagram</small></h2><div class="scroll"><table class="tbl" id="costTable"><thead><tr><th>Component</th><th>Service</th><th>Status</th><th class="r">$ / month</th><th>Line items</th></tr></thead><tbody>${rows.map((n) => `<tr data-node="${esc(n.id)}"><td>${esc(n.label)}</td><td>${esc(n.service || "")}</td><td>${esc(n.status)}</td><td class="r"><span class="mini" style="width:${Math.max(2, 100 * n.monthlyUsd / top)}%"></span>${usd(n.monthlyUsd)}</td><td><details><summary>${n.lines.length} line${n.lines.length === 1 ? "" : "s"}</summary><ul class="lines">${n.lines.map((l) => `<li>${esc(l.label)}: ${Number(l.qty).toLocaleString("en-US", { maximumFractionDigits: 2 })} ${esc(l.unit)} × ${usd2(l.rate)}${l.tiered ? " (tiered)" : ""} = <b>${usd2(l.usd)}</b></li>`).join("")}</ul>${n.notes.length ? `<p class="muted">${n.notes.map(esc).join(" ")}</p>` : ""}</details></td></tr>`).join("")}</tbody></table></div>

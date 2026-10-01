@@ -4,18 +4,18 @@
   "version": "0.1.0",
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
-    "path": "examples/compliance-agentcore/review-run.sequence.json",
-    "sha256": "e61c10a5513b44d61274f0fdbac3cd3b918432815b20f83fe1642edde060716e"
+    "path": "examples/serverless-api.json",
+    "sha256": "1148df5f86a84bc1eecf1bd90ee26fd148af9a31d8a8271d65ac8f36551e3ae6"
   },
   "stages": [
     {
       "name": "validate",
       "status": "pass",
       "detail": {
-        "type": "sequence",
-        "nodes": 11,
-        "groups": 1,
-        "edges": 29
+        "type": "architecture",
+        "nodes": 10,
+        "groups": 3,
+        "edges": 8
       }
     },
     {
@@ -47,8 +47,8 @@
         "minFontPx": 10.5,
         "overflowX": 0,
         "consoleErrors": 0,
-        "viewerNodes": 11,
-        "viewerEdges": 29
+        "viewerNodes": 10,
+        "viewerEdges": 8
       }
     },
     {
@@ -59,41 +59,41 @@
   ],
   "outputs": {
     "html": {
-      "path": "examples/compliance-agentcore/out/review-run.html",
-      "sha256": "f81892f505dcf6e343b27db77ba47da382483373d57ef9b87c5afc64469aa9d1",
-      "bytes": 305485
+      "path": "examples/out/serverless-api.html",
+      "sha256": "661f4738feb4889c0ae2f097ede8ff75f2cbc0156ae1030203e9c5d9e77cbf2e",
+      "bytes": 262060
     },
     "svg": {
-      "path": "examples/compliance-agentcore/out/review-run.svg",
-      "sha256": "01202c50e8b81f42c794570c5b0d446185ecff45c048e45b52c2c33a6929592b"
+      "path": "examples/out/serverless-api.svg",
+      "sha256": "7fc87a38adcfa37a6c82360bf23815417eaba4b2da84de52e27753fb6b38b3f7"
     },
     "png": {
-      "path": "examples/compliance-agentcore/out/review-run.png",
-      "sha256": "6ee7aa4a7c98ce7548a594c1a8200c6ca8945dd9510825f645338c183834a1b2"
+      "path": "examples/out/serverless-api.png",
+      "sha256": "798e0eddd892a041a23da5f3be6087640d0bc9cfe13111cb0ee26d98e4a15204"
     }
   },
   "summary": {
-    "type": "sequence",
-    "nodes": 11,
-    "groups": 1,
-    "edges": 29,
+    "type": "architecture",
+    "nodes": 10,
+    "groups": 3,
+    "edges": 8,
     "size": {
-      "width": 2170,
-      "height": 2337
+      "width": 1250,
+      "height": 713
     }
   },
   "cost": {
     "region": "us-east-1",
     "asOf": "2026-10-01",
-    "monthlyUsd": 363.7707,
+    "monthlyUsd": 349.4167,
     "confidence": "indicative",
     "coverage": {
-      "nodes": 11,
-      "estimated": 8,
+      "nodes": 10,
+      "estimated": 9,
       "override": 0,
       "noCharge": 0,
-      "notBillable": 2,
-      "notItemized": 1,
+      "notBillable": 1,
+      "notItemized": 0,
       "needsInput": 0,
       "notEstimated": 0,
       "error": 0
@@ -102,19 +102,16 @@
   "review": {
     "advisory": true,
     "mode": "full",
-    "lens": "generative-ai",
+    "lens": "general",
     "findings": {
       "Critical": 0,
       "High": 0,
-      "Medium": 2,
+      "Medium": 0,
       "Low": 0
     },
-    "evidenced": 9,
+    "evidenced": 15,
     "bps": 307,
-    "ids": [
-      "F-001",
-      "F-002"
-    ]
+    "ids": []
   },
   "visualReview": "not-performed"
 }

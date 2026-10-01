@@ -1,8 +1,11 @@
 {
   "meta": {
     "title": "Highly available three-tier web application",
-    "subtitle": "CloudFront \u2192 ALB \u2192 EC2 Auto Scaling \u2192 Amazon RDS Multi-AZ, across two Availability Zones",
-    "output": "examples/out/three-tier.html"
+    "subtitle": "CloudFront → ALB → EC2 Auto Scaling → Amazon RDS Multi-AZ, across two Availability Zones",
+    "output": "examples/out/three-tier.html",
+    "cost": {
+      "note": "Illustrative: ~2M page views/month. CloudFront is not modelled yet, so its $20/month is a placeholder override."
+    }
   },
   "root": {
     "layout": "row",
@@ -33,12 +36,20 @@
               {
                 "id": "cf",
                 "icon": "cloudfront",
-                "label": "Amazon CloudFront"
+                "label": "Amazon CloudFront",
+                "usage": {
+                  "monthlyUsd": 20
+                }
               },
               {
                 "id": "s3",
                 "icon": "s3",
-                "label": "Amazon S3"
+                "label": "Amazon S3",
+                "usage": {
+                  "storageGb": 200,
+                  "getRequestsPerMonth": 2000000,
+                  "putRequestsPerMonth": 100000
+                }
               }
             ]
           },
@@ -57,7 +68,10 @@
                   {
                     "id": "alb",
                     "icon": "alb",
-                    "label": "Application Load Balancer"
+                    "label": "Application Load Balancer",
+                    "usage": {
+                      "avgLcu": 1.5
+                    }
                   },
                   {
                     "id": "azs",

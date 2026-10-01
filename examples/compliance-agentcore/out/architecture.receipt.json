@@ -60,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance-agentcore/out/architecture.html",
-      "sha256": "97365d520f23ecd1d80f58a1e4ac1f736caf6a8548c5e2768ef9cb8830280e9c",
-      "bytes": 358577
+      "sha256": "8a1277a203980f9ac4292da8e47319967a096788c86ecd9fe52d5e4cf0550317",
+      "bytes": 358735
     },
     "svg": {
       "path": "examples/compliance-agentcore/out/architecture.svg",
