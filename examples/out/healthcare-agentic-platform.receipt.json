@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/healthcare-agentic-platform.json",
+    "sha256": "1dd08ead1dcd94ac7d5d5421952365393e53a195ae77b9c44ec25619e9d7f23d"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 18,
+        "groups": 7,
+        "edges": 11
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 18,
+        "viewerEdges": 11
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/healthcare-agentic-platform.html",
+      "sha256": "20477f77579ef89635573cd3fdedd4b09d7add2af48cc4b53318d1e05218b306",
+      "bytes": 338717
+    },
+    "svg": {
+      "path": "examples/out/healthcare-agentic-platform.svg",
+      "sha256": "ca2ebcc740940268717c04147b7c4db85dfffb9b153dc3f0d927e7fa858b1d87"
+    },
+    "png": {
+      "path": "examples/out/healthcare-agentic-platform.png",
+      "sha256": "eecc8c3852d047403ccf8f91e8964f47fe27025f7fc61fd822a2687615d700c4"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 18,
+    "groups": 7,
+    "edges": 11,
+    "size": {
+      "width": 1900,
+      "height": 924
+    }
+  },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 4834.124,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 18,
+      "estimated": 10,
+      "override": 0,
+      "noCharge": 1,
+      "notBillable": 2,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 5,
+      "error": 0
+    }
+  },
+  "review": {
+    "advisory": true,
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    "evidenced": 20,
+    "bps": 307,
+    "ids": [
+      "F-001"
+    ]
+  },
+  "visualReview": "not-performed"
+}

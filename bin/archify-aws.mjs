@@ -5,17 +5,22 @@ import { spawnSync } from "node:child_process";
 import { ROOT, catalog, searchIcons, resolveIcon, iconsAvailable, ICON_DIR } from "../src/catalog.mjs";
 import { buildDiagram, SpecError, typeOf } from "../src/pipeline.mjs";
 import { renderPage } from "../src/page.mjs";
+import { analyze } from "../src/analysis.mjs";
+import { reviewWorkload } from "../src/wa/evaluate.mjs";
 import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
 import { importMermaid } from "../src/mermaid.mjs";
 import { importIac } from "../src/iac.mjs";
 import { finalize } from "../src/finalize.mjs";
 import { buildSchemas, guideScenario } from "../src/schemas.mjs";
+import { estimateCost } from "../src/cost/estimate.mjs";
+import { money } from "../src/cost/pricebook.mjs";
+import { loadCorpus, acquireCorpus, saveCorpus, corpusAgeDays, SOURCES as WA_SOURCES } from "../src/wa/corpus.mjs";
 
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
 Usage
-  archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme light|dark] [--no-review] [--strict] [--json]
+  archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme light|dark] [--no-review] [--no-cost] [--strict] [--json]
   archify-aws finalize <spec.json> [-o out.html] [--theme t] [--no-png] [--require-browser] [--json]   validate → render → checks → browser check → receipt
   archify-aws validate <spec.json> [--json]
   archify-aws review <spec.json> [--json]            Well-Architected + Generative AI Lens hints
@@ -28,6 +33,9 @@ Usage
   archify-aws fetch-icons [icons.zip|url]            download the official icon package
   archify-aws schema [architecture|sequence|dataflow]      JSON Schema (path, or contents with --json)
   archify-aws guide "<scenario>" [--json]                  which diagram type and template fit
+  archify-aws wa corpus [--lens generative-ai] [--refresh] [--json]   Well-Architected questions and best practices (live index or snapshot)
+  archify-aws wa review <spec.json> [--mode full|quick|pillar|score] [--pillars p,q] [--filter critical|critical-high|all] [--criticality c] [--json]   Well-Architected review (framework + Generative AI Lens)
+  archify-aws cost <spec.json> [--region r] [--scale 1,3,10] [--usage usage.json] [--json]   monthly estimate from the AWS Price List
   archify-aws doctor
 
 Exit codes: 0 ok · 1 invalid spec / usage / failed gate · 2 --strict and layout warnings present · 3 icons missing
@@ -54,19 +62,23 @@ switch (cmd) {
     const theme = opt("--theme", spec.meta?.theme || "light");
     const outHtml = path.resolve(opt("-o", spec.meta?.output || file.replace(/\.json$/, "") + ".html"));
     fs.mkdirSync(path.dirname(outHtml), { recursive: true });
-    const review = flag("--no-review") || spec.meta?.review === false ? null : d.review();
-    fs.writeFileSync(outHtml, renderPage(d, review, theme));
+    let usage; if (opt("--usage")) usage = readSpec(opt("--usage"));
+    let an; try { an = analyze(d, { cost: !flag("--no-cost"), review: !flag("--no-review"), region: opt("--region"), usage }); } catch (e) { die(e.message); }
+    const review = an.wa;
+    fs.writeFileSync(outHtml, renderPage(d, review, theme, an.cost));
     const res = { ok: true, type: d.type, html: outHtml, size: d.size, nodes: d.stats.nodes, groups: d.stats.groups, edges: d.stats.edges, warnings: d.warnings };
     const base = outHtml.replace(/\.html$/, "");
     if (flag("--svg") || flag("--png")) { fs.writeFileSync(base + ".svg", d.svg(theme)); res.svg = base + ".svg"; }
     if (flag("--png")) { try { svgToPng(base + ".svg", base + ".png", d.size.width, d.size.height); res.png = base + ".png"; } catch (e) { res.pngError = e.message; } }
-    if (review) res.review = { summary: review.summary, gaps: review.findings.filter((f) => f.status === "gap").map((f) => f.id), considerations: review.findings.filter((f) => f.status === "consider").length };
+    if (an.cost) res.cost = { monthlyUsd: an.cost.totals.monthlyUsd, confidence: an.cost.confidence, coverage: an.cost.coverage };
+    if (review) res.review = { findings: review.findingCounts, evidenced: review.coverage.framework.withEvidence, bps: review.coverage.framework.assessedBps };
     if (json) out(res);
     else {
       console.log(`Wrote ${outHtml}${res.svg ? `\n      ${res.svg}` : ""}${res.png ? `\n      ${res.png}` : ""}`);
       console.log(`${d.type}: ${res.nodes} nodes · ${res.groups} groups · ${res.edges} ${d.type === "sequence" ? "messages" : "edges"} · ${res.size.width}×${res.size.height}`);
       for (const w of d.warnings) console.log(`warning: ${w}`);
-      if (review) console.log(`Well-Architected: ${res.review.gaps.length} gap(s) to confirm${res.review.gaps.length ? " (" + res.review.gaps.join(", ") + ")" : ""}, ${res.review.considerations} to consider — see the page`);
+      if (an.cost) console.log(`Cost: ${money(res.cost.monthlyUsd)}/month (${res.cost.confidence}) — Cost tab`);
+      if (review) { const f = res.review.findings; console.log(`Well-Architected: ${f.Critical} critical · ${f.High} high · ${f.Medium} medium · ${f.Low} low; ${res.review.evidenced}/${res.review.bps} best practices evidenced — Well-Architected tab`); }
       if (res.pngError) console.log(`png: ${res.pngError}`);
     }
     process.exit(flag("--strict") && d.warnings.some((w) => !/used by more than one edge/.test(w)) ? 2 : 0);
@@ -75,7 +87,7 @@ switch (cmd) {
     needIcons();
     const file = rest[0];
     if (!file) die("missing <spec.json>\n" + HELP);
-    const rc = finalize(path.resolve(file), { outHtml: opt("-o"), theme: opt("--theme"), png: !flag("--no-png"), requireBrowser: flag("--require-browser"), review: !flag("--no-review") });
+    const rc = finalize(path.resolve(file), { outHtml: opt("-o"), theme: opt("--theme"), png: !flag("--no-png"), requireBrowser: flag("--require-browser"), review: !flag("--no-review"), cost: !flag("--no-cost") });
     const outBase = rc.outputs.html ? path.resolve(rc.outputs.html.path).replace(/\.html$/, "") : path.resolve(file).replace(/\.json$/, "");
     fs.writeFileSync(outBase + ".receipt.json", JSON.stringify(rc, null, 2) + "\n");
     if (json) out(rc);
@@ -86,7 +98,8 @@ switch (cmd) {
         console.log(`\n${rc.summary.type}: ${rc.summary.nodes} nodes · ${rc.summary.edges} ${rc.summary.type === "sequence" ? "messages" : "edges"}`);
         for (const [k, v] of Object.entries(rc.outputs)) console.log(`${k.padEnd(5)} ${v.path}`);
         console.log(`receipt ${path.relative(process.cwd(), outBase + ".receipt.json")}`);
-        if (rc.review) console.log(`Well-Architected (advisory): ${rc.review.gaps.length} gap(s) to confirm${rc.review.gaps.length ? " (" + rc.review.gaps.join(", ") + ")" : ""}, ${rc.review.considerations.length} to consider`);
+        if (rc.cost) console.log(`Cost: ${money(rc.cost.monthlyUsd)}/month (${rc.cost.confidence})`);
+        if (rc.review) { const f = rc.review.findings; console.log(`Well-Architected (advisory): ${f.Critical} critical · ${f.High} high · ${f.Medium} medium · ${f.Low} low; ${rc.review.evidenced}/${rc.review.bps} best practices evidenced`); }
         console.log("Visual review: not performed — open the PNG/HTML and look before claiming quality.");
       }
     }
@@ -186,6 +199,60 @@ switch (cmd) {
   case "fetch-icons": {
     const r = spawnSync(process.execPath, [path.join(ROOT, "scripts", "fetch-icons.mjs"), ...rest], { stdio: "inherit" });
     process.exit(r.status ?? 1);
+  }
+  case "wa": {
+    const [sub] = rest;
+    if (sub === "corpus") {
+      const lens = opt("--lens", "framework");
+      if (!WA_SOURCES[lens]) die(`unknown lens "${lens}" (${Object.keys(WA_SOURCES).join(", ")})`);
+      let c;
+      try { c = flag("--refresh") ? await acquireCorpus(lens) : loadCorpus(lens); } catch (e) { die(e.message); }
+      if (flag("--refresh")) { if (!c.manifest.valid) die("corpus INVALID: " + c.manifest.errors.join("; ")); saveCorpus(c); }
+      if (json) out({ lens, ...c.manifest, ageDays: corpusAgeDays(c) });
+      else {
+        console.log(`${c.name}: ${c.manifest.counts.pillars} pillars · ${c.manifest.counts.questions} questions · ${c.manifest.counts.bps} best practices (${c.manifest.valid ? "valid" : "INVALID"})`);
+        console.log(`source ${c.manifest.provenance.indexUrl}\nretrieved ${c.manifest.provenance.retrievedAt} (${corpusAgeDays(c)} day(s) ago${flag("--refresh") ? ", live" : ", snapshot — use --refresh to re-read"})`);
+        for (const [p, n] of Object.entries(c.manifest.counts.perPillar)) console.log(`  ${p.padEnd(24)} ${n}`);
+      }
+      break;
+    }
+    if (sub === "review") {
+      needIcons();
+      const spec = readSpec(rest[1]);
+      let d; try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; die(e.message); }
+      let an; try { an = analyze(d, { cost: !flag("--no-cost"), review: true, mode: opt("--mode", "full"), pillars: opt("--pillars") ? opt("--pillars").split(",") : null, filter: opt("--filter", "all"), lens: opt("--lens", "auto"), criticality: opt("--criticality") }); } catch (e) { die(e.message); }
+      const r = an.wa;
+      if (json) out(r);
+      else {
+        console.log(`Well-Architected review · ${r.workload.name} · ${r.date} · mode ${r.mode} · ${r.lens} · ${r.criticality}`);
+        const f = r.findingCounts; console.log(`${f.Critical} critical · ${f.High} high · ${f.Medium} medium · ${f.Low} low; ${r.coverage.framework.withEvidence}/${r.coverage.framework.assessedBps} framework BPs evidenced${r.coverage.lens ? `, ${r.coverage.lens.withEvidence}/${r.coverage.lens.assessedBps} lens BPs` : ""}`);
+        for (const p of [...r.pillars, ...r.lensPillars]) console.log(`  ${p.name.padEnd(30)} ${p.score === null ? "—  " : p.score.toFixed(1)}  evidenced ${p.determinable}/${p.totalBps}`);
+        for (const x of r.findings) console.log(`${x.id} ${x.risk.padEnd(8)} ${x.quadrant.padEnd(9)} ${x.title} [${x.bps.join(", ")}]`);
+      }
+      break;
+    }
+    die("usage: archify-aws wa corpus [--lens generative-ai] [--refresh] | wa review <spec.json> [--mode full|quick|pillar|score] [--pillars a,b] [--filter critical|critical-high|all] [--lens generative-ai] [--criticality low|standard|high|critical] [--no-cost] [--json]");
+  }
+  case "cost": {
+    needIcons();
+    const spec = readSpec(rest[0]);
+    let d; try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; die(e.message); }
+    const scales = (opt("--scale", "1,3,10") || "1").split(",").map(Number).filter((x) => x > 0);
+    let usage; if (opt("--usage")) usage = readSpec(opt("--usage"));
+    let est; try { est = estimateCost(d, { region: opt("--region"), usage, scales, scale: 1 }); } catch (e) { die(e.message); }
+    if (json) { out(est); break; }
+    console.log(`Monthly estimate · ${est.region} · as of ${est.asOf} · ${est.confidence === "indicative" ? "INDICATIVE (some usage assumed)" : "from stated usage"}`);
+    for (const n of est.nodes.filter((x) => x.status !== "not-billable")) {
+      const amt = ["estimated", "override"].includes(n.status) ? money(n.monthlyUsd) : `(${n.status})`;
+      console.log(`  ${(n.label || n.id).slice(0, 34).padEnd(36)} ${amt.padStart(14)}  ${(n.notes[0] || "").slice(0, 70)}`);
+    }
+    console.log(`\n  Total ${money(est.totals.monthlyUsd)}/month · ${money(est.totals.annualUsd)}/year`);
+    for (const [k, v] of Object.entries(est.totals.byCategory).sort((a, b) => b[1] - a[1])) console.log(`    ${k.padEnd(26)} ${money(v).padStart(14)}`);
+    console.log("  Sensitivity (traffic ×): " + est.sensitivity.map((s) => `${s.scale}× ${money(s.monthlyUsd)}`).join(" · "));
+    const c = est.coverage; console.log(`  Coverage: ${c.estimated + c.override}/${c.nodes} priced · ${c.needsInput} need input · ${c.notEstimated} not modelled · ${c.notItemized} not itemized`);
+    for (const w of est.whatIfs) console.log(`  what-if: ${w.title}: ${w.monthlyDeltaUsd < 0 ? "saves" : "adds"} ${money(Math.abs(w.monthlyDeltaUsd))}/month`);
+    console.log("\n" + est.basis);
+    break;
   }
   case "doctor": {
     const ok = iconsAvailable();

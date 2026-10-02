@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/healthcare-agentcore-services.json",
+    "sha256": "a3a2674b9fecc241b40419a590760a4a8f0d86aa214f76e9b7187703264ff6a0"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 25,
+        "groups": 10,
+        "edges": 9
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 25,
+        "viewerEdges": 9
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/healthcare-agentcore-services.html",
+      "sha256": "c30b26edb1a3468cf299ced06ea8c17ef3c50a11e02bc6fbf0e63119e23057aa",
+      "bytes": 315739
+    },
+    "svg": {
+      "path": "examples/out/healthcare-agentcore-services.svg",
+      "sha256": "fc3f6ba7526c12cfd623c1efd7ef93f2b7004048ba87687bddf0c17fc530eb23"
+    },
+    "png": {
+      "path": "examples/out/healthcare-agentcore-services.png",
+      "sha256": "33135c35fd0effa315e738d02ad0534e738e4bf9c7acdbf4595e596e8a4632a1"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 25,
+    "groups": 10,
+    "edges": 9,
+    "size": {
+      "width": 2688,
+      "height": 1092
+    }
+  },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 1748.7573,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 25,
+      "estimated": 13,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 6,
+      "notItemized": 5,
+      "needsInput": 0,
+      "notEstimated": 1,
+      "error": 0
+    }
+  },
+  "review": {
+    "advisory": true,
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    "evidenced": 14,
+    "bps": 307,
+    "ids": [
+      "F-001"
+    ]
+  },
+  "visualReview": "not-performed"
+}

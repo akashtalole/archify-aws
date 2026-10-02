@@ -253,7 +253,7 @@ test("finalize passes on a good spec and writes a deterministic receipt", async 
   const a = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
   const b = finalize(path.join(ROOT, "examples", "three-tier.json"), { outHtml: out, png: false });
   assert.equal(a.ok, true);
-  assert.deepEqual(a.stages.map((s) => s.name), ["validate", "render", "check", "browser-check"]);
+  assert.deepEqual(a.stages.map((s) => s.name), ["validate", "analyze", "render", "check", "browser-check"]);
   assert.equal(JSON.stringify(a), JSON.stringify(b), "receipt is deterministic (no timestamps or timings)");
   assert.equal(a.visualReview, "not-performed");
   assert.match(a.outputs.html.sha256, /^[0-9a-f]{64}$/);
@@ -349,4 +349,205 @@ test("AgentCore Policy is drawn with the AgentCore icon, never the Verified Perm
     const walk = (o) => { if (Array.isArray(o)) o.forEach(walk); else if (o && typeof o === "object") { if (/AgentCore Policy/.test(o.label || "")) assert.notEqual(o.icon, "verified-permissions", f); Object.values(o).forEach(walk); } };
     walk(j);
   }
+});
+
+// ---- Well-Architected corpus (AWS aws-well-architected-review skill: index-driven, validated, never invented)
+const tocFixture = { contents: [
+  { title: "Intro", href: "intro.html" },
+  { title: "Appendix", href: "appendix.html", contents: [
+    { title: "Security", href: "a-sec.html", contents: [
+      { title: "Identity", href: "a-id.html", contents: [
+        { title: "SEC 1. How do you manage identities?", href: "sec-01.html", contents: [
+          { title: "SEC01-BP01 Use strong sign-in", href: "sec_1_1.html" }, { title: "SEC01-BP02 Use temporary credentials", href: "sec_1_2.html" }] }] }] },
+    { title: "Reliability", href: "a-rel.html", contents: [
+      { title: "Foundations", href: "a-f.html", contents: [
+        { title: "REL 1. How do you manage quotas?", href: "rel-01.html", contents: [{ title: "REL01-BP01 Aware of quotas", href: "rel_1_1.html" }] }] }] }] } ] };
+
+test("WA corpus parser finds the pillar level through a single appendix branch and derives questions", async () => {
+  const { parseToc, validateCorpus } = await import("../src/wa/corpus.mjs");
+  const c = parseToc(tocFixture, "https://docs.aws.amazon.com/x/");
+  assert.deepEqual(c.pillars.map((p) => p.id), ["security", "reliability"]);
+  assert.deepEqual(c.bps.map((b) => b.bp_id), ["SEC01-BP01", "SEC01-BP02", "REL01-BP01"]);
+  assert.equal(c.questions.find((q) => q.question_id === "SEC01").question_title, "SEC 1. How do you manage identities?");
+  assert.equal(c.bps[0].bp_url, "https://docs.aws.amazon.com/x/sec_1_1.html");
+  assert.equal(validateCorpus(c).valid, true);
+});
+
+test("WA corpus validation gate rejects empty, duplicate and lopsided corpora", async () => {
+  const { validateCorpus } = await import("../src/wa/corpus.mjs");
+  assert.equal(validateCorpus({ pillars: [], questions: [], bps: [] }).valid, false);
+  const bp = (id, q, p) => ({ bp_id: id, bp_title: "t", bp_url: "u", question_id: q, pillar_id: p, pillar_name: p });
+  const lopsided = { pillars: [{ id: "a" }, { id: "b" }], questions: [{ question_id: "AAA01" }, { question_id: "BBB01" }],
+    bps: [...Array.from({ length: 9 }, (_, i) => bp(`AAA01-BP0${i + 1}`, "AAA01", "a")), bp("BBB01-BP01", "BBB01", "b")] };
+  assert.match(validateCorpus(lopsided).errors.join(), /implausible spread/);
+  const dup = { pillars: [{ id: "a" }], questions: [{ question_id: "AAA01" }], bps: [bp("AAA01-BP01", "AAA01", "a"), bp("AAA01-BP01", "AAA01", "a")] };
+  assert.match(validateCorpus(dup).errors.join(), /duplicate BP/);
+  const orphan = { pillars: [{ id: "a" }], questions: [{ question_id: "AAA01" }, { question_id: "AAA02" }], bps: [bp("AAA01-BP01", "AAA01", "a")] };
+  assert.match(validateCorpus(orphan).errors.join(), /AAA02 has no best practice/);
+});
+
+test("committed WA snapshots are valid, canonical and carry provenance", async () => {
+  const { loadCorpus } = await import("../src/wa/corpus.mjs");
+  const fw = loadCorpus("framework"), lens = loadCorpus("generative-ai");
+  assert.equal(fw.pillars.length, 6);
+  assert.ok(fw.bps.length > 250 && lens.bps.length > 40);
+  assert.ok(fw.bps.every((b) => /^[A-Z]{2,8}\d{2}-BP\d{2}$/.test(b.bp_id)));
+  assert.ok(lens.bps.some((b) => b.bp_id === "GENSEC02-BP01" && /guardrails/i.test(b.bp_title)));
+  for (const c of [fw, lens]) { assert.match(c.manifest.provenance.indexUrl, /^https:\/\/docs\.aws\.amazon\.com\/.*toc-contents\.json$/); assert.ok(Date.parse(c.manifest.provenance.retrievedAt)); }
+});
+
+// ---- cost estimation (AWS billing-and-cost-management skill rules: deterministic math, Price List only, explicit assumptions)
+const costOf = async (spec, opts) => {
+  const { buildDiagram } = await import("../src/pipeline.mjs");
+  const { estimateCost } = await import("../src/cost/estimate.mjs");
+  return estimateCost(buildDiagram(spec), { asOf: new Date("2026-01-15T00:00:00Z"), ...opts });
+};
+const mini = (usage, icon = "lambda") => ({ meta: { title: "t" }, root: { children: [{ id: "n", icon, label: "Node", usage }] } });
+
+test("tiered pricing walks tier boundaries", async () => {
+  const { tiered } = await import("../src/cost/pricebook.mjs");
+  const rows = [{ b: 0, e: 100, usd: "1" }, { b: 100, e: 300, usd: "0.5" }, { b: 300, e: null, usd: "0.25" }];
+  assert.equal(tiered(rows, 50).usd, 50);
+  assert.equal(tiered(rows, 100).usd, 100);
+  assert.equal(tiered(rows, 400).usd, 100 + 100 + 25);
+  assert.equal(tiered(rows, 0).usd, 0);
+});
+
+test("Lambda cost equals requests × request rate + GB-seconds × duration rate, read from the price book", needIcons, async () => {
+  const { loadPriceBook, tiered } = await import("../src/cost/pricebook.mjs");
+  const pb = loadPriceBook("us-east-1");
+  const req = pb.dim("AWSLambda", (r) => r.u === "Request", "r"), dur = pb.dim("AWSLambda", (r) => r.u === "Lambda-GB-Second", "d");
+  const usage = { requestsPerMonth: 2_000_000, avgDurationMs: 300, memoryMb: 1024, arch: "x86" };
+  const est = await costOf(mini(usage));
+  const expected = tiered(req, 2_000_000).usd + tiered(dur, 2_000_000 * 0.3 * 1).usd;
+  assert.ok(Math.abs(est.nodes[0].monthlyUsd - Math.round(expected * 1e4) / 1e4) < 1e-9, `${est.nodes[0].monthlyUsd} vs ${expected}`);
+  assert.equal(est.nodes[0].status, "estimated");
+  assert.equal(est.confidence, "usage-based", "all usage supplied by the spec");
+});
+
+test("defaults are recorded as assumptions and make the estimate indicative", needIcons, async () => {
+  const est = await costOf(mini({ requestsPerMonth: 1e6 }));
+  assert.equal(est.confidence, "indicative");
+  assert.ok(est.defaultedAssumptions.some((a) => a.key === "avgDurationMs"));
+  assert.deepEqual(est.nodes[0].assumptions.find((a) => a.key === "requestsPerMonth"), { key: "requestsPerMonth", value: 1e6, source: "spec", scaledByTraffic: true });
+});
+
+test("traffic sensitivity scales variable costs but not fixed hourly costs", needIcons, async () => {
+  const lam = await costOf(mini({ requestsPerMonth: 1e6, avgDurationMs: 100, memoryMb: 128 }), { scales: [1, 10] });
+  assert.ok(lam.sensitivity[1].monthlyUsd > lam.sensitivity[0].monthlyUsd * 9.9);
+  const ec2 = await costOf(mini({ instanceType: "m5.large", count: 2, ebsGbPerInstance: 0 }, "ec2"), { scales: [1, 10] });
+  assert.equal(ec2.sensitivity[0].monthlyUsd, ec2.sensitivity[1].monthlyUsd, "instance-hours do not scale with traffic");
+});
+
+test("honesty: unmodelled, ambiguous and unknown inputs are reported, never invented", needIcons, async () => {
+  const hl = await costOf(mini({}, "healthlake"));
+  assert.equal(hl.nodes[0].status, "not-estimated");
+  assert.equal(hl.totals.monthlyUsd, 0);
+  const noModel = await costOf(mini({ inputTokensPerMonth: 1e6 }, "bedrock"));
+  assert.equal(noModel.nodes[0].status, "needs-input");
+  assert.match(noModel.nodes[0].notes[0], /usage\.model/);
+  const vague = await costOf(mini({ model: "Claude" }, "bedrock"));
+  assert.equal(vague.nodes[0].status, "needs-input");
+  assert.match(vague.nodes[0].notes[0], /several Bedrock models|no Bedrock model/);
+  const typo = await costOf(mini({ instanceType: "m5.nonexistent" }, "ec2"));
+  assert.equal(typo.nodes[0].status, "needs-input");
+});
+
+test("override costs are labelled as user-supplied; no-charge and general icons are not priced", needIcons, async () => {
+  const o = await costOf({ meta: { title: "t" }, root: { children: [{ id: "a", icon: "healthlake", label: "HL", usage: { monthlyUsd: 123.456, note: "from quote" } }, { id: "b", icon: "identity-and-access-management", label: "IAM" }, { id: "c", icon: "users", label: "Users" }] } });
+  assert.deepEqual(o.nodes.map((n) => n.status), ["override", "no-charge", "not-billable"]);
+  assert.equal(o.totals.monthlyUsd, 123.456);
+  assert.equal(o.nodes[0].notes[0], "from quote");
+});
+
+test("Bedrock cost matches tokens × per-token rate and Multi-AZ what-if is the real price difference", needIcons, async () => {
+  const { loadPriceBook } = await import("../src/cost/pricebook.mjs");
+  const pb = loadPriceBook();
+  const inRow = pb.rows("AmazonBedrockFoundationModels").find((r) => /Sonnet 5\.5/.test(r.a.servicename || "") && /^MP:\w+_input_tokens_standard-Units$/.test(r.u));
+  const outRow = pb.rows("AmazonBedrockFoundationModels").find((r) => /Sonnet 5\.5/.test(r.a.servicename || "") && /^MP:\w+_output_tokens_standard-Units$/.test(r.u));
+  const est = await costOf(mini({ model: "Claude Sonnet 5.5", inputTokensPerMonth: 10e6, outputTokensPerMonth: 2e6 }, "bedrock"));
+  assert.ok(Math.abs(est.nodes[0].monthlyUsd - (10 * Number(inRow.usd) + 2 * Number(outRow.usd))) < 1e-6);
+  const rds = await costOf(mini({ instanceClass: "db.r6g.large", engine: "PostgreSQL", multiAz: true, storageGb: 100 }, "rds"));
+  const single = await costOf(mini({ instanceClass: "db.r6g.large", engine: "PostgreSQL", multiAz: false, storageGb: 100 }, "rds"));
+  const w = rds.whatIfs.find((x) => /rds-multiaz/.test(x.id));
+  assert.ok(Math.abs(w.monthlyDeltaUsd - (rds.totals.monthlyUsd - single.totals.monthlyUsd)) < 1e-4);
+  assert.equal(w.tradeoff, true);
+});
+
+test("cost estimate is deterministic and carries provenance", needIcons, async () => {
+  const spec = JSON.parse(fs.readFileSync(path.join(ROOT, "examples", "compliance", "architecture.json"), "utf8"));
+  const a = await costOf(spec), b = await costOf(spec);
+  assert.equal(JSON.stringify(a), JSON.stringify(b));
+  assert.equal(a.asOf, "2026-01-15");
+  assert.match(a.basis, /on-demand/);
+  assert.ok(a.priceBook.publications.AmazonBedrockFoundationModels);
+  const sumNodes = Math.round(a.nodes.filter((n) => ["estimated", "override"].includes(n.status)).reduce((s, n) => s + n.monthlyUsd, 0) * 1e4) / 1e4;
+  assert.equal(a.totals.monthlyUsd, sumNodes);
+  assert.equal(a.totals.annualUsd, Math.round(sumNodes * 12 * 1e4) / 1e4);
+});
+
+// ---- Well-Architected review engine and report tabs
+import { reviewWorkload, riskLevel } from "../src/wa/evaluate.mjs";
+import { LEGACY_RULES, LEGACY_LENS_RULES, PROCEDURAL_RULES } from "../src/wa/rules.mjs";
+import { loadCorpus as loadWaCorpus } from "../src/wa/corpus.mjs";
+import { analyze } from "../src/analysis.mjs";
+import { buildDiagram } from "../src/pipeline.mjs";
+import { renderPage as renderPageWa } from "../src/page.mjs";
+
+const compliance = () => buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/compliance-agentcore/architecture.json", import.meta.url), "utf8")));
+
+test("WA rules only cite canonical best-practice IDs from the corpus", () => {
+  const fw = new Set(loadWaCorpus("framework").bps.map((b) => b.bp_id)), lens = new Set(loadWaCorpus("generative-ai").bps.map((b) => b.bp_id));
+  for (const r of LEGACY_RULES) for (const id of Object.keys(r.fw || {})) assert.ok(fw.has(id), id);
+  for (const r of [...LEGACY_RULES, ...LEGACY_LENS_RULES]) for (const id of Object.keys(r.lens || {})) assert.ok(lens.has(id), id);
+  assert.ok(PROCEDURAL_RULES.length > 0);
+});
+
+test("risk matrix follows the review skill", () => {
+  assert.equal(riskLevel("Severe", "High"), "Critical");
+  assert.equal(riskLevel("Severe", "Low"), "High");
+  assert.equal(riskLevel("Moderate", "High"), "High");
+  assert.equal(riskLevel("Moderate", "Medium"), "Medium");
+  assert.equal(riskLevel("Minor", "High"), "Medium");
+  assert.equal(riskLevel("Minor", "Low"), "Low");
+});
+
+test("review assesses every best practice exactly once, deterministically", () => {
+  const d = compliance(), { cost } = analyze(d, { review: false }), now = new Date("2026-10-01T00:00:00Z");
+  const a = reviewWorkload(d, { cost, now }), b = reviewWorkload(d, { cost, now });
+  assert.deepEqual(a, b);
+  const fw = loadWaCorpus("framework");
+  assert.equal(a.ledger.length, fw.bps.length);
+  assert.equal(new Set(a.ledger.map((x) => x.bp_id)).size, fw.bps.length);
+  assert.equal(a.lens, "generative-ai");
+  assert.ok(a.ledger.some((x) => x.status === "Cannot Determine"));
+  for (const f of a.findings) assert.match(f.id, /^F-\d{3}$/);
+});
+
+test("review modes and criticality", () => {
+  const d = compliance();
+  assert.equal(reviewWorkload(d, { mode: "score" }).ledger.length, 0);
+  const sec = reviewWorkload(d, { mode: "pillar", pillars: ["security"] });
+  assert.ok(sec.ledger.length > 0 && sec.ledger.every((x) => x.pillar_id === "security"));
+  assert.throws(() => reviewWorkload(d, { mode: "bogus" }));
+});
+
+test("page has Diagram, Cost and Well-Architected tabs with a full ledger", () => {
+  const d = compliance(), an = analyze(d), html = renderPageWa(d, an.wa, "light", an.cost);
+  for (const id of ["tab-diagram", "tab-cost", "tab-wa"]) assert.ok(html.includes(`id="${id}"`));
+  assert.equal((html.match(/<tr data-s="/g) || []).length, an.wa.ledger.length + an.wa.lensLedger.length);
+  assert.ok(html.includes("CONFIDENTIAL"));
+  assert.ok(!renderPageWa(d, null, "light", null).includes('id="tab-wa"'));
+});
+
+test("embedding models with input-only pricing are priced (Titan Embedding V2)", async () => {
+  const { loadPriceBook } = await import("../src/cost/pricebook.mjs");
+  const { findBedrockModel } = await import("../src/cost/pricers.mjs");
+  const pb = loadPriceBook("us-east-1");
+  assert.equal(findBedrockModel(pb, "Titan Embeddings V2").name, "Titan Embedding V2 Text");
+  const d = buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/product-catalog-search.json", import.meta.url), "utf8")));
+  const { estimateCost: est } = await import("../src/cost/estimate.mjs");
+  const n = est(d).nodes.find((x) => x.id === "embed");
+  assert.equal(n.status, "estimated");
+  assert.equal(n.lines.length, 1);
 });

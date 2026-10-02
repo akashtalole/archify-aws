@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/three-tier.json",
+    "sha256": "78c2a056709fd09b4902564c57e229cd4bdbecc096302d499839b9cad5dd9f14"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 11,
+        "groups": 9,
+        "edges": 9
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 2,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 11,
+        "viewerEdges": 9
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/three-tier.html",
+      "sha256": "f8318e77815f341e29649891afdcd3eabd90986d61d64b0dac63b6d6577bb5c3",
+      "bytes": 271753
+    },
+    "svg": {
+      "path": "examples/out/three-tier.svg",
+      "sha256": "5097e9a4eb5f62dfe36b531370ef82076ae4272435511f2390a6d5e1eabc8191"
+    },
+    "png": {
+      "path": "examples/out/three-tier.png",
+      "sha256": "d147a08f3c05411ad09c0cbb2c823d3789701ee4b9909ff5d9529bd43caf4ea6"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 11,
+    "groups": 9,
+    "edges": 9,
+    "size": {
+      "width": 1423,
+      "height": 912
+    }
+  },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 1074.605,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 11,
+      "estimated": 9,
+      "override": 1,
+      "noCharge": 0,
+      "notBillable": 1,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 0,
+      "error": 0
+    }
+  },
+  "review": {
+    "advisory": true,
+    "mode": "full",
+    "lens": "general",
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 1
+    },
+    "evidenced": 21,
+    "bps": 307,
+    "ids": [
+      "F-001"
+    ]
+  },
+  "visualReview": "not-performed"
+}

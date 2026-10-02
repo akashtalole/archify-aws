@@ -13,6 +13,8 @@ Compliance review assistant (100 checks + human in the loop): [architecture](exa
 
 Compliance review assistant on AgentCore (supervisor + check-family agents, Gateway + Policy, checkpoint-and-resume human review): [architecture](examples/compliance-agentcore/out/architecture.png) · [one review run](examples/compliance-agentcore/out/review-run.png) · [how it differs from the Step Functions design](examples/compliance-agentcore/README.md)
 
+Enterprise product catalog search (hybrid keyword + vector search, event-driven indexing, analytics): [architecture](examples/out/product-catalog-search.png) · [page with cost and review](examples/out/product-catalog-search.html)
+
 Healthcare enterprise agentic platform (examples): [platform](examples/out/healthcare-agentic-platform.png) ·
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)
@@ -22,7 +24,8 @@ Healthcare enterprise agentic platform (examples): [platform](examples/out/healt
 git clone https://github.com/akashtalole/archify-aws && cd archify-aws
 npm run icons:fetch                                  # official icon package → assets/aws-icons/ (git-ignored)
 node bin/archify-aws.mjs render examples/genai-rag.json --png
-open examples/out/genai-rag.html
+open examples/out/genai-rag.html           # tabs: Diagram · Cost · Well-Architected review
+open "examples/out/genai-rag.html?tab=wa"
 ```
 Node ≥ 20, **no npm dependencies**. PNG export needs Chrome/Chromium (`CHROME_PATH` or a Playwright browser).
 
@@ -52,6 +55,13 @@ The agent searches icons, authors the spec, renders with `--strict --json`, repa
   invocation logging, API boundary, PrivateLink, retrieval, resilience, cost, agent permissions). Advisory: it reads the
   *drawing*, not your configuration.
 * **Icon catalog** — 305 service, 419 resource, 47 general and 15 group icons (SVG); `icons search`, aliases (`alb`, `s3`, `kms`…).
+
+## Cost and Well-Architected review
+Every example under `examples/` is regenerated with both tabs. The architecture examples carry illustrative `usage` (stated in `meta.cost.note`) so the Cost tab shows real numbers: three-tier ≈ $1,075/mo, serverless API ≈ $349, GenAI RAG ≈ $943, healthcare platform ≈ $4,834, compliance assistant ≈ $6,065 (Step Functions) / $5,973 (AgentCore). Treat them as demonstrations, not quotes.
+
+Every rendered page now has three tabs: **Diagram**, **Cost** (monthly estimate from the AWS Price List, with assumptions, sensitivity, what-ifs and an
+on-diagram cost overlay) and **Well-Architected review** (full Framework + Generative AI Lens best-practice ledger, findings by risk, trade-offs, Eisenhower
+plan). Use `--no-cost` / `--no-review` to omit them, `archify-aws cost` and `archify-aws wa review` for the CLI, and `?tab=cost|wa` to deep-link.
 
 ## Commands
 ```text

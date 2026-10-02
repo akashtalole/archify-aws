@@ -15,9 +15,11 @@ const common = {
       review: { type: "boolean" }, guardrails: { type: "boolean", description: "Declare that guardrails exist outside the drawing (silences GENAI-GUARDRAILS)." },
       boundary: { type: "boolean", description: "Dataflow only: false disables the AWS Cloud boundary." },
       output: { type: "string", description: "Output .html path, resolved from the working directory." },
+      cost: { type: "object", additionalProperties: false, properties: { region: { type: "string", description: "AWS region for pricing (default us-east-1; needs data/prices/<region>.json)." }, note: { type: "string" } } },
+      workload: { type: "object", additionalProperties: false, description: "Context for the Well-Architected review.", properties: { name: { type: "string" }, criticality: { enum: ["critical", "high", "standard", "low"] }, description: { type: "string" } } },
     },
   },
-  node: { type: "object", required: ["id", "icon"], additionalProperties: false, properties: { id, icon, label: { type: "string" }, sublabel: { type: "string" } } },
+  node: { type: "object", required: ["id", "icon"], additionalProperties: false, properties: { id, icon, label: { type: "string" }, sublabel: { type: "string" }, usage: { type: "object", description: "Monthly usage assumptions for the cost estimate (service-specific keys, e.g. requestsPerMonth, model, inputTokensPerMonth) or monthlyUsd to supply a cost directly. See references/cost-estimation.md." } } },
   group: {
     type: "object", required: ["kind", "children"], additionalProperties: false,
     properties: { id, kind: { $ref: "#/$defs/groupKind" }, label: { type: "string" }, icon, color: { type: "string" }, layout: { enum: ["row", "column", "grid"] }, columns: { type: "integer", minimum: 1 }, gap: { type: "number", minimum: 0 }, align: { enum: ["center", "start", "end"] }, children: { type: "array", minItems: 1, items: { $ref: "#/$defs/child" } } },

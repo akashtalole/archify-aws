@@ -19,6 +19,14 @@
       }
     },
     {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
       "name": "render",
       "status": "pass",
       "detail": {}
@@ -52,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/lifecycle.html",
-      "sha256": "14d4863bad5436c78d091262eaca259d30df5dbdff91101df95c32a0027ff45d",
-      "bytes": 78354
+      "sha256": "2a59222c46c267e76b3fb250901dadce768aa51c2ca146b7172ced6056bdeba4",
+      "bytes": 301531
     },
     "svg": {
       "path": "examples/compliance/out/lifecycle.svg",
@@ -74,52 +82,37 @@
       "height": 892
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 17.3667,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 11,
+      "estimated": 3,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 3,
+      "notItemized": 0,
+      "needsInput": 1,
+      "notEstimated": 4,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 0,
-        "consider": 0,
-        "ok": 3
-      },
-      "security": {
-        "gap": 1,
-        "consider": 2,
-        "ok": 0
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 0
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
     },
-    "gaps": [
-      "GENAI-GUARDRAILS"
-    ],
-    "considerations": [
-      "SEC-ENCRYPT",
-      "SEC-DETECT",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "GENAI-RETRIEVAL",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 13,
+    "bps": 307,
+    "ids": [
+      "F-001"
     ]
   },
   "visualReview": "not-performed"

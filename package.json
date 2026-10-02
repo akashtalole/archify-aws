@@ -8,6 +8,8 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "icons:fetch": "node scripts/fetch-icons.mjs",
+    "prices:fetch": "node scripts/fetch-prices.mjs",
+    "wa:corpus": "node scripts/build-wa-corpus.mjs",
     "examples": "node scripts/build-examples.mjs",
     "schemas": "node scripts/build-schemas.mjs",
     "test": "node --test test/*.test.mjs"

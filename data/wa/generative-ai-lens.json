@@ -1,0 +1,644 @@
+{
+ "schema_version": "archify-aws.wa-corpus.v1",
+ "lens": "generative-ai",
+ "name": "Generative AI Lens",
+ "pillars": [
+  {
+   "id": "operational-excellence",
+   "name": "Operational excellence",
+   "href": "operational-excellence.html"
+  },
+  {
+   "id": "security",
+   "name": "Security",
+   "href": "security.html"
+  },
+  {
+   "id": "reliability",
+   "name": "Reliability",
+   "href": "reliability.html"
+  },
+  {
+   "id": "performance-efficiency",
+   "name": "Performance efficiency",
+   "href": "performance-efficiency.html"
+  },
+  {
+   "id": "cost-optimization",
+   "name": "Cost optimization",
+   "href": "cost-optimization.html"
+  },
+  {
+   "id": "sustainability",
+   "name": "Sustainability",
+   "href": "sustainability.html"
+  }
+ ],
+ "questions": [
+  {
+   "question_id": "GENOPS01",
+   "question_title": "Model performance evaluation",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01.html",
+   "pillar_id": "operational-excellence"
+  },
+  {
+   "question_id": "GENOPS02",
+   "question_title": "Monitor and manage operational health",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops02.html",
+   "pillar_id": "operational-excellence"
+  },
+  {
+   "question_id": "GENOPS03",
+   "question_title": "Observability in workloads",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops03.html",
+   "pillar_id": "operational-excellence"
+  },
+  {
+   "question_id": "GENOPS04",
+   "question_title": "Automate lifecycle management",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops4.html",
+   "pillar_id": "operational-excellence"
+  },
+  {
+   "question_id": "GENOPS05",
+   "question_title": "Model customization",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops05.html",
+   "pillar_id": "operational-excellence"
+  },
+  {
+   "question_id": "GENSEC01",
+   "question_title": "Endpoint security",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec01.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENSEC02",
+   "question_title": "Response validation",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec02.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENSEC03",
+   "question_title": "Event monitoring",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec03.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENSEC04",
+   "question_title": "Prompt security",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec04.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENSEC05",
+   "question_title": "Excessive agency",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec05.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENSEC06",
+   "question_title": "Data poisoning",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec06.html",
+   "pillar_id": "security"
+  },
+  {
+   "question_id": "GENREL01",
+   "question_title": "Manage throughput quotas",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel01.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENREL02",
+   "question_title": "Network reliability",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel02.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENREL03",
+   "question_title": "Prompt remediation and recovery actions",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel03.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENREL04",
+   "question_title": "Prompt management",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel04.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENREL05",
+   "question_title": "Distributed availability",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel05.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENREL06",
+   "question_title": "Distributed compute tasks",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel06.html",
+   "pillar_id": "reliability"
+  },
+  {
+   "question_id": "GENPERF01",
+   "question_title": "Establish performance evaluation processes",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf01.html",
+   "pillar_id": "performance-efficiency"
+  },
+  {
+   "question_id": "GENPERF02",
+   "question_title": "Maintaining model performance",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf02.html",
+   "pillar_id": "performance-efficiency"
+  },
+  {
+   "question_id": "GENPERF03",
+   "question_title": "Optimize consumption of high-performance compute",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf03.html",
+   "pillar_id": "performance-efficiency"
+  },
+  {
+   "question_id": "GENPERF04",
+   "question_title": "Vector store optimization",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf04.html",
+   "pillar_id": "performance-efficiency"
+  },
+  {
+   "question_id": "GENCOST01",
+   "question_title": "Model selection and cost optimization",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost01.html",
+   "pillar_id": "cost-optimization"
+  },
+  {
+   "question_id": "GENCOST02",
+   "question_title": "Generative AI pricing model",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost02.html",
+   "pillar_id": "cost-optimization"
+  },
+  {
+   "question_id": "GENCOST03",
+   "question_title": "Cost-aware prompting",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost03.html",
+   "pillar_id": "cost-optimization"
+  },
+  {
+   "question_id": "GENCOST04",
+   "question_title": "Cost-informed vector stores",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost04.html",
+   "pillar_id": "cost-optimization"
+  },
+  {
+   "question_id": "GENCOST05",
+   "question_title": "Cost-informed agents",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost05.html",
+   "pillar_id": "cost-optimization"
+  },
+  {
+   "question_id": "GENSUS01",
+   "question_title": "Energy-efficient infrastructure and services",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus01.html",
+   "pillar_id": "sustainability"
+  },
+  {
+   "question_id": "GENSUS02",
+   "question_title": "Consume sustainable data processing and storage services",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus02.html",
+   "pillar_id": "sustainability"
+  },
+  {
+   "question_id": "GENSUS03",
+   "question_title": "Consume energy efficient models",
+   "question_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus03.html",
+   "pillar_id": "sustainability"
+  }
+ ],
+ "bps": [
+  {
+   "bp_id": "GENOPS01-BP01",
+   "bp_title": "Periodically evaluate functional performance",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp01.html",
+   "question_id": "GENOPS01",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS01-BP02",
+   "bp_title": "Collect and monitor user feedback",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops01-bp02.html",
+   "question_id": "GENOPS01",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS02-BP01",
+   "bp_title": "Monitor all application layers",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops02-bp01.html",
+   "question_id": "GENOPS02",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS02-BP02",
+   "bp_title": "Monitor foundation model metrics",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops02-bp02.html",
+   "question_id": "GENOPS02",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS02-BP03",
+   "bp_title": "Implement solutions to mitigate the risk of system overload",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops02-bp03.html",
+   "question_id": "GENOPS02",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS03-BP01",
+   "bp_title": "Implement prompt template management",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops03-bp01.html",
+   "question_id": "GENOPS03",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS03-BP02",
+   "bp_title": "Enable tracing for agents and RAG workflows",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops03-bp02.html",
+   "question_id": "GENOPS03",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS04-BP01",
+   "bp_title": "Automate generative AI application lifecycle with infrastructure as code (IaC)",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops04-bp01.html",
+   "question_id": "GENOPS04",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS04-BP02",
+   "bp_title": "Implement GenAIOps to optimize the application lifecycle",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops04-bp02.html",
+   "question_id": "GENOPS04",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENOPS05-BP01",
+   "bp_title": "Learn when to customize models",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genops05-bp01.html",
+   "question_id": "GENOPS05",
+   "pillar_id": "operational-excellence",
+   "pillar_name": "Operational excellence"
+  },
+  {
+   "bp_id": "GENSEC01-BP01",
+   "bp_title": "Grant least privilege access to foundation model endpoints",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec01-bp01.html",
+   "question_id": "GENSEC01",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC01-BP02",
+   "bp_title": "Implement private network communication between foundation models and applications",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec01-bp02.html",
+   "question_id": "GENSEC01",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC01-BP03",
+   "bp_title": "Implement least privilege access permissions for foundation models accessing data stores",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec01-bp03.html",
+   "question_id": "GENSEC01",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC01-BP04",
+   "bp_title": "Implement access monitoring to generative AI services and foundation models",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec01-bp04.html",
+   "question_id": "GENSEC01",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC02-BP01",
+   "bp_title": "Implement guardrails to mitigate harmful or incorrect model responses",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec02-bp01.html",
+   "question_id": "GENSEC02",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC03-BP01",
+   "bp_title": "Implement control plane and data access monitoring to generative AI services and foundation models",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec03-bp01.html",
+   "question_id": "GENSEC03",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC04-BP01",
+   "bp_title": "Implement a secure prompt catalog",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec04-bp01.html",
+   "question_id": "GENSEC04",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC04-BP02",
+   "bp_title": "Sanitize and validate user inputs to foundation models",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec04-bp02.html",
+   "question_id": "GENSEC04",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC05-BP01",
+   "bp_title": "Implement least privilege access and permissions boundaries for agentic workflows",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec05-bp01.html",
+   "question_id": "GENSEC05",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENSEC06-BP01",
+   "bp_title": "Implement data purification filters for model training workflows",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensec06-bp01.html",
+   "question_id": "GENSEC06",
+   "pillar_id": "security",
+   "pillar_name": "Security"
+  },
+  {
+   "bp_id": "GENREL01-BP01",
+   "bp_title": "Scale and balance foundation model throughput as a function of utilization",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel01-bp01.html",
+   "question_id": "GENREL01",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL02-BP01",
+   "bp_title": "Implement redundant network connections among model endpoints and supporting infrastructure",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel02-bp01.html",
+   "question_id": "GENREL02",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL03-BP01",
+   "bp_title": "Use logic to manage prompt flows and gracefully recover from failure",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel03-bp01.html",
+   "question_id": "GENREL03",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL03-BP02",
+   "bp_title": "Implement timeout mechanisms on agentic workflows",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel03-bp02.html",
+   "question_id": "GENREL03",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL04-BP01",
+   "bp_title": "Implement a prompt catalog",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel04-bp01.html",
+   "question_id": "GENREL04",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL04-BP02",
+   "bp_title": "Implement a model catalog",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel04-bp02.html",
+   "question_id": "GENREL04",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL05-BP01",
+   "bp_title": "Load-balance inference requests across all regions of availability",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel05-bp01.html",
+   "question_id": "GENREL05",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL05-BP02",
+   "bp_title": "Replicate embedding data across all Regions of availability",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel05-bp02.html",
+   "question_id": "GENREL05",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL05-BP03",
+   "bp_title": "Verify that agent capabilities are available across all regions of availability",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel05-bp03.html",
+   "question_id": "GENREL05",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENREL06-BP01",
+   "bp_title": "Design for fault-tolerance for high-performance distributed computation tasks",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genrel06-bp01.html",
+   "question_id": "GENREL06",
+   "pillar_id": "reliability",
+   "pillar_name": "Reliability"
+  },
+  {
+   "bp_id": "GENPERF01-BP01",
+   "bp_title": "Define a ground truth data set of prompts and responses",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf01-bp01.html",
+   "question_id": "GENPERF01",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF01-BP02",
+   "bp_title": "Collect performance metrics from generative AI workloads",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf01-bp02.html",
+   "question_id": "GENPERF01",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF02-BP01",
+   "bp_title": "Load test model endpoints",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf02-bp01.html",
+   "question_id": "GENPERF02",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF02-BP02",
+   "bp_title": "Optimize inference parameters to improve response quality",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf02-bp02.html",
+   "question_id": "GENPERF02",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF02-BP03",
+   "bp_title": "Select and customize the appropriate model for your use case",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf02-bp03.html",
+   "question_id": "GENPERF02",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF03-BP01",
+   "bp_title": "Use managed solutions for model hosting, customization, and data access where appropriate",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf03-bp01.html",
+   "question_id": "GENPERF03",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF04-BP01",
+   "bp_title": "Test vector embeddings for latency and relevant performance",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf04-bp01.html",
+   "question_id": "GENPERF04",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENPERF04-BP02",
+   "bp_title": "Optimize vector sizes for your use case",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/genperf04-bp02.html",
+   "question_id": "GENPERF04",
+   "pillar_id": "performance-efficiency",
+   "pillar_name": "Performance efficiency"
+  },
+  {
+   "bp_id": "GENCOST01-BP01",
+   "bp_title": "Right-size model selection to optimize inference costs",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost01-bp01.html",
+   "question_id": "GENCOST01",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST02-BP01",
+   "bp_title": "Balance cost and performance when selecting inference paradigms",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost02-bp01.html",
+   "question_id": "GENCOST02",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST02-BP02",
+   "bp_title": "Optimize resource consumption to minimize hosting costs",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost02-bp02.html",
+   "question_id": "GENCOST02",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST03-BP01",
+   "bp_title": "Optimize prompt token length",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost03-bp01.html",
+   "question_id": "GENCOST03",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST03-BP02",
+   "bp_title": "Control model response length",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost03-bp02.html",
+   "question_id": "GENCOST03",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST03-BP03",
+   "bp_title": "Implement prompt caching to reduce token costs",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost03-bp03.html",
+   "question_id": "GENCOST03",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST03-BP04",
+   "bp_title": "Annotate user input to enable cost-aware content filtering",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost03-bp04.html",
+   "question_id": "GENCOST03",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST04-BP01",
+   "bp_title": "Reduce vector length on embedded tokens",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost04-bp01.html",
+   "question_id": "GENCOST04",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENCOST05-BP01",
+   "bp_title": "Create stopping conditions to control long-running workflows",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gencost05-bp01.html",
+   "question_id": "GENCOST05",
+   "pillar_id": "cost-optimization",
+   "pillar_name": "Cost optimization"
+  },
+  {
+   "bp_id": "GENSUS01-BP01",
+   "bp_title": "Implement auto scaling and serverless architectures to optimize resource utilization",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus01-bp01.html",
+   "question_id": "GENSUS01",
+   "pillar_id": "sustainability",
+   "pillar_name": "Sustainability"
+  },
+  {
+   "bp_id": "GENSUS01-BP02",
+   "bp_title": "Use efficient model customization services",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus01-bp02.html",
+   "question_id": "GENSUS01",
+   "pillar_id": "sustainability",
+   "pillar_name": "Sustainability"
+  },
+  {
+   "bp_id": "GENSUS02-BP01",
+   "bp_title": "Optimize data processing and storage to minimize energy consumption",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus02-bp01.html",
+   "question_id": "GENSUS02",
+   "pillar_id": "sustainability",
+   "pillar_name": "Sustainability"
+  },
+  {
+   "bp_id": "GENSUS03-BP01",
+   "bp_title": "Leverage smaller models and optimized inference techniques to reduce carbon footprint",
+   "bp_url": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/gensus03-bp01.html",
+   "question_id": "GENSUS03",
+   "pillar_id": "sustainability",
+   "pillar_name": "Sustainability"
+  }
+ ],
+ "manifest": {
+  "valid": true,
+  "errors": [],
+  "counts": {
+   "pillars": 6,
+   "questions": 29,
+   "bps": 51,
+   "perPillar": {
+    "operational-excellence": 10,
+    "security": 10,
+    "reliability": 10,
+    "performance-efficiency": 8,
+    "cost-optimization": 9,
+    "sustainability": 4
+   }
+  },
+  "provenance": {
+   "indexUrl": "https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/toc-contents.json",
+   "retrievedAt": "2026-10-01T18:37:21.968Z"
+  }
+ }
+}

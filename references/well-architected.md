@@ -36,3 +36,10 @@ Draw what a reviewer would ask about: WAF/Shield at the edge, an identity servic
 groups), Auto Scaling groups, backup, queues between tiers, CloudWatch/X-Ray/CloudTrail, and for GenAI a node labelled
 *Guardrails*, the retrieval store, the logging destination, and an API layer between clients and the model. If a
 practice is deliberately out of scope, say so in `meta.subtitle` rather than adding decorative icons.
+
+## Review report (Well-Architected tab)
+`archify-aws wa review spec.json [--mode full|quick|pillar|score] [--pillars security,reliability] [--filter critical|critical-high|all] [--lens generative-ai] [--criticality low|standard|high|critical]`
+Every best practice in the frozen corpus (`data/wa/*.json`, 307 framework + 51 Generative AI Lens) gets one of five statuses. Only practices the
+diagram can evidence are judged; the rest are `Cannot Determine` with a hint about the evidence needed. The HTML tab follows the review skill's
+template: classification banner, coverage audit, executive summary, scorecards, per-question table, full best-practice ledger (filterable),
+findings by risk, trade-offs (computed from the cost estimate), Eisenhower matrix, SMART remediation plan and next steps.

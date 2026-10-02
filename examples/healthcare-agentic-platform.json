@@ -1,12 +1,15 @@
 {
   "meta": {
     "title": "Healthcare enterprise agentic AI platform on AWS",
-    "subtitle": "Workforce apps \u2192 governed agent runtime (Amazon Bedrock AgentCore) \u2192 models, clinical AI and FHIR data, with private EHR connectivity",
+    "subtitle": "Workforce apps → governed agent runtime (Amazon Bedrock AgentCore) → models, clinical AI and FHIR data, with private EHR connectivity",
     "lens": [
       "framework",
       "generative-ai"
     ],
-    "output": "examples/out/healthcare-agentic-platform.html"
+    "output": "examples/out/healthcare-agentic-platform.html",
+    "cost": {
+      "note": "Illustrative: a mid-size organisation, 400M input and 40M output model tokens/month, 300,000 Comprehend Medical units. HealthScribe, HealthLake, CloudTrail, Verified Permissions and Direct Connect are not priced yet."
+    }
   },
   "root": {
     "layout": "row",
@@ -65,7 +68,15 @@
                     "id": "guard",
                     "icon": "bedrock",
                     "label": "Bedrock Guardrails",
-                    "sublabel": "PHI / PII, safety"
+                    "sublabel": "PHI / PII, safety",
+                    "usage": {
+                      "textUnitsPerMonth": 600000,
+                      "policies": [
+                        "content",
+                        "pii",
+                        "grounding"
+                      ]
+                    }
                   },
                   {
                     "id": "agentcore",
@@ -99,12 +110,21 @@
                         "id": "fm",
                         "icon": "bedrock",
                         "label": "Amazon Bedrock",
-                        "sublabel": "foundation models"
+                        "sublabel": "foundation models",
+                        "usage": {
+                          "model": "Claude Sonnet 5.5",
+                          "inputTokensPerMonth": 400000000,
+                          "outputTokensPerMonth": 40000000
+                        }
                       },
                       {
                         "id": "cmed",
                         "icon": "comprehend-medical",
-                        "label": "Amazon Comprehend Medical"
+                        "label": "Amazon Comprehend Medical",
+                        "usage": {
+                          "unitsPerMonth": 300000,
+                          "feature": "DetectEntities"
+                        }
                       },
                       {
                         "id": "scribe",

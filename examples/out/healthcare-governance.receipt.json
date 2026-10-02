@@ -1,0 +1,119 @@
+{
+  "ok": true,
+  "tool": "archify-aws",
+  "version": "0.1.0",
+  "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
+  "input": {
+    "path": "examples/healthcare-governance.json",
+    "sha256": "398651bc076daf97e7ec00f7ed82745a716f04b07113a1f613ed26ac93f6e6ed"
+  },
+  "stages": [
+    {
+      "name": "validate",
+      "status": "pass",
+      "detail": {
+        "type": "architecture",
+        "nodes": 17,
+        "groups": 6,
+        "edges": 5
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
+      "name": "render",
+      "status": "pass",
+      "detail": {}
+    },
+    {
+      "name": "check",
+      "status": "pass",
+      "detail": {
+        "warnings": 0,
+        "standalone": true
+      }
+    },
+    {
+      "name": "browser-check",
+      "status": "pass",
+      "detail": {
+        "viewport": "1440x900",
+        "minFontPx": 10.5,
+        "overflowX": 0,
+        "consoleErrors": 0,
+        "viewerNodes": 17,
+        "viewerEdges": 5
+      }
+    },
+    {
+      "name": "export-png",
+      "status": "pass",
+      "detail": {}
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "examples/out/healthcare-governance.html",
+      "sha256": "4c600056d33f61818f128c81ef1497105dbddef842b7cbcdf059aed0d0bfe240",
+      "bytes": 342150
+    },
+    "svg": {
+      "path": "examples/out/healthcare-governance.svg",
+      "sha256": "f29c9fe69bd300ec12e629b5e65e771896d41cb8288150c2001a6d5fb82bd480"
+    },
+    "png": {
+      "path": "examples/out/healthcare-governance.png",
+      "sha256": "358c7cd6eac3d62b7575b42ef113bd71a7f854dab72cca55a326c6a0318b3d3d"
+    }
+  },
+  "summary": {
+    "type": "architecture",
+    "nodes": 17,
+    "groups": 6,
+    "edges": 5,
+    "size": {
+      "width": 1831,
+      "height": 748
+    }
+  },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 471.75,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 17,
+      "estimated": 5,
+      "override": 0,
+      "noCharge": 3,
+      "notBillable": 0,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 9,
+      "error": 0
+    }
+  },
+  "review": {
+    "advisory": true,
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    "evidenced": 17,
+    "bps": 307,
+    "ids": [
+      "F-001"
+    ]
+  },
+  "visualReview": "not-performed"
+}

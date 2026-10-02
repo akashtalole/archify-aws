@@ -1,8 +1,11 @@
 {
   "meta": {
     "title": "Serverless REST API with asynchronous processing",
-    "subtitle": "API Gateway \u2192 Lambda \u2192 DynamoDB, with SQS-buffered background work",
-    "output": "examples/out/serverless-api.html"
+    "subtitle": "API Gateway → Lambda → DynamoDB, with SQS-buffered background work",
+    "output": "examples/out/serverless-api.html",
+    "cost": {
+      "note": "Illustrative: 3M API requests/month, 20,000 monthly active users."
+    }
   },
   "root": {
     "layout": "row",
@@ -28,12 +31,18 @@
               {
                 "id": "cognito",
                 "icon": "cognito",
-                "label": "Amazon Cognito"
+                "label": "Amazon Cognito",
+                "usage": {
+                  "mau": 20000
+                }
               },
               {
                 "id": "apigw",
                 "icon": "api-gateway",
-                "label": "Amazon API Gateway"
+                "label": "Amazon API Gateway",
+                "usage": {
+                  "requestsPerMonth": 3000000
+                }
               },
               {
                 "id": "waf",
@@ -58,7 +67,12 @@
                     "id": "fnapi",
                     "icon": "lambda",
                     "label": "AWS Lambda",
-                    "sublabel": "API handler"
+                    "sublabel": "API handler",
+                    "usage": {
+                      "requestsPerMonth": 3000000,
+                      "avgDurationMs": 120,
+                      "memoryMb": 512
+                    }
                   },
                   {
                     "id": "ddb",
@@ -83,7 +97,12 @@
                     "id": "fnwork",
                     "icon": "lambda",
                     "label": "AWS Lambda",
-                    "sublabel": "worker"
+                    "sublabel": "worker",
+                    "usage": {
+                      "requestsPerMonth": 500000,
+                      "avgDurationMs": 800,
+                      "memoryMb": 1024
+                    }
                   },
                   {
                     "id": "s3",

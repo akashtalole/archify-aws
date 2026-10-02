@@ -5,7 +5,7 @@
   "iconRelease": "AWS Architecture Icons release 24-2026.07.31",
   "input": {
     "path": "examples/compliance/architecture.json",
-    "sha256": "67f1db0a9016801d2013783af5516a15d354d4235b2d67401b16a56774a5fee2"
+    "sha256": "607a76e1b3aa6cb2a7bd137427af11abfc8d73cb0d95028944ff763f2643eabc"
   },
   "stages": [
     {
@@ -16,6 +16,14 @@
         "nodes": 19,
         "groups": 7,
         "edges": 10
+      }
+    },
+    {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
       }
     },
     {
@@ -52,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/architecture.html",
-      "sha256": "32987f0c4cef38ec2fee70f82b91e93a510861cc791eaa0257c1f377c2fac0a6",
-      "bytes": 108138
+      "sha256": "7757aaccd8bb2e6b3d8ca4c149c77d6ccf51363994ccf0e9bb53a2b227b99aa5",
+      "bytes": 340929
     },
     "svg": {
       "path": "examples/compliance/out/architecture.svg",
@@ -74,49 +82,37 @@
       "height": 952
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 6065.3867,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 19,
+      "estimated": 15,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 2,
+      "notItemized": 0,
+      "needsInput": 0,
+      "notEstimated": 2,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 2
-      },
-      "security": {
-        "gap": 0,
-        "consider": 0,
-        "ok": 6
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
     },
-    "gaps": [],
-    "considerations": [
-      "OPS-IAC",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "PERF-EDGE",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 16,
+    "bps": 307,
+    "ids": [
+      "F-001"
     ]
   },
   "visualReview": "not-performed"

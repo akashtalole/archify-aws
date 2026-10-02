@@ -19,6 +19,14 @@
       }
     },
     {
+      "name": "analyze",
+      "status": "pass",
+      "detail": {
+        "cost": true,
+        "review": true
+      }
+    },
+    {
       "name": "render",
       "status": "pass",
       "detail": {}
@@ -52,8 +60,8 @@
   "outputs": {
     "html": {
       "path": "examples/compliance-agentcore/out/review-run.html",
-      "sha256": "03b645a9024df6ccd1d424e448ef618a29080d78f270c8567491f432b31eec9b",
-      "bytes": 75471
+      "sha256": "f81892f505dcf6e343b27db77ba47da382483373d57ef9b87c5afc64469aa9d1",
+      "bytes": 305485
     },
     "svg": {
       "path": "examples/compliance-agentcore/out/review-run.svg",
@@ -74,55 +82,38 @@
       "height": 2337
     }
   },
+  "cost": {
+    "region": "us-east-1",
+    "asOf": "2026-10-01",
+    "monthlyUsd": 363.7707,
+    "confidence": "indicative",
+    "coverage": {
+      "nodes": 11,
+      "estimated": 8,
+      "override": 0,
+      "noCharge": 0,
+      "notBillable": 2,
+      "notItemized": 1,
+      "needsInput": 0,
+      "notEstimated": 0,
+      "error": 0
+    }
+  },
   "review": {
     "advisory": true,
-    "summary": {
-      "operational-excellence": {
-        "gap": 2,
-        "consider": 1,
-        "ok": 0
-      },
-      "security": {
-        "gap": 0,
-        "consider": 3,
-        "ok": 1
-      },
-      "reliability": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "performance-efficiency": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 0
-      },
-      "cost-optimization": {
-        "gap": 0,
-        "consider": 2,
-        "ok": 0
-      },
-      "sustainability": {
-        "gap": 0,
-        "consider": 1,
-        "ok": 1
-      }
+    "mode": "full",
+    "lens": "generative-ai",
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 2,
+      "Low": 0
     },
-    "gaps": [
-      "OPS-OBSERVE",
-      "GENAI-OBSERVE"
-    ],
-    "considerations": [
-      "OPS-IAC",
-      "SEC-ENCRYPT",
-      "SEC-DETECT",
-      "GENAI-AGENCY",
-      "REL-BACKUP",
-      "GENAI-RESILIENCE",
-      "GENAI-RETRIEVAL",
-      "COST-VISIBILITY",
-      "GENAI-COST",
-      "GENAI-SUS"
+    "evidenced": 9,
+    "bps": 307,
+    "ids": [
+      "F-001",
+      "F-002"
     ]
   },
   "visualReview": "not-performed"

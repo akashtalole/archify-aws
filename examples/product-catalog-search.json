@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "title": "Enterprise product catalog search on AWS",
+    "subtitle": "Hybrid keyword + semantic search over a product catalog: a cached edge, a thin search API, OpenSearch for retrieval, Bedrock embeddings for meaning, and an event-driven pipeline that keeps the index fresh",
+    "lens": [
+      "framework"
+    ],
+    "output": "examples/out/product-catalog-search.html",
+    "workload": {
+      "name": "Product catalog search",
+      "criticality": "high",
+      "description": "Customer-facing search across ~2M SKUs with near-real-time catalog updates"
+    },
+    "cost": {
+      "note": "Illustrative: 10M searches/month, 2M products, ~300,000 catalog updates/day re-embedded (~120 tokens each), 3-node OpenSearch cluster across 3 AZs. CloudFront, Firehose, Athena and Personalize are not priced yet. Replace usage on each node with your actuals."
+    }
+  },
+  "root": {
+    "layout": "row",
+    "gap": 80,
+    "children": [
+      {
+        "id": "people",
+        "kind": "stack",
+        "layout": "column",
+        "gap": 70,
+        "children": [
+          {
+            "id": "shoppers",
+            "icon": "users",
+            "label": "Shoppers",
+            "sublabel": "web and app"
+          },
+          {
+            "id": "merch",
+            "icon": "users",
+            "label": "Merchandisers",
+            "sublabel": "synonyms, boosts"
+          },
+          {
+            "id": "pim",
+            "icon": "gen:server",
+            "label": "PIM / ERP",
+            "sublabel": "product master"
+          }
+        ]
+      },
+      {
+        "id": "cloud",
+        "kind": "aws-cloud",
+        "layout": "column",
+        "gap": 50,
+        "children": [
+          {
+            "id": "edge",
+            "kind": "stack",
+            "layout": "row",
+            "gap": 90,
+            "children": [
+              {
+                "id": "waf",
+                "icon": "waf",
+                "label": "AWS WAF",
+                "sublabel": "bot and rate rules",
+                "usage": {
+                  "requestsPerMonth": 10000000,
+                  "rules": 6,
+                  "webAcls": 1
+                }
+              },
+              {
+                "id": "cf",
+                "icon": "cloudfront",
+                "label": "Amazon CloudFront",
+                "sublabel": "cache popular queries",
+                "usage": {
+                  "monthlyUsd": 60
+                }
+              }
+            ]
+          },
+          {
+            "id": "region",
+            "kind": "region",
+            "layout": "column",
+            "gap": 64,
+            "children": [
+              {
+                "id": "searchrow",
+                "kind": "stack",
+                "layout": "row",
+                "gap": 90,
+                "children": [
+                  {
+                    "id": "api",
+                    "kind": "stack",
+                    "layout": "column",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "apigw",
+                        "icon": "api-gateway",
+                        "label": "Amazon API Gateway",
+                        "sublabel": "search API",
+                        "usage": {
+                          "type": "http",
+                          "requestsPerMonth": 6000000
+                        }
+                      },
+                      {
+                        "id": "searchfn",
+                        "icon": "lambda",
+                        "label": "AWS Lambda",
+                        "sublabel": "query understanding + blend",
+                        "usage": {
+                          "requestsPerMonth": 6000000,
+                          "avgDurationMs": 90,
+                          "memoryMb": 1024,
+                          "arch": "arm64"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "retrieval",
+                    "kind": "custom",
+                    "icon": "opensearch-service",
+                    "label": "Retrieval and ranking",
+                    "layout": "column",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "os",
+                        "icon": "opensearch-service",
+                        "label": "Amazon OpenSearch Service",
+                        "sublabel": "BM25 + vector (hybrid)",
+                        "usage": {
+                          "mode": "provisioned",
+                          "instanceType": "r6g.xlarge.search",
+                          "instanceCount": 3,
+                          "storageGbPerNode": 300
+                        }
+                      },
+                      {
+                        "id": "embed",
+                        "icon": "bedrock",
+                        "label": "Amazon Bedrock",
+                        "sublabel": "text embeddings",
+                        "usage": {
+                          "model": "Titan Embedding V2",
+                          "inputTokensPerMonth": 1230000000,
+                          "outputTokensPerMonth": 0
+                        }
+                      },
+                      {
+                        "id": "rank",
+                        "icon": "personalize",
+                        "label": "Amazon Personalize",
+                        "sublabel": "personalised re-rank"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ingestrow",
+                "kind": "stack",
+                "layout": "row",
+                "gap": 70,
+                "children": [
+                  {
+                    "id": "feed",
+                    "icon": "s3",
+                    "label": "Amazon S3",
+                    "sublabel": "catalog feeds + images",
+                    "usage": {
+                      "storageGb": 800,
+                      "getRequestsPerMonth": 5000000,
+                      "putRequestsPerMonth": 400000
+                    }
+                  },
+                  {
+                    "id": "reindex",
+                    "icon": "step-functions",
+                    "label": "AWS Step Functions",
+                    "sublabel": "full re-index + alias swap",
+                    "usage": {
+                      "stateTransitionsPerMonth": 200000
+                    }
+                  },
+                  {
+                    "id": "rules",
+                    "icon": "dynamodb",
+                    "label": "Amazon DynamoDB",
+                    "sublabel": "catalog + curation rules",
+                    "usage": {
+                      "readRequestsPerMonth": 30000000,
+                      "writeRequestsPerMonth": 9000000,
+                      "storageGb": 150
+                    }
+                  },
+                  {
+                    "id": "q",
+                    "icon": "sqs",
+                    "label": "Amazon SQS",
+                    "sublabel": "update buffer + DLQ",
+                    "usage": {
+                      "requestsPerMonth": 27000000
+                    }
+                  },
+                  {
+                    "id": "indexer",
+                    "icon": "lambda",
+                    "label": "AWS Lambda",
+                    "sublabel": "enrich, embed, index",
+                    "usage": {
+                      "requestsPerMonth": 9000000,
+                      "avgDurationMs": 350,
+                      "memoryMb": 1024,
+                      "arch": "arm64"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "bottomrow",
+                "kind": "stack",
+                "layout": "row",
+                "gap": 70,
+                "children": [
+                  {
+                    "id": "insight",
+                    "kind": "stack",
+                    "layout": "row",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "fh",
+                        "icon": "data-firehose",
+                        "label": "Amazon Data Firehose",
+                        "sublabel": "search + click events"
+                      },
+                      {
+                        "id": "lake",
+                        "icon": "s3",
+                        "label": "Amazon S3",
+                        "sublabel": "analytics lake",
+                        "usage": {
+                          "storageGb": 1500,
+                          "getRequestsPerMonth": 2000000,
+                          "putRequestsPerMonth": 3000000
+                        }
+                      },
+                      {
+                        "id": "athena",
+                        "icon": "athena",
+                        "label": "Amazon Athena",
+                        "sublabel": "relevance analysis"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ops",
+                    "kind": "stack",
+                    "layout": "row",
+                    "gap": 56,
+                    "children": [
+                      {
+                        "id": "cw",
+                        "icon": "cloudwatch",
+                        "label": "Amazon CloudWatch",
+                        "sublabel": "latency, zero-result rate",
+                        "usage": {
+                          "logIngestGbPerMonth": 150,
+                          "logStorageGb": 300,
+                          "alarms": 40,
+                          "customMetrics": 60
+                        }
+                      },
+                      {
+                        "id": "kms",
+                        "icon": "key-management-service",
+                        "label": "AWS KMS",
+                        "usage": {
+                          "keys": 4,
+                          "requestsPerMonth": 20000000
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "from": "shoppers",
+      "to": "cf",
+      "step": 1,
+      "label": "search"
+    },
+    {
+      "from": "waf",
+      "to": "cf",
+      "style": "dashed",
+      "label": "protects"
+    },
+    {
+      "from": "cf",
+      "to": "apigw",
+      "step": 2,
+      "label": "cache miss"
+    },
+    {
+      "from": "apigw",
+      "to": "searchfn",
+      "step": 3
+    },
+    {
+      "from": "searchfn",
+      "to": "embed",
+      "step": 4,
+      "label": "embed query"
+    },
+    {
+      "from": "searchfn",
+      "to": "os",
+      "step": 5,
+      "label": "hybrid query"
+    },
+    {
+      "from": "searchfn",
+      "to": "rank",
+      "step": 6,
+      "label": "re-rank"
+    },
+    {
+      "from": "merch",
+      "to": "rules",
+      "label": "curation rules"
+    },
+    {
+      "from": "pim",
+      "to": "feed",
+      "label": "bulk feed"
+    },
+    {
+      "from": "pim",
+      "to": "rules",
+      "label": "updates"
+    },
+    {
+      "from": "rules",
+      "to": "q",
+      "label": "change stream"
+    },
+    {
+      "from": "q",
+      "to": "indexer"
+    },
+    {
+      "from": "indexer",
+      "to": "embed",
+      "label": "embed product"
+    },
+    {
+      "from": "indexer",
+      "to": "os",
+      "label": "upsert"
+    },
+    {
+      "from": "reindex",
+      "to": "os",
+      "label": "rebuild index"
+    },
+    {
+      "from": "feed",
+      "to": "reindex",
+      "style": "dashed"
+    },
+    {
+      "from": "apigw",
+      "to": "fh",
+      "style": "dashed",
+      "label": "events"
+    },
+    {
+      "from": "fh",
+      "to": "lake"
+    },
+    {
+      "from": "lake",
+      "to": "athena"
+    }
+  ]
+}
