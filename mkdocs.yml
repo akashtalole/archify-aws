@@ -1,0 +1,84 @@
+site_name: archify-aws
+site_description: AWS architecture diagrams from typed JSON, with cost estimates, Well-Architected review and draw.io export
+site_url: https://akashtalole.github.io/archify-aws/
+repo_url: https://github.com/akashtalole/archify-aws
+repo_name: akashtalole/archify-aws
+edit_uri: edit/main/docs/
+docs_dir: docs
+strict: true
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: deep orange
+      toggle: { icon: material/weather-night, name: Switch to dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: deep orange
+      toggle: { icon: material/weather-sunny, name: Switch to light mode }
+
+extra_css:
+  - assets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: { alternate_style: true }
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.inlinehilite
+
+nav:
+  - Home: index.md
+  - User guide:
+      - Overview: user-guide/index.md
+      - Getting started: user-guide/getting-started.md
+      - Writing a spec:
+          - Architecture diagrams: user-guide/spec-architecture.md
+          - Sequence and dataflow: user-guide/spec-sequence-dataflow.md
+      - Using the page:
+          - Viewer and numbered callouts: user-guide/viewer.md
+          - Cost estimate: user-guide/cost.md
+          - Well-Architected review: user-guide/well-architected.md
+      - Exporting:
+          - Images, SVG and draw.io: user-guide/exporting.md
+      - Importing:
+          - Mermaid and infrastructure as code: user-guide/importers.md
+      - Quality gates: user-guide/finalize.md
+      - Using it from an AI agent: user-guide/agent-skill.md
+      - Examples: user-guide/examples.md
+      - CLI reference: user-guide/cli.md
+      - Troubleshooting: user-guide/troubleshooting.md
+  - Developer guide:
+      - Overview: developer-guide/index.md
+      - Architecture: developer-guide/architecture.md
+      - Layout and routing: developer-guide/layout-routing.md
+      - Rendering and the viewer: developer-guide/rendering-viewer.md
+      - Icon catalog: developer-guide/icons.md
+      - Cost engine: developer-guide/cost-engine.md
+      - Well-Architected engine: developer-guide/wa-engine.md
+      - draw.io exporter: developer-guide/drawio-exporter.md
+      - Finalize, receipts and tests: developer-guide/finalize-testing.md
+      - Data refresh: developer-guide/data-refresh.md
+      - Contributing: developer-guide/contributing.md

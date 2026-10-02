@@ -5,6 +5,8 @@ deck's group/arrow/label conventions, and an advisory **AWS Well-Architected** (
 review. A companion to [tt-a1i/archify](https://github.com/tt-a1i/archify): describe the system, get a standalone,
 explorable HTML (plus SVG/PNG) and a receipt of what was checked.
 
+📖 **Documentation: <https://akashtalole.github.io/archify-aws/>** — [user guide](docs/user-guide/index.md) · [developer guide](docs/developer-guide/index.md) (MkDocs; `pip install -r requirements-docs.txt && node scripts/stage-docs.mjs && mkdocs serve`).
+
 | Three-tier on two AZs | RAG assistant on Bedrock |
 |---|---|
 | ![three-tier](examples/out/three-tier.png) | ![genai-rag](examples/out/genai-rag.png) |
