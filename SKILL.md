@@ -50,7 +50,7 @@ review the icon mappings it lists and the relationships it inferred before deliv
 7. **Cost and review.** `finalize` also writes a **Cost** tab (AWS Price List) and a **Well-Architected review** tab into the same HTML;
    read `cost` and `review` in the receipt. Do not paper over gaps by adding decorative icons: either the architecture really has the control
    (add it, with its connection) or say it's out of scope. See `references/cost-estimation.md` and `references/well-architected.md`.
-8. **Report:** absolute paths to `.html` (and `.svg`/`.png`), node/edge counts, warnings, monthly cost with its confidence and the key
+8. **Report:** absolute paths to `.html` (and `.svg`/`.png`/`.drawio`), node/edge counts, warnings, monthly cost with its confidence and the key
    assumptions, the findings by risk, how many best practices were actually evidenced, and explicitly: "cost is an indicative list-price
    estimate and the review is advisory — inferred from the drawing, not from deployed configuration".
 
@@ -82,7 +82,7 @@ review the icon mappings it lists and the relationships it inferred before deliv
 * Diagram conventions from the AWS deck are summarised in [references/aws-diagram-guidelines.md](references/aws-diagram-guidelines.md).
 
 ## Commands
-`finalize`, `render`, `validate`, `cost`, `wa review|corpus`, `review`, `import mermaid|iac`, `icons search|info|categories|groups`, `guide`, `schema`, `init`, `fetch-icons`, `doctor` — run
+`finalize`, `render`, `export` (draw.io), `validate`, `cost`, `wa review|corpus`, `review`, `import mermaid|iac`, `icons search|info|categories|groups`, `guide`, `schema`, `init`, `fetch-icons`, `doctor` — run
 `node bin/archify-aws.mjs --help`. Always pass `--json` when parsing results.
 
 ## Don't

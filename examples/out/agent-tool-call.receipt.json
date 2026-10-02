@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/agent-tool-call.html",
-      "sha256": "3d2d3439a45f2c68f95b2b78abe646626e4092d439248e12624440dbb3a0728e",
-      "bytes": 290554
+      "sha256": "d4432f03955b032537aea762e1817a5d29383b762214e5747cd907cf88f39dc4",
+      "bytes": 311467
     },
     "svg": {
       "path": "examples/out/agent-tool-call.svg",
       "sha256": "cf4d068d89db98d6d9af98a6e4482edecdf3d97eb66dea2ea7e4784a8e988aed"
+    },
+    "drawio": {
+      "path": "examples/out/agent-tool-call.drawio",
+      "sha256": "a4999bfcd0139fd0eae9978279d326405c516fd680d50cb4d69eacbbd905cf1d"
     },
     "png": {
       "path": "examples/out/agent-tool-call.png",

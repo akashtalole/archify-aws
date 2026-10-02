@@ -186,6 +186,7 @@ const exp={
     c.setAttribute("class","aws theme-light");
     st.textContent+="@media (prefers-color-scheme:dark){.aws.theme-light{--bg:#161E2D;--fg:#ffffff;--muted:#aab4c3;--line:#d5dbdb;--halo:#161E2D;--badge:#ffffff;--badgeFg:#000000}.aws.theme-light .only-dark{display:inline}.aws.theme-light .only-light{display:none}}";
     download(new Blob([svgString(c)],{type:"image/svg+xml"}),base+".svg")},
+  "drawio":()=>{const el=document.getElementById("drawio-data");if(!el){say("<span>No draw.io data in this page</span>");return}download(new Blob([JSON.parse(el.textContent)],{type:"application/vnd.jgraph.mxfile"}),base+".drawio")},
   "png":()=>raster("image/png",undefined,b=>download(b,base+".png")),
   "jpeg":()=>raster("image/jpeg",.92,b=>download(b,base+".jpg")),
   "webp":()=>raster("image/webp",.92,b=>download(b,base+".webp")),

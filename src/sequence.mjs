@@ -80,7 +80,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
   const bottom = y + 30;
   const width = M * 2 + colW * n;
   const height = bottom + M;
-  const steps = [];
+  const steps = [], badges = {};
   let stepNo = 0;
 
   out.push(`<text class="title" x="${M}" y="${M + 6}">${esc(spec.meta.title)}</text>`);
@@ -143,6 +143,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
       stepNo++;
       out.push(`<g class="badge"><title>${esc(`${stepNo}. ${tip}`)}</title><circle cx="${bx}" cy="${by}" r="11"/><circle class="hit" cx="${bx}" cy="${by}" r="16"/><text x="${bx}" y="${by + 4.5}" text-anchor="middle">${stepNo}</text></g>`);
       steps.push({ step: stepNo, from: m.from, to: m.to, label: m.label, desc: m.desc });
+      badges[i] = { step: stepNo, x: bx, y: by };
     }
     out.push(`</g>`);
   });
@@ -174,5 +175,5 @@ ${out.join("\n")}
   // adapter for the Well-Architected review and the page's flow list
   const nodes = Object.fromEntries(ps.map((p) => [p.id, { id: p.id, item: p, icon: p.icon, parent: (spec.groups || []).find((g) => g.members.includes(p.id)) ? "g:" + (spec.groups || []).findIndex((g) => g.members.includes(p.id)) : null }]));
   const groups = (spec.groups || []).map((g, i) => ({ id: "g:" + i, kind: g.kind, label: g.label, parent: null, item: g }));
-  return { svg, width, height, steps, model: { nodes, groups }, reviewSpec: { ...spec, edges: msgs.filter((m) => m.note === undefined).map((m) => ({ from: m.from, to: m.to })) } };
+  return { svg, width, height, steps, layout: { ps, x, top, bottom, colW, rows, badges, ICON, M }, model: { nodes, groups }, reviewSpec: { ...spec, edges: msgs.filter((m) => m.note === undefined).map((m) => ({ from: m.from, to: m.to })) } };
 }

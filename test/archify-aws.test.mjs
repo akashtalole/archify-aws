@@ -569,3 +569,66 @@ test("numbered callouts carry the same description as the Flow list (architectur
     }
   }
 });
+
+// ---- draw.io export
+test("draw.io shape table matches the shapes and colours in the reference sample", async () => {
+  const table = JSON.parse(fs.readFileSync(new URL("../data/drawio/aws4.json", import.meta.url), "utf8"));
+  const sample = fs.readFileSync(new URL("./fixtures/drawio-sample-multi-az.xml", import.meta.url), "utf8");
+  let n = 0;
+  for (const m of sample.matchAll(/style="([^"]*)"/g)) {
+    const ri = /resIcon=mxgraph\.aws4\.([a-z0-9_]+)/.exec(m[1]), fill = /fillColor=(#[0-9A-Fa-f]{6})/.exec(m[1]);
+    if (!ri) continue;
+    n++;
+    assert.equal(table[ri[1]]?.kind, "resourceIcon", ri[1]);
+    assert.equal(table[ri[1]].fill.toLowerCase(), fill[1].toLowerCase(), ri[1]);
+  }
+  assert.ok(n >= 10);
+});
+
+test("every catalog service maps to a draw.io AWS shape except a few Elemental appliances", async () => {
+  const { drawioShapeFor } = await import("../src/drawio/map.mjs");
+  const missing = Object.values(catalog.services).filter((e) => !drawioShapeFor({ kind: "service", entry: e })).map((e) => e.id);
+  assert.ok(missing.length <= 5, missing.join(", "));
+  assert.ok(missing.every((id) => id.startsWith("elemental-")), missing.join(", "));
+  const lambda = drawioShapeFor({ kind: "service", entry: catalog.services["AWS-Lambda"] || Object.values(catalog.services).find((e) => e.id === "lambda") });
+  assert.equal(lambda.name, "lambda");
+  assert.equal(lambda.fill, "#ED7100");
+});
+
+test("draw.io export is valid, uses AWS shapes, and keeps hierarchy, routing and callouts", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const { toDrawio } = await import("../src/drawio/export.mjs");
+  const { validateDrawio } = await import("../src/drawio/validate.mjs");
+  for (const f of ["three-tier.json", "product-catalog-search.json", "clinical-notes.dataflow.json", "compliance-agentcore/review-run.sequence.json"]) {
+    const d = buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/" + f, import.meta.url), "utf8")));
+    const xml = toDrawio(d);
+    assert.deepEqual(validateDrawio(xml), [], f);
+    assert.ok(xml.includes("shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4."), f);
+    assert.ok(!xml.includes("shape=image;"), `${f}: every example icon has a draw.io shape`);
+    for (const s of d.steps) assert.ok(xml.includes(`tooltip="${s.step}. `), `${f}: tooltip for step ${s.step}`);
+    assert.equal(toDrawio(d), xml, "deterministic");
+  }
+  const arch = toDrawio(buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/three-tier.json", import.meta.url), "utf8"))));
+  for (const g of ["group_aws_cloud_alt", "group_region", "group_vpc2", "group_auto_scaling_group", "group_security_group"]) assert.ok(arch.includes(`mxgraph.aws4.${g}`), g);
+  assert.ok(/parent="g-/.test(arch), "nodes are children of their groups");
+  assert.ok(/<Array as="points">/.test(arch) && /exitX=/.test(arch) && /entryX=/.test(arch), "routing preserved");
+});
+
+test("validateDrawio reports broken references and unknown shapes", async () => {
+  const { validateDrawio } = await import("../src/drawio/validate.mjs");
+  const bad = '<mxfile><diagram><mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="a" style="shape=mxgraph.aws4.nonexistent_thing;" vertex="1" parent="1"/><mxCell id="a" edge="1" parent="1" source="a" target="zzz"/></root></mxGraphModel></diagram></mxfile>';
+  const p = validateDrawio(bad).join("\n");
+  assert.match(p, /duplicate id a/);
+  assert.match(p, /target "zzz" does not exist/);
+  assert.match(p, /unknown draw\.io AWS shape mxgraph\.aws4\.nonexistent_thing/);
+});
+
+test("the page offers a draw.io download backed by the same export", async (t) => {
+  if (!iconsAvailable()) return t.skip("icons not fetched");
+  const d = buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/three-tier.json", import.meta.url), "utf8")));
+  const html = renderPageWa(d, null, "light", null);
+  assert.ok(html.includes('data-x="drawio"') && html.includes('id="drawio-data"'));
+  const m = /<script type="application\/json" id="drawio-data">([\s\S]*?)<\/script>/.exec(html);
+  const { toDrawio } = await import("../src/drawio/export.mjs");
+  assert.equal(JSON.parse(m[1].replace(/\\u003c/g, "<")), toDrawio(d));
+});

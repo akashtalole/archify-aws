@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance-agentcore/out/review-run.html",
-      "sha256": "b4e8812f8f45d5f27b54e13d6003fbad02bff24e93dc37229aeca69e705830be",
-      "bytes": 311565
+      "sha256": "58daaf3969c5beb3b4ca8d3b6daa824729bfe3208dd9145f76e0dd749e8c205f",
+      "bytes": 348615
     },
     "svg": {
       "path": "examples/compliance-agentcore/out/review-run.svg",
       "sha256": "23b3910b05e08dba7856ced5638797c120d475861c8c38fdb3dbcfa98d3b2bd9"
+    },
+    "drawio": {
+      "path": "examples/compliance-agentcore/out/review-run.drawio",
+      "sha256": "4625183f6e4880151ed6fdec8d956757c95a1d1f0f43b15c77614b4e34f52e46"
     },
     "png": {
       "path": "examples/compliance-agentcore/out/review-run.png",

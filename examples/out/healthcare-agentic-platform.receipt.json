@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/healthcare-agentic-platform.html",
-      "sha256": "7ec535787196b30eb1adb615c74ea1b0a5aa0b035dc2fb046e12afb978491d48",
-      "bytes": 342153
+      "sha256": "10d3f4410b1daff71b795b8f78aee925947cb1d7a8bee9ad9257c420b822bded",
+      "bytes": 369301
     },
     "svg": {
       "path": "examples/out/healthcare-agentic-platform.svg",
       "sha256": "f499817a1e5c99db78253db71d1396669c1a241cf8ddd5cb5ebbf714d1fa7a9b"
+    },
+    "drawio": {
+      "path": "examples/out/healthcare-agentic-platform.drawio",
+      "sha256": "6fd3fa34a57a5d015fe71653fa0d85bfae669926b3d8f39e3c5228adc8deba41"
     },
     "png": {
       "path": "examples/out/healthcare-agentic-platform.png",

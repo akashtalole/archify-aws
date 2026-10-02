@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/lifecycle.html",
-      "sha256": "e0ce6a4a3c01bbb571e4c76ec52162089bcbbc203007c1eba2edab0ac64a0b7c",
-      "bytes": 304944
+      "sha256": "52dc6eba7cd24844ad0a31a332f171ca4da4e9d8bd18921926bbff133b9e1eb4",
+      "bytes": 326585
     },
     "svg": {
       "path": "examples/compliance/out/lifecycle.svg",
       "sha256": "fea9d63a9a7258f8287a1698fb8b7ccbc77078ef6af7b9040191e85075e9e8a1"
+    },
+    "drawio": {
+      "path": "examples/compliance/out/lifecycle.drawio",
+      "sha256": "6422f41c4396dda549ec429f558a304d4d48d66b5c8f0f1a56729401b1e69923"
     },
     "png": {
       "path": "examples/compliance/out/lifecycle.png",

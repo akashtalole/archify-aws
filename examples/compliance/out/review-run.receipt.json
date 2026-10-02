@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/review-run.html",
-      "sha256": "eec4a6e91d8e497542ea1724e49a4c406b8d85bc54a71aa55a0ec77a4a68d11d",
-      "bytes": 322973
+      "sha256": "efb38bf395cd98de827c5939db74765f14c5997513ffd2a5b6337ff05a8bc476",
+      "bytes": 354280
     },
     "svg": {
       "path": "examples/compliance/out/review-run.svg",
       "sha256": "ea7ea15940054cb3ad361753625a0f3cc8b41d5164dcb656c29582b485ae5f29"
+    },
+    "drawio": {
+      "path": "examples/compliance/out/review-run.drawio",
+      "sha256": "5f6ae6fb516c8b4baf9a189c130859f23716a2f9290fc802a2dff8c45f87a607"
     },
     "png": {
       "path": "examples/compliance/out/review-run.png",

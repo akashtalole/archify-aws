@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/genai-rag.html",
-      "sha256": "99b6411110e18bc8575a079ee1ba3330b8ce761e638dd56c338528d7af85f06d",
-      "bytes": 310030
+      "sha256": "6ecbc17d27da3c21686a580bec165dccd3f447347dc8f7a8ce02a069daed7a2b",
+      "bytes": 328341
     },
     "svg": {
       "path": "examples/out/genai-rag.svg",
       "sha256": "536bdba2f4a2f545ea1b5fba18d09298d43da308be1256b28715acc121495afa"
+    },
+    "drawio": {
+      "path": "examples/out/genai-rag.drawio",
+      "sha256": "c78ba58e59b4bcdf192d8f6a595668a5a005af2def6142191722a69d3d0214d4"
     },
     "png": {
       "path": "examples/out/genai-rag.png",

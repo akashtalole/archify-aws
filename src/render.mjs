@@ -113,6 +113,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
     taken.push(first.r);
     return first;
   });
+  routes.forEach((rt, i) => { rt.badgePos = badgePos[i]; rt.labelPos = labelPos[i]; }); // kept on the model for other exporters (draw.io)
   routes.forEach((rt, i) => {
     const e = rt.edge, pts = rt.pts;
     const dash = e.style === "dashed" ? ' stroke-dasharray="6 4"' : "";

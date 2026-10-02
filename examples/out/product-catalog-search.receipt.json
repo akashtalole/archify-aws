@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/product-catalog-search.html",
-      "sha256": "db3200da5ddefdb3fd10174b2c84821be1eba5b0c1bcdcfe48c53e05b0e0a8ed",
-      "bytes": 346537
+      "sha256": "6d880d869c751036a18b26d1ac719352bba595c957ad2980d9bbcaa9273425e4",
+      "bytes": 378209
     },
     "svg": {
       "path": "examples/out/product-catalog-search.svg",
       "sha256": "a92b0338605e881633b9dda307facf7738ba9f96aa07e4487e8074060f87bf99"
+    },
+    "drawio": {
+      "path": "examples/out/product-catalog-search.drawio",
+      "sha256": "31dcebeb4c17c495ad0d20ddc9d94094d46178adf45712ec09830c3f141c2019"
     },
     "png": {
       "path": "examples/out/product-catalog-search.png",

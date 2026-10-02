@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/healthcare-agentcore-services.html",
-      "sha256": "30067d2326efcef008645bb6a3157d4731056096bc16d21bab33623b0a2ee7cd",
-      "bytes": 318940
+      "sha256": "ede90ce370b7baba86fefd1945b51745dc2c6cd2cfb5317f431c11986d346bbe",
+      "bytes": 350686
     },
     "svg": {
       "path": "examples/out/healthcare-agentcore-services.svg",
       "sha256": "e48cd65d43cb19d2ded62614d7e0f43b1dc9a34475a1e754f856f0a63b199673"
+    },
+    "drawio": {
+      "path": "examples/out/healthcare-agentcore-services.drawio",
+      "sha256": "f1e7727937d3baecebd6a92c90fde31531da1ffa500ad193b12e14d563dc41df"
     },
     "png": {
       "path": "examples/out/healthcare-agentcore-services.png",

@@ -6,6 +6,8 @@ import { ROOT, catalog, searchIcons, resolveIcon, iconsAvailable, ICON_DIR } fro
 import { buildDiagram, SpecError, typeOf } from "../src/pipeline.mjs";
 import { renderPage } from "../src/page.mjs";
 import { analyze } from "../src/analysis.mjs";
+import { toDrawio } from "../src/drawio/export.mjs";
+import { validateDrawio } from "../src/drawio/validate.mjs";
 import { reviewWorkload } from "../src/wa/evaluate.mjs";
 import { GROUP_KINDS } from "../src/groups.mjs";
 import { svgToPng } from "../src/png.mjs";
@@ -20,7 +22,7 @@ import { loadCorpus, acquireCorpus, saveCorpus, corpusAgeDays, SOURCES as WA_SOU
 const HELP = `archify-aws — AWS architecture diagrams from typed JSON (official AWS Architecture Icons)
 
 Usage
-  archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--theme light|dark] [--no-review] [--no-cost] [--strict] [--json]
+  archify-aws render <spec.json> [-o out.html] [--svg] [--png] [--drawio] [--theme light|dark] [--no-review] [--no-cost] [--strict] [--json]
   archify-aws finalize <spec.json> [-o out.html] [--theme t] [--no-png] [--require-browser] [--json]   validate → render → checks → browser check → receipt
   archify-aws validate <spec.json> [--json]
   archify-aws review <spec.json> [--json]            Well-Architected + Generative AI Lens hints
@@ -35,6 +37,7 @@ Usage
   archify-aws guide "<scenario>" [--json]                  which diagram type and template fit
   archify-aws wa corpus [--lens generative-ai] [--refresh] [--json]   Well-Architected questions and best practices (live index or snapshot)
   archify-aws wa review <spec.json> [--mode full|quick|pillar|score] [--pillars p,q] [--filter critical|critical-high|all] [--criticality c] [--json]   Well-Architected review (framework + Generative AI Lens)
+  archify-aws export <spec.json> [--format drawio] [-o out.drawio]   draw.io file using draw.io's built-in AWS shapes
   archify-aws cost <spec.json> [--region r] [--scale 1,3,10] [--usage usage.json] [--json]   monthly estimate from the AWS Price List
   archify-aws doctor
 
@@ -68,13 +71,14 @@ switch (cmd) {
     fs.writeFileSync(outHtml, renderPage(d, review, theme, an.cost));
     const res = { ok: true, type: d.type, html: outHtml, size: d.size, nodes: d.stats.nodes, groups: d.stats.groups, edges: d.stats.edges, warnings: d.warnings };
     const base = outHtml.replace(/\.html$/, "");
+    if (flag("--drawio")) { const x = toDrawio(d); const bad = validateDrawio(x); if (bad.length) die("draw.io export failed checks:\n- " + bad.join("\n- ")); fs.writeFileSync(base + ".drawio", x); res.drawio = base + ".drawio"; }
     if (flag("--svg") || flag("--png")) { fs.writeFileSync(base + ".svg", d.svg(theme)); res.svg = base + ".svg"; }
     if (flag("--png")) { try { svgToPng(base + ".svg", base + ".png", d.size.width, d.size.height); res.png = base + ".png"; } catch (e) { res.pngError = e.message; } }
     if (an.cost) res.cost = { monthlyUsd: an.cost.totals.monthlyUsd, confidence: an.cost.confidence, coverage: an.cost.coverage };
     if (review) res.review = { findings: review.findingCounts, evidenced: review.coverage.framework.withEvidence, bps: review.coverage.framework.assessedBps };
     if (json) out(res);
     else {
-      console.log(`Wrote ${outHtml}${res.svg ? `\n      ${res.svg}` : ""}${res.png ? `\n      ${res.png}` : ""}`);
+      console.log(`Wrote ${outHtml}${res.svg ? `\n      ${res.svg}` : ""}${res.drawio ? `\n      ${res.drawio}` : ""}${res.png ? `\n      ${res.png}` : ""}`);
       console.log(`${d.type}: ${res.nodes} nodes · ${res.groups} groups · ${res.edges} ${d.type === "sequence" ? "messages" : "edges"} · ${res.size.width}×${res.size.height}`);
       for (const w of d.warnings) console.log(`warning: ${w}`);
       if (an.cost) console.log(`Cost: ${money(res.cost.monthlyUsd)}/month (${res.cost.confidence}) — Cost tab`);
@@ -82,6 +86,24 @@ switch (cmd) {
       if (res.pngError) console.log(`png: ${res.pngError}`);
     }
     process.exit(flag("--strict") && d.warnings.some((w) => !/used by more than one edge/.test(w)) ? 2 : 0);
+  }
+  case "export": {
+    needIcons();
+    const file = rest[0];
+    if (!file) die("usage: archify-aws export <spec.json> [--format drawio] [-o out.drawio]");
+    const format = opt("--format", "drawio");
+    if (format !== "drawio") die(`unknown export format "${format}" (drawio; PNG/SVG/HTML come from render and finalize)`);
+    const spec = readSpec(file);
+    let d; try { d = buildDiagram(spec); } catch (e) { if (!(e instanceof SpecError)) throw e; die(e.message); }
+    const xml = toDrawio(d), bad = validateDrawio(xml);
+    if (bad.length) die("draw.io export failed checks:\n- " + bad.join("\n- "));
+    const outFile = path.resolve(opt("-o", file.replace(/\.json$/, "") + ".drawio"));
+    fs.mkdirSync(path.dirname(outFile), { recursive: true });
+    fs.writeFileSync(outFile, xml);
+    const images = (xml.match(/shape=image;/g) || []).length;
+    if (json) out({ ok: true, format: "drawio", file: outFile, cells: (xml.match(/<mxCell /g) || []).length, embeddedImageIcons: images });
+    else console.log(`Wrote ${outFile}\n${d.stats.nodes} nodes · ${d.stats.groups} groups · ${d.stats.edges} ${d.type === "sequence" ? "messages" : "edges"}${images ? ` · ${images} icon(s) without a draw.io AWS shape embedded as SVG` : " · all icons use draw.io AWS shapes"}`);
+    break;
   }
   case "finalize": {
     needIcons();
