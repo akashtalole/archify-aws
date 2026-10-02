@@ -3,6 +3,8 @@ import { GROUP_KINDS } from "./groups.mjs";
 import { catalog, resolveIcon, iconFile, groupIconFile } from "./catalog.mjs";
 import { K } from "./layout.mjs";
 
+/** The one description of a numbered step: used by the Flow list, the badge tooltip and the viewer popup. */
+export const stepText = (desc, fromLabel, toLabel, label) => desc ? desc : `${fromLabel} → ${toLabel}${label ? ` (${label})` : ""}`;
 export const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
 const symCache = new Map();
@@ -116,7 +118,9 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
     const dash = e.style === "dashed" ? ' stroke-dasharray="6 4"' : "";
     const arrow = e.arrow || "end";
     const mk = `${arrow === "none" ? "" : ' marker-end="url(#arw)"'}${arrow === "both" ? ' marker-start="url(#arw)"' : ""}`;
-    body.push(`<g class="edge" data-from="${esc(e.from)}" data-to="${esc(e.to)}" data-step="${e.step ?? ""}" data-label="${esc(e.label || "")}">`);
+    const nm = (id) => nodes[id]?.item.label || groups.find((g) => g.id === id)?.label || id;
+    const tip = e.step !== undefined ? stepText(e.desc, nm(e.from), nm(e.to), e.label) : "";
+    body.push(`<g class="edge" data-from="${esc(e.from)}" data-to="${esc(e.to)}" data-step="${e.step ?? ""}" data-label="${esc(e.label || "")}"${tip ? ` data-tip="${esc(tip)}"` : ""}>`);
     body.push(`<path d="${pathD(pts)}" fill="none" class="eline" stroke-width="2"${dash}${mk}/>`);
     const lp = labelPos[i];
     if (lp) body.push(lp.horiz
@@ -124,7 +128,7 @@ export function renderSvg(model, spec, theme = spec.meta.theme || "light") {
       : `<text class="elabel" x="${lp.cx + 18}" y="${lp.cy + 4}" text-anchor="start">${esc(e.label)}</text>`);
     const bp = badgePos[i];
     if (bp) {
-      body.push(`<g class="badge"><circle cx="${bp[0]}" cy="${bp[1]}" r="11"/><text x="${bp[0]}" y="${bp[1] + 4.5}" text-anchor="middle">${e.step}</text></g>`);
+      body.push(`<g class="badge"><title>${esc(`${e.step}. ${tip}`)}</title><circle cx="${bp[0]}" cy="${bp[1]}" r="11"/><circle class="hit" cx="${bp[0]}" cy="${bp[1]}" r="16"/><text x="${bp[0]}" y="${bp[1] + 4.5}" text-anchor="middle">${e.step}</text></g>`);
       steps.push(e);
     }
     body.push(`</g>`);
@@ -165,7 +169,7 @@ export function baseCss() {
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}

@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/agent-tool-call.html",
-      "sha256": "8e24f17349de7dca7a20790a485e0712832e4acb0e1844dd70ba05d9ac260429",
-      "bytes": 286931
+      "sha256": "3d2d3439a45f2c68f95b2b78abe646626e4092d439248e12624440dbb3a0728e",
+      "bytes": 290554
     },
     "svg": {
       "path": "examples/out/agent-tool-call.svg",
-      "sha256": "bb056576af237e7593e7076bd46e77b8d4aae3c89fc4403d68af372661622bf3"
+      "sha256": "cf4d068d89db98d6d9af98a6e4482edecdf3d97eb66dea2ea7e4784a8e988aed"
     },
     "png": {
       "path": "examples/out/agent-tool-call.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 134.754,
     "confidence": "indicative",
     "coverage": {

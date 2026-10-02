@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -110,113 +110,113 @@
 <g class="frag"><rect x="613" y="1096" width="1704" height="310" fill="none"/><path class="fragtab" d="M613 1096 h166 v18 l-8 8 h-158 z"/><text class="fraglabel" x="619" y="1110">alt [needs human review]</text>
 <line class="fragelse" x1="613" y1="1332" x2="2317" y2="1332"/><text class="fraglabel" x="619" y="1346">[all pass, high confidence]</text>
 </g>
-<g class="edge" data-from="owner" data-to="api" data-step="1" data-label="submit document + check set">
+<g class="edge" data-from="owner" data-to="api" data-step="1" data-label="submit document + check set" data-tip="Document owner → Amazon API Gateway (submit document + check set)">
 <path class="eline" fill="none" stroke-width="2" d="M135 346 H325" marker-end="url(#arw)"/>
 <text class="elabel" x="230" y="324" text-anchor="middle">submit document +</text>
 <text class="elabel" x="230" y="338" text-anchor="middle">check set</text>
-<g class="badge"><circle cx="135" cy="346" r="11"/><text x="135" y="350.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Document owner → Amazon API Gateway (submit document + check set)</title><circle cx="135" cy="346" r="11"/><circle class="hit" cx="135" cy="346" r="16"/><text x="135" y="350.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="api" data-to="s3" data-step="2" data-label="presigned PUT">
+<g class="edge" data-from="api" data-to="s3" data-step="2" data-label="presigned PUT" data-tip="Amazon API Gateway → Amazon S3 (presigned PUT)">
 <path class="eline" fill="none" stroke-width="2" d="M325 407 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="420" y="399" text-anchor="middle">presigned PUT</text>
-<g class="badge"><circle cx="325" cy="407" r="11"/><text x="325" y="411.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon API Gateway → Amazon S3 (presigned PUT)</title><circle cx="325" cy="407" r="11"/><circle class="hit" cx="325" cy="407" r="16"/><text x="325" y="411.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="s3" data-to="sfn" data-step="3" data-label="ObjectCreated: start review">
+<g class="edge" data-from="s3" data-to="sfn" data-step="3" data-label="ObjectCreated: start review" data-tip="Amazon S3 → AWS Step Functions (ObjectCreated: start review)">
 <path class="eline" fill="none" stroke-width="2" d="M515 468 H705" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="515" cy="468" r="3.5"/>
 <text class="elabel" x="610" y="446" text-anchor="middle">ObjectCreated:</text>
 <text class="elabel" x="610" y="460" text-anchor="middle">start review</text>
-<g class="badge"><circle cx="515" cy="468" r="11"/><text x="515" y="472.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Amazon S3 → AWS Step Functions (ObjectCreated: start review)</title><circle cx="515" cy="468" r="11"/><circle class="hit" cx="515" cy="468" r="16"/><text x="515" y="472.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="sfn" data-to="tx" data-step="4" data-label="extract text, tables, forms">
+<g class="edge" data-from="sfn" data-to="tx" data-step="4" data-label="extract text, tables, forms" data-tip="AWS Step Functions → Amazon Textract (extract text, tables, forms)">
 <path class="eline" fill="none" stroke-width="2" d="M705 536 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="514" text-anchor="middle">extract text,</text>
 <text class="elabel" x="800" y="528" text-anchor="middle">tables, forms</text>
-<g class="badge"><circle cx="705" cy="536" r="11"/><text x="705" y="540.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS Step Functions → Amazon Textract (extract text, tables, forms)</title><circle cx="705" cy="536" r="11"/><circle class="hit" cx="705" cy="536" r="16"/><text x="705" y="540.5" text-anchor="middle">4</text></g>
 </g>
 <g class="edge" data-from="tx" data-to="sfn" data-step="5" data-label="structured document">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M895 604 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="582" text-anchor="middle">structured</text>
 <text class="elabel" x="800" y="596" text-anchor="middle">document</text>
 </g>
-<g class="edge" data-from="sfn" data-to="runner" data-step="5" data-label="Distributed Map: check i of 100">
+<g class="edge" data-from="sfn" data-to="runner" data-step="5" data-label="Distributed Map: check i of 100" data-tip="AWS Step Functions → AWS Lambda (Distributed Map: check i of 100)">
 <path class="eline" fill="none" stroke-width="2" d="M705 687 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="895" y="679" text-anchor="middle">Distributed Map: check i of 100</text>
-<g class="badge"><circle cx="705" cy="687" r="11"/><text x="705" y="691.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AWS Step Functions → AWS Lambda (Distributed Map: check i of 100)</title><circle cx="705" cy="687" r="11"/><circle class="hit" cx="705" cy="687" r="16"/><text x="705" y="691.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="runner" data-to="kb" data-step="6" data-label="retrieve criteria + regulation passages">
+<g class="edge" data-from="runner" data-to="kb" data-step="6" data-label="retrieve criteria + regulation passages" data-tip="AWS Lambda → Amazon OpenSearch Service (retrieve criteria + regulation passages)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 755 H1275" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="719" text-anchor="middle">retrieve criteria</text>
 <text class="elabel" x="1180" y="733" text-anchor="middle">+ regulation</text>
 <text class="elabel" x="1180" y="747" text-anchor="middle">passages</text>
-<g class="badge"><circle cx="1085" cy="755" r="11"/><text x="1085" y="759.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AWS Lambda → Amazon OpenSearch Service (retrieve criteria + regulation passages)</title><circle cx="1085" cy="755" r="11"/><circle class="hit" cx="1085" cy="755" r="16"/><text x="1085" y="759.5" text-anchor="middle">6</text></g>
 </g>
 <g class="edge" data-from="kb" data-to="runner" data-step="7" data-label="evidence passages">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 823 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="815" text-anchor="middle">evidence passages</text>
 </g>
-<g class="edge" data-from="runner" data-to="fm" data-step="7" data-label="judge check i, cite spans">
+<g class="edge" data-from="runner" data-to="fm" data-step="7" data-label="judge check i, cite spans" data-tip="AWS Lambda → Amazon Bedrock (judge check i, cite spans)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 877 H1465" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="869" text-anchor="middle">judge check i, cite spans</text>
-<g class="badge"><circle cx="1085" cy="877" r="11"/><text x="1085" y="881.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. AWS Lambda → Amazon Bedrock (judge check i, cite spans)</title><circle cx="1085" cy="877" r="11"/><circle class="hit" cx="1085" cy="877" r="16"/><text x="1085" y="881.5" text-anchor="middle">7</text></g>
 </g>
 <g class="edge" data-from="fm" data-to="runner" data-step="8" data-label="verdict, confidence, citations">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1465 931 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="923" text-anchor="middle">verdict, confidence, citations</text>
 </g>
-<g class="edge" data-from="runner" data-to="ddb" data-step="8" data-label="store verdict + evidence">
+<g class="edge" data-from="runner" data-to="ddb" data-step="8" data-label="store verdict + evidence" data-tip="AWS Lambda → Amazon DynamoDB (store verdict + evidence)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 985 H1655" marker-end="url(#arw)"/>
 <text class="elabel" x="1370" y="977" text-anchor="middle">store verdict + evidence</text>
-<g class="badge"><circle cx="1085" cy="985" r="11"/><text x="1085" y="989.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. AWS Lambda → Amazon DynamoDB (store verdict + evidence)</title><circle cx="1085" cy="985" r="11"/><circle class="hit" cx="1085" cy="985" r="16"/><text x="1085" y="989.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="sfn" data-to="sfn" data-step="9" data-label="any fail or confidence &lt; threshold?">
+<g class="edge" data-from="sfn" data-to="sfn" data-step="9" data-label="any fail or confidence &lt; threshold?" data-tip="AWS Step Functions → AWS Step Functions (any fail or confidence &lt; threshold?)">
 <path class="eline" fill="none" stroke-width="2" d="M705 1041 h40 v24 h-40" marker-end="url(#arw)"/>
 <text class="elabel" x="755" y="1043">any fail or</text>
 <text class="elabel" x="755" y="1057">confidence &lt;</text>
 <text class="elabel" x="755" y="1071">threshold?</text>
-<g class="badge"><circle cx="727" cy="1041" r="11"/><text x="727" y="1045.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. AWS Step Functions → AWS Step Functions (any fail or confidence &lt; threshold?)</title><circle cx="727" cy="1041" r="11"/><circle class="hit" cx="727" cy="1041" r="16"/><text x="727" y="1045.5" text-anchor="middle">9</text></g>
 </g>
-<g class="edge" data-from="sfn" data-to="a2i" data-step="10" data-label="create review task (task token)">
+<g class="edge" data-from="sfn" data-to="a2i" data-step="10" data-label="create review task (task token)" data-tip="AWS Step Functions → Amazon Augmented AI (create review task (task token))">
 <path class="eline" fill="none" stroke-width="2" d="M705 1143 H1845" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="1135" text-anchor="middle">create review task (task token)</text>
-<g class="badge"><circle cx="705" cy="1143" r="11"/><text x="705" y="1147.5" text-anchor="middle">10</text></g>
+<g class="badge"><title>10. AWS Step Functions → Amazon Augmented AI (create review task (task token))</title><circle cx="705" cy="1143" r="11"/><circle class="hit" cx="705" cy="1143" r="16"/><text x="705" y="1147.5" text-anchor="middle">10</text></g>
 </g>
-<g class="edge" data-from="a2i" data-to="reviewer" data-step="11" data-label="flagged checks + cited evidence">
+<g class="edge" data-from="a2i" data-to="reviewer" data-step="11" data-label="flagged checks + cited evidence" data-tip="Amazon Augmented AI → Compliance reviewer (flagged checks + cited evidence)">
 <path class="eline" fill="none" stroke-width="2" d="M1845 1197 H2225" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="1845" cy="1197" r="3.5"/>
 <text class="elabel" x="2035" y="1189" text-anchor="middle">flagged checks + cited evidence</text>
-<g class="badge"><circle cx="1845" cy="1197" r="11"/><text x="1845" y="1201.5" text-anchor="middle">11</text></g>
+<g class="badge"><title>11. Amazon Augmented AI → Compliance reviewer (flagged checks + cited evidence)</title><circle cx="1845" cy="1197" r="11"/><circle class="hit" cx="1845" cy="1197" r="16"/><text x="1845" y="1201.5" text-anchor="middle">11</text></g>
 </g>
-<g class="edge" data-from="reviewer" data-to="a2i" data-step="12" data-label="confirm, override or comment">
+<g class="edge" data-from="reviewer" data-to="a2i" data-step="12" data-label="confirm, override or comment" data-tip="Compliance reviewer → Amazon Augmented AI (confirm, override or comment)">
 <path class="eline" fill="none" stroke-width="2" d="M2225 1251 H1845" marker-end="url(#arw)"/>
 <text class="elabel" x="2035" y="1243" text-anchor="middle">confirm, override or comment</text>
-<g class="badge"><circle cx="2225" cy="1251" r="11"/><text x="2225" y="1255.5" text-anchor="middle">12</text></g>
+<g class="badge"><title>12. Compliance reviewer → Amazon Augmented AI (confirm, override or comment)</title><circle cx="2225" cy="1251" r="11"/><circle class="hit" cx="2225" cy="1251" r="16"/><text x="2225" y="1255.5" text-anchor="middle">12</text></g>
 </g>
 <g class="edge" data-from="a2i" data-to="sfn" data-step="13" data-label="decisions (task token callback)">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1845 1305 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="1297" text-anchor="middle">decisions (task token callback)</text>
 </g>
-<g class="edge" data-from="sfn" data-to="ddb" data-step="13" data-label="auto-complete: all checks pass">
+<g class="edge" data-from="sfn" data-to="ddb" data-step="13" data-label="auto-complete: all checks pass" data-tip="AWS Step Functions → Amazon DynamoDB (auto-complete: all checks pass)">
 <path class="eline" fill="none" stroke-width="2" d="M705 1381 H1655" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="1373" text-anchor="middle">auto-complete: all checks pass</text>
-<g class="badge"><circle cx="705" cy="1381" r="11"/><text x="705" y="1385.5" text-anchor="middle">13</text></g>
+<g class="badge"><title>13. AWS Step Functions → Amazon DynamoDB (auto-complete: all checks pass)</title><circle cx="705" cy="1381" r="11"/><circle class="hit" cx="705" cy="1381" r="16"/><text x="705" y="1385.5" text-anchor="middle">13</text></g>
 </g>
-<g class="edge" data-from="sfn" data-to="ddb" data-step="14" data-label="final decision + audit record">
+<g class="edge" data-from="sfn" data-to="ddb" data-step="14" data-label="final decision + audit record" data-tip="AWS Step Functions → Amazon DynamoDB (final decision + audit record)">
 <path class="eline" fill="none" stroke-width="2" d="M705 1435 H1655" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="1427" text-anchor="middle">final decision + audit record</text>
-<g class="badge"><circle cx="705" cy="1435" r="11"/><text x="705" y="1439.5" text-anchor="middle">14</text></g>
+<g class="badge"><title>14. AWS Step Functions → Amazon DynamoDB (final decision + audit record)</title><circle cx="705" cy="1435" r="11"/><circle class="hit" cx="705" cy="1435" r="16"/><text x="705" y="1439.5" text-anchor="middle">14</text></g>
 </g>
 <g class="note"><rect x="1805" y="1468" width="460" height="101"/><text x="2035" y="1486" text-anchor="middle">Overrides require a comment and</text><text x="2035" y="1501" text-anchor="middle">are stored with the reviewer's</text><text x="2035" y="1516" text-anchor="middle">identity; they also become</text><text x="2035" y="1531" text-anchor="middle">labelled examples for the next</text><text x="2035" y="1546" text-anchor="middle">evaluation.</text></g>
-<g class="edge" data-from="sfn" data-to="sns" data-step="15" data-label="publish result">
+<g class="edge" data-from="sfn" data-to="sns" data-step="15" data-label="publish result" data-tip="AWS Step Functions → Amazon SNS (publish result)">
 <path class="eline" fill="none" stroke-width="2" d="M705 1602 H2035" marker-end="url(#arw)"/>
 <text class="elabel" x="1370" y="1594" text-anchor="middle">publish result</text>
-<g class="badge"><circle cx="705" cy="1602" r="11"/><text x="705" y="1606.5" text-anchor="middle">15</text></g>
+<g class="badge"><title>15. AWS Step Functions → Amazon SNS (publish result)</title><circle cx="705" cy="1602" r="11"/><circle class="hit" cx="705" cy="1602" r="16"/><text x="705" y="1606.5" text-anchor="middle">15</text></g>
 </g>
-<g class="edge" data-from="sns" data-to="owner" data-step="16" data-label="report + decisions">
+<g class="edge" data-from="sns" data-to="owner" data-step="16" data-label="report + decisions" data-tip="Amazon SNS → Document owner (report + decisions)">
 <path class="eline" fill="none" stroke-width="2" d="M2035 1656 H135" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="2035" cy="1656" r="3.5"/>
 <text class="elabel" x="1085" y="1648" text-anchor="middle">report + decisions</text>
-<g class="badge"><circle cx="2035" cy="1656" r="11"/><text x="2035" y="1660.5" text-anchor="middle">16</text></g>
+<g class="badge"><title>16. Amazon SNS → Document owner (report + decisions)</title><circle cx="2035" cy="1656" r="11"/><circle class="hit" cx="2035" cy="1656" r="16"/><text x="2035" y="1660.5" text-anchor="middle">16</text></g>
 </g>
 <g class="node" data-id="owner" data-label="Document owner" data-service="Users" data-category="General"><title>Document owner (Users)</title><use href="#gen-Users" x="103" y="164" width="64" height="64"/>
 <text class="nlabel" x="135" y="245" text-anchor="middle">Document owner</text>

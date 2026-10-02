@@ -6,6 +6,7 @@ Every generated page embeds the same reader features (no external requests, no d
 
 | Feature | How |
 |---|---|
+| **Numbered callouts** | Hover a number on the diagram: a popup shows the same description as the Flow list (the edge `desc`, or "From → To (label)"), the edge is highlighted and the matching Flow row lights up. Also a native `<title>` tooltip in the standalone SVG |
 | Focus + **Passport** | Click a node: its upstream/downstream relationships (with step numbers and labels), service, category, id |
 | **Reach** | Passport → Reach ↓ / ↑ / Both, or `#focus=<id>&reach=downstream\|upstream\|both` |
 | **Route probe** | Passport → Route to…, or `#route=<from>~<to>` — shortest *directed* path; says "no directed route" otherwise |

@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/serverless-api.html",
-      "sha256": "661f4738feb4889c0ae2f097ede8ff75f2cbc0156ae1030203e9c5d9e77cbf2e",
-      "bytes": 262060
+      "sha256": "5a8034ba86b1b9efb3fe39e9f065559ad2a56a0a931450fcee0f59f81d444ed0",
+      "bytes": 264790
     },
     "svg": {
       "path": "examples/out/serverless-api.svg",
-      "sha256": "7fc87a38adcfa37a6c82360bf23815417eaba4b2da84de52e27753fb6b38b3f7"
+      "sha256": "1abf70fd84eb055a7dd9fc13bb13d5921b1bf96516c2901b180f1ecf629ece91"
     },
     "png": {
       "path": "examples/out/serverless-api.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 349.4167,
     "confidence": "indicative",
     "coverage": {

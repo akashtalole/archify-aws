@@ -24,6 +24,7 @@ main{max-width:1500px;margin:0 auto;padding:16px;display:grid;gap:16px}
 footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px}
 
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -92,7 +93,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -155,57 +156,57 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <line class="life" x1="1465" y1="276" x2="1465" y2="1331"/>
 <g class="frag"><rect x="423" y="694" width="1134" height="439" fill="none"/><path class="fragtab" d="M423 694 h124 v18 l-8 8 h-116 z"/><text class="fraglabel" x="429" y="708">opt [tool needed]</text>
 </g>
-<g class="edge" data-from="user" data-to="api" data-step="1" data-label="Summarize last visit for patient 123">
+<g class="edge" data-from="user" data-to="api" data-step="1" data-label="Summarize last visit for patient 123" data-tip="Clinician prompt over HTTPS with a workforce token.">
 <path class="eline" fill="none" stroke-width="2" d="M135 353 H325" marker-end="url(#arw)"/>
 <text class="elabel" x="230" y="317" text-anchor="middle">Summarize last</text>
 <text class="elabel" x="230" y="331" text-anchor="middle">visit for patient</text>
 <text class="elabel" x="230" y="345" text-anchor="middle">123</text>
-<g class="badge"><circle cx="135" cy="353" r="11"/><text x="135" y="357.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Clinician prompt over HTTPS with a workforce token.</title><circle cx="135" cy="353" r="11"/><circle class="hit" cx="135" cy="353" r="16"/><text x="135" y="357.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="api" data-to="runtime" data-step="2" data-label="invoke agent (identity propagated)">
+<g class="edge" data-from="api" data-to="runtime" data-step="2" data-label="invoke agent (identity propagated)" data-tip="Amazon API Gateway → AgentCore Runtime (invoke agent (identity propagated))">
 <path class="eline" fill="none" stroke-width="2" d="M325 435 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="420" y="399" text-anchor="middle">invoke agent</text>
 <text class="elabel" x="420" y="413" text-anchor="middle">(identity</text>
 <text class="elabel" x="420" y="427" text-anchor="middle">propagated)</text>
-<g class="badge"><circle cx="325" cy="435" r="11"/><text x="325" y="439.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon API Gateway → AgentCore Runtime (invoke agent (identity propagated))</title><circle cx="325" cy="435" r="11"/><circle class="hit" cx="325" cy="435" r="16"/><text x="325" y="439.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="3" data-label="screen prompt">
+<g class="edge" data-from="runtime" data-to="guard" data-step="3" data-label="screen prompt" data-tip="AgentCore Runtime → Bedrock Guardrails (screen prompt)">
 <path class="eline" fill="none" stroke-width="2" d="M515 503 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="495" text-anchor="middle">screen prompt</text>
-<g class="badge"><circle cx="515" cy="503" r="11"/><text x="515" y="507.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. AgentCore Runtime → Bedrock Guardrails (screen prompt)</title><circle cx="515" cy="503" r="11"/><circle class="hit" cx="515" cy="503" r="16"/><text x="515" y="507.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="guard" data-to="runtime" data-step="4" data-label="allowed">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M705 557 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="549" text-anchor="middle">allowed</text>
 </g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="4" data-label="plan next step">
+<g class="edge" data-from="runtime" data-to="fm" data-step="4" data-label="plan next step" data-tip="AgentCore Runtime → Amazon Bedrock (plan next step)">
 <path class="eline" fill="none" stroke-width="2" d="M515 611 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="603" text-anchor="middle">plan next step</text>
-<g class="badge"><circle cx="515" cy="611" r="11"/><text x="515" y="615.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AgentCore Runtime → Amazon Bedrock (plan next step)</title><circle cx="515" cy="611" r="11"/><circle class="hit" cx="515" cy="611" r="16"/><text x="515" y="615.5" text-anchor="middle">4</text></g>
 </g>
 <g class="edge" data-from="fm" data-to="runtime" data-step="5" data-label="tool call: get_patient_summary">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M895 665 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="657" text-anchor="middle">tool call: get_patient_summary</text>
 </g>
-<g class="edge" data-from="runtime" data-to="gw" data-step="5" data-label="call tool via MCP">
+<g class="edge" data-from="runtime" data-to="gw" data-step="5" data-label="call tool via MCP" data-tip="AgentCore Runtime → AgentCore Gateway (call tool via MCP)">
 <path class="eline" fill="none" stroke-width="2" d="M515 741 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="733" text-anchor="middle">call tool via MCP</text>
-<g class="badge"><circle cx="515" cy="741" r="11"/><text x="515" y="745.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AgentCore Runtime → AgentCore Gateway (call tool via MCP)</title><circle cx="515" cy="741" r="11"/><circle class="hit" cx="515" cy="741" r="16"/><text x="515" y="745.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="policy" data-step="6" data-label="authorize (role, patient, purpose)">
+<g class="edge" data-from="gw" data-to="policy" data-step="6" data-label="authorize (role, patient, purpose)" data-tip="AgentCore Gateway → AgentCore Policy (authorize (role, patient, purpose))">
 <path class="eline" fill="none" stroke-width="2" d="M1085 802 H1275" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="780" text-anchor="middle">authorize (role,</text>
 <text class="elabel" x="1180" y="794" text-anchor="middle">patient, purpose)</text>
-<g class="badge"><circle cx="1085" cy="802" r="11"/><text x="1085" y="806.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AgentCore Gateway → AgentCore Policy (authorize (role, patient, purpose))</title><circle cx="1085" cy="802" r="11"/><circle class="hit" cx="1085" cy="802" r="16"/><text x="1085" y="806.5" text-anchor="middle">6</text></g>
 </g>
 <g class="edge" data-from="policy" data-to="gw" data-step="7" data-label="permit">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 863 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="855" text-anchor="middle">permit</text>
 </g>
-<g class="edge" data-from="gw" data-to="hl" data-step="7" data-label="FHIR search">
+<g class="edge" data-from="gw" data-to="hl" data-step="7" data-label="FHIR search" data-tip="AgentCore Gateway → AWS HealthLake (FHIR search)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 917 H1465" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="909" text-anchor="middle">FHIR search</text>
-<g class="badge"><circle cx="1085" cy="917" r="11"/><text x="1085" y="921.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. AgentCore Gateway → AWS HealthLake (FHIR search)</title><circle cx="1085" cy="917" r="11"/><circle class="hit" cx="1085" cy="917" r="16"/><text x="1085" y="921.5" text-anchor="middle">7</text></g>
 </g>
 <g class="edge" data-from="hl" data-to="gw" data-step="8" data-label="Bundle">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1465 971 H1085" marker-end="url(#arw)"/>
@@ -216,16 +217,16 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="elabel" x="800" y="1017" text-anchor="middle">tool result</text>
 </g>
 <g class="note"><rect x="1045" y="1058" width="270" height="71"/><text x="1180" y="1076" text-anchor="middle">On deny, Gateway returns an error</text><text x="1180" y="1091" text-anchor="middle">and the agent explains it cannot</text><text x="1180" y="1106" text-anchor="middle">access the record.</text></g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="8" data-label="compose answer">
+<g class="edge" data-from="runtime" data-to="fm" data-step="8" data-label="compose answer" data-tip="AgentCore Runtime → Amazon Bedrock (compose answer)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1162 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="1154" text-anchor="middle">compose answer</text>
-<g class="badge"><circle cx="515" cy="1162" r="11"/><text x="515" y="1166.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. AgentCore Runtime → Amazon Bedrock (compose answer)</title><circle cx="515" cy="1162" r="11"/><circle class="hit" cx="515" cy="1162" r="16"/><text x="515" y="1166.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="9" data-label="screen response (PHI / PII)">
+<g class="edge" data-from="runtime" data-to="guard" data-step="9" data-label="screen response (PHI / PII)" data-tip="AgentCore Runtime → Bedrock Guardrails (screen response (PHI / PII))">
 <path class="eline" fill="none" stroke-width="2" d="M515 1223 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="1201" text-anchor="middle">screen response</text>
 <text class="elabel" x="610" y="1215" text-anchor="middle">(PHI / PII)</text>
-<g class="badge"><circle cx="515" cy="1223" r="11"/><text x="515" y="1227.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. AgentCore Runtime → Bedrock Guardrails (screen response (PHI / PII))</title><circle cx="515" cy="1223" r="11"/><circle class="hit" cx="515" cy="1223" r="16"/><text x="515" y="1227.5" text-anchor="middle">9</text></g>
 </g>
 <g class="edge" data-from="runtime" data-to="user" data-step="10" data-label="summary with sources">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M515 1284 H135" marker-end="url(#arw)"/>
@@ -258,8 +259,8 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="nlabel" x="1465" y="245" text-anchor="middle">AWS HealthLake</text>
 </g>
 </svg></section>
-<section class="card"><h2>Flow</h2><ol class="steps"><li data-from="user" data-to="api"><span class="n">1</span><span>Clinician prompt over HTTPS with a workforce token.</span></li><li data-from="api" data-to="runtime"><span class="n">2</span><span>Amazon API Gateway → AgentCore Runtime <em>(invoke agent (identity propagated))</em></span></li><li data-from="runtime" data-to="guard"><span class="n">3</span><span>AgentCore Runtime → Bedrock Guardrails <em>(screen prompt)</em></span></li><li data-from="runtime" data-to="fm"><span class="n">4</span><span>AgentCore Runtime → Amazon Bedrock <em>(plan next step)</em></span></li><li data-from="runtime" data-to="gw"><span class="n">5</span><span>AgentCore Runtime → AgentCore Gateway <em>(call tool via MCP)</em></span></li><li data-from="gw" data-to="policy"><span class="n">6</span><span>AgentCore Gateway → AgentCore Policy <em>(authorize (role, patient, purpose))</em></span></li><li data-from="gw" data-to="hl"><span class="n">7</span><span>AgentCore Gateway → AWS HealthLake <em>(FHIR search)</em></span></li><li data-from="runtime" data-to="fm"><span class="n">8</span><span>AgentCore Runtime → Amazon Bedrock <em>(compose answer)</em></span></li><li data-from="runtime" data-to="guard"><span class="n">9</span><span>AgentCore Runtime → Bedrock Guardrails <em>(screen response (PHI / PII))</em></span></li></ol></section></div>
-<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-01 · indicative — some usage is assumed</small></h2>
+<section class="card"><h2>Flow</h2><ol class="steps"><li data-step="1" data-from="user" data-to="api"><span class="n">1</span><span>Clinician prompt over HTTPS with a workforce token.</span></li><li data-step="2" data-from="api" data-to="runtime"><span class="n">2</span><span>Amazon API Gateway → AgentCore Runtime (invoke agent (identity propagated))</span></li><li data-step="3" data-from="runtime" data-to="guard"><span class="n">3</span><span>AgentCore Runtime → Bedrock Guardrails (screen prompt)</span></li><li data-step="4" data-from="runtime" data-to="fm"><span class="n">4</span><span>AgentCore Runtime → Amazon Bedrock (plan next step)</span></li><li data-step="5" data-from="runtime" data-to="gw"><span class="n">5</span><span>AgentCore Runtime → AgentCore Gateway (call tool via MCP)</span></li><li data-step="6" data-from="gw" data-to="policy"><span class="n">6</span><span>AgentCore Gateway → AgentCore Policy (authorize (role, patient, purpose))</span></li><li data-step="7" data-from="gw" data-to="hl"><span class="n">7</span><span>AgentCore Gateway → AWS HealthLake (FHIR search)</span></li><li data-step="8" data-from="runtime" data-to="fm"><span class="n">8</span><span>AgentCore Runtime → Amazon Bedrock (compose answer)</span></li><li data-step="9" data-from="runtime" data-to="guard"><span class="n">9</span><span>AgentCore Runtime → Bedrock Guardrails (screen response (PHI / PII))</span></li></ol></section></div>
+<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-02 · indicative — some usage is assumed</small></h2>
 <div class="tiles"><div class="tile"><b>$135</b><span>per month</span></div><div class="tile"><b>$1,617</b><span>per year</span></div>
 <div class="tile"><b>4/8</b><span>components priced</span></div><div class="tile"><b>3</b><span>not priced (see below)</span></div></div>
 <p class="muted">Public on-demand AWS list prices from the AWS Price List. Excludes free tier, taxes, support plans, Savings Plans/Reserved Instances/Spot and enterprise discounts, and data transfer unless a node sets egressGbPerMonth. Monthly = 730 hours. Not a quote: confirm with the AWS Pricing Calculator.</p>
@@ -273,7 +274,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <p class="muted">No what-if options apply to these services.</p></section>
 <section class="card"><h2>Price list provenance</h2><p class="muted">Retrieved 2026-10-01T18:40:39.861Z from the public AWS Price List bulk API. Per-service publication dates:</p><p class="muted">AmazonApiGateway 2026-09-21 · AmazonBedrockAgentCore 2026-09-15 · AmazonBedrock 2026-09-30</p><p class="muted">Only public on-demand rates are used. This is not a quote — confirm in the <a href="https://calculator.aws/" target="_blank" rel="noopener">AWS Pricing Calculator</a>.</p></section></div>
 <div class="tab" id="tab-wa"><section class="card wa"><div class="banner">Classification: CONFIDENTIAL — This report contains sensitive infrastructure details and unremediated security findings. Restrict distribution to authorized personnel. Do not post to broadly visible channels or ticketing systems without explicit approval.</div>
-<h2>Well-Architected review <small>Agent tool call through AgentCore Gateway and Policy · 2026-10-01 · mode full</small></h2>
+<h2>Well-Architected review <small>Agent tool call through AgentCore Gateway and Policy · 2026-10-02 · mode full</small></h2>
 <h3>Coverage audit</h3><ul class="plain"><li><strong>AWS Well-Architected Framework</strong> — 6 pillars, 57 questions, 307 best practices, from <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/toc-contents.json" target="_blank" rel="noopener">the live documentation index</a>, snapshot 2026-10-01 (0 days old).</li>
 <li><strong>Generative AI Lens</strong> — 29 questions, 51 best practices, snapshot 2026-10-01.</li>
 <li>Assessed 307 framework BPs and 51 lens BPs: 10 + 7 with diagram evidence, 295 + 44 cannot be determined.</li>
@@ -298,7 +299,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <h3>To confirm <small>not drawn, so not counted as gaps</small></h3><ul class="plain"><li><strong>No identity / authentication service shown</strong> <span class="muted">SEC02-BP04</span> — Authenticate and authorize every request through a centralized identity provider (Amazon Cognito, IAM Identity Center) with MFA and temporary credentials.</li><li><strong>No detection or audit services shown</strong> <span class="muted">SEC04-BP01, SEC04-BP02</span> — Enable CloudTrail (organization trail), GuardDuty and Security Hub, and send logs and findings to a central, access-restricted account.</li><li><strong>No infrastructure-as-code or CI/CD shown</strong> <span class="muted">OPS05-BP04, OPS05-BP10, REL08-BP05, SEC11-BP06</span> — Define infrastructure as code and deploy through a pipeline with small, reversible changes and automated rollback.</li><li><strong>No CDN / edge acceleration shown for end users</strong> <span class="muted">PERF04-BP02, PERF04-BP06</span> — Serve content close to users with Amazon CloudFront or AWS Global Accelerator to reduce latency.</li><li><strong>No cost visibility shown</strong> <span class="muted">COST01-BP03, COST01-BP06, COST03-BP05</span> — Set AWS Budgets with alert thresholds, enable Cost Anomaly Detection and cost allocation tags so spend maps to this workload.</li><li><strong>No retrieval / grounding data source shown</strong> <span class="muted">GENPERF04-BP01</span> — Ground responses in enterprise data (RAG) and test embeddings for retrieval latency and relevance.</li><li><strong>Single-Region model inference</strong> <span class="muted">GENREL05-BP01</span> — Plan for throttling and quota limits (retries, queues, provisioned throughput) and consider cross-Region inference profiles or a fallback model.</li><li><strong>Model cost controls</strong> <span class="muted">GENCOST01-BP01</span> — Select the smallest model that meets quality targets; use prompt caching and batch inference where possible; track cost per request.</li><li><strong>Agents and excessive agency</strong> <span class="muted">GENSEC05-BP01</span> — Limit agent tool permissions (least privilege, deterministic policy at the tool boundary) and add human approval for high-impact actions.</li><li><strong>Model and hosting efficiency</strong> <span class="muted">GENSUS03-BP01</span> — Prefer right-sized or distilled models and serverless inference; avoid always-on endpoints for spiky traffic.</li></ul>
 <h3>Cross-pillar trade-offs</h3><ul class="plain"><li><strong>Guardrails on model traffic</strong> <span class="muted">Security ↔ Cost optimization ↔ Performance efficiency</span><br>Guardrails cost $50.00/month (38% of AI spend) and add a synchronous screening step to each model call. <i>Resolution:</i> Apply the strictest policies where harm is highest (final responses, PII) and measure per-policy value before enabling every policy on every call.</li></ul>
 <h3>Eisenhower prioritization</h3><div class="quads"><div class="quad"><h4>Do First</h4><p class="muted">None</p></div><div class="quad"><h4>Plan</h4><p class="muted">None</p></div><div class="quad"><h4>Delegate</h4><ul><li><a href="#F-001">F-001</a> No model invocation logging / observability shown</li><li><a href="#F-002">F-002</a> No monitoring / observability shown</li><li><a href="#F-003">F-003</a> Internet-facing entry has no WAF / Shield shown</li><li><a href="#F-004">F-004</a> Mostly self-managed compute</li></ul></div><div class="quad"><h4>Defer</h4><p class="muted">None</p></div></div>
-<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-15 (2 weeks): Log model invocations, latency, token usage and guardrail interventions to CloudWatch/S3 and keep an audit trail with CloudTrail. Success measure: Invocation logging on for all models; dashboards for latency, tokens and interventions</td><td>ML platform team</td></tr><tr><td><a href="#F-002">F-002</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-15 (2 weeks): Collect metrics, logs and traces (CloudWatch, X-Ray/OpenTelemetry) and define alarms tied to business outcomes. Success measure: Dashboards and alarms for every tier; mean time to detect &lt; 5 minutes</td><td>DevOps / SRE</td></tr><tr><td><a href="#F-003">F-003</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-15 (2 weeks): Put AWS WAF (with Shield) in front of every internet-facing entry point; start with AWS managed rule groups in count mode, then enforce. Success measure: 100% of public endpoints behind a web ACL with logging enabled</td><td>Security engineering</td></tr><tr><td><a href="#F-004">F-004</a></td><td><span class="rk low">Low</span></td><td>Delegate</td><td>By 2026-11-12 (6 weeks): Prefer managed and serverless services, right-size, use Graviton, and scale to demand to raise utilization. Success measure: Average compute utilization above target; idle capacity removed</td><td>Platform team</td></tr></tbody></table></div>
+<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-16 (2 weeks): Log model invocations, latency, token usage and guardrail interventions to CloudWatch/S3 and keep an audit trail with CloudTrail. Success measure: Invocation logging on for all models; dashboards for latency, tokens and interventions</td><td>ML platform team</td></tr><tr><td><a href="#F-002">F-002</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-16 (2 weeks): Collect metrics, logs and traces (CloudWatch, X-Ray/OpenTelemetry) and define alarms tied to business outcomes. Success measure: Dashboards and alarms for every tier; mean time to detect &lt; 5 minutes</td><td>DevOps / SRE</td></tr><tr><td><a href="#F-003">F-003</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-16 (2 weeks): Put AWS WAF (with Shield) in front of every internet-facing entry point; start with AWS managed rule groups in count mode, then enforce. Success measure: 100% of public endpoints behind a web ACL with logging enabled</td><td>Security engineering</td></tr><tr><td><a href="#F-004">F-004</a></td><td><span class="rk low">Low</span></td><td>Delegate</td><td>By 2026-11-13 (6 weeks): Prefer managed and serverless services, right-size, use Graviton, and scale to demand to raise utilization. Success measure: Average compute utilization above target; idle capacity removed</td><td>Platform team</td></tr></tbody></table></div>
 <h3>Next steps</h3><ol><li>Add the missing process, configuration and runtime evidence to turn <i>Cannot Determine</i> practices into assessed ones.</li><li>Re-run the review after changes, and when the architecture or documentation changes.</li></ol>
 <p class="muted">Impact × Likelihood matrix from the AWS Well-Architected review skill (Severe+High = Critical; Severe+Medium/Low or Moderate+High = High; Moderate+Medium/Low or Minor+High = Medium; otherwise Low).</p></section></div>
 </main>
@@ -394,6 +395,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

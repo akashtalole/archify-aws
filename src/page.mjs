@@ -1,4 +1,4 @@
-import { esc } from "./render.mjs";
+import { esc, stepText } from "./render.mjs";
 import { VIEWER_CSS, VIEWER_JS } from "./viewer.mjs";
 import { costTab, waTab, REPORT_CSS, REPORT_JS } from "./report.mjs";
 
@@ -6,7 +6,7 @@ export function renderPage(diagram, wa, theme, cost = null) {
   const spec = diagram.spec;
   const svg = diagram.svg(theme);
   const steps = diagram.steps;
-  const stepsHtml = steps.length ? `<section class="card"><h2>Flow</h2><ol class="steps">${steps.map((r) => `<li data-from="${esc(r.from)}" data-to="${esc(r.to)}"><span class="n">${r.step}</span><span>${r.desc ? esc(r.desc) : `${esc(r.fromLabel)} → ${esc(r.toLabel)}${r.label ? ` <em>(${esc(r.label)})</em>` : ""}`}</span></li>`).join("")}</ol></section>` : "";
+  const stepsHtml = steps.length ? `<section class="card"><h2>Flow</h2><ol class="steps">${steps.map((r) => `<li data-step="${r.step}" data-from="${esc(r.from)}" data-to="${esc(r.to)}"><span class="n">${r.step}</span><span>${esc(stepText(r.desc, r.fromLabel, r.toLabel, r.label))}</span></li>`).join("")}</ol></section>` : "";
   const costById = Object.fromEntries((cost?.nodes || []).filter((n) => n.monthlyUsd > 0).map((n) => [n.id, Math.round(n.monthlyUsd * 100) / 100]));
   const tabBtn = (id, label, extra = "") => `<button role="tab" data-tab="${id}" aria-selected="${id === "diagram"}">${label}${extra}</button>`;
   return `<!doctype html>

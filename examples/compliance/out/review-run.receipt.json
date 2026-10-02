@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/review-run.html",
-      "sha256": "07509a72496a0eddca8411009bd4223feb0b451bae3e8e5136bfe572890b2daf",
-      "bytes": 317740
+      "sha256": "eec4a6e91d8e497542ea1724e49a4c406b8d85bc54a71aa55a0ec77a4a68d11d",
+      "bytes": 322973
     },
     "svg": {
       "path": "examples/compliance/out/review-run.svg",
-      "sha256": "49635fb99a0461bcf9bf3e2a910096c7e5a0bf2e9346497eb74b618207e396ac"
+      "sha256": "ea7ea15940054cb3ad361753625a0f3cc8b41d5164dcb656c29582b485ae5f29"
     },
     "png": {
       "path": "examples/compliance/out/review-run.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 368.0367,
     "confidence": "indicative",
     "coverage": {

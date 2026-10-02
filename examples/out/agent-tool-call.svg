@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -74,57 +74,57 @@
 <line class="life" x1="1465" y1="276" x2="1465" y2="1331"/>
 <g class="frag"><rect x="423" y="694" width="1134" height="439" fill="none"/><path class="fragtab" d="M423 694 h124 v18 l-8 8 h-116 z"/><text class="fraglabel" x="429" y="708">opt [tool needed]</text>
 </g>
-<g class="edge" data-from="user" data-to="api" data-step="1" data-label="Summarize last visit for patient 123">
+<g class="edge" data-from="user" data-to="api" data-step="1" data-label="Summarize last visit for patient 123" data-tip="Clinician prompt over HTTPS with a workforce token.">
 <path class="eline" fill="none" stroke-width="2" d="M135 353 H325" marker-end="url(#arw)"/>
 <text class="elabel" x="230" y="317" text-anchor="middle">Summarize last</text>
 <text class="elabel" x="230" y="331" text-anchor="middle">visit for patient</text>
 <text class="elabel" x="230" y="345" text-anchor="middle">123</text>
-<g class="badge"><circle cx="135" cy="353" r="11"/><text x="135" y="357.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Clinician prompt over HTTPS with a workforce token.</title><circle cx="135" cy="353" r="11"/><circle class="hit" cx="135" cy="353" r="16"/><text x="135" y="357.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="api" data-to="runtime" data-step="2" data-label="invoke agent (identity propagated)">
+<g class="edge" data-from="api" data-to="runtime" data-step="2" data-label="invoke agent (identity propagated)" data-tip="Amazon API Gateway → AgentCore Runtime (invoke agent (identity propagated))">
 <path class="eline" fill="none" stroke-width="2" d="M325 435 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="420" y="399" text-anchor="middle">invoke agent</text>
 <text class="elabel" x="420" y="413" text-anchor="middle">(identity</text>
 <text class="elabel" x="420" y="427" text-anchor="middle">propagated)</text>
-<g class="badge"><circle cx="325" cy="435" r="11"/><text x="325" y="439.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon API Gateway → AgentCore Runtime (invoke agent (identity propagated))</title><circle cx="325" cy="435" r="11"/><circle class="hit" cx="325" cy="435" r="16"/><text x="325" y="439.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="3" data-label="screen prompt">
+<g class="edge" data-from="runtime" data-to="guard" data-step="3" data-label="screen prompt" data-tip="AgentCore Runtime → Bedrock Guardrails (screen prompt)">
 <path class="eline" fill="none" stroke-width="2" d="M515 503 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="495" text-anchor="middle">screen prompt</text>
-<g class="badge"><circle cx="515" cy="503" r="11"/><text x="515" y="507.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. AgentCore Runtime → Bedrock Guardrails (screen prompt)</title><circle cx="515" cy="503" r="11"/><circle class="hit" cx="515" cy="503" r="16"/><text x="515" y="507.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="guard" data-to="runtime" data-step="4" data-label="allowed">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M705 557 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="549" text-anchor="middle">allowed</text>
 </g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="4" data-label="plan next step">
+<g class="edge" data-from="runtime" data-to="fm" data-step="4" data-label="plan next step" data-tip="AgentCore Runtime → Amazon Bedrock (plan next step)">
 <path class="eline" fill="none" stroke-width="2" d="M515 611 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="603" text-anchor="middle">plan next step</text>
-<g class="badge"><circle cx="515" cy="611" r="11"/><text x="515" y="615.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AgentCore Runtime → Amazon Bedrock (plan next step)</title><circle cx="515" cy="611" r="11"/><circle class="hit" cx="515" cy="611" r="16"/><text x="515" y="615.5" text-anchor="middle">4</text></g>
 </g>
 <g class="edge" data-from="fm" data-to="runtime" data-step="5" data-label="tool call: get_patient_summary">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M895 665 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="657" text-anchor="middle">tool call: get_patient_summary</text>
 </g>
-<g class="edge" data-from="runtime" data-to="gw" data-step="5" data-label="call tool via MCP">
+<g class="edge" data-from="runtime" data-to="gw" data-step="5" data-label="call tool via MCP" data-tip="AgentCore Runtime → AgentCore Gateway (call tool via MCP)">
 <path class="eline" fill="none" stroke-width="2" d="M515 741 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="733" text-anchor="middle">call tool via MCP</text>
-<g class="badge"><circle cx="515" cy="741" r="11"/><text x="515" y="745.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AgentCore Runtime → AgentCore Gateway (call tool via MCP)</title><circle cx="515" cy="741" r="11"/><circle class="hit" cx="515" cy="741" r="16"/><text x="515" y="745.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="policy" data-step="6" data-label="authorize (role, patient, purpose)">
+<g class="edge" data-from="gw" data-to="policy" data-step="6" data-label="authorize (role, patient, purpose)" data-tip="AgentCore Gateway → AgentCore Policy (authorize (role, patient, purpose))">
 <path class="eline" fill="none" stroke-width="2" d="M1085 802 H1275" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="780" text-anchor="middle">authorize (role,</text>
 <text class="elabel" x="1180" y="794" text-anchor="middle">patient, purpose)</text>
-<g class="badge"><circle cx="1085" cy="802" r="11"/><text x="1085" y="806.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AgentCore Gateway → AgentCore Policy (authorize (role, patient, purpose))</title><circle cx="1085" cy="802" r="11"/><circle class="hit" cx="1085" cy="802" r="16"/><text x="1085" y="806.5" text-anchor="middle">6</text></g>
 </g>
 <g class="edge" data-from="policy" data-to="gw" data-step="7" data-label="permit">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 863 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="855" text-anchor="middle">permit</text>
 </g>
-<g class="edge" data-from="gw" data-to="hl" data-step="7" data-label="FHIR search">
+<g class="edge" data-from="gw" data-to="hl" data-step="7" data-label="FHIR search" data-tip="AgentCore Gateway → AWS HealthLake (FHIR search)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 917 H1465" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="909" text-anchor="middle">FHIR search</text>
-<g class="badge"><circle cx="1085" cy="917" r="11"/><text x="1085" y="921.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. AgentCore Gateway → AWS HealthLake (FHIR search)</title><circle cx="1085" cy="917" r="11"/><circle class="hit" cx="1085" cy="917" r="16"/><text x="1085" y="921.5" text-anchor="middle">7</text></g>
 </g>
 <g class="edge" data-from="hl" data-to="gw" data-step="8" data-label="Bundle">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1465 971 H1085" marker-end="url(#arw)"/>
@@ -135,16 +135,16 @@
 <text class="elabel" x="800" y="1017" text-anchor="middle">tool result</text>
 </g>
 <g class="note"><rect x="1045" y="1058" width="270" height="71"/><text x="1180" y="1076" text-anchor="middle">On deny, Gateway returns an error</text><text x="1180" y="1091" text-anchor="middle">and the agent explains it cannot</text><text x="1180" y="1106" text-anchor="middle">access the record.</text></g>
-<g class="edge" data-from="runtime" data-to="fm" data-step="8" data-label="compose answer">
+<g class="edge" data-from="runtime" data-to="fm" data-step="8" data-label="compose answer" data-tip="AgentCore Runtime → Amazon Bedrock (compose answer)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1162 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="1154" text-anchor="middle">compose answer</text>
-<g class="badge"><circle cx="515" cy="1162" r="11"/><text x="515" y="1166.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. AgentCore Runtime → Amazon Bedrock (compose answer)</title><circle cx="515" cy="1162" r="11"/><circle class="hit" cx="515" cy="1162" r="16"/><text x="515" y="1166.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="guard" data-step="9" data-label="screen response (PHI / PII)">
+<g class="edge" data-from="runtime" data-to="guard" data-step="9" data-label="screen response (PHI / PII)" data-tip="AgentCore Runtime → Bedrock Guardrails (screen response (PHI / PII))">
 <path class="eline" fill="none" stroke-width="2" d="M515 1223 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="1201" text-anchor="middle">screen response</text>
 <text class="elabel" x="610" y="1215" text-anchor="middle">(PHI / PII)</text>
-<g class="badge"><circle cx="515" cy="1223" r="11"/><text x="515" y="1227.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. AgentCore Runtime → Bedrock Guardrails (screen response (PHI / PII))</title><circle cx="515" cy="1223" r="11"/><circle class="hit" cx="515" cy="1223" r="16"/><text x="515" y="1227.5" text-anchor="middle">9</text></g>
 </g>
 <g class="edge" data-from="runtime" data-to="user" data-step="10" data-label="summary with sources">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M515 1284 H135" marker-end="url(#arw)"/>

@@ -5,7 +5,7 @@
 //    fragments?:[{kind:"loop|alt|opt|par",label,from:i,to:j,elseAt?:k,elseLabel?}] (indexes into messages) }
 import { resolveIcon, iconFile, catalog, groupIconFile, didYouMean } from "./catalog.mjs";
 import { GROUP_KINDS } from "./groups.mjs";
-import { symbol, esc, baseCss, ARROW_MARKER, THEMES } from "./render.mjs";
+import { symbol, esc, baseCss, ARROW_MARKER, THEMES, stepText } from "./render.mjs";
 import { wrapLabel } from "./layout.mjs";
 
 const M = 40, ICON = 64, HEAD_H = ICON + 6 + 3 * 14, ROW = 54;
@@ -124,7 +124,9 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
     const kind = m.kind || "sync";
     const x1 = x[m.from], x2 = x[m.to];
     const dash = kind === "return" ? ' stroke-dasharray="6 4"' : "";
-    out.push(`<g class="edge" data-from="${esc(m.from)}" data-to="${esc(m.to)}" data-step="${m.step === false ? "" : stepNo + 1}" data-label="${esc(m.label || "")}">`);
+    const pl = (id) => ps.find((q) => q.id === id)?.label || id;
+    const tip = m.step !== false && kind !== "return" ? stepText(m.desc, pl(m.from), pl(m.to), m.label) : "";
+    out.push(`<g class="edge" data-from="${esc(m.from)}" data-to="${esc(m.to)}" data-step="${m.step === false ? "" : stepNo + 1}" data-label="${esc(m.label || "")}"${tip ? ` data-tip="${esc(tip)}"` : ""}>`);
     let bx, by = r.y;
     if (kind === "self") {
       out.push(`<path class="eline" fill="none" stroke-width="2" d="M${x1} ${r.y - 12} h40 v24 h-40" marker-end="url(#arw)"/>`);
@@ -139,7 +141,7 @@ export function renderSequence(spec, theme = spec.meta.theme || "light") {
     }
     if (m.step !== false && kind !== "return") {
       stepNo++;
-      out.push(`<g class="badge"><circle cx="${bx}" cy="${by}" r="11"/><text x="${bx}" y="${by + 4.5}" text-anchor="middle">${stepNo}</text></g>`);
+      out.push(`<g class="badge"><title>${esc(`${stepNo}. ${tip}`)}</title><circle cx="${bx}" cy="${by}" r="11"/><circle class="hit" cx="${bx}" cy="${by}" r="16"/><text x="${bx}" y="${by + 4.5}" text-anchor="middle">${stepNo}</text></g>`);
       steps.push({ step: stepNo, from: m.from, to: m.to, label: m.label, desc: m.desc });
     }
     out.push(`</g>`);

@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/compliance-agentcore/out/review-run.html",
-      "sha256": "f81892f505dcf6e343b27db77ba47da382483373d57ef9b87c5afc64469aa9d1",
-      "bytes": 305485
+      "sha256": "b4e8812f8f45d5f27b54e13d6003fbad02bff24e93dc37229aeca69e705830be",
+      "bytes": 311565
     },
     "svg": {
       "path": "examples/compliance-agentcore/out/review-run.svg",
-      "sha256": "01202c50e8b81f42c794570c5b0d446185ecff45c048e45b52c2c33a6929592b"
+      "sha256": "23b3910b05e08dba7856ced5638797c120d475861c8c38fdb3dbcfa98d3b2bd9"
     },
     "png": {
       "path": "examples/compliance-agentcore/out/review-run.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 363.7707,
     "confidence": "indicative",
     "coverage": {

@@ -24,6 +24,7 @@ main{max-width:1500px;margin:0 auto;padding:16px;display:grid;gap:16px}
 footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px}
 
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -92,7 +93,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -162,49 +163,49 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="555" y="116" width="32" height="32"/>
 <text class="glabel" x="595" y="137">AWS Cloud</text>
 </g>
-<g class="edge" data-from="Customer" data-to="CDN" data-step="1" data-label="HTTPS">
+<g class="edge" data-from="Customer" data-to="CDN" data-step="1" data-label="HTTPS" data-tip="Customer Browser → CloudFront CDN (HTTPS)">
 <path d="M127.5 350 L238 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="182.75" y="342" text-anchor="middle">HTTPS</text>
-<g class="badge"><circle cx="151.5" cy="350" r="11"/><text x="151.5" y="354.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Customer Browser → CloudFront CDN (HTTPS)</title><circle cx="151.5" cy="350" r="11"/><circle class="hit" cx="151.5" cy="350" r="16"/><text x="151.5" y="354.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="CDN" data-to="APIGW" data-step="2" data-label="">
+<g class="edge" data-from="CDN" data-to="APIGW" data-step="2" data-label="" data-tip="CloudFront CDN → API Gateway">
 <path d="M302 350 L405 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="326" cy="350" r="11"/><text x="326" y="354.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. CloudFront CDN → API Gateway</title><circle cx="326" cy="350" r="11"/><circle class="hit" cx="326" cy="350" r="16"/><text x="326" y="354.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="APIGW" data-to="Orders" data-step="3" data-label="">
+<g class="edge" data-from="APIGW" data-to="Orders" data-step="3" data-label="" data-tip="API Gateway → Orders Lambda">
 <path d="M469 350 L595 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="493" cy="350" r="11"/><text x="493" y="354.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. API Gateway → Orders Lambda</title><circle cx="493" cy="350" r="11"/><circle class="hit" cx="493" cy="350" r="16"/><text x="493" y="354.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="Topic" data-step="5" data-label="publish">
+<g class="edge" data-from="Orders" data-to="Topic" data-step="5" data-label="publish" data-tip="Orders Lambda → Order Events SNS (publish)">
 <path d="M659 350 L754.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="706.75" y="342" text-anchor="middle">publish</text>
-<g class="badge"><circle cx="703" cy="350" r="11"/><text x="703" y="354.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Orders Lambda → Order Events SNS (publish)</title><circle cx="703" cy="350" r="11"/><circle class="hit" cx="703" cy="350" r="16"/><text x="703" y="354.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="Topic" data-to="Queue" data-step="6" data-label="">
+<g class="edge" data-from="Topic" data-to="Queue" data-step="6" data-label="" data-tip="Order Events SNS → Fulfilment Queue">
 <path d="M818.5 350 L921.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="842.5" cy="350" r="11"/><text x="842.5" y="354.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Order Events SNS → Fulfilment Queue</title><circle cx="842.5" cy="350" r="11"/><circle class="hit" cx="842.5" cy="350" r="16"/><text x="842.5" y="354.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="Queue" data-to="Worker" data-step="7" data-label="">
+<g class="edge" data-from="Queue" data-to="Worker" data-step="7" data-label="" data-tip="Fulfilment Queue → Fulfilment Worker Function">
 <path d="M985.5 350 L1091.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="1009.5" cy="350" r="11"/><text x="1009.5" y="354.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Fulfilment Queue → Fulfilment Worker Function</title><circle cx="1009.5" cy="350" r="11"/><circle class="hit" cx="1009.5" cy="350" r="16"/><text x="1009.5" y="354.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="Worker" data-to="Bucket" data-step="8" data-label="">
+<g class="edge" data-from="Worker" data-to="Bucket" data-step="8" data-label="" data-tip="Fulfilment Worker Function → Receipts S3 Bucket">
 <path d="M1155.5 350 L1268 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="1179.5" cy="350" r="11"/><text x="1179.5" y="354.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. Fulfilment Worker Function → Receipts S3 Bucket</title><circle cx="1179.5" cy="350" r="11"/><circle class="hit" cx="1179.5" cy="350" r="16"/><text x="1179.5" y="354.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="Worker" data-to="Payment" data-step="10" data-label="status">
+<g class="edge" data-from="Worker" data-to="Payment" data-step="10" data-label="status" data-tip="Fulfilment Worker Function → Payment Gateway (status)">
 <path d="M1123.5 318 L1123.5 296 L1508 296 L1508 318" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1315.75" y="288" text-anchor="middle">status</text>
-<g class="badge"><circle cx="1123.5" cy="296" r="11"/><text x="1123.5" y="300.5" text-anchor="middle">10</text></g>
+<g class="badge"><title>10. Fulfilment Worker Function → Payment Gateway (status)</title><circle cx="1123.5" cy="296" r="11"/><circle class="hit" cx="1123.5" cy="296" r="16"/><text x="1123.5" y="300.5" text-anchor="middle">10</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="DB" data-step="4" data-label="write">
+<g class="edge" data-from="Orders" data-to="DB" data-step="4" data-label="write" data-tip="Orders Lambda → Orders DynamoDB (write)">
 <path d="M627 318 L627 196 L754.5 196" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="690.75" y="188" text-anchor="middle">write</text>
-<g class="badge"><circle cx="627" cy="294" r="11"/><text x="627" y="298.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Orders Lambda → Orders DynamoDB (write)</title><circle cx="627" cy="294" r="11"/><circle class="hit" cx="627" cy="294" r="16"/><text x="627" y="298.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="Logs" data-step="9" data-label="">
+<g class="edge" data-from="Orders" data-to="Logs" data-step="9" data-label="" data-tip="Orders Lambda → CloudWatch Logs">
 <path d="M659 350 L682.75 350 L682.75 504 L754.5 504" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="730.5" cy="504" r="11"/><text x="730.5" y="508.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. Orders Lambda → CloudWatch Logs</title><circle cx="730.5" cy="504" r="11"/><circle class="hit" cx="730.5" cy="504" r="16"/><text x="730.5" y="508.5" text-anchor="middle">9</text></g>
 </g>
 <g class="node" data-id="Customer" data-label="Customer Browser" data-service="Users" data-category="General"><title>Customer Browser (Users)</title>
 <use href="#gen-Users" x="63.5" y="318" width="64" height="64"/>
@@ -252,8 +253,8 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="nlabel" x="1508" y="399" text-anchor="middle">Payment Gateway</text>
 </g>
 </svg></section>
-<section class="card"><h2>Flow</h2><ol class="steps"><li data-from="Customer" data-to="CDN"><span class="n">1</span><span>Customer Browser → CloudFront CDN <em>(HTTPS)</em></span></li><li data-from="CDN" data-to="APIGW"><span class="n">2</span><span>CloudFront CDN → API Gateway</span></li><li data-from="APIGW" data-to="Orders"><span class="n">3</span><span>API Gateway → Orders Lambda</span></li><li data-from="Orders" data-to="DB"><span class="n">4</span><span>Orders Lambda → Orders DynamoDB <em>(write)</em></span></li><li data-from="Orders" data-to="Topic"><span class="n">5</span><span>Orders Lambda → Order Events SNS <em>(publish)</em></span></li><li data-from="Topic" data-to="Queue"><span class="n">6</span><span>Order Events SNS → Fulfilment Queue</span></li><li data-from="Queue" data-to="Worker"><span class="n">7</span><span>Fulfilment Queue → Fulfilment Worker Function</span></li><li data-from="Worker" data-to="Bucket"><span class="n">8</span><span>Fulfilment Worker Function → Receipts S3 Bucket</span></li><li data-from="Orders" data-to="Logs"><span class="n">9</span><span>Orders Lambda → CloudWatch Logs</span></li><li data-from="Worker" data-to="Payment"><span class="n">10</span><span>Fulfilment Worker Function → Payment Gateway <em>(status)</em></span></li></ol></section></div>
-<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-01 · indicative — some usage is assumed</small></h2>
+<section class="card"><h2>Flow</h2><ol class="steps"><li data-step="1" data-from="Customer" data-to="CDN"><span class="n">1</span><span>Customer Browser → CloudFront CDN (HTTPS)</span></li><li data-step="2" data-from="CDN" data-to="APIGW"><span class="n">2</span><span>CloudFront CDN → API Gateway</span></li><li data-step="3" data-from="APIGW" data-to="Orders"><span class="n">3</span><span>API Gateway → Orders Lambda</span></li><li data-step="4" data-from="Orders" data-to="DB"><span class="n">4</span><span>Orders Lambda → Orders DynamoDB (write)</span></li><li data-step="5" data-from="Orders" data-to="Topic"><span class="n">5</span><span>Orders Lambda → Order Events SNS (publish)</span></li><li data-step="6" data-from="Topic" data-to="Queue"><span class="n">6</span><span>Order Events SNS → Fulfilment Queue</span></li><li data-step="7" data-from="Queue" data-to="Worker"><span class="n">7</span><span>Fulfilment Queue → Fulfilment Worker Function</span></li><li data-step="8" data-from="Worker" data-to="Bucket"><span class="n">8</span><span>Fulfilment Worker Function → Receipts S3 Bucket</span></li><li data-step="9" data-from="Orders" data-to="Logs"><span class="n">9</span><span>Orders Lambda → CloudWatch Logs</span></li><li data-step="10" data-from="Worker" data-to="Payment"><span class="n">10</span><span>Fulfilment Worker Function → Payment Gateway (status)</span></li></ol></section></div>
+<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-02 · indicative — some usage is assumed</small></h2>
 <div class="tiles"><div class="tile"><b>$25.18</b><span>per month</span></div><div class="tile"><b>$302</b><span>per year</span></div>
 <div class="tile"><b>8/11</b><span>components priced</span></div><div class="tile"><b>1</b><span>not priced (see below)</span></div></div>
 <p class="muted">Public on-demand AWS list prices from the AWS Price List. Excludes free tier, taxes, support plans, Savings Plans/Reserved Instances/Spot and enterprise discounts, and data transfer unless a node sets egressGbPerMonth. Monthly = 730 hours. Not a quote: confirm with the AWS Pricing Calculator.</p>
@@ -267,7 +268,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <ul class="plain"><li><strong>Run Orders Lambda on arm64 (Graviton)</strong> — saves $0.33/month. <span class="muted">Same usage re-priced with arm64 request and duration rates; assumes the code runs unchanged on arm64.</span></li><li><strong>Run Fulfilment Worker Function on arm64 (Graviton)</strong> — saves $0.33/month. <span class="muted">Same usage re-priced with arm64 request and duration rates; assumes the code runs unchanged on arm64.</span></li></ul></section>
 <section class="card"><h2>Price list provenance</h2><p class="muted">Retrieved 2026-10-01T18:40:39.861Z from the public AWS Price List bulk API. Per-service publication dates:</p><p class="muted">AmazonApiGateway 2026-09-21 · AWSLambda 2026-09-19 · AmazonDynamoDB 2026-09-11 · AmazonSNS 2026-09-15 · AmazonCloudWatch 2026-09-22 · AWSQueueService 2026-09-11 · AmazonS3 2026-09-28</p><p class="muted">Only public on-demand rates are used. This is not a quote — confirm in the <a href="https://calculator.aws/" target="_blank" rel="noopener">AWS Pricing Calculator</a>.</p></section></div>
 <div class="tab" id="tab-wa"><section class="card wa"><div class="banner">Classification: CONFIDENTIAL — This report contains sensitive infrastructure details and unremediated security findings. Restrict distribution to authorized personnel. Do not post to broadly visible channels or ticketing systems without explicit approval.</div>
-<h2>Well-Architected review <small>Order processing (imported from Mermaid) · 2026-10-01 · mode full</small></h2>
+<h2>Well-Architected review <small>Order processing (imported from Mermaid) · 2026-10-02 · mode full</small></h2>
 <h3>Coverage audit</h3><ul class="plain"><li><strong>AWS Well-Architected Framework</strong> — 6 pillars, 57 questions, 307 best practices, from <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/toc-contents.json" target="_blank" rel="noopener">the live documentation index</a>, snapshot 2026-10-01 (0 days old).</li>
 
 <li>Assessed 307 framework BPs: 16 with diagram evidence, 289 cannot be determined.</li>
@@ -287,7 +288,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <h3>To confirm <small>not drawn, so not counted as gaps</small></h3><ul class="plain"><li><strong>No AWS KMS shown for data at rest</strong> <span class="muted">SEC08-BP01</span> — Manage encryption keys in AWS KMS (customer managed keys where you need key policy, rotation or audit control) and enforce encryption at rest on every data store.</li><li><strong>No identity / authentication service shown</strong> <span class="muted">SEC02-BP04</span> — Authenticate and authorize every request through a centralized identity provider (Amazon Cognito, IAM Identity Center) with MFA and temporary credentials.</li><li><strong>No detection or audit services shown</strong> <span class="muted">SEC04-BP01, SEC04-BP02</span> — Enable CloudTrail (organization trail), GuardDuty and Security Hub, and send logs and findings to a central, access-restricted account.</li><li><strong>No backup or recovery capability shown</strong> <span class="muted">REL09-BP01, REL09-BP03</span> — Back up data automatically with AWS Backup (cross-account/cross-Region vault where required) and test restores against your RPO/RTO.</li><li><strong>No infrastructure-as-code or CI/CD shown</strong> <span class="muted">OPS05-BP04, OPS05-BP10, REL08-BP05, SEC11-BP06</span> — Define infrastructure as code and deploy through a pipeline with small, reversible changes and automated rollback.</li><li><strong>No cost visibility shown</strong> <span class="muted">COST01-BP03, COST01-BP06, COST03-BP05</span> — Set AWS Budgets with alert thresholds, enable Cost Anomaly Detection and cost allocation tags so spend maps to this workload.</li></ul>
 <h3>Cross-pillar trade-offs</h3><ul class="plain"><li><strong>Observability volume</strong> <span class="muted">Operational excellence ↔ Cost optimization</span><br>CloudWatch is $12.30/month in this estimate, mostly log ingestion; richer telemetry improves detection but ingestion is billed per GB. <i>Resolution:</i> Sample verbose traces, set retention per log group, and keep full-fidelity logs for security and audit sources only.</li></ul>
 <h3>Eisenhower prioritization</h3><div class="quads"><div class="quad"><h4>Do First</h4><p class="muted">None</p></div><div class="quad"><h4>Plan</h4><p class="muted">None</p></div><div class="quad"><h4>Delegate</h4><ul><li><a href="#F-001">F-001</a> Internet-facing entry has no WAF / Shield shown</li></ul></div><div class="quad"><h4>Defer</h4><p class="muted">None</p></div></div>
-<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-15 (2 weeks): Put AWS WAF (with Shield) in front of every internet-facing entry point; start with AWS managed rule groups in count mode, then enforce. Success measure: 100% of public endpoints behind a web ACL with logging enabled</td><td>Security engineering</td></tr></tbody></table></div>
+<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk medium">Medium</span></td><td>Delegate</td><td>By 2026-10-16 (2 weeks): Put AWS WAF (with Shield) in front of every internet-facing entry point; start with AWS managed rule groups in count mode, then enforce. Success measure: 100% of public endpoints behind a web ACL with logging enabled</td><td>Security engineering</td></tr></tbody></table></div>
 <h3>Next steps</h3><ol><li>Add the missing process, configuration and runtime evidence to turn <i>Cannot Determine</i> practices into assessed ones.</li><li>Re-run the review after changes, and when the architecture or documentation changes.</li></ol>
 <p class="muted">Impact × Likelihood matrix from the AWS Well-Architected review skill (Severe+High = Critical; Severe+Medium/Low or Moderate+High = High; Moderate+Medium/Low or Minor+High = Medium; otherwise Low).</p></section></div>
 </main>
@@ -383,6 +384,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

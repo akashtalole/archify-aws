@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -129,23 +129,23 @@
 <use href="#grp-Private-subnet" x="944" y="592" width="32" height="32"/>
 <text class="glabel" x="984" y="613">Private subnet</text>
 </g>
-<g class="edge" data-from="users" data-to="cf" data-step="1" data-label="HTTPS">
+<g class="edge" data-from="users" data-to="cf" data-step="1" data-label="HTTPS" data-tip="Users → Amazon CloudFront (HTTPS)">
 <path d="M120 530 L276.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="198.25" y="522" text-anchor="middle">HTTPS</text>
-<g class="badge"><circle cx="144" cy="530" r="11"/><text x="144" y="534.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Users → Amazon CloudFront (HTTPS)</title><circle cx="144" cy="530" r="11"/><circle class="hit" cx="144" cy="530" r="16"/><text x="144" y="534.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="cf" data-to="alb" data-step="2" data-label="">
+<g class="edge" data-from="cf" data-to="alb" data-step="2" data-label="" data-tip="Amazon CloudFront → Application Load Balancer">
 <path d="M340.5 530 L508.5 530" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="364.5" cy="530" r="11"/><text x="364.5" y="534.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon CloudFront → Application Load Balancer</title><circle cx="364.5" cy="530" r="11"/><circle class="hit" cx="364.5" cy="530" r="16"/><text x="364.5" y="534.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="ec2a" data-to="rds1" data-step="4" data-label="SQL">
+<g class="edge" data-from="ec2a" data-to="rds1" data-step="4" data-label="SQL" data-tip="Amazon EC2 → Amazon RDS (SQL)">
 <path d="M813 388 L990 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="901.5" y="380" text-anchor="middle">SQL</text>
-<g class="badge"><circle cx="837" cy="388" r="11"/><text x="837" y="392.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Amazon EC2 → Amazon RDS (SQL)</title><circle cx="837" cy="388" r="11"/><circle class="hit" cx="837" cy="388" r="16"/><text x="837" y="392.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="ec2b" data-to="rds2" data-step="4" data-label="">
+<g class="edge" data-from="ec2b" data-to="rds2" data-step="4" data-label="" data-tip="Amazon EC2 → Amazon RDS">
 <path d="M813 672 L990 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="837" cy="672" r="11"/><text x="837" y="676.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Amazon EC2 → Amazon RDS</title><circle cx="837" cy="672" r="11"/><circle class="hit" cx="837" cy="672" r="16"/><text x="837" y="676.5" text-anchor="middle">4</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="cf" data-step="" data-label="inspects">
 <path d="M308.5 442 L308.5 498" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -159,13 +159,13 @@
 <path d="M308.5 610 L308.5 666" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="326.5" y="642" text-anchor="start">static assets</text>
 </g>
-<g class="edge" data-from="alb" data-to="ec2a" data-step="3" data-label="">
+<g class="edge" data-from="alb" data-to="ec2a" data-step="3" data-label="" data-tip="Application Load Balancer → Amazon EC2">
 <path d="M540.5 498 L540.5 388 L749 388" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="540.5" cy="474" r="11"/><text x="540.5" y="478.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Application Load Balancer → Amazon EC2</title><circle cx="540.5" cy="474" r="11"/><circle class="hit" cx="540.5" cy="474" r="16"/><text x="540.5" y="478.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="alb" data-to="ec2b" data-step="3" data-label="">
+<g class="edge" data-from="alb" data-to="ec2b" data-step="3" data-label="" data-tip="Application Load Balancer → Amazon EC2">
 <path d="M572.5 530 L636.75 530 L636.75 672 L749 672" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="596.5" cy="530" r="11"/><text x="596.5" y="534.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Application Load Balancer → Amazon EC2</title><circle cx="596.5" cy="530" r="11"/><circle class="hit" cx="596.5" cy="530" r="16"/><text x="596.5" y="534.5" text-anchor="middle">3</text></g>
 </g>
 <g class="node" data-id="users" data-label="Users" data-service="Users" data-category="General"><title>Users (Users)</title>
 <use href="#gen-Users" x="56" y="498" width="64" height="64"/>

@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/product-catalog-search.html",
-      "sha256": "743c867a9d503cd676ada522e6ae855c3f1a41e922370509eef99ed9ed893375",
-      "bytes": 343705
+      "sha256": "db3200da5ddefdb3fd10174b2c84821be1eba5b0c1bcdcfe48c53e05b0e0a8ed",
+      "bytes": 346537
     },
     "svg": {
       "path": "examples/out/product-catalog-search.svg",
-      "sha256": "a7a073740286a3fd3e17b4ab67f7a67e79b90f71b21dea29c7155c289b3982de"
+      "sha256": "a92b0338605e881633b9dda307facf7738ba9f96aa07e4487e8074060f87bf99"
     },
     "png": {
       "path": "examples/out/product-catalog-search.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 1302.3752,
     "confidence": "indicative",
     "coverage": {

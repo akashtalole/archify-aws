@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/healthcare-agentic-platform.html",
-      "sha256": "20477f77579ef89635573cd3fdedd4b09d7add2af48cc4b53318d1e05218b306",
-      "bytes": 338717
+      "sha256": "7ec535787196b30eb1adb615c74ea1b0a5aa0b035dc2fb046e12afb978491d48",
+      "bytes": 342153
     },
     "svg": {
       "path": "examples/out/healthcare-agentic-platform.svg",
-      "sha256": "ca2ebcc740940268717c04147b7c4db85dfffb9b153dc3f0d927e7fa858b1d87"
+      "sha256": "f499817a1e5c99db78253db71d1396669c1a241cf8ddd5cb5ebbf714d1fa7a9b"
     },
     "png": {
       "path": "examples/out/healthcare-agentic-platform.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 4834.124,
     "confidence": "indicative",
     "coverage": {

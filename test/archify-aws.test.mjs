@@ -551,3 +551,21 @@ test("embedding models with input-only pricing are priced (Titan Embedding V2)",
   assert.equal(n.status, "estimated");
   assert.equal(n.lines.length, 1);
 });
+
+test("numbered callouts carry the same description as the Flow list (architecture and sequence)", async () => {
+  const { stepText } = await import("../src/render.mjs");
+  assert.equal(stepText(undefined, "A", "B", "x"), "A → B (x)");
+  assert.equal(stepText("Custom text", "A", "B", "x"), "Custom text");
+  for (const f of ["product-catalog-search.json", "compliance-agentcore/review-run.sequence.json"]) {
+    const d = buildDiagram(JSON.parse(fs.readFileSync(new URL("../examples/" + f, import.meta.url), "utf8")));
+    const svg = d.svg("light"), html = renderPageWa(d, null, "light", null);
+    assert.ok(d.steps.length > 0);
+    for (const s of d.steps) {
+      const text = stepText(s.desc, s.fromLabel, s.toLabel, s.label);
+      const esc1 = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      assert.ok(svg.includes(`<title>${s.step}. ${esc1(text)}</title>`), `badge ${s.step} title`);
+      assert.ok(svg.includes(`data-tip="${esc1(text)}"`), `badge ${s.step} data-tip`);
+      assert.ok(html.includes(`<span>${esc1(text)}</span>`), `flow ${s.step}`);
+    }
+  }
+});

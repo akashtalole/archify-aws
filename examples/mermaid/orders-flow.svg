@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -81,49 +81,49 @@
 <use class="only-dark" href="#grp-AWS-Cloud-dark" x="555" y="116" width="32" height="32"/>
 <text class="glabel" x="595" y="137">AWS Cloud</text>
 </g>
-<g class="edge" data-from="Customer" data-to="CDN" data-step="1" data-label="HTTPS">
+<g class="edge" data-from="Customer" data-to="CDN" data-step="1" data-label="HTTPS" data-tip="Customer Browser → CloudFront CDN (HTTPS)">
 <path d="M127.5 350 L238 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="182.75" y="342" text-anchor="middle">HTTPS</text>
-<g class="badge"><circle cx="151.5" cy="350" r="11"/><text x="151.5" y="354.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Customer Browser → CloudFront CDN (HTTPS)</title><circle cx="151.5" cy="350" r="11"/><circle class="hit" cx="151.5" cy="350" r="16"/><text x="151.5" y="354.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="CDN" data-to="APIGW" data-step="2" data-label="">
+<g class="edge" data-from="CDN" data-to="APIGW" data-step="2" data-label="" data-tip="CloudFront CDN → API Gateway">
 <path d="M302 350 L405 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="326" cy="350" r="11"/><text x="326" y="354.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. CloudFront CDN → API Gateway</title><circle cx="326" cy="350" r="11"/><circle class="hit" cx="326" cy="350" r="16"/><text x="326" y="354.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="APIGW" data-to="Orders" data-step="3" data-label="">
+<g class="edge" data-from="APIGW" data-to="Orders" data-step="3" data-label="" data-tip="API Gateway → Orders Lambda">
 <path d="M469 350 L595 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="493" cy="350" r="11"/><text x="493" y="354.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. API Gateway → Orders Lambda</title><circle cx="493" cy="350" r="11"/><circle class="hit" cx="493" cy="350" r="16"/><text x="493" y="354.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="Topic" data-step="5" data-label="publish">
+<g class="edge" data-from="Orders" data-to="Topic" data-step="5" data-label="publish" data-tip="Orders Lambda → Order Events SNS (publish)">
 <path d="M659 350 L754.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="706.75" y="342" text-anchor="middle">publish</text>
-<g class="badge"><circle cx="703" cy="350" r="11"/><text x="703" y="354.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Orders Lambda → Order Events SNS (publish)</title><circle cx="703" cy="350" r="11"/><circle class="hit" cx="703" cy="350" r="16"/><text x="703" y="354.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="Topic" data-to="Queue" data-step="6" data-label="">
+<g class="edge" data-from="Topic" data-to="Queue" data-step="6" data-label="" data-tip="Order Events SNS → Fulfilment Queue">
 <path d="M818.5 350 L921.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="842.5" cy="350" r="11"/><text x="842.5" y="354.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Order Events SNS → Fulfilment Queue</title><circle cx="842.5" cy="350" r="11"/><circle class="hit" cx="842.5" cy="350" r="16"/><text x="842.5" y="354.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="Queue" data-to="Worker" data-step="7" data-label="">
+<g class="edge" data-from="Queue" data-to="Worker" data-step="7" data-label="" data-tip="Fulfilment Queue → Fulfilment Worker Function">
 <path d="M985.5 350 L1091.5 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="1009.5" cy="350" r="11"/><text x="1009.5" y="354.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Fulfilment Queue → Fulfilment Worker Function</title><circle cx="1009.5" cy="350" r="11"/><circle class="hit" cx="1009.5" cy="350" r="16"/><text x="1009.5" y="354.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="Worker" data-to="Bucket" data-step="8" data-label="">
+<g class="edge" data-from="Worker" data-to="Bucket" data-step="8" data-label="" data-tip="Fulfilment Worker Function → Receipts S3 Bucket">
 <path d="M1155.5 350 L1268 350" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="1179.5" cy="350" r="11"/><text x="1179.5" y="354.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. Fulfilment Worker Function → Receipts S3 Bucket</title><circle cx="1179.5" cy="350" r="11"/><circle class="hit" cx="1179.5" cy="350" r="16"/><text x="1179.5" y="354.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="Worker" data-to="Payment" data-step="10" data-label="status">
+<g class="edge" data-from="Worker" data-to="Payment" data-step="10" data-label="status" data-tip="Fulfilment Worker Function → Payment Gateway (status)">
 <path d="M1123.5 318 L1123.5 296 L1508 296 L1508 318" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1315.75" y="288" text-anchor="middle">status</text>
-<g class="badge"><circle cx="1123.5" cy="296" r="11"/><text x="1123.5" y="300.5" text-anchor="middle">10</text></g>
+<g class="badge"><title>10. Fulfilment Worker Function → Payment Gateway (status)</title><circle cx="1123.5" cy="296" r="11"/><circle class="hit" cx="1123.5" cy="296" r="16"/><text x="1123.5" y="300.5" text-anchor="middle">10</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="DB" data-step="4" data-label="write">
+<g class="edge" data-from="Orders" data-to="DB" data-step="4" data-label="write" data-tip="Orders Lambda → Orders DynamoDB (write)">
 <path d="M627 318 L627 196 L754.5 196" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="690.75" y="188" text-anchor="middle">write</text>
-<g class="badge"><circle cx="627" cy="294" r="11"/><text x="627" y="298.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Orders Lambda → Orders DynamoDB (write)</title><circle cx="627" cy="294" r="11"/><circle class="hit" cx="627" cy="294" r="16"/><text x="627" y="298.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="Orders" data-to="Logs" data-step="9" data-label="">
+<g class="edge" data-from="Orders" data-to="Logs" data-step="9" data-label="" data-tip="Orders Lambda → CloudWatch Logs">
 <path d="M659 350 L682.75 350 L682.75 504 L754.5 504" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="730.5" cy="504" r="11"/><text x="730.5" y="508.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. Orders Lambda → CloudWatch Logs</title><circle cx="730.5" cy="504" r="11"/><circle class="hit" cx="730.5" cy="504" r="16"/><text x="730.5" y="508.5" text-anchor="middle">9</text></g>
 </g>
 <g class="node" data-id="Customer" data-label="Customer Browser" data-service="Users" data-category="General"><title>Customer Browser (Users)</title>
 <use href="#gen-Users" x="63.5" y="318" width="64" height="64"/>
