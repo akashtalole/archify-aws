@@ -30,6 +30,7 @@ export function buildDiagram(input) {
       nodeList: input.participants.map((p) => ({ id: p.id, item: p, icon: resolveIcon(p.icon) })),
       groupList: (input.groups || []).map((g, i) => ({ id: "g:" + i, kind: g.kind, label: g.label, parent: null })),
       edgeList: input.messages.filter((m) => m.note === undefined).map((m) => ({ from: m.from, to: m.to, label: m.label })),
+      layout: first.layout,
     };
   }
   let archSpec = input;

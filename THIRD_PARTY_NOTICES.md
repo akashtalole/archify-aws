@@ -21,3 +21,6 @@ The cost-estimation and Well-Architected review features follow the workflows de
 `aws-well-architected-review` skills of <https://github.com/aws/agent-toolkit-for-aws> (core-skills), which is licensed by AWS under its own
 terms. Their rules are paraphrased; no skill text or data is redistributed. Pricing data comes from the public AWS Price List and framework
 structure from the public AWS Well-Architected documentation.
+
+## draw.io AWS shape library
+`data/drawio/aws4.json` lists shape names, titles and palette colours extracted from `Sidebar-AWS4.js` in <https://github.com/jgraph/drawio> (Apache-2.0, JGraph Ltd). It contains names and colours only; the shapes themselves are rendered by draw.io.

@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/healthcare-governance.html",
-      "sha256": "8f8e5beec3f667259ada0d5100c51bff65d213a081940315158bd25b28a9ee55",
-      "bytes": 344691
+      "sha256": "cff2e4f003a62449af52270ab753c9885cf19bbe7ce8d2311ba47dc39d52d7f6",
+      "bytes": 366291
     },
     "svg": {
       "path": "examples/out/healthcare-governance.svg",
       "sha256": "3ede5a3899c40f31241fb8f2d642eeff162a5e3c86adf641445567d8fb4c2197"
+    },
+    "drawio": {
+      "path": "examples/out/healthcare-governance.drawio",
+      "sha256": "699e86b6f1770cf02bbd5841f3197b0457099cf260e18dc5686ec4e7e088fc77"
     },
     "png": {
       "path": "examples/out/healthcare-governance.png",

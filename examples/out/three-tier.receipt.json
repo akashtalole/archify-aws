@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/out/three-tier.html",
-      "sha256": "ff999f4f34053b4525e0900c1ec8ba4a30ae72ea6c1be2430d7c2791c1fe75f7",
-      "bytes": 274510
+      "sha256": "87287e8e7a288bd6c407b771c4d5e02a507a52d140a60ea7926a5b7b755805b6",
+      "bytes": 295274
     },
     "svg": {
       "path": "examples/out/three-tier.svg",
       "sha256": "e8b48f01bad29e46597b40327cb6d9c73f4b4f605425156a83536362be786654"
+    },
+    "drawio": {
+      "path": "examples/out/three-tier.drawio",
+      "sha256": "86bb6e963aea3d683b75f8224d08b5609d7f79d6fbeabd1584271a3ca11ac9f8"
     },
     "png": {
       "path": "examples/out/three-tier.png",

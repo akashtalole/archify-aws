@@ -5,6 +5,8 @@ import crypto from "node:crypto";
 import { buildDiagram, SpecError } from "./pipeline.mjs";
 import { renderPage } from "./page.mjs";
 import { analyze } from "./analysis.mjs";
+import { toDrawio } from "./drawio/export.mjs";
+import { validateDrawio } from "./drawio/validate.mjs";
 import { svgToPng } from "./png.mjs";
 import { chromeAvailable, dumpDom } from "./browser.mjs";
 import { catalog, iconsAvailable } from "./catalog.mjs";
@@ -32,6 +34,7 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
   const th = theme || d.spec.meta?.theme || "light";
   const html = path.resolve(outHtml || d.spec.meta?.output || specPath.replace(/\.json$/, ".html"));
   const svgFile = html.replace(/\.html$/, ".svg");
+  const drawioFile = html.replace(/\.html$/, ".drawio");
   let an = { cost: null, wa: null };
   const a = stage("analyze", () => { an = analyze(d, { cost, review }); return { cost: !!an.cost, review: !!an.wa }; });
   if (!a) return receipt;
@@ -39,8 +42,10 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
     fs.mkdirSync(path.dirname(html), { recursive: true });
     fs.writeFileSync(html, renderPage(d, an.wa, th, an.cost));
     fs.writeFileSync(svgFile, d.svg(th));
+    fs.writeFileSync(drawioFile, toDrawio(d));
     receipt.outputs.html = { path: path.relative(process.cwd(), html), sha256: sha(fs.readFileSync(html)), bytes: fs.statSync(html).size };
     receipt.outputs.svg = { path: path.relative(process.cwd(), svgFile), sha256: sha(fs.readFileSync(svgFile)) };
+    receipt.outputs.drawio = { path: path.relative(process.cwd(), drawioFile), sha256: sha(fs.readFileSync(drawioFile)) };
     return {};
   });
   if (!r) return receipt;
@@ -62,6 +67,9 @@ export function finalize(specPath, { outHtml, theme, png = true, requireBrowser 
       if (rows !== want) problems.push(`review: ${rows} ledger rows rendered but ${want} best practices assessed`);
       if (an.wa.mode === "full" && an.wa.ledger.length !== an.wa.coverage.framework.bps) problems.push("review: full mode did not assess every framework best practice");
     }
+    const dio = fs.readFileSync(drawioFile, "utf8");
+    problems.push(...validateDrawio(dio).map((p) => "drawio: " + p));
+    if (!page.includes('id="drawio-data"')) problems.push("page: draw.io export data missing");
     const nodeEls = (svg.match(/class="node"/g) || []).length;
     if (nodeEls !== d.stats.nodes) problems.push(`svg: ${nodeEls} node elements but ${d.stats.nodes} nodes in the model`);
     if (problems.length) { const e = new Error("check failed"); e.errors = problems; throw e; }

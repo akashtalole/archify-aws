@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/architecture.html",
-      "sha256": "b6dad9ed41323645627b6ea3c6c9029d924e063e199a68c644c8477d0f6facf9",
-      "bytes": 344581
+      "sha256": "496c0d9d00e5cb2fcdeb88f8acaf96813751a7270be1967cfe9ce8b16bf5cd60",
+      "bytes": 371549
     },
     "svg": {
       "path": "examples/compliance/out/architecture.svg",
       "sha256": "64a3193914770ed008a3adff1c2efc23865e8bf1b37d3239c052526b547990a0"
+    },
+    "drawio": {
+      "path": "examples/compliance/out/architecture.drawio",
+      "sha256": "17ac1ae9ad3e576dd9af7a365fd48079a3ed95bc216837d1bbd1ae011ffdbb61"
     },
     "png": {
       "path": "examples/compliance/out/architecture.png",

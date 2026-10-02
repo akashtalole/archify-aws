@@ -60,12 +60,16 @@
   "outputs": {
     "html": {
       "path": "examples/compliance-agentcore/out/architecture.html",
-      "sha256": "12c7b75699f974a2760ce70d5440d508cc147c62e4bf7e0ae21538feafee0f6d",
-      "bytes": 363018
+      "sha256": "5047f24e5731fd4a3f54d010a1082369b8a1a57c3e813c20e80f06fcc3e63322",
+      "bytes": 401408
     },
     "svg": {
       "path": "examples/compliance-agentcore/out/architecture.svg",
       "sha256": "31baea7890884339286de335fe2f295b06e593fdfff0c067a8d8516fa203b75d"
+    },
+    "drawio": {
+      "path": "examples/compliance-agentcore/out/architecture.drawio",
+      "sha256": "16240aab16f7be0dc65d1761ecac28e8cd1137e622ebf88dd17542ed054417b4"
     },
     "png": {
       "path": "examples/compliance-agentcore/out/architecture.png",

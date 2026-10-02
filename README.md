@@ -56,6 +56,9 @@ The agent searches icons, authors the spec, renders with `--strict --json`, repa
   *drawing*, not your configuration.
 * **Icon catalog** — 305 service, 419 resource, 47 general and 15 group icons (SVG); `icons search`, aliases (`alb`, `s3`, `kms`…).
 
+## Export to draw.io
+`archify-aws export spec.json` (or `render --drawio`, or `finalize`, which always writes it) produces an uncompressed `.drawio` file that opens in draw.io / diagrams.net with **draw.io's own AWS shapes** (`mxgraph.aws4.resourceIcon` + `resIcon` for services, `mxgraph.aws4.group` for AWS Cloud, Region, VPC, subnets and so on). Everything stays editable: nested groups are real containers, connectors are attached to their icons with the original routing, numbered callouts keep their descriptions as tooltips, and sequence diagrams export with lifelines, fragments and notes. Every page also has Export → *Download draw.io (.drawio)*. An icon with no draw.io equivalent (a few AWS Elemental appliances) is embedded as the official SVG instead.
+
 ## Cost and Well-Architected review
 Every example under `examples/` is regenerated with both tabs. The architecture examples carry illustrative `usage` (stated in `meta.cost.note`) so the Cost tab shows real numbers: three-tier ≈ $1,075/mo, serverless API ≈ $349, GenAI RAG ≈ $943, healthcare platform ≈ $4,834, compliance assistant ≈ $6,065 (Step Functions) / $5,973 (AgentCore). Treat them as demonstrations, not quotes.
 
