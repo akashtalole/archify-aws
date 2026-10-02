@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/genai-rag.html",
-      "sha256": "60ccdb4dede068cee39135f932a83e026bcbcb71a80969b9c059e94fbedd6b76",
-      "bytes": 307399
+      "sha256": "99b6411110e18bc8575a079ee1ba3330b8ce761e638dd56c338528d7af85f06d",
+      "bytes": 310030
     },
     "svg": {
       "path": "examples/out/genai-rag.svg",
-      "sha256": "2d7fa41321948699205576e43278121e1a08c895fee188f532d9cf61b362bd1e"
+      "sha256": "536bdba2f4a2f545ea1b5fba18d09298d43da308be1256b28715acc121495afa"
     },
     "png": {
       "path": "examples/out/genai-rag.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 943.1867,
     "confidence": "indicative",
     "coverage": {

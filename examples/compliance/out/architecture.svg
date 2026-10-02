@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -147,30 +147,30 @@
 <rect x="1399" y="666" width="459" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="1409" y="686">Security and observability</text>
 </g>
-<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="submit">
+<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="submit" data-tip="Owner signs in and submits a document with the check set to apply.">
 <path d="M124 526 L264 526" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="194" y="518" text-anchor="middle">submit</text>
-<g class="badge"><circle cx="148" cy="526" r="11"/><text x="148" y="530.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Owner signs in and submits a document with the check set to apply.</title><circle cx="148" cy="526" r="11"/><circle class="hit" cx="148" cy="526" r="16"/><text x="148" y="530.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload">
+<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload" data-tip="The document lands in the KMS-encrypted intake bucket.">
 <path d="M328 526 L448 526" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="421.6" y="518" text-anchor="middle">presigned upload</text>
-<g class="badge"><circle cx="352" cy="526" r="11"/><text x="352" y="530.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. The document lands in the KMS-encrypted intake bucket.</title><circle cx="352" cy="526" r="11"/><circle class="hit" cx="352" cy="526" r="16"/><text x="352" y="530.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="intake" data-to="sfn" data-step="3" data-label="S3 event">
+<g class="edge" data-from="intake" data-to="sfn" data-step="3" data-label="S3 event" data-tip="Upload starts one review execution; Textract and Comprehend prepare structured, PII-tagged text.">
 <path d="M649 526 L795.5 526" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="722.25" y="518" text-anchor="middle">S3 event</text>
-<g class="badge"><circle cx="673" cy="526" r="11"/><text x="673" y="530.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Upload starts one review execution; Textract and Comprehend prepare structured, PII-tagged text.</title><circle cx="673" cy="526" r="11"/><circle class="hit" cx="673" cy="526" r="16"/><text x="673" y="530.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="sfn" data-to="engine" data-step="4" data-label="100 checks">
+<g class="edge" data-from="sfn" data-to="engine" data-step="4" data-label="100 checks" data-tip="A Distributed Map fans out one task per check; each retrieves criteria, judges with citations and passes through Guardrails.">
 <path d="M859.5 526 L1006 526" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="954.725" y="518" text-anchor="middle">100 checks</text>
-<g class="badge"><circle cx="903.5" cy="526" r="11"/><text x="903.5" y="530.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. A Distributed Map fans out one task per check; each retrieves criteria, judges with citations and passes through Guardrails.</title><circle cx="903.5" cy="526" r="11"/><circle class="hit" cx="903.5" cy="526" r="16"/><text x="903.5" y="530.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="engine" data-to="results" data-step="5" data-label="verdicts">
+<g class="edge" data-from="engine" data-to="results" data-step="5" data-label="verdicts" data-tip="Verdict, confidence and cited spans are stored per check; the evidence bundle is written to a locked bucket.">
 <path d="M1309 526 L1400 526" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1379.98" y="518" text-anchor="middle">verdicts</text>
-<g class="badge"><circle cx="1333" cy="526" r="11"/><text x="1333" y="530.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Verdict, confidence and cited spans are stored per check; the evidence bundle is written to a locked bucket.</title><circle cx="1333" cy="526" r="11"/><circle class="hit" cx="1333" cy="526" r="16"/><text x="1333" y="530.5" text-anchor="middle">5</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M296 656 L296 606" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -184,15 +184,15 @@
 <path d="M1628.5 410 L1628.5 446" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1646.5" y="432" text-anchor="start">decisions</text>
 </g>
-<g class="edge" data-from="sfn" data-to="hitl" data-step="6" data-label="failed or low confidence">
+<g class="edge" data-from="sfn" data-to="hitl" data-step="6" data-label="failed or low confidence" data-tip="Only flagged checks go to a human; the execution waits on a task token.">
 <path d="M859.5 526 L881.5 526 L881.5 194 L1491.5 194 L1491.5 306 L1513.5 306" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1186.5" y="186" text-anchor="middle">failed or low confidence</text>
-<g class="badge"><circle cx="1491.5" cy="306" r="11"/><text x="1491.5" y="310.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Only flagged checks go to a human; the execution waits on a task token.</title><circle cx="1491.5" cy="306" r="11"/><circle class="hit" cx="1491.5" cy="306" r="16"/><text x="1491.5" y="310.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="hitl" data-to="reviewers" data-step="7" data-label="task and decision">
+<g class="edge" data-from="hitl" data-to="reviewers" data-step="7" data-label="task and decision" data-tip="Reviewers confirm, override or comment; the decision resumes the execution and is recorded.">
 <path d="M1743.5 306 L2014 306 L2014 494" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="1878.75" y="298" text-anchor="middle">task and decision</text>
-<g class="badge"><circle cx="1767.5" cy="306" r="11"/><text x="1767.5" y="310.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Reviewers confirm, override or comment; the decision resumes the execution and is recorded.</title><circle cx="1767.5" cy="306" r="11"/><circle class="hit" cx="1767.5" cy="306" r="16"/><text x="1767.5" y="310.5" text-anchor="middle">7</text></g>
 </g>
 <g class="node" data-id="owners" data-label="Document owners" data-service="Users" data-category="General"><title>Document owners (Users)</title>
 <use href="#gen-Users" x="60" y="494" width="64" height="64"/>

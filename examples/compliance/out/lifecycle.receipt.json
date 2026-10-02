@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/compliance/out/lifecycle.html",
-      "sha256": "2a59222c46c267e76b3fb250901dadce768aa51c2ca146b7172ced6056bdeba4",
-      "bytes": 301531
+      "sha256": "e0ce6a4a3c01bbb571e4c76ec52162089bcbbc203007c1eba2edab0ac64a0b7c",
+      "bytes": 304944
     },
     "svg": {
       "path": "examples/compliance/out/lifecycle.svg",
-      "sha256": "c4f4dfe748e3177d2545b401cf61f85daeda4b6ee440f1828002782d9e70c3ac"
+      "sha256": "fea9d63a9a7258f8287a1698fb8b7ccbc77078ef6af7b9040191e85075e9e8a1"
     },
     "png": {
       "path": "examples/compliance/out/lifecycle.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 17.3667,
     "confidence": "indicative",
     "coverage": {

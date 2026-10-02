@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -85,46 +85,46 @@
 <g class="frag"><rect x="423" y="1364" width="1704" height="421" fill="none"/><path class="fragtab" d="M423 1364 h166 v18 l-8 8 h-158 z"/><text class="fraglabel" x="429" y="1378">alt [needs human review]</text>
 <line class="fragelse" x1="423" y1="1682" x2="2127" y2="1682"/><text class="fraglabel" x="429" y="1696">[all pass, high confidence]</text>
 </g>
-<g class="edge" data-from="owner" data-to="s3" data-step="1" data-label="upload document">
+<g class="edge" data-from="owner" data-to="s3" data-step="1" data-label="upload document" data-tip="Document owner → Amazon S3 (upload document)">
 <path class="eline" fill="none" stroke-width="2" d="M135 339 H325" marker-end="url(#arw)"/>
 <text class="elabel" x="230" y="331" text-anchor="middle">upload document</text>
-<g class="badge"><circle cx="135" cy="339" r="11"/><text x="135" y="343.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Document owner → Amazon S3 (upload document)</title><circle cx="135" cy="339" r="11"/><circle class="hit" cx="135" cy="339" r="16"/><text x="135" y="343.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="s3" data-to="sup" data-step="2" data-label="EventBridge: start run">
+<g class="edge" data-from="s3" data-to="sup" data-step="2" data-label="EventBridge: start run" data-tip="Amazon S3 → Supervisor agent (EventBridge: start run)">
 <path class="eline" fill="none" stroke-width="2" d="M325 400 H515" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="325" cy="400" r="3.5"/>
 <text class="elabel" x="420" y="378" text-anchor="middle">EventBridge: start</text>
 <text class="elabel" x="420" y="392" text-anchor="middle">run</text>
-<g class="badge"><circle cx="325" cy="400" r="11"/><text x="325" y="404.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon S3 → Supervisor agent (EventBridge: start run)</title><circle cx="325" cy="400" r="11"/><circle class="hit" cx="325" cy="400" r="16"/><text x="325" y="404.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="mem" data-step="3" data-label="load run state + feedback">
+<g class="edge" data-from="sup" data-to="mem" data-step="3" data-label="load run state + feedback" data-tip="Supervisor agent → AgentCore Memory (load run state + feedback)">
 <path class="eline" fill="none" stroke-width="2" d="M515 468 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="446" text-anchor="middle">load run state +</text>
 <text class="elabel" x="610" y="460" text-anchor="middle">feedback</text>
-<g class="badge"><circle cx="515" cy="468" r="11"/><text x="515" y="472.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Supervisor agent → AgentCore Memory (load run state + feedback)</title><circle cx="515" cy="468" r="11"/><circle class="hit" cx="515" cy="468" r="16"/><text x="515" y="472.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="mem" data-to="sup" data-step="4" data-label="context">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M705 529 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="521" text-anchor="middle">context</text>
 </g>
-<g class="edge" data-from="sup" data-to="gw" data-step="4" data-label="get_document_text (MCP)">
+<g class="edge" data-from="sup" data-to="gw" data-step="4" data-label="get_document_text (MCP)" data-tip="Supervisor agent → AgentCore Gateway (get_document_text (MCP))">
 <path class="eline" fill="none" stroke-width="2" d="M515 583 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="575" text-anchor="middle">get_document_text (MCP)</text>
-<g class="badge"><circle cx="515" cy="583" r="11"/><text x="515" y="587.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Supervisor agent → AgentCore Gateway (get_document_text (MCP))</title><circle cx="515" cy="583" r="11"/><circle class="hit" cx="515" cy="583" r="16"/><text x="515" y="587.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="pol" data-step="5" data-label="authorize call">
+<g class="edge" data-from="gw" data-to="pol" data-step="5" data-label="authorize call" data-tip="AgentCore Gateway → AgentCore Policy (authorize call)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 637 H1275" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="629" text-anchor="middle">authorize call</text>
-<g class="badge"><circle cx="1085" cy="637" r="11"/><text x="1085" y="641.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AgentCore Gateway → AgentCore Policy (authorize call)</title><circle cx="1085" cy="637" r="11"/><circle class="hit" cx="1085" cy="637" r="16"/><text x="1085" y="641.5" text-anchor="middle">5</text></g>
 </g>
 <g class="edge" data-from="pol" data-to="gw" data-step="6" data-label="permit">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 691 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="683" text-anchor="middle">permit</text>
 </g>
-<g class="edge" data-from="gw" data-to="tools" data-step="6" data-label="invoke Textract target">
+<g class="edge" data-from="gw" data-to="tools" data-step="6" data-label="invoke Textract target" data-tip="AgentCore Gateway → AWS Lambda (invoke Textract target)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 745 H1465" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="737" text-anchor="middle">invoke Textract target</text>
-<g class="badge"><circle cx="1085" cy="745" r="11"/><text x="1085" y="749.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AgentCore Gateway → AWS Lambda (invoke Textract target)</title><circle cx="1085" cy="745" r="11"/><circle class="hit" cx="1085" cy="745" r="16"/><text x="1085" y="749.5" text-anchor="middle">6</text></g>
 </g>
 <g class="edge" data-from="tools" data-to="gw" data-step="7" data-label="structured text">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1465 799 H1085" marker-end="url(#arw)"/>
@@ -134,107 +134,107 @@
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1085 853 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="845" text-anchor="middle">document text</text>
 </g>
-<g class="edge" data-from="sup" data-to="chk" data-step="7" data-label="delegate check family (A2A)">
+<g class="edge" data-from="sup" data-to="chk" data-step="7" data-label="delegate check family (A2A)" data-tip="Supervisor agent → Check-family agent (delegate check family (A2A))">
 <path class="eline" fill="none" stroke-width="2" d="M515 907 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="899" text-anchor="middle">delegate check family (A2A)</text>
-<g class="badge"><circle cx="515" cy="907" r="11"/><text x="515" y="911.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Supervisor agent → Check-family agent (delegate check family (A2A))</title><circle cx="515" cy="907" r="11"/><circle class="hit" cx="515" cy="907" r="16"/><text x="515" y="911.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="chk" data-to="gw" data-step="8" data-label="search_policy_library">
+<g class="edge" data-from="chk" data-to="gw" data-step="8" data-label="search_policy_library" data-tip="Check-family agent → AgentCore Gateway (search_policy_library)">
 <path class="eline" fill="none" stroke-width="2" d="M895 983 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="990" y="975" text-anchor="middle">search_policy_library</text>
-<g class="badge"><circle cx="895" cy="983" r="11"/><text x="895" y="987.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. Check-family agent → AgentCore Gateway (search_policy_library)</title><circle cx="895" cy="983" r="11"/><circle class="hit" cx="895" cy="983" r="16"/><text x="895" y="987.5" text-anchor="middle">8</text></g>
 </g>
 <g class="edge" data-from="gw" data-to="chk" data-step="9" data-label="criteria + passages">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1085 1044 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="990" y="1022" text-anchor="middle">criteria +</text>
 <text class="elabel" x="990" y="1036" text-anchor="middle">passages</text>
 </g>
-<g class="edge" data-from="chk" data-to="fm" data-step="9" data-label="judge each check, cite spans">
+<g class="edge" data-from="chk" data-to="fm" data-step="9" data-label="judge each check, cite spans" data-tip="Check-family agent → Amazon Bedrock (judge each check, cite spans)">
 <path class="eline" fill="none" stroke-width="2" d="M895 1105 H1655" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="1097" text-anchor="middle">judge each check, cite spans</text>
-<g class="badge"><circle cx="895" cy="1105" r="11"/><text x="895" y="1109.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. Check-family agent → Amazon Bedrock (judge each check, cite spans)</title><circle cx="895" cy="1105" r="11"/><circle class="hit" cx="895" cy="1105" r="16"/><text x="895" y="1109.5" text-anchor="middle">9</text></g>
 </g>
 <g class="edge" data-from="fm" data-to="chk" data-step="10" data-label="verdicts + confidence">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1655 1159 H895" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="1151" text-anchor="middle">verdicts + confidence</text>
 </g>
-<g class="edge" data-from="chk" data-to="gw" data-step="10" data-label="record_verdict">
+<g class="edge" data-from="chk" data-to="gw" data-step="10" data-label="record_verdict" data-tip="Check-family agent → AgentCore Gateway (record_verdict)">
 <path class="eline" fill="none" stroke-width="2" d="M895 1213 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="990" y="1205" text-anchor="middle">record_verdict</text>
-<g class="badge"><circle cx="895" cy="1213" r="11"/><text x="895" y="1217.5" text-anchor="middle">10</text></g>
+<g class="badge"><title>10. Check-family agent → AgentCore Gateway (record_verdict)</title><circle cx="895" cy="1213" r="11"/><circle class="hit" cx="895" cy="1213" r="16"/><text x="895" y="1217.5" text-anchor="middle">10</text></g>
 </g>
 <g class="edge" data-from="chk" data-to="sup" data-step="11" data-label="family results">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M895 1267 H515" marker-end="url(#arw)"/>
 <text class="elabel" x="705" y="1259" text-anchor="middle">family results</text>
 </g>
-<g class="edge" data-from="sup" data-to="sup" data-step="11" data-label="any fail or low confidence?">
+<g class="edge" data-from="sup" data-to="sup" data-step="11" data-label="any fail or low confidence?" data-tip="Supervisor agent → Supervisor agent (any fail or low confidence?)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1316 h40 v24 h-40" marker-end="url(#arw)"/>
 <text class="elabel" x="565" y="1325">any fail or low</text>
 <text class="elabel" x="565" y="1339">confidence?</text>
-<g class="badge"><circle cx="537" cy="1316" r="11"/><text x="537" y="1320.5" text-anchor="middle">11</text></g>
+<g class="badge"><title>11. Supervisor agent → Supervisor agent (any fail or low confidence?)</title><circle cx="537" cy="1316" r="11"/><circle class="hit" cx="537" cy="1316" r="16"/><text x="537" y="1320.5" text-anchor="middle">11</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="gw" data-step="12" data-label="request_human_review">
+<g class="edge" data-from="sup" data-to="gw" data-step="12" data-label="request_human_review" data-tip="Supervisor agent → AgentCore Gateway (request_human_review)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1411 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="1403" text-anchor="middle">request_human_review</text>
-<g class="badge"><circle cx="515" cy="1411" r="11"/><text x="515" y="1415.5" text-anchor="middle">12</text></g>
+<g class="badge"><title>12. Supervisor agent → AgentCore Gateway (request_human_review)</title><circle cx="515" cy="1411" r="11"/><circle class="hit" cx="515" cy="1411" r="16"/><text x="515" y="1415.5" text-anchor="middle">12</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="q" data-step="13" data-label="task + cited evidence">
+<g class="edge" data-from="gw" data-to="q" data-step="13" data-label="task + cited evidence" data-tip="AgentCore Gateway → Amazon SQS (task + cited evidence)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 1465 H1845" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="1085" cy="1465" r="3.5"/>
 <text class="elabel" x="1465" y="1457" text-anchor="middle">task + cited evidence</text>
-<g class="badge"><circle cx="1085" cy="1465" r="11"/><text x="1085" y="1469.5" text-anchor="middle">13</text></g>
+<g class="badge"><title>13. AgentCore Gateway → Amazon SQS (task + cited evidence)</title><circle cx="1085" cy="1465" r="11"/><circle class="hit" cx="1085" cy="1465" r="16"/><text x="1085" y="1469.5" text-anchor="middle">13</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="mem" data-step="14" data-label="checkpoint, end session">
+<g class="edge" data-from="sup" data-to="mem" data-step="14" data-label="checkpoint, end session" data-tip="Supervisor agent → AgentCore Memory (checkpoint, end session)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1526 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="1504" text-anchor="middle">checkpoint, end</text>
 <text class="elabel" x="610" y="1518" text-anchor="middle">session</text>
-<g class="badge"><circle cx="515" cy="1526" r="11"/><text x="515" y="1530.5" text-anchor="middle">14</text></g>
+<g class="badge"><title>14. Supervisor agent → AgentCore Memory (checkpoint, end session)</title><circle cx="515" cy="1526" r="11"/><circle class="hit" cx="515" cy="1526" r="16"/><text x="515" y="1530.5" text-anchor="middle">14</text></g>
 </g>
-<g class="edge" data-from="reviewer" data-to="q" data-step="15" data-label="confirm or override">
+<g class="edge" data-from="reviewer" data-to="q" data-step="15" data-label="confirm or override" data-tip="Compliance reviewer → Amazon SQS (confirm or override)">
 <path class="eline" fill="none" stroke-width="2" d="M2035 1594 H1845" marker-end="url(#arw)"/>
 <text class="elabel" x="1940" y="1572" text-anchor="middle">confirm or</text>
 <text class="elabel" x="1940" y="1586" text-anchor="middle">override</text>
-<g class="badge"><circle cx="2035" cy="1594" r="11"/><text x="2035" y="1598.5" text-anchor="middle">15</text></g>
+<g class="badge"><title>15. Compliance reviewer → Amazon SQS (confirm or override)</title><circle cx="2035" cy="1594" r="11"/><circle class="hit" cx="2035" cy="1594" r="16"/><text x="2035" y="1598.5" text-anchor="middle">15</text></g>
 </g>
-<g class="edge" data-from="q" data-to="sup" data-step="16" data-label="decisions: resume run">
+<g class="edge" data-from="q" data-to="sup" data-step="16" data-label="decisions: resume run" data-tip="Amazon SQS → Supervisor agent (decisions: resume run)">
 <path class="eline" fill="none" stroke-width="2" d="M1845 1655 H515" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="1845" cy="1655" r="3.5"/>
 <text class="elabel" x="1180" y="1647" text-anchor="middle">decisions: resume run</text>
-<g class="badge"><circle cx="1845" cy="1655" r="11"/><text x="1845" y="1659.5" text-anchor="middle">16</text></g>
+<g class="badge"><title>16. Amazon SQS → Supervisor agent (decisions: resume run)</title><circle cx="1845" cy="1655" r="11"/><circle class="hit" cx="1845" cy="1655" r="16"/><text x="1845" y="1659.5" text-anchor="middle">16</text></g>
 </g>
 <g class="note"><rect x="435" y="1710" width="160" height="71"/><text x="515" y="1728" text-anchor="middle">All checks pass with high</text><text x="515" y="1743" text-anchor="middle">confidence: no review needed,</text><text x="515" y="1758" text-anchor="middle">continue to the final decision.</text></g>
 <g class="note"><rect x="1045" y="1793" width="270" height="116"/><text x="1180" y="1811" text-anchor="middle">Policy rule (temporal):</text><text x="1180" y="1826" text-anchor="middle">record_final_decision is forbidden</text><text x="1180" y="1841" text-anchor="middle">when any check failed unless a</text><text x="1180" y="1856" text-anchor="middle">reviewer approval exists for this</text><text x="1180" y="1871" text-anchor="middle">run. The agent cannot talk its way</text><text x="1180" y="1886" text-anchor="middle">past it.</text></g>
-<g class="edge" data-from="sup" data-to="gw" data-step="17" data-label="record_final_decision">
+<g class="edge" data-from="sup" data-to="gw" data-step="17" data-label="record_final_decision" data-tip="Supervisor agent → AgentCore Gateway (record_final_decision)">
 <path class="eline" fill="none" stroke-width="2" d="M515 1942 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="800" y="1934" text-anchor="middle">record_final_decision</text>
-<g class="badge"><circle cx="515" cy="1942" r="11"/><text x="515" y="1946.5" text-anchor="middle">17</text></g>
+<g class="badge"><title>17. Supervisor agent → AgentCore Gateway (record_final_decision)</title><circle cx="515" cy="1942" r="11"/><circle class="hit" cx="515" cy="1942" r="16"/><text x="515" y="1946.5" text-anchor="middle">17</text></g>
 </g>
-<g class="edge" data-from="gw" data-to="pol" data-step="18" data-label="authorize (approval?)">
+<g class="edge" data-from="gw" data-to="pol" data-step="18" data-label="authorize (approval?)" data-tip="AgentCore Gateway → AgentCore Policy (authorize (approval?))">
 <path class="eline" fill="none" stroke-width="2" d="M1085 2003 H1275" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="1981" text-anchor="middle">authorize</text>
 <text class="elabel" x="1180" y="1995" text-anchor="middle">(approval?)</text>
-<g class="badge"><circle cx="1085" cy="2003" r="11"/><text x="1085" y="2007.5" text-anchor="middle">18</text></g>
+<g class="badge"><title>18. AgentCore Gateway → AgentCore Policy (authorize (approval?))</title><circle cx="1085" cy="2003" r="11"/><circle class="hit" cx="1085" cy="2003" r="16"/><text x="1085" y="2007.5" text-anchor="middle">18</text></g>
 </g>
 <g class="edge" data-from="pol" data-to="gw" data-step="19" data-label="permit">
 <path class="eline" fill="none" stroke-width="2" stroke-dasharray="6 4" d="M1275 2064 H1085" marker-end="url(#arw)"/>
 <text class="elabel" x="1180" y="2056" text-anchor="middle">permit</text>
 </g>
-<g class="edge" data-from="gw" data-to="tools" data-step="19" data-label="write decision + audit record">
+<g class="edge" data-from="gw" data-to="tools" data-step="19" data-label="write decision + audit record" data-tip="AgentCore Gateway → AWS Lambda (write decision + audit record)">
 <path class="eline" fill="none" stroke-width="2" d="M1085 2118 H1465" marker-end="url(#arw)"/>
 <text class="elabel" x="1275" y="2110" text-anchor="middle">write decision + audit record</text>
-<g class="badge"><circle cx="1085" cy="2118" r="11"/><text x="1085" y="2122.5" text-anchor="middle">19</text></g>
+<g class="badge"><title>19. AgentCore Gateway → AWS Lambda (write decision + audit record)</title><circle cx="1085" cy="2118" r="11"/><circle class="hit" cx="1085" cy="2118" r="16"/><text x="1085" y="2122.5" text-anchor="middle">19</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="mem" data-step="20" data-label="store feedback for evaluation">
+<g class="edge" data-from="sup" data-to="mem" data-step="20" data-label="store feedback for evaluation" data-tip="Supervisor agent → AgentCore Memory (store feedback for evaluation)">
 <path class="eline" fill="none" stroke-width="2" d="M515 2179 H705" marker-end="url(#arw)"/>
 <text class="elabel" x="610" y="2157" text-anchor="middle">store feedback for</text>
 <text class="elabel" x="610" y="2171" text-anchor="middle">evaluation</text>
-<g class="badge"><circle cx="515" cy="2179" r="11"/><text x="515" y="2183.5" text-anchor="middle">20</text></g>
+<g class="badge"><title>20. Supervisor agent → AgentCore Memory (store feedback for evaluation)</title><circle cx="515" cy="2179" r="11"/><circle class="hit" cx="515" cy="2179" r="16"/><text x="515" y="2183.5" text-anchor="middle">20</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="owner" data-step="21" data-label="report + decisions">
+<g class="edge" data-from="sup" data-to="owner" data-step="21" data-label="report + decisions" data-tip="Supervisor agent → Document owner (report + decisions)">
 <path class="eline" fill="none" stroke-width="2" d="M515 2240 H135" marker-end="url(#arw)"/>
 <circle class="asyncdot" cx="515" cy="2240" r="3.5"/>
 <text class="elabel" x="325" y="2232" text-anchor="middle">report + decisions</text>
-<g class="badge"><circle cx="515" cy="2240" r="11"/><text x="515" y="2244.5" text-anchor="middle">21</text></g>
+<g class="badge"><title>21. Supervisor agent → Document owner (report + decisions)</title><circle cx="515" cy="2240" r="11"/><circle class="hit" cx="515" cy="2240" r="16"/><text x="515" y="2244.5" text-anchor="middle">21</text></g>
 </g>
 <g class="node" data-id="owner" data-label="Document owner" data-service="Users" data-category="General"><title>Document owner (Users)</title><use href="#gen-Users" x="103" y="164" width="64" height="64"/>
 <text class="nlabel" x="135" y="245" text-anchor="middle">Document owner</text>

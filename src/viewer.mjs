@@ -8,6 +8,7 @@
 // Reach and Route use ONLY the drawn relationships (edges/messages), never geometry.
 export const VIEWER_CSS = `
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -125,6 +126,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

@@ -24,6 +24,7 @@ main{max-width:1500px;margin:0 auto;padding:16px;display:grid;gap:16px}
 footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px}
 
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -92,7 +93,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -206,10 +207,10 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <rect x="1354" y="616" width="670" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="1364" y="636">Govern and improve</text>
 </g>
-<g class="edge" data-from="uc" data-to="platform" data-step="3" data-label="deploy">
+<g class="edge" data-from="uc" data-to="platform" data-step="3" data-label="deploy" data-tip="Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.">
 <path d="M688 596 L768 596" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="750.4" y="588" text-anchor="middle">deploy</text>
-<g class="badge"><circle cx="712" cy="596" r="11"/><text x="712" y="600.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.</title><circle cx="712" cy="596" r="11"/><circle class="hit" cx="712" cy="596" r="16"/><text x="712" y="600.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M284 645 L284 595" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -223,30 +224,30 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <path d="M1816 696 L1906 696" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1847.5" y="688" text-anchor="middle">feeds</text>
 </g>
-<g class="edge" data-from="staff" data-to="apigw" data-step="1" data-label="HTTPS">
+<g class="edge" data-from="staff" data-to="apigw" data-step="1" data-label="HTTPS" data-tip="Staff use team-specific apps that call the API.">
 <path d="M89 564 L89 515 L252 515" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="170.5" y="507" text-anchor="middle">HTTPS</text>
-<g class="badge"><circle cx="89" cy="540" r="11"/><text x="89" y="544.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Staff use team-specific apps that call the API.</title><circle cx="89" cy="540" r="11"/><circle class="hit" cx="89" cy="540" r="16"/><text x="89" y="544.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="uc" data-step="2" data-label="invoke agent">
+<g class="edge" data-from="apigw" data-to="uc" data-step="2" data-label="invoke agent" data-tip="Each use case is a separate agent with its own identity, scope and release cycle.">
 <path d="M316 515 L373 515 L373 596 L430 596" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="391" y="559.5" text-anchor="start">invoke agent</text>
-<g class="badge"><circle cx="340" cy="515" r="11"/><text x="340" y="519.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Each use case is a separate agent with its own identity, scope and release cycle.</title><circle cx="340" cy="515" r="11"/><circle class="hit" cx="340" cy="515" r="16"/><text x="340" y="519.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="gateway" data-step="4" data-label="tool calls">
+<g class="edge" data-from="runtime" data-to="gateway" data-step="4" data-label="tool calls" data-tip="Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.">
 <path d="M1033.5 472 L983.5 472 L983.5 696 L933.5 696" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1001.5" y="588" text-anchor="start">tool calls</text>
-<g class="badge"><circle cx="1009.5" cy="472" r="11"/><text x="1009.5" y="476.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.</title><circle cx="1009.5" cy="472" r="11"/><circle class="hit" cx="1009.5" cy="472" r="16"/><text x="1009.5" y="476.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="tools" data-step="5" data-label="MCP tools">
+<g class="edge" data-from="platform" data-to="tools" data-step="5" data-label="MCP tools" data-tip="Gateway fronts business APIs, FHIR data and knowledge bases.">
 <path d="M2048 596 L2088 596 L2088 708 L2128 708" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2106" y="656" text-anchor="start">MCP tools</text>
-<g class="badge"><circle cx="2088" cy="596" r="11"/><text x="2088" y="600.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Gateway fronts business APIs, FHIR data and knowledge bases.</title><circle cx="2088" cy="596" r="11"/><circle class="hit" cx="2088" cy="596" r="16"/><text x="2088" y="600.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke models">
+<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke models" data-tip="Models are called through Bedrock with Guardrails on input and output.">
 <path d="M2048 596 L2075.75 596 L2075.75 484 L2199.5 484" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2119.0625" y="476" text-anchor="middle">invoke models</text>
-<g class="badge"><circle cx="2175.5" cy="484" r="11"/><text x="2175.5" y="488.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Models are called through Bedrock with Guardrails on input and output.</title><circle cx="2175.5" cy="484" r="11"/><circle class="hit" cx="2175.5" cy="484" r="16"/><text x="2175.5" y="488.5" text-anchor="middle">6</text></g>
 </g>
 <g class="node" data-id="staff" data-label="Clinicians and staff" data-service="Users" data-category="General"><title>Clinicians and staff (Users)</title>
 <use href="#gen-Users" x="57" y="564" width="64" height="64"/>
@@ -377,8 +378,8 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="nsub" x="2511" y="785" text-anchor="middle">vector knowledge base</text>
 </g>
 </svg></section>
-<section class="card"><h2>Flow</h2><ol class="steps"><li data-from="staff" data-to="apigw"><span class="n">1</span><span>Staff use team-specific apps that call the API.</span></li><li data-from="apigw" data-to="uc"><span class="n">2</span><span>Each use case is a separate agent with its own identity, scope and release cycle.</span></li><li data-from="uc" data-to="platform"><span class="n">3</span><span>Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.</span></li><li data-from="runtime" data-to="gateway"><span class="n">4</span><span>Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.</span></li><li data-from="platform" data-to="tools"><span class="n">5</span><span>Gateway fronts business APIs, FHIR data and knowledge bases.</span></li><li data-from="platform" data-to="models"><span class="n">6</span><span>Models are called through Bedrock with Guardrails on input and output.</span></li></ol></section></div>
-<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-01 · indicative — some usage is assumed</small></h2>
+<section class="card"><h2>Flow</h2><ol class="steps"><li data-step="1" data-from="staff" data-to="apigw"><span class="n">1</span><span>Staff use team-specific apps that call the API.</span></li><li data-step="2" data-from="apigw" data-to="uc"><span class="n">2</span><span>Each use case is a separate agent with its own identity, scope and release cycle.</span></li><li data-step="3" data-from="uc" data-to="platform"><span class="n">3</span><span>Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.</span></li><li data-step="4" data-from="runtime" data-to="gateway"><span class="n">4</span><span>Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.</span></li><li data-step="5" data-from="platform" data-to="tools"><span class="n">5</span><span>Gateway fronts business APIs, FHIR data and knowledge bases.</span></li><li data-step="6" data-from="platform" data-to="models"><span class="n">6</span><span>Models are called through Bedrock with Guardrails on input and output.</span></li></ol></section></div>
+<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-02 · indicative — some usage is assumed</small></h2>
 <div class="tiles"><div class="tile"><b>$1,749</b><span>per month</span></div><div class="tile"><b>$20,985</b><span>per year</span></div>
 <div class="tile"><b>13/25</b><span>components priced</span></div><div class="tile"><b>6</b><span>not priced (see below)</span></div></div>
 <p class="muted">Public on-demand AWS list prices from the AWS Price List. Excludes free tier, taxes, support plans, Savings Plans/Reserved Instances/Spot and enterprise discounts, and data transfer unless a node sets egressGbPerMonth. Monthly = 730 hours. Not a quote: confirm with the AWS Pricing Calculator.</p>
@@ -392,7 +393,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <ul class="plain"><li><strong>Run AWS Lambda on arm64 (Graviton)</strong> — saves $0.33/month. <span class="muted">Same usage re-priced with arm64 request and duration rates; assumes the code runs unchanged on arm64.</span></li></ul></section>
 <section class="card"><h2>Price list provenance</h2><p class="muted">Retrieved 2026-10-01T18:40:39.861Z from the public AWS Price List bulk API. Per-service publication dates:</p><p class="muted">AmazonApiGateway 2026-09-21 · awswaf 2026-09-14 · AmazonBedrockAgentCore 2026-09-15 · AmazonBedrock 2026-09-30 · AmazonBedrockFoundationModels 2026-09-30 · AWSLambda 2026-09-19 · AmazonES 2026-09-27</p><p class="muted">Only public on-demand rates are used. This is not a quote — confirm in the <a href="https://calculator.aws/" target="_blank" rel="noopener">AWS Pricing Calculator</a>.</p></section></div>
 <div class="tab" id="tab-wa"><section class="card wa"><div class="banner">Classification: CONFIDENTIAL — This report contains sensitive infrastructure details and unremediated security findings. Restrict distribution to authorized personnel. Do not post to broadly visible channels or ticketing systems without explicit approval.</div>
-<h2>Well-Architected review <small>Healthcare agentic platform — Amazon Bedrock AgentCore shared services and use-case onboarding · 2026-10-01 · mode full</small></h2>
+<h2>Well-Architected review <small>Healthcare agentic platform — Amazon Bedrock AgentCore shared services and use-case onboarding · 2026-10-02 · mode full</small></h2>
 <h3>Coverage audit</h3><ul class="plain"><li><strong>AWS Well-Architected Framework</strong> — 6 pillars, 57 questions, 307 best practices, from <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/toc-contents.json" target="_blank" rel="noopener">the live documentation index</a>, snapshot 2026-10-01 (0 days old).</li>
 <li><strong>Generative AI Lens</strong> — 29 questions, 51 best practices, snapshot 2026-10-01.</li>
 <li>Assessed 307 framework BPs and 51 lens BPs: 14 + 12 with diagram evidence, 291 + 39 cannot be determined.</li>
@@ -414,7 +415,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <h3>To confirm <small>not drawn, so not counted as gaps</small></h3><ul class="plain"><li><strong>No AWS KMS shown for data at rest</strong> <span class="muted">SEC08-BP01</span> — Manage encryption keys in AWS KMS (customer managed keys where you need key policy, rotation or audit control) and enforce encryption at rest on every data store.</li><li><strong>No detection or audit services shown</strong> <span class="muted">SEC04-BP01, SEC04-BP02</span> — Enable CloudTrail (organization trail), GuardDuty and Security Hub, and send logs and findings to a central, access-restricted account.</li><li><strong>No infrastructure-as-code or CI/CD shown</strong> <span class="muted">OPS05-BP04, OPS05-BP10, REL08-BP05, SEC11-BP06</span> — Define infrastructure as code and deploy through a pipeline with small, reversible changes and automated rollback.</li><li><strong>No CDN / edge acceleration shown for end users</strong> <span class="muted">PERF04-BP02, PERF04-BP06</span> — Serve content close to users with Amazon CloudFront or AWS Global Accelerator to reduce latency.</li><li><strong>No cost visibility shown</strong> <span class="muted">COST01-BP03, COST01-BP06, COST03-BP05</span> — Set AWS Budgets with alert thresholds, enable Cost Anomaly Detection and cost allocation tags so spend maps to this workload.</li><li><strong>Single-Region model inference</strong> <span class="muted">GENREL05-BP01</span> — Plan for throttling and quota limits (retries, queues, provisioned throughput) and consider cross-Region inference profiles or a fallback model.</li><li><strong>Model cost controls</strong> <span class="muted">GENCOST01-BP01</span> — Select the smallest model that meets quality targets; use prompt caching and batch inference where possible; track cost per request.</li><li><strong>Agents and excessive agency</strong> <span class="muted">GENSEC05-BP01</span> — Limit agent tool permissions (least privilege, deterministic policy at the tool boundary) and add human approval for high-impact actions.</li><li><strong>Model and hosting efficiency</strong> <span class="muted">GENSUS03-BP01</span> — Prefer right-sized or distilled models and serverless inference; avoid always-on endpoints for spiky traffic.</li></ul>
 <h3>Cross-pillar trade-offs</h3><ul class="plain"><li><strong>Guardrails on model traffic</strong> <span class="muted">Security ↔ Cost optimization ↔ Performance efficiency</span><br>Guardrails cost $125.00/month (9% of AI spend) and add a synchronous screening step to each model call. <i>Resolution:</i> Apply the strictest policies where harm is highest (final responses, PII) and measure per-policy value before enabling every policy on every call.</li><li><strong>Continuous agent evaluation</strong> <span class="muted">Operational excellence ↔ Cost optimization</span><br>Evaluations cost $24.00/month at the assumed sampling volume. <i>Resolution:</i> Sample a fraction of production traffic and run the full golden set before each release.</li></ul>
 <h3>Eisenhower prioritization</h3><div class="quads"><div class="quad"><h4>Do First</h4><ul><li><a href="#F-001">F-001</a> Model inference dominates cost</li></ul></div><div class="quad"><h4>Plan</h4><p class="muted">None</p></div><div class="quad"><h4>Delegate</h4><p class="muted">None</p></div><div class="quad"><h4>Defer</h4><p class="muted">None</p></div></div>
-<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-22 (3 weeks): Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. Success measure: Cost per document tracked; smaller-model share of calls increased without quality regression</td><td>ML platform team</td></tr></tbody></table></div>
+<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-23 (3 weeks): Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. Success measure: Cost per document tracked; smaller-model share of calls increased without quality regression</td><td>ML platform team</td></tr></tbody></table></div>
 <h3>Next steps</h3><ol><li><b>F-001</b> Model inference dominates cost — Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. <span class="muted">(ML platform team)</span></li><li>Re-run the review after changes, and when the architecture or documentation changes.</li></ol>
 <p class="muted">Impact × Likelihood matrix from the AWS Well-Architected review skill (Severe+High = Critical; Severe+Medium/Low or Moderate+High = High; Moderate+Medium/Low or Minor+High = Medium; otherwise Low).</p></section></div>
 </main>
@@ -510,6 +511,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

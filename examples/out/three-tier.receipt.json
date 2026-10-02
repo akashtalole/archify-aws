@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/three-tier.html",
-      "sha256": "f8318e77815f341e29649891afdcd3eabd90986d61d64b0dac63b6d6577bb5c3",
-      "bytes": 271753
+      "sha256": "ff999f4f34053b4525e0900c1ec8ba4a30ae72ea6c1be2430d7c2791c1fe75f7",
+      "bytes": 274510
     },
     "svg": {
       "path": "examples/out/three-tier.svg",
-      "sha256": "5097e9a4eb5f62dfe36b531370ef82076ae4272435511f2390a6d5e1eabc8191"
+      "sha256": "e8b48f01bad29e46597b40327cb6d9c73f4b4f605425156a83536362be786654"
     },
     "png": {
       "path": "examples/out/three-tier.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 1074.605,
     "confidence": "indicative",
     "coverage": {

@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -171,30 +171,30 @@
 <rect x="2100" y="1028" width="490" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="2110" y="1048">Security and observability</text>
 </g>
-<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="upload">
+<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="upload" data-tip="An owner signs in through the corporate IdP and uploads a document with the check set to apply.">
 <path d="M124 700 L278.5 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="201.25" y="692" text-anchor="middle">upload</text>
-<g class="badge"><circle cx="148" cy="700" r="11"/><text x="148" y="704.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. An owner signs in through the corporate IdP and uploads a document with the check set to apply.</title><circle cx="148" cy="700" r="11"/><circle class="hit" cx="148" cy="700" r="16"/><text x="148" y="704.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload">
+<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload" data-tip="The document lands in the KMS-encrypted intake bucket.">
 <path d="M342.5 700 L477 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="429.925" y="692" text-anchor="middle">presigned upload</text>
-<g class="badge"><circle cx="366.5" cy="700" r="11"/><text x="366.5" y="704.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. The document lands in the KMS-encrypted intake bucket.</title><circle cx="366.5" cy="700" r="11"/><circle class="hit" cx="366.5" cy="700" r="16"/><text x="366.5" y="704.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="intake" data-to="platform" data-step="3" data-label="invoke agent">
+<g class="edge" data-from="intake" data-to="platform" data-step="3" data-label="invoke agent" data-tip="An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.">
 <path d="M673 700 L763 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="718" y="692" text-anchor="middle">invoke agent</text>
-<g class="badge"><circle cx="697" cy="700" r="11"/><text x="697" y="704.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.</title><circle cx="697" cy="700" r="11"/><circle class="hit" cx="697" cy="700" r="16"/><text x="697" y="704.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="chk" data-step="4" data-label="delegate (A2A)">
+<g class="edge" data-from="sup" data-to="chk" data-step="4" data-label="delegate (A2A)" data-tip="The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.">
 <path d="M917 576 L1033 576" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="975" y="568" text-anchor="middle">delegate (A2A)</text>
-<g class="badge"><circle cx="941" cy="576" r="11"/><text x="941" y="580.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.</title><circle cx="941" cy="576" r="11"/><circle class="hit" cx="941" cy="576" r="16"/><text x="941" y="580.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="chk" data-to="gw" data-step="5" data-label="tool calls (MCP)">
+<g class="edge" data-from="chk" data-to="gw" data-step="5" data-label="tool calls (MCP)" data-tip="Agents reach every tool through Gateway; nothing is called directly.">
 <path d="M1097 576 L1445.5 576" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1271.25" y="568" text-anchor="middle">tool calls (MCP)</text>
-<g class="badge"><circle cx="1121" cy="576" r="11"/><text x="1121" y="580.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Agents reach every tool through Gateway; nothing is called directly.</title><circle cx="1121" cy="576" r="11"/><circle class="hit" cx="1121" cy="576" r="16"/><text x="1121" y="580.5" text-anchor="middle">5</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M310.5 830 L310.5 780" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -208,25 +208,25 @@
 <path d="M1613 576 L1509.5 576" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1561.25" y="568" text-anchor="middle">authorize each call</text>
 </g>
-<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke">
+<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke" data-tip="Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.">
 <path d="M2010 700 L2088 700 L2088 292 L2166 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2106" y="500" text-anchor="start">invoke</text>
-<g class="badge"><circle cx="2054" cy="700" r="11"/><text x="2054" y="704.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.</title><circle cx="2054" cy="700" r="11"/><circle class="hit" cx="2054" cy="700" r="16"/><text x="2054" y="704.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="data" data-step="7" data-label="MCP targets">
+<g class="edge" data-from="platform" data-to="data" data-step="7" data-label="MCP targets" data-tip="Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.">
 <path d="M2010 700 L2032 700 L2032 760 L2132 760 L2132 614 L2154 614" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2082" y="752" text-anchor="middle">MCP targets</text>
-<g class="badge"><circle cx="2132" cy="614" r="11"/><text x="2132" y="618.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.</title><circle cx="2132" cy="614" r="11"/><circle class="hit" cx="2132" cy="614" r="16"/><text x="2132" y="618.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="review" data-step="8" data-label="flag + resume">
+<g class="edge" data-from="platform" data-to="review" data-step="8" data-label="flag + resume" data-tip="Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.">
 <path d="M2010 700 L2032 700 L2032 790 L2149.5 790 L2149.5 888 L2171.5 888" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="2090.75" y="782" text-anchor="middle">flag + resume</text>
-<g class="badge"><circle cx="2149.5" cy="888" r="11"/><text x="2149.5" y="892.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.</title><circle cx="2149.5" cy="888" r="11"/><circle class="hit" cx="2149.5" cy="888" r="16"/><text x="2149.5" y="892.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="review" data-to="reviewers" data-step="9" data-label="task and decision">
+<g class="edge" data-from="review" data-to="reviewers" data-step="9" data-label="task and decision" data-tip="Human review → Compliance reviewers (task and decision)">
 <path d="M2518.5 888 L2592.25 888 L2592.25 700 L2714 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="2610.25" y="798" text-anchor="start">task and decision</text>
-<g class="badge"><circle cx="2542.5" cy="888" r="11"/><text x="2542.5" y="892.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. Human review → Compliance reviewers (task and decision)</title><circle cx="2542.5" cy="888" r="11"/><circle class="hit" cx="2542.5" cy="888" r="16"/><text x="2542.5" y="892.5" text-anchor="middle">9</text></g>
 </g>
 <g class="node" data-id="owners" data-label="Document owners" data-service="Users" data-category="General"><title>Document owners (Users)</title>
 <use href="#gen-Users" x="60" y="668" width="64" height="64"/>

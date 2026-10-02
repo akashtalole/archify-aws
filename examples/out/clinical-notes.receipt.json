@@ -60,12 +60,12 @@
   "outputs": {
     "html": {
       "path": "examples/out/clinical-notes.html",
-      "sha256": "6b33bfb636698725aba69e59ba5775f72f11fd7062ea0b582d0848713925c373",
-      "bytes": 293149
+      "sha256": "c529957bd85877652efed7c30ed1652e3a94d2bad25cb3744595f9fe7e0c3762",
+      "bytes": 296534
     },
     "svg": {
       "path": "examples/out/clinical-notes.svg",
-      "sha256": "306a719c3535e97dd7c7da199bf019dbc8bf0da2b6323108b5f8ac6d54caa568"
+      "sha256": "a8a2d5e7a34103768528c21226e5c716d7ae185489457747c2252514e0185a54"
     },
     "png": {
       "path": "examples/out/clinical-notes.png",
@@ -84,7 +84,7 @@
   },
   "cost": {
     "region": "us-east-1",
-    "asOf": "2026-10-01",
+    "asOf": "2026-10-02",
     "monthlyUsd": 3372.67,
     "confidence": "indicative",
     "coverage": {

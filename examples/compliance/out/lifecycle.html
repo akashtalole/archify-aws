@@ -24,6 +24,7 @@ main{max-width:1500px;margin:0 auto;padding:16px;display:grid;gap:16px}
 footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px}
 
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -92,7 +93,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -190,49 +191,49 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <rect x="1259" y="324" width="312" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="1269" y="344">Monitor and learn</text>
 </g>
-<g class="edge" data-from="lead" data-to="repo" data-step="1" data-label="propose change">
+<g class="edge" data-from="lead" data-to="repo" data-step="1" data-label="propose change" data-tip="Compliance author → Rule library repo (propose change)">
 <path d="M146.5 484 L146.5 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="164.5" y="512" text-anchor="start">propose change</text>
-<g class="badge"><circle cx="146.5" cy="508" r="11"/><text x="146.5" y="512.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Compliance author → Rule library repo (propose change)</title><circle cx="146.5" cy="508" r="11"/><circle class="hit" cx="146.5" cy="508" r="16"/><text x="146.5" y="512.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="pipe" data-to="build" data-step="3" data-label="">
+<g class="edge" data-from="pipe" data-to="build" data-step="3" data-label="" data-tip="AWS CodePipeline → AWS CodeBuild">
 <path d="M432 324 L432 372" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="432" cy="348" r="11"/><text x="432" y="352.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. AWS CodePipeline → AWS CodeBuild</title><circle cx="432" cy="348" r="11"/><circle class="hit" cx="432" cy="348" r="16"/><text x="432" y="352.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="build" data-to="eval" data-step="4" data-label="run 100 checks">
+<g class="edge" data-from="build" data-to="eval" data-step="4" data-label="run 100 checks" data-tip="AWS CodeBuild → Amazon Bedrock (run 100 checks)">
 <path d="M432 484 L432 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="450" y="512" text-anchor="start">run 100 checks</text>
-<g class="badge"><circle cx="432" cy="508" r="11"/><text x="432" y="512.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS CodeBuild → Amazon Bedrock (run 100 checks)</title><circle cx="432" cy="508" r="11"/><circle class="hit" cx="432" cy="508" r="16"/><text x="432" y="512.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="gold" data-to="eval" data-step="4" data-label="labelled docs">
+<g class="edge" data-from="gold" data-to="eval" data-step="4" data-label="labelled docs" data-tip="Amazon S3 → Amazon Bedrock (labelled docs)">
 <path d="M432 692 L432 644" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="450" y="672" text-anchor="start">labelled docs</text>
-<g class="badge"><circle cx="432" cy="668" r="11"/><text x="432" y="672.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Amazon S3 → Amazon Bedrock (labelled docs)</title><circle cx="432" cy="668" r="11"/><circle class="hit" cx="432" cy="668" r="16"/><text x="432" y="672.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="cfg" data-to="runner" data-step="7" data-label="staged rollout">
+<g class="edge" data-from="cfg" data-to="runner" data-step="7" data-label="staged rollout" data-tip="AWS AppConfig → AWS Lambda (staged rollout)">
 <path d="M1071 484 L1071 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1089" y="512" text-anchor="start">staged rollout</text>
-<g class="badge"><circle cx="1071" cy="508" r="11"/><text x="1071" y="512.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. AWS AppConfig → AWS Lambda (staged rollout)</title><circle cx="1071" cy="508" r="11"/><circle class="hit" cx="1071" cy="508" r="16"/><text x="1071" y="512.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="repo" data-to="pipe" data-step="2" data-label="webhook">
+<g class="edge" data-from="repo" data-to="pipe" data-step="2" data-label="webhook" data-tip="Rule library repo → AWS CodePipeline (webhook)">
 <path d="M178.5 564 L289.25 564 L289.25 244 L400 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="307.25" y="408" text-anchor="start">webhook</text>
-<g class="badge"><circle cx="202.5" cy="564" r="11"/><text x="202.5" y="568.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Rule library repo → AWS CodePipeline (webhook)</title><circle cx="202.5" cy="564" r="11"/><circle class="hit" cx="202.5" cy="564" r="16"/><text x="202.5" y="568.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="eval" data-to="qa" data-step="5" data-label="metrics report">
+<g class="edge" data-from="eval" data-to="qa" data-step="5" data-label="metrics report" data-tip="Amazon Bedrock → Compliance lead + QA (metrics report)">
 <path d="M464 564 L583.5 564 L583.5 484 L703 484" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="557.21" y="556" text-anchor="middle">metrics report</text>
-<g class="badge"><circle cx="488" cy="564" r="11"/><text x="488" y="568.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Amazon Bedrock → Compliance lead + QA (metrics report)</title><circle cx="488" cy="564" r="11"/><circle class="hit" cx="488" cy="564" r="16"/><text x="488" y="568.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="qa" data-to="cfg" data-step="6" data-label="approve release">
+<g class="edge" data-from="qa" data-to="cfg" data-step="6" data-label="approve release" data-tip="Compliance lead + QA → AWS AppConfig (approve release)">
 <path d="M767 484 L903 484 L903 404 L1039 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="835" y="476" text-anchor="middle">approve release</text>
-<g class="badge"><circle cx="791" cy="484" r="11"/><text x="791" y="488.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Compliance lead + QA → AWS AppConfig (approve release)</title><circle cx="791" cy="484" r="11"/><circle class="hit" cx="791" cy="484" r="16"/><text x="791" y="488.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="runner" data-to="cw" data-step="8" data-label="quality metrics">
+<g class="edge" data-from="runner" data-to="cw" data-step="8" data-label="quality metrics" data-tip="AWS Lambda → Amazon CloudWatch (quality metrics)">
 <path d="M1103 564 L1243 564 L1243 404 L1383 404" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1261" y="512" text-anchor="start">quality metrics</text>
-<g class="badge"><circle cx="1127" cy="564" r="11"/><text x="1127" y="568.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. AWS Lambda → Amazon CloudWatch (quality metrics)</title><circle cx="1127" cy="564" r="11"/><circle class="hit" cx="1127" cy="564" r="16"/><text x="1127" y="568.5" text-anchor="middle">8</text></g>
 </g>
 <g class="edge" data-from="a2i" data-to="gold" data-step="" data-label="overrides become labels">
 <path d="M1415 644 L1415 724 L464 724" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -294,8 +295,8 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="nsub" x="1415" y="641" text-anchor="middle">reviewer overrides</text>
 </g>
 </svg></section>
-<section class="card"><h2>Flow</h2><ol class="steps"><li data-from="lead" data-to="repo"><span class="n">1</span><span>Compliance author → Rule library repo <em>(propose change)</em></span></li><li data-from="repo" data-to="pipe"><span class="n">2</span><span>Rule library repo → AWS CodePipeline <em>(webhook)</em></span></li><li data-from="pipe" data-to="build"><span class="n">3</span><span>AWS CodePipeline → AWS CodeBuild</span></li><li data-from="build" data-to="eval"><span class="n">4</span><span>AWS CodeBuild → Amazon Bedrock <em>(run 100 checks)</em></span></li><li data-from="gold" data-to="eval"><span class="n">4</span><span>Amazon S3 → Amazon Bedrock <em>(labelled docs)</em></span></li><li data-from="eval" data-to="qa"><span class="n">5</span><span>Amazon Bedrock → Compliance lead + QA <em>(metrics report)</em></span></li><li data-from="qa" data-to="cfg"><span class="n">6</span><span>Compliance lead + QA → AWS AppConfig <em>(approve release)</em></span></li><li data-from="cfg" data-to="runner"><span class="n">7</span><span>AWS AppConfig → AWS Lambda <em>(staged rollout)</em></span></li><li data-from="runner" data-to="cw"><span class="n">8</span><span>AWS Lambda → Amazon CloudWatch <em>(quality metrics)</em></span></li></ol></section></div>
-<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-01 · indicative — some usage is assumed</small></h2>
+<section class="card"><h2>Flow</h2><ol class="steps"><li data-step="1" data-from="lead" data-to="repo"><span class="n">1</span><span>Compliance author → Rule library repo (propose change)</span></li><li data-step="2" data-from="repo" data-to="pipe"><span class="n">2</span><span>Rule library repo → AWS CodePipeline (webhook)</span></li><li data-step="3" data-from="pipe" data-to="build"><span class="n">3</span><span>AWS CodePipeline → AWS CodeBuild</span></li><li data-step="4" data-from="build" data-to="eval"><span class="n">4</span><span>AWS CodeBuild → Amazon Bedrock (run 100 checks)</span></li><li data-step="4" data-from="gold" data-to="eval"><span class="n">4</span><span>Amazon S3 → Amazon Bedrock (labelled docs)</span></li><li data-step="5" data-from="eval" data-to="qa"><span class="n">5</span><span>Amazon Bedrock → Compliance lead + QA (metrics report)</span></li><li data-step="6" data-from="qa" data-to="cfg"><span class="n">6</span><span>Compliance lead + QA → AWS AppConfig (approve release)</span></li><li data-step="7" data-from="cfg" data-to="runner"><span class="n">7</span><span>AWS AppConfig → AWS Lambda (staged rollout)</span></li><li data-step="8" data-from="runner" data-to="cw"><span class="n">8</span><span>AWS Lambda → Amazon CloudWatch (quality metrics)</span></li></ol></section></div>
+<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-02 · indicative — some usage is assumed</small></h2>
 <div class="tiles"><div class="tile"><b>$17.37</b><span>per month</span></div><div class="tile"><b>$208</b><span>per year</span></div>
 <div class="tile"><b>3/11</b><span>components priced</span></div><div class="tile"><b>5</b><span>not priced (see below)</span></div></div>
 <p class="muted">Public on-demand AWS list prices from the AWS Price List. Excludes free tier, taxes, support plans, Savings Plans/Reserved Instances/Spot and enterprise discounts, and data transfer unless a node sets egressGbPerMonth. Monthly = 730 hours. Not a quote: confirm with the AWS Pricing Calculator.</p>
@@ -309,7 +310,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <ul class="plain"><li><strong>Run AWS Lambda on arm64 (Graviton)</strong> — saves $0.33/month. <span class="muted">Same usage re-priced with arm64 request and duration rates; assumes the code runs unchanged on arm64.</span></li></ul></section>
 <section class="card"><h2>Price list provenance</h2><p class="muted">Retrieved 2026-10-01T18:40:39.861Z from the public AWS Price List bulk API. Per-service publication dates:</p><p class="muted">AmazonS3 2026-09-28 · AWSLambda 2026-09-19 · AmazonCloudWatch 2026-09-22</p><p class="muted">Only public on-demand rates are used. This is not a quote — confirm in the <a href="https://calculator.aws/" target="_blank" rel="noopener">AWS Pricing Calculator</a>.</p></section></div>
 <div class="tab" id="tab-wa"><section class="card wa"><div class="banner">Classification: CONFIDENTIAL — This report contains sensitive infrastructure details and unremediated security findings. Restrict distribution to authorized personnel. Do not post to broadly visible channels or ticketing systems without explicit approval.</div>
-<h2>Well-Architected review <small>Check-library lifecycle: author, evaluate, human approval, deploy, monitor · 2026-10-01 · mode full</small></h2>
+<h2>Well-Architected review <small>Check-library lifecycle: author, evaluate, human approval, deploy, monitor · 2026-10-02 · mode full</small></h2>
 <h3>Coverage audit</h3><ul class="plain"><li><strong>AWS Well-Architected Framework</strong> — 6 pillars, 57 questions, 307 best practices, from <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/toc-contents.json" target="_blank" rel="noopener">the live documentation index</a>, snapshot 2026-10-01 (0 days old).</li>
 <li><strong>Generative AI Lens</strong> — 29 questions, 51 best practices, snapshot 2026-10-01.</li>
 <li>Assessed 307 framework BPs and 51 lens BPs: 13 + 8 with diagram evidence, 292 + 43 cannot be determined.</li>
@@ -331,7 +332,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <h3>To confirm <small>not drawn, so not counted as gaps</small></h3><ul class="plain"><li><strong>No AWS KMS shown for data at rest</strong> <span class="muted">SEC08-BP01</span> — Manage encryption keys in AWS KMS (customer managed keys where you need key policy, rotation or audit control) and enforce encryption at rest on every data store.</li><li><strong>No detection or audit services shown</strong> <span class="muted">SEC04-BP01, SEC04-BP02</span> — Enable CloudTrail (organization trail), GuardDuty and Security Hub, and send logs and findings to a central, access-restricted account.</li><li><strong>No backup or recovery capability shown</strong> <span class="muted">REL09-BP01, REL09-BP03</span> — Back up data automatically with AWS Backup (cross-account/cross-Region vault where required) and test restores against your RPO/RTO.</li><li><strong>No cost visibility shown</strong> <span class="muted">COST01-BP03, COST01-BP06, COST03-BP05</span> — Set AWS Budgets with alert thresholds, enable Cost Anomaly Detection and cost allocation tags so spend maps to this workload.</li><li><strong>No retrieval / grounding data source shown</strong> <span class="muted">GENPERF04-BP01</span> — Ground responses in enterprise data (RAG) and test embeddings for retrieval latency and relevance.</li><li><strong>Single-Region model inference</strong> <span class="muted">GENREL05-BP01</span> — Plan for throttling and quota limits (retries, queues, provisioned throughput) and consider cross-Region inference profiles or a fallback model.</li><li><strong>Model cost controls</strong> <span class="muted">GENCOST01-BP01</span> — Select the smallest model that meets quality targets; use prompt caching and batch inference where possible; track cost per request.</li><li><strong>Model and hosting efficiency</strong> <span class="muted">GENSUS03-BP01</span> — Prefer right-sized or distilled models and serverless inference; avoid always-on endpoints for spiky traffic.</li></ul>
 <h3>Cross-pillar trade-offs</h3><ul class="plain"><li><strong>Observability volume</strong> <span class="muted">Operational excellence ↔ Cost optimization</span><br>CloudWatch is $12.30/month in this estimate, mostly log ingestion; richer telemetry improves detection but ingestion is billed per GB. <i>Resolution:</i> Sample verbose traces, set retention per log group, and keep full-fidelity logs for security and audit sources only.</li></ul>
 <h3>Eisenhower prioritization</h3><div class="quads"><div class="quad"><h4>Do First</h4><ul><li><a href="#F-001">F-001</a> No guardrails around model input/output</li></ul></div><div class="quad"><h4>Plan</h4><p class="muted">None</p></div><div class="quad"><h4>Delegate</h4><p class="muted">None</p></div><div class="quad"><h4>Defer</h4><p class="muted">None</p></div></div>
-<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-15 (2 weeks): Apply Amazon Bedrock Guardrails (or equivalent) to prompts and responses: harmful content, PII, prompt attacks and, for RAG, contextual grounding. Success measure: Guardrails enforced on 100% of model invocations; interventions logged</td><td>ML platform team</td></tr></tbody></table></div>
+<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-16 (2 weeks): Apply Amazon Bedrock Guardrails (or equivalent) to prompts and responses: harmful content, PII, prompt attacks and, for RAG, contextual grounding. Success measure: Guardrails enforced on 100% of model invocations; interventions logged</td><td>ML platform team</td></tr></tbody></table></div>
 <h3>Next steps</h3><ol><li><b>F-001</b> No guardrails around model input/output — Apply Amazon Bedrock Guardrails (or equivalent) to prompts and responses: harmful content, PII, prompt attacks and, for RAG, contextual grounding. <span class="muted">(ML platform team)</span></li><li>Re-run the review after changes, and when the architecture or documentation changes.</li></ol>
 <p class="muted">Impact × Likelihood matrix from the AWS Well-Architected review skill (Severe+High = Critical; Severe+Medium/Low or Moderate+High = High; Moderate+Medium/Low or Minor+High = Medium; otherwise Low).</p></section></div>
 </main>
@@ -427,6 +428,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

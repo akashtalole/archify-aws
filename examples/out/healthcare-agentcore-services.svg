@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -125,10 +125,10 @@
 <rect x="1354" y="616" width="670" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="1364" y="636">Govern and improve</text>
 </g>
-<g class="edge" data-from="uc" data-to="platform" data-step="3" data-label="deploy">
+<g class="edge" data-from="uc" data-to="platform" data-step="3" data-label="deploy" data-tip="Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.">
 <path d="M688 596 L768 596" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="750.4" y="588" text-anchor="middle">deploy</text>
-<g class="badge"><circle cx="712" cy="596" r="11"/><text x="712" y="600.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Agents (Strands, LangGraph, CrewAI or Harness) run on AgentCore Runtime in isolated sessions.</title><circle cx="712" cy="596" r="11"/><circle class="hit" cx="712" cy="596" r="16"/><text x="712" y="600.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M284 645 L284 595" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -142,30 +142,30 @@
 <path d="M1816 696 L1906 696" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1847.5" y="688" text-anchor="middle">feeds</text>
 </g>
-<g class="edge" data-from="staff" data-to="apigw" data-step="1" data-label="HTTPS">
+<g class="edge" data-from="staff" data-to="apigw" data-step="1" data-label="HTTPS" data-tip="Staff use team-specific apps that call the API.">
 <path d="M89 564 L89 515 L252 515" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="170.5" y="507" text-anchor="middle">HTTPS</text>
-<g class="badge"><circle cx="89" cy="540" r="11"/><text x="89" y="544.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Staff use team-specific apps that call the API.</title><circle cx="89" cy="540" r="11"/><circle class="hit" cx="89" cy="540" r="16"/><text x="89" y="544.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="uc" data-step="2" data-label="invoke agent">
+<g class="edge" data-from="apigw" data-to="uc" data-step="2" data-label="invoke agent" data-tip="Each use case is a separate agent with its own identity, scope and release cycle.">
 <path d="M316 515 L373 515 L373 596 L430 596" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="391" y="559.5" text-anchor="start">invoke agent</text>
-<g class="badge"><circle cx="340" cy="515" r="11"/><text x="340" y="519.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Each use case is a separate agent with its own identity, scope and release cycle.</title><circle cx="340" cy="515" r="11"/><circle class="hit" cx="340" cy="515" r="16"/><text x="340" y="519.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="runtime" data-to="gateway" data-step="4" data-label="tool calls">
+<g class="edge" data-from="runtime" data-to="gateway" data-step="4" data-label="tool calls" data-tip="Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.">
 <path d="M1033.5 472 L983.5 472 L983.5 696 L933.5 696" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1001.5" y="588" text-anchor="start">tool calls</text>
-<g class="badge"><circle cx="1009.5" cy="472" r="11"/><text x="1009.5" y="476.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Agents reach tools only via Gateway, which exposes APIs and Lambda as MCP tools.</title><circle cx="1009.5" cy="472" r="11"/><circle class="hit" cx="1009.5" cy="472" r="16"/><text x="1009.5" y="476.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="tools" data-step="5" data-label="MCP tools">
+<g class="edge" data-from="platform" data-to="tools" data-step="5" data-label="MCP tools" data-tip="Gateway fronts business APIs, FHIR data and knowledge bases.">
 <path d="M2048 596 L2088 596 L2088 708 L2128 708" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2106" y="656" text-anchor="start">MCP tools</text>
-<g class="badge"><circle cx="2088" cy="596" r="11"/><text x="2088" y="600.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Gateway fronts business APIs, FHIR data and knowledge bases.</title><circle cx="2088" cy="596" r="11"/><circle class="hit" cx="2088" cy="596" r="16"/><text x="2088" y="600.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke models">
+<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke models" data-tip="Models are called through Bedrock with Guardrails on input and output.">
 <path d="M2048 596 L2075.75 596 L2075.75 484 L2199.5 484" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2119.0625" y="476" text-anchor="middle">invoke models</text>
-<g class="badge"><circle cx="2175.5" cy="484" r="11"/><text x="2175.5" y="488.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Models are called through Bedrock with Guardrails on input and output.</title><circle cx="2175.5" cy="484" r="11"/><circle class="hit" cx="2175.5" cy="484" r="16"/><text x="2175.5" y="488.5" text-anchor="middle">6</text></g>
 </g>
 <g class="node" data-id="staff" data-label="Clinicians and staff" data-service="Users" data-category="General"><title>Clinicians and staff (Users)</title>
 <use href="#gen-Users" x="57" y="564" width="64" height="64"/>

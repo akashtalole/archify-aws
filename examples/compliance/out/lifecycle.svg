@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -109,49 +109,49 @@
 <rect x="1259" y="324" width="312" height="344" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="1269" y="344">Monitor and learn</text>
 </g>
-<g class="edge" data-from="lead" data-to="repo" data-step="1" data-label="propose change">
+<g class="edge" data-from="lead" data-to="repo" data-step="1" data-label="propose change" data-tip="Compliance author → Rule library repo (propose change)">
 <path d="M146.5 484 L146.5 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="164.5" y="512" text-anchor="start">propose change</text>
-<g class="badge"><circle cx="146.5" cy="508" r="11"/><text x="146.5" y="512.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Compliance author → Rule library repo (propose change)</title><circle cx="146.5" cy="508" r="11"/><circle class="hit" cx="146.5" cy="508" r="16"/><text x="146.5" y="512.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="pipe" data-to="build" data-step="3" data-label="">
+<g class="edge" data-from="pipe" data-to="build" data-step="3" data-label="" data-tip="AWS CodePipeline → AWS CodeBuild">
 <path d="M432 324 L432 372" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="432" cy="348" r="11"/><text x="432" y="352.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. AWS CodePipeline → AWS CodeBuild</title><circle cx="432" cy="348" r="11"/><circle class="hit" cx="432" cy="348" r="16"/><text x="432" y="352.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="build" data-to="eval" data-step="4" data-label="run 100 checks">
+<g class="edge" data-from="build" data-to="eval" data-step="4" data-label="run 100 checks" data-tip="AWS CodeBuild → Amazon Bedrock (run 100 checks)">
 <path d="M432 484 L432 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="450" y="512" text-anchor="start">run 100 checks</text>
-<g class="badge"><circle cx="432" cy="508" r="11"/><text x="432" y="512.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS CodeBuild → Amazon Bedrock (run 100 checks)</title><circle cx="432" cy="508" r="11"/><circle class="hit" cx="432" cy="508" r="16"/><text x="432" y="512.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="gold" data-to="eval" data-step="4" data-label="labelled docs">
+<g class="edge" data-from="gold" data-to="eval" data-step="4" data-label="labelled docs" data-tip="Amazon S3 → Amazon Bedrock (labelled docs)">
 <path d="M432 692 L432 644" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="450" y="672" text-anchor="start">labelled docs</text>
-<g class="badge"><circle cx="432" cy="668" r="11"/><text x="432" y="672.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. Amazon S3 → Amazon Bedrock (labelled docs)</title><circle cx="432" cy="668" r="11"/><circle class="hit" cx="432" cy="668" r="16"/><text x="432" y="672.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="cfg" data-to="runner" data-step="7" data-label="staged rollout">
+<g class="edge" data-from="cfg" data-to="runner" data-step="7" data-label="staged rollout" data-tip="AWS AppConfig → AWS Lambda (staged rollout)">
 <path d="M1071 484 L1071 532" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1089" y="512" text-anchor="start">staged rollout</text>
-<g class="badge"><circle cx="1071" cy="508" r="11"/><text x="1071" y="512.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. AWS AppConfig → AWS Lambda (staged rollout)</title><circle cx="1071" cy="508" r="11"/><circle class="hit" cx="1071" cy="508" r="16"/><text x="1071" y="512.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="repo" data-to="pipe" data-step="2" data-label="webhook">
+<g class="edge" data-from="repo" data-to="pipe" data-step="2" data-label="webhook" data-tip="Rule library repo → AWS CodePipeline (webhook)">
 <path d="M178.5 564 L289.25 564 L289.25 244 L400 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="307.25" y="408" text-anchor="start">webhook</text>
-<g class="badge"><circle cx="202.5" cy="564" r="11"/><text x="202.5" y="568.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Rule library repo → AWS CodePipeline (webhook)</title><circle cx="202.5" cy="564" r="11"/><circle class="hit" cx="202.5" cy="564" r="16"/><text x="202.5" y="568.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="eval" data-to="qa" data-step="5" data-label="metrics report">
+<g class="edge" data-from="eval" data-to="qa" data-step="5" data-label="metrics report" data-tip="Amazon Bedrock → Compliance lead + QA (metrics report)">
 <path d="M464 564 L583.5 564 L583.5 484 L703 484" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="557.21" y="556" text-anchor="middle">metrics report</text>
-<g class="badge"><circle cx="488" cy="564" r="11"/><text x="488" y="568.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Amazon Bedrock → Compliance lead + QA (metrics report)</title><circle cx="488" cy="564" r="11"/><circle class="hit" cx="488" cy="564" r="16"/><text x="488" y="568.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="qa" data-to="cfg" data-step="6" data-label="approve release">
+<g class="edge" data-from="qa" data-to="cfg" data-step="6" data-label="approve release" data-tip="Compliance lead + QA → AWS AppConfig (approve release)">
 <path d="M767 484 L903 484 L903 404 L1039 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="835" y="476" text-anchor="middle">approve release</text>
-<g class="badge"><circle cx="791" cy="484" r="11"/><text x="791" y="488.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Compliance lead + QA → AWS AppConfig (approve release)</title><circle cx="791" cy="484" r="11"/><circle class="hit" cx="791" cy="484" r="16"/><text x="791" y="488.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="runner" data-to="cw" data-step="8" data-label="quality metrics">
+<g class="edge" data-from="runner" data-to="cw" data-step="8" data-label="quality metrics" data-tip="AWS Lambda → Amazon CloudWatch (quality metrics)">
 <path d="M1103 564 L1243 564 L1243 404 L1383 404" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1261" y="512" text-anchor="start">quality metrics</text>
-<g class="badge"><circle cx="1127" cy="564" r="11"/><text x="1127" y="568.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. AWS Lambda → Amazon CloudWatch (quality metrics)</title><circle cx="1127" cy="564" r="11"/><circle class="hit" cx="1127" cy="564" r="16"/><text x="1127" y="568.5" text-anchor="middle">8</text></g>
 </g>
 <g class="edge" data-from="a2i" data-to="gold" data-step="" data-label="overrides become labels">
 <path d="M1415 644 L1415 724 L464 724" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>

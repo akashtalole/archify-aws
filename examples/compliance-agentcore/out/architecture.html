@@ -24,6 +24,7 @@ main{max-width:1500px;margin:0 auto;padding:16px;display:grid;gap:16px}
 footer{padding:8px 20px 24px;text-align:center;color:var(--muted);font-size:12px}
 
 .diagram{position:relative}
+#steptip{position:fixed;z-index:30;max-width:340px;padding:8px 10px;background:#232F3E;color:#fff;border:1px solid #ff9900;border-radius:6px;font:13px/1.4 Arial,sans-serif;pointer-events:none;box-shadow:0 4px 14px #0005}#steptip b{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:#ff9900;color:#000;font-size:12px}.steps li.hot{background:var(--pbg);outline:1px solid #ff9900}
 .aws .node{cursor:pointer}.aws .node.sel text{font-weight:700}.aws .node.sel use{filter:drop-shadow(0 0 6px #ff9900)}
 .aws .edge.route .eline,.aws .edge.hl .eline{stroke:#ff9900;stroke-width:3}
 .aws .edge.route .arw,.aws .edge.hl .arw{stroke:#ff9900}
@@ -92,7 +93,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -252,30 +253,30 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <rect x="2100" y="1028" width="490" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" stroke-dasharray="6 4" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="2110" y="1048">Security and observability</text>
 </g>
-<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="upload">
+<g class="edge" data-from="owners" data-to="apigw" data-step="1" data-label="upload" data-tip="An owner signs in through the corporate IdP and uploads a document with the check set to apply.">
 <path d="M124 700 L278.5 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="201.25" y="692" text-anchor="middle">upload</text>
-<g class="badge"><circle cx="148" cy="700" r="11"/><text x="148" y="704.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. An owner signs in through the corporate IdP and uploads a document with the check set to apply.</title><circle cx="148" cy="700" r="11"/><circle class="hit" cx="148" cy="700" r="16"/><text x="148" y="704.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload">
+<g class="edge" data-from="apigw" data-to="intake" data-step="2" data-label="presigned upload" data-tip="The document lands in the KMS-encrypted intake bucket.">
 <path d="M342.5 700 L477 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="429.925" y="692" text-anchor="middle">presigned upload</text>
-<g class="badge"><circle cx="366.5" cy="700" r="11"/><text x="366.5" y="704.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. The document lands in the KMS-encrypted intake bucket.</title><circle cx="366.5" cy="700" r="11"/><circle class="hit" cx="366.5" cy="700" r="16"/><text x="366.5" y="704.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="intake" data-to="platform" data-step="3" data-label="invoke agent">
+<g class="edge" data-from="intake" data-to="platform" data-step="3" data-label="invoke agent" data-tip="An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.">
 <path d="M673 700 L763 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="718" y="692" text-anchor="middle">invoke agent</text>
-<g class="badge"><circle cx="697" cy="700" r="11"/><text x="697" y="704.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.</title><circle cx="697" cy="700" r="11"/><circle class="hit" cx="697" cy="700" r="16"/><text x="697" y="704.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="sup" data-to="chk" data-step="4" data-label="delegate (A2A)">
+<g class="edge" data-from="sup" data-to="chk" data-step="4" data-label="delegate (A2A)" data-tip="The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.">
 <path d="M917 576 L1033 576" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="975" y="568" text-anchor="middle">delegate (A2A)</text>
-<g class="badge"><circle cx="941" cy="576" r="11"/><text x="941" y="580.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.</title><circle cx="941" cy="576" r="11"/><circle class="hit" cx="941" cy="576" r="16"/><text x="941" y="580.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="chk" data-to="gw" data-step="5" data-label="tool calls (MCP)">
+<g class="edge" data-from="chk" data-to="gw" data-step="5" data-label="tool calls (MCP)" data-tip="Agents reach every tool through Gateway; nothing is called directly.">
 <path d="M1097 576 L1445.5 576" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="1271.25" y="568" text-anchor="middle">tool calls (MCP)</text>
-<g class="badge"><circle cx="1121" cy="576" r="11"/><text x="1121" y="580.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Agents reach every tool through Gateway; nothing is called directly.</title><circle cx="1121" cy="576" r="11"/><circle class="hit" cx="1121" cy="576" r="16"/><text x="1121" y="580.5" text-anchor="middle">5</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="apigw" data-step="" data-label="protects">
 <path d="M310.5 830 L310.5 780" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -289,25 +290,25 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <path d="M1613 576 L1509.5 576" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="1561.25" y="568" text-anchor="middle">authorize each call</text>
 </g>
-<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke">
+<g class="edge" data-from="platform" data-to="models" data-step="6" data-label="invoke" data-tip="Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.">
 <path d="M2010 700 L2088 700 L2088 292 L2166 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2106" y="500" text-anchor="start">invoke</text>
-<g class="badge"><circle cx="2054" cy="700" r="11"/><text x="2054" y="704.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.</title><circle cx="2054" cy="700" r="11"/><circle class="hit" cx="2054" cy="700" r="16"/><text x="2054" y="704.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="data" data-step="7" data-label="MCP targets">
+<g class="edge" data-from="platform" data-to="data" data-step="7" data-label="MCP targets" data-tip="Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.">
 <path d="M2010 700 L2032 700 L2032 760 L2132 760 L2132 614 L2154 614" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="2082" y="752" text-anchor="middle">MCP targets</text>
-<g class="badge"><circle cx="2132" cy="614" r="11"/><text x="2132" y="618.5" text-anchor="middle">7</text></g>
+<g class="badge"><title>7. Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.</title><circle cx="2132" cy="614" r="11"/><circle class="hit" cx="2132" cy="614" r="16"/><text x="2132" y="618.5" text-anchor="middle">7</text></g>
 </g>
-<g class="edge" data-from="platform" data-to="review" data-step="8" data-label="flag + resume">
+<g class="edge" data-from="platform" data-to="review" data-step="8" data-label="flag + resume" data-tip="Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.">
 <path d="M2010 700 L2032 700 L2032 790 L2149.5 790 L2149.5 888 L2171.5 888" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="2090.75" y="782" text-anchor="middle">flag + resume</text>
-<g class="badge"><circle cx="2149.5" cy="888" r="11"/><text x="2149.5" y="892.5" text-anchor="middle">8</text></g>
+<g class="badge"><title>8. Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.</title><circle cx="2149.5" cy="888" r="11"/><circle class="hit" cx="2149.5" cy="888" r="16"/><text x="2149.5" y="892.5" text-anchor="middle">8</text></g>
 </g>
-<g class="edge" data-from="review" data-to="reviewers" data-step="9" data-label="task and decision">
+<g class="edge" data-from="review" data-to="reviewers" data-step="9" data-label="task and decision" data-tip="Human review → Compliance reviewers (task and decision)">
 <path d="M2518.5 888 L2592.25 888 L2592.25 700 L2714 700" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)" marker-start="url(#arw)"/>
 <text class="elabel" x="2610.25" y="798" text-anchor="start">task and decision</text>
-<g class="badge"><circle cx="2542.5" cy="888" r="11"/><text x="2542.5" y="892.5" text-anchor="middle">9</text></g>
+<g class="badge"><title>9. Human review → Compliance reviewers (task and decision)</title><circle cx="2542.5" cy="888" r="11"/><circle class="hit" cx="2542.5" cy="888" r="16"/><text x="2542.5" y="892.5" text-anchor="middle">9</text></g>
 </g>
 <g class="node" data-id="owners" data-label="Document owners" data-service="Users" data-category="General"><title>Document owners (Users)</title>
 <use href="#gen-Users" x="60" y="668" width="64" height="64"/>
@@ -450,8 +451,8 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <text class="nlabel" x="2746" y="763" text-anchor="middle">reviewers</text>
 </g>
 </svg></section>
-<section class="card"><h2>Flow</h2><ol class="steps"><li data-from="owners" data-to="apigw"><span class="n">1</span><span>An owner signs in through the corporate IdP and uploads a document with the check set to apply.</span></li><li data-from="apigw" data-to="intake"><span class="n">2</span><span>The document lands in the KMS-encrypted intake bucket.</span></li><li data-from="intake" data-to="platform"><span class="n">3</span><span>An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.</span></li><li data-from="sup" data-to="chk"><span class="n">4</span><span>The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.</span></li><li data-from="chk" data-to="gw"><span class="n">5</span><span>Agents reach every tool through Gateway; nothing is called directly.</span></li><li data-from="platform" data-to="models"><span class="n">6</span><span>Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.</span></li><li data-from="platform" data-to="data"><span class="n">7</span><span>Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.</span></li><li data-from="platform" data-to="review"><span class="n">8</span><span>Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.</span></li><li data-from="review" data-to="reviewers"><span class="n">9</span><span>Human review → Compliance reviewers <em>(task and decision)</em></span></li></ol></section></div>
-<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-01 · indicative — some usage is assumed</small></h2>
+<section class="card"><h2>Flow</h2><ol class="steps"><li data-step="1" data-from="owners" data-to="apigw"><span class="n">1</span><span>An owner signs in through the corporate IdP and uploads a document with the check set to apply.</span></li><li data-step="2" data-from="apigw" data-to="intake"><span class="n">2</span><span>The document lands in the KMS-encrypted intake bucket.</span></li><li data-step="3" data-from="intake" data-to="platform"><span class="n">3</span><span>An EventBridge rule on the upload invokes the supervisor on AgentCore Runtime with a run id.</span></li><li data-step="4" data-from="sup" data-to="chk"><span class="n">4</span><span>The supervisor splits the 100 checks into families and delegates each family to a specialist agent in parallel.</span></li><li data-step="5" data-from="chk" data-to="gw"><span class="n">5</span><span>Agents reach every tool through Gateway; nothing is called directly.</span></li><li data-step="6" data-from="platform" data-to="models"><span class="n">6</span><span>Agents judge each check against retrieved criteria, with citations; Guardrails screen input and output.</span></li><li data-step="7" data-from="platform" data-to="data"><span class="n">7</span><span>Gateway fronts text extraction, the policy library, verdict storage and the evidence bucket.</span></li><li data-step="8" data-from="platform" data-to="review"><span class="n">8</span><span>Flagged checks are queued with cited evidence. The run checkpoints its state and ends; a reviewer's decision resumes it, so a slow reviewer never holds a session open.</span></li><li data-step="9" data-from="review" data-to="reviewers"><span class="n">9</span><span>Human review → Compliance reviewers (task and decision)</span></li></ol></section></div>
+<div class="tab" id="tab-cost"><section class="card"><h2>Cost estimate <small>us-east-1 · price list as of 2026-10-02 · indicative — some usage is assumed</small></h2>
 <div class="tiles"><div class="tile"><b>$5,973</b><span>per month</span></div><div class="tile"><b>$71,671</b><span>per year</span></div>
 <div class="tile"><b>20/28</b><span>components priced</span></div><div class="tile"><b>6</b><span>not priced (see below)</span></div></div>
 <p class="muted">Public on-demand AWS list prices from the AWS Price List. Excludes free tier, taxes, support plans, Savings Plans/Reserved Instances/Spot and enterprise discounts, and data transfer unless a node sets egressGbPerMonth. Monthly = 730 hours. Not a quote: confirm with the AWS Pricing Calculator.</p>
@@ -465,7 +466,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <p class="muted">No what-if options apply to these services.</p></section>
 <section class="card"><h2>Price list provenance</h2><p class="muted">Retrieved 2026-10-01T18:40:39.861Z from the public AWS Price List bulk API. Per-service publication dates:</p><p class="muted">AmazonCognito 2026-09-25 · AmazonApiGateway 2026-09-21 · awswaf 2026-09-14 · AmazonS3 2026-09-28 · AWSEvents 2026-09-24 · AmazonBedrockAgentCore 2026-09-15 · AmazonBedrock 2026-09-30 · AmazonBedrockFoundationModels 2026-09-30 · AmazonTextract 2026-09-11 · AmazonES 2026-09-27 · AmazonDynamoDB 2026-09-11 · AWSQueueService 2026-09-11 · AmazonCloudWatch 2026-09-22 · awskms 2026-09-11</p><p class="muted">Only public on-demand rates are used. This is not a quote — confirm in the <a href="https://calculator.aws/" target="_blank" rel="noopener">AWS Pricing Calculator</a>.</p></section></div>
 <div class="tab" id="tab-wa"><section class="card wa"><div class="banner">Classification: CONFIDENTIAL — This report contains sensitive infrastructure details and unremediated security findings. Restrict distribution to authorized personnel. Do not post to broadly visible channels or ticketing systems without explicit approval.</div>
-<h2>Well-Architected review <small>Compliance review assistant on Amazon Bedrock AgentCore · 2026-10-01 · mode full</small></h2>
+<h2>Well-Architected review <small>Compliance review assistant on Amazon Bedrock AgentCore · 2026-10-02 · mode full</small></h2>
 <h3>Coverage audit</h3><ul class="plain"><li><strong>AWS Well-Architected Framework</strong> — 6 pillars, 57 questions, 307 best practices, from <a href="https://docs.aws.amazon.com/wellarchitected/latest/framework/toc-contents.json" target="_blank" rel="noopener">the live documentation index</a>, snapshot 2026-10-01 (0 days old).</li>
 <li><strong>Generative AI Lens</strong> — 29 questions, 51 best practices, snapshot 2026-10-01.</li>
 <li>Assessed 307 framework BPs and 51 lens BPs: 17 + 13 with diagram evidence, 288 + 38 cannot be determined.</li>
@@ -487,7 +488,7 @@ body.present .diagram svg.aws{width:100vw;height:100vh}
 <h3>To confirm <small>not drawn, so not counted as gaps</small></h3><ul class="plain"><li><strong>No backup or recovery capability shown</strong> <span class="muted">REL09-BP01, REL09-BP03</span> — Back up data automatically with AWS Backup (cross-account/cross-Region vault where required) and test restores against your RPO/RTO.</li><li><strong>No infrastructure-as-code or CI/CD shown</strong> <span class="muted">OPS05-BP04, OPS05-BP10, REL08-BP05, SEC11-BP06</span> — Define infrastructure as code and deploy through a pipeline with small, reversible changes and automated rollback.</li><li><strong>No CDN / edge acceleration shown for end users</strong> <span class="muted">PERF04-BP02, PERF04-BP06</span> — Serve content close to users with Amazon CloudFront or AWS Global Accelerator to reduce latency.</li><li><strong>No cost visibility shown</strong> <span class="muted">COST01-BP03, COST01-BP06, COST03-BP05</span> — Set AWS Budgets with alert thresholds, enable Cost Anomaly Detection and cost allocation tags so spend maps to this workload.</li><li><strong>Single-Region model inference</strong> <span class="muted">GENREL05-BP01</span> — Plan for throttling and quota limits (retries, queues, provisioned throughput) and consider cross-Region inference profiles or a fallback model.</li><li><strong>Model cost controls</strong> <span class="muted">GENCOST01-BP01</span> — Select the smallest model that meets quality targets; use prompt caching and batch inference where possible; track cost per request.</li><li><strong>Agents and excessive agency</strong> <span class="muted">GENSEC05-BP01</span> — Limit agent tool permissions (least privilege, deterministic policy at the tool boundary) and add human approval for high-impact actions.</li><li><strong>Model and hosting efficiency</strong> <span class="muted">GENSUS03-BP01</span> — Prefer right-sized or distilled models and serverless inference; avoid always-on endpoints for spiky traffic.</li></ul>
 <h3>Cross-pillar trade-offs</h3><ul class="plain"><li><strong>Guardrails on model traffic</strong> <span class="muted">Security ↔ Cost optimization ↔ Performance efficiency</span><br>Guardrails cost $525.00/month (10% of AI spend) and add a synchronous screening step to each model call. <i>Resolution:</i> Apply the strictest policies where harm is highest (final responses, PII) and measure per-policy value before enabling every policy on every call.</li><li><strong>Observability volume</strong> <span class="muted">Operational excellence ↔ Cost optimization</span><br>CloudWatch is $65.30/month in this estimate, mostly log ingestion; richer telemetry improves detection but ingestion is billed per GB. <i>Resolution:</i> Sample verbose traces, set retention per log group, and keep full-fidelity logs for security and audit sources only.</li><li><strong>Continuous agent evaluation</strong> <span class="muted">Operational excellence ↔ Cost optimization</span><br>Evaluations cost $9.60/month at the assumed sampling volume. <i>Resolution:</i> Sample a fraction of production traffic and run the full golden set before each release.</li></ul>
 <h3>Eisenhower prioritization</h3><div class="quads"><div class="quad"><h4>Do First</h4><ul><li><a href="#F-001">F-001</a> Model inference dominates cost</li></ul></div><div class="quad"><h4>Plan</h4><p class="muted">None</p></div><div class="quad"><h4>Delegate</h4><p class="muted">None</p></div><div class="quad"><h4>Defer</h4><p class="muted">None</p></div></div>
-<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-22 (3 weeks): Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. Success measure: Cost per document tracked; smaller-model share of calls increased without quality regression</td><td>ML platform team</td></tr></tbody></table></div>
+<h3>Prioritized remediation plan</h3><div class="scroll"><table class="tbl"><thead><tr><th>ID</th><th>Risk</th><th>Quadrant</th><th>SMART goal</th><th>Owner</th></tr></thead><tbody><tr><td><a href="#F-001">F-001</a></td><td><span class="rk high">High</span></td><td>Do First</td><td>By 2026-10-23 (3 weeks): Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. Success measure: Cost per document tracked; smaller-model share of calls increased without quality regression</td><td>ML platform team</td></tr></tbody></table></div>
 <h3>Next steps</h3><ol><li><b>F-001</b> Model inference dominates cost — Right-size the model per task: evaluate a smaller model on your golden set, route easy checks to it, and use batch inference or prompt caching for repeated context. <span class="muted">(ML platform team)</span></li><li>Re-run the review after changes, and when the architecture or documentation changes.</li></ol>
 <p class="muted">Impact × Likelihood matrix from the AWS Well-Architected review skill (Severe+High = Critical; Severe+Medium/Low or Moderate+High = High; Moderate+Medium/Low or Minor+High = Medium; otherwise Low).</p></section></div>
 </main>
@@ -583,6 +584,14 @@ svg.addEventListener("click",e=>{if(e.target===svg||e.target.classList.contains(
 let hoverOn=false;
 nodes.forEach(n=>{n.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;hoverOn=true;const id=n.dataset.id,keep=new Set([id]),ke=new Set();for(const e of [...(out.get(id)||[]),...(inn.get(id)||[])]){keep.add(e.from);keep.add(e.to);ke.add(e)}paint(keep,ke,"hl")});
  n.addEventListener("mouseleave",()=>{if(hoverOn&&!state.focus&&!state.route){clear();hoverOn=false}})});
+// Numbered callouts: hover a number on the diagram to see the same description as the Flow list below.
+const tip=document.createElement("div");tip.id="steptip";tip.hidden=true;document.body.appendChild(tip);
+const stepLi=n=>$(".steps li[data-step='"+n+"']");
+function placeTip(ev){const w=tip.offsetWidth,h=tip.offsetHeight;let x=ev.clientX+14,y=ev.clientY+16;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+h>innerHeight-8)y=ev.clientY-h-14;tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px"}
+edges.forEach(el=>{const b=el.querySelector(".badge");if(!b||!el.dataset.tip)return;const n=el.dataset.step;
+  const ti=b.querySelector("title");b.addEventListener("mouseenter",ev=>{if(ti&&ti.parentNode)ti.remove();tip.innerHTML="<b>"+n+"</b>";tip.appendChild(document.createTextNode(el.dataset.tip));tip.hidden=false;placeTip(ev);const li=stepLi(n);if(li)li.classList.add("hot");if(!state.focus&&!state.route){const e=E.find(x=>x.el===el);paint(new Set([e.from,e.to]),new Set([e]),"hl")}});
+  b.addEventListener("mousemove",placeTip);
+  b.addEventListener("mouseleave",()=>{if(ti&&!ti.parentNode)b.prepend(ti);tip.hidden=true;const li=stepLi(n);if(li)li.classList.remove("hot");if(!state.focus&&!state.route)clear()})});
 $$(".steps li").forEach(li=>{li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;const k=new Set([li.dataset.from,li.dataset.to]);const ke=new Set(E.filter(e=>k.has(e.from)&&k.has(e.to)));paint(k,ke,"hl")});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()});li.addEventListener("click",()=>focusOn(li.dataset.from,"downstream"))});
 $$(".pillar li[data-nodes]").forEach(li=>{const ids=li.dataset.nodes.split(" ").filter(Boolean);if(!ids.length)return;li.addEventListener("mouseenter",()=>{if(state.focus||state.route)return;nodes.forEach(n=>n.classList.toggle("dim",!ids.includes(n.dataset.id)));edges.forEach(e=>e.classList.add("dim"))});li.addEventListener("mouseleave",()=>{if(!state.focus&&!state.route)clear()})});
 

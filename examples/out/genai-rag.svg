@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -105,19 +105,19 @@
 <rect x="916" y="212" width="188" height="520" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="926" y="232">Data and operations</text>
 </g>
-<g class="edge" data-from="users" data-to="apigw" data-step="1" data-label="HTTPS + JWT">
+<g class="edge" data-from="users" data-to="apigw" data-step="1" data-label="HTTPS + JWT" data-tip="Users → Amazon API Gateway (HTTPS + JWT)">
 <path d="M120 460 L270 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="195" y="452" text-anchor="middle">HTTPS + JWT</text>
-<g class="badge"><circle cx="144" cy="460" r="11"/><text x="144" y="464.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Users → Amazon API Gateway (HTTPS + JWT)</title><circle cx="144" cy="460" r="11"/><circle class="hit" cx="144" cy="460" r="16"/><text x="144" y="464.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="apigw" data-to="orch" data-step="2" data-label="">
+<g class="edge" data-from="apigw" data-to="orch" data-step="2" data-label="" data-tip="Amazon API Gateway → AWS Lambda">
 <path d="M334 460 L484 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="358" cy="460" r="11"/><text x="358" y="464.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon API Gateway → AWS Lambda</title><circle cx="358" cy="460" r="11"/><circle class="hit" cx="358" cy="460" r="16"/><text x="358" y="464.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="orch" data-to="fm" data-step="5" data-label="invoke">
+<g class="edge" data-from="orch" data-to="fm" data-step="5" data-label="invoke" data-tip="AWS Lambda → Amazon Bedrock (invoke)">
 <path d="M548 460 L708 460" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="628" y="452" text-anchor="middle">invoke</text>
-<g class="badge"><circle cx="592" cy="460" r="11"/><text x="592" y="464.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AWS Lambda → Amazon Bedrock (invoke)</title><circle cx="592" cy="460" r="11"/><circle class="hit" cx="592" cy="460" r="16"/><text x="592" y="464.5" text-anchor="middle">5</text></g>
 </g>
 <g class="edge" data-from="cognito" data-to="apigw" data-step="" data-label="authorizer">
 <path d="M302 372 L302 428" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -131,15 +131,15 @@
 <path d="M978 628 L772 628" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="875" y="620" text-anchor="middle">ingest</text>
 </g>
-<g class="edge" data-from="orch" data-to="kb" data-step="3" data-label="retrieve">
+<g class="edge" data-from="orch" data-to="kb" data-step="3" data-label="retrieve" data-tip="AWS Lambda → Amazon OpenSearch Service (retrieve)">
 <path d="M548 460 L580 460 L580 628 L708 628" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="598" y="548" text-anchor="start">retrieve</text>
-<g class="badge"><circle cx="684" cy="628" r="11"/><text x="684" y="632.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. AWS Lambda → Amazon OpenSearch Service (retrieve)</title><circle cx="684" cy="628" r="11"/><circle class="hit" cx="684" cy="628" r="16"/><text x="684" y="632.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="orch" data-to="guard" data-step="4" data-label="check prompt">
+<g class="edge" data-from="orch" data-to="guard" data-step="4" data-label="check prompt" data-tip="AWS Lambda → Bedrock Guardrails (check prompt)">
 <path d="M516 428 L516 292 L708 292" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="612" y="284" text-anchor="middle">check prompt</text>
-<g class="badge"><circle cx="516" cy="404" r="11"/><text x="516" y="408.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS Lambda → Bedrock Guardrails (check prompt)</title><circle cx="516" cy="404" r="11"/><circle class="hit" cx="516" cy="404" r="16"/><text x="516" y="408.5" text-anchor="middle">4</text></g>
 </g>
 <g class="edge" data-from="fm" data-to="cw" data-step="" data-label="logs">
 <path d="M772 460 L875 460 L875 292 L978 292" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>

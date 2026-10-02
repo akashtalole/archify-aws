@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -135,9 +135,9 @@
 <use href="#svc-Amazon-OpenSearch-Service" x="779" y="374" width="32" height="32"/>
 <text class="glabel" x="819" y="395">Retrieval and ranking</text>
 </g>
-<g class="edge" data-from="apigw" data-to="searchfn" data-step="3" data-label="">
+<g class="edge" data-from="apigw" data-to="searchfn" data-step="3" data-label="" data-tip="Amazon API Gateway → AWS Lambda">
 <path d="M606.5 618 L606.5 674" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="606.5" cy="642" r="11"/><text x="606.5" y="646.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Amazon API Gateway → AWS Lambda</title><circle cx="606.5" cy="642" r="11"/><circle class="hit" cx="606.5" cy="642" r="16"/><text x="606.5" y="646.5" text-anchor="middle">3</text></g>
 </g>
 <g class="edge" data-from="waf" data-to="cf" data-step="" data-label="protects">
 <path d="M674 196 L821.5 196" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
@@ -159,30 +159,30 @@
 <g class="edge" data-from="lake" data-to="athena" data-step="" data-label="">
 <path d="M605 1166 L701.5 1166" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 </g>
-<g class="edge" data-from="shoppers" data-to="cf" data-step="1" data-label="search">
+<g class="edge" data-from="shoppers" data-to="cf" data-step="1" data-label="search" data-tip="Shoppers → Amazon CloudFront (search)">
 <path d="M122.5 363 L144.5 363 L144.5 308 L799.5 308 L799.5 196 L821.5 196" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="472" y="300" text-anchor="middle">search</text>
-<g class="badge"><circle cx="144.5" cy="363" r="11"/><text x="144.5" y="367.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Shoppers → Amazon CloudFront (search)</title><circle cx="144.5" cy="363" r="11"/><circle class="hit" cx="144.5" cy="363" r="16"/><text x="144.5" y="367.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="cf" data-to="apigw" data-step="2" data-label="cache miss">
+<g class="edge" data-from="cf" data-to="apigw" data-step="2" data-label="cache miss" data-tip="Amazon CloudFront → Amazon API Gateway (cache miss)">
 <path d="M853.5 276 L853.5 367 L606.5 367 L606.5 506" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="730" y="359" text-anchor="middle">cache miss</text>
-<g class="badge"><circle cx="853.5" cy="300" r="11"/><text x="853.5" y="304.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. Amazon CloudFront → Amazon API Gateway (cache miss)</title><circle cx="853.5" cy="300" r="11"/><circle class="hit" cx="853.5" cy="300" r="16"/><text x="853.5" y="304.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="searchfn" data-to="embed" data-step="4" data-label="embed query">
+<g class="edge" data-from="searchfn" data-to="embed" data-step="4" data-label="embed query" data-tip="AWS Lambda → Amazon Bedrock (embed query)">
 <path d="M638.5 706 L743 706 L743 622 L847.5 622" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="765.99" y="614" text-anchor="middle">embed query</text>
-<g class="badge"><circle cx="823.5" cy="622" r="11"/><text x="823.5" y="626.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS Lambda → Amazon Bedrock (embed query)</title><circle cx="823.5" cy="622" r="11"/><circle class="hit" cx="823.5" cy="622" r="16"/><text x="823.5" y="626.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="searchfn" data-to="os" data-step="5" data-label="hybrid query">
+<g class="edge" data-from="searchfn" data-to="os" data-step="5" data-label="hybrid query" data-tip="AWS Lambda → Amazon OpenSearch Service (hybrid query)">
 <path d="M638.5 706 L695 706 L695 454 L847.5 454" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="713" y="584" text-anchor="start">hybrid query</text>
-<g class="badge"><circle cx="803.5" cy="454" r="11"/><text x="803.5" y="458.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AWS Lambda → Amazon OpenSearch Service (hybrid query)</title><circle cx="803.5" cy="454" r="11"/><circle class="hit" cx="803.5" cy="454" r="16"/><text x="803.5" y="458.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="searchfn" data-to="rank" data-step="6" data-label="re-rank">
+<g class="edge" data-from="searchfn" data-to="rank" data-step="6" data-label="re-rank" data-tip="AWS Lambda → Amazon Personalize (re-rank)">
 <path d="M606.5 786 L606.5 790 L847.5 790" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="727" y="782" text-anchor="middle">re-rank</text>
-<g class="badge"><circle cx="606.5" cy="790" r="11"/><text x="606.5" y="794.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AWS Lambda → Amazon Personalize (re-rank)</title><circle cx="606.5" cy="790" r="11"/><circle class="hit" cx="606.5" cy="790" r="16"/><text x="606.5" y="794.5" text-anchor="middle">6</text></g>
 </g>
 <g class="edge" data-from="merch" data-to="rules" data-step="" data-label="curation rules">
 <path d="M122.5 545 L144.5 545 L144.5 912 L724 912 L724 990 L746 990" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>

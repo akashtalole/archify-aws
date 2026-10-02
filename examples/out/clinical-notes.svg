@@ -11,7 +11,7 @@
 .aws .elabel{paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round}
 .aws .eline{stroke:var(--line)}
 .aws .arw{fill:none;stroke:var(--line);stroke-width:1.6}
-.aws .badge circle{fill:var(--badge)}
+.aws .badge circle{fill:var(--badge)}.aws .badge circle.hit{fill:transparent}.aws .badge{cursor:help}.aws .badge:hover circle:not(.hit){stroke:#ff9900;stroke-width:3}
 .aws .badge text{fill:var(--badgeFg);font-weight:700;font-size:12px}
 .aws .only-dark{display:none}.aws.theme-dark .only-dark{display:inline}.aws.theme-dark .only-light{display:none}
 .aws.theme-dark .grect[data-fill-dark="none"]{fill:none}
@@ -103,47 +103,47 @@
 <rect x="968" y="244" width="159" height="184" fill="none" stroke="#7D8998" stroke-width="1.25" data-fill-light="none" data-fill-dark="none" class="grect"/>
 <text class="glabel" x="978" y="264">Serve</text>
 </g>
-<g class="edge" data-from="clin" data-to="scribe" data-step="1" data-label="audio">
+<g class="edge" data-from="clin" data-to="scribe" data-step="1" data-label="audio" data-tip="Clinician visit → AWS HealthScribe (audio)">
 <path d="M148 244 L327.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="237.75" y="236" text-anchor="middle">audio</text>
-<g class="badge"><circle cx="172" cy="244" r="11"/><text x="172" y="248.5" text-anchor="middle">1</text></g>
+<g class="badge"><title>1. Clinician visit → AWS HealthScribe (audio)</title><circle cx="172" cy="244" r="11"/><circle class="hit" cx="172" cy="244" r="16"/><text x="172" y="248.5" text-anchor="middle">1</text></g>
 </g>
-<g class="edge" data-from="scribe" data-to="land" data-step="2" data-label="note JSON">
+<g class="edge" data-from="scribe" data-to="land" data-step="2" data-label="note JSON" data-tip="AWS HealthScribe → Amazon S3 (note JSON)">
 <path d="M359.5 324 L359.5 372" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="377.5" y="352" text-anchor="start">note JSON</text>
-<g class="badge"><circle cx="359.5" cy="348" r="11"/><text x="359.5" y="352.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. AWS HealthScribe → Amazon S3 (note JSON)</title><circle cx="359.5" cy="348" r="11"/><circle class="hit" cx="359.5" cy="348" r="16"/><text x="359.5" y="352.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="ehr" data-to="land" data-step="2" data-label="HL7 / FHIR">
+<g class="edge" data-from="ehr" data-to="land" data-step="2" data-label="HL7 / FHIR" data-tip="EHR export → Amazon S3 (HL7 / FHIR)">
 <path d="M148 404 L327.5 404" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
 <text class="elabel" x="237.75" y="396" text-anchor="middle">HL7 / FHIR</text>
-<g class="badge"><circle cx="172" cy="404" r="11"/><text x="172" y="408.5" text-anchor="middle">2</text></g>
+<g class="badge"><title>2. EHR export → Amazon S3 (HL7 / FHIR)</title><circle cx="172" cy="404" r="11"/><circle class="hit" cx="172" cy="404" r="16"/><text x="172" y="408.5" text-anchor="middle">2</text></g>
 </g>
-<g class="edge" data-from="land" data-to="flow" data-step="3" data-label="event">
+<g class="edge" data-from="land" data-to="flow" data-step="3" data-label="event" data-tip="Amazon S3 → AWS Step Functions (event)">
 <path d="M391.5 404 L557 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="474.25" y="396" text-anchor="middle">event</text>
-<g class="badge"><circle cx="415.5" cy="404" r="11"/><text x="415.5" y="408.5" text-anchor="middle">3</text></g>
+<g class="badge"><title>3. Amazon S3 → AWS Step Functions (event)</title><circle cx="415.5" cy="404" r="11"/><circle class="hit" cx="415.5" cy="404" r="16"/><text x="415.5" y="408.5" text-anchor="middle">3</text></g>
 </g>
-<g class="edge" data-from="flow" data-to="cmed" data-step="4" data-label="">
+<g class="edge" data-from="flow" data-to="cmed" data-step="4" data-label="" data-tip="AWS Step Functions → Amazon Comprehend Medical">
 <path d="M589 372 L589 324" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="589" cy="348" r="11"/><text x="589" y="352.5" text-anchor="middle">4</text></g>
+<g class="badge"><title>4. AWS Step Functions → Amazon Comprehend Medical</title><circle cx="589" cy="348" r="11"/><circle class="hit" cx="589" cy="348" r="16"/><text x="589" y="352.5" text-anchor="middle">4</text></g>
 </g>
-<g class="edge" data-from="cmed" data-to="hl" data-step="5" data-label="FHIR resources">
+<g class="edge" data-from="cmed" data-to="hl" data-step="5" data-label="FHIR resources" data-tip="Amazon Comprehend Medical → AWS HealthLake (FHIR resources)">
 <path d="M621 244 L789.5 244" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="705.25" y="236" text-anchor="middle">FHIR resources</text>
-<g class="badge"><circle cx="645" cy="244" r="11"/><text x="645" y="248.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. Amazon Comprehend Medical → AWS HealthLake (FHIR resources)</title><circle cx="645" cy="244" r="11"/><circle class="hit" cx="645" cy="244" r="16"/><text x="645" y="248.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="flow" data-to="kb" data-step="5" data-label="embeddings">
+<g class="edge" data-from="flow" data-to="kb" data-step="5" data-label="embeddings" data-tip="AWS Step Functions → Amazon OpenSearch Service (embeddings)">
 <path d="M621 404 L789.5 404" fill="none" class="eline" stroke-width="2" marker-end="url(#arw)"/>
 <text class="elabel" x="705.25" y="396" text-anchor="middle">embeddings</text>
-<g class="badge"><circle cx="645" cy="404" r="11"/><text x="645" y="408.5" text-anchor="middle">5</text></g>
+<g class="badge"><title>5. AWS Step Functions → Amazon OpenSearch Service (embeddings)</title><circle cx="645" cy="404" r="11"/><circle class="hit" cx="645" cy="404" r="16"/><text x="645" y="408.5" text-anchor="middle">5</text></g>
 </g>
-<g class="edge" data-from="hl" data-to="agent" data-step="6" data-label="">
+<g class="edge" data-from="hl" data-to="agent" data-step="6" data-label="" data-tip="AWS HealthLake → AgentCore agents">
 <path d="M853.5 244 L934.5 244 L934.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="877.5" cy="244" r="11"/><text x="877.5" y="248.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. AWS HealthLake → AgentCore agents</title><circle cx="877.5" cy="244" r="11"/><circle class="hit" cx="877.5" cy="244" r="16"/><text x="877.5" y="248.5" text-anchor="middle">6</text></g>
 </g>
-<g class="edge" data-from="kb" data-to="agent" data-step="6" data-label="">
+<g class="edge" data-from="kb" data-to="agent" data-step="6" data-label="" data-tip="Amazon OpenSearch Service → AgentCore agents">
 <path d="M853.5 404 L982.5 404 L982.5 324 L1015.5 324" fill="none" class="eline" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arw)"/>
-<g class="badge"><circle cx="877.5" cy="404" r="11"/><text x="877.5" y="408.5" text-anchor="middle">6</text></g>
+<g class="badge"><title>6. Amazon OpenSearch Service → AgentCore agents</title><circle cx="877.5" cy="404" r="11"/><circle class="hit" cx="877.5" cy="404" r="16"/><text x="877.5" y="408.5" text-anchor="middle">6</text></g>
 </g>
 <g class="node" data-id="clin" data-label="Clinician visit" data-service="Users" data-category="General"><title>Clinician visit (Users)</title>
 <use href="#gen-Users" x="84" y="212" width="64" height="64"/>
