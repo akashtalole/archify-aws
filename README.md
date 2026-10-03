@@ -21,7 +21,13 @@ Healthcare enterprise agentic platform (examples): [platform](examples/out/healt
 [AgentCore shared services and use-case onboarding](examples/out/healthcare-agentcore-services.png) ·
 [multi-account governance and data foundation](examples/out/healthcare-governance.png)
 
-## Quick start
+## Install as an agent skill
+```bash
+npx skills add akashtalole/archify-aws
+```
+Installs the skill into your agent (Claude Code, Cursor, Codex and others; the CLI asks which). The official icons are downloaded automatically the first time you render (network needed once; set `ARCHIFY_NO_AUTOFETCH=1` to disable). The sibling skills install the same way: `akashtalole/archify-aws`, `akashtalole/archify-azure`, `akashtalole/archify-gcp`.
+
+## Quick start (from a clone)
 ```bash
 git clone https://github.com/akashtalole/archify-aws && cd archify-aws
 npm run icons:fetch                                  # official icon package → assets/aws-icons/ (git-ignored)

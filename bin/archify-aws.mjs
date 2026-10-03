@@ -52,7 +52,19 @@ const json = flag("--json");
 const out = (o) => console.log(JSON.stringify(o, null, 2));
 const die = (msg, code = 1) => { console.error(msg); process.exit(code); };
 const readSpec = (f) => { if (!f) die("missing <spec.json>\n" + HELP); try { return JSON.parse(fs.readFileSync(f, "utf8")); } catch (e) { die(`cannot read ${f}: ${e.message}`); } };
-const needIcons = () => { if (!iconsAvailable()) die(`AWS icons not found at ${ICON_DIR}\nRun: archify-aws fetch-icons   (downloads the official package; see THIRD_PARTY_NOTICES.md)`, 3); };
+const needIcons = () => {
+  if (iconsAvailable()) return;
+  // First run after `npx skills add`: the icons are not in the repository, so fetch them once and re-run the same command.
+  if (!process.env.ARCHIFY_NO_AUTOFETCH && !process.env.ARCHIFY_AUTOFETCHED) {
+    console.error("AWS icons not found; downloading the official package (once)...");
+    const f = spawnSync(process.execPath, [path.join(ROOT, "scripts", "fetch-icons.mjs")], { stdio: ["ignore", 2, 2] });
+    if (f.status === 0 && iconsAvailable()) {
+      const again = spawnSync(process.execPath, process.argv.slice(1), { stdio: "inherit", env: { ...process.env, ARCHIFY_AUTOFETCHED: "1" } });
+      process.exit(again.status ?? 1);
+    }
+  }
+  die(`AWS icons not found at ${ICON_DIR}\nRun: archify-aws fetch-icons   (downloads the official package; see THIRD_PARTY_NOTICES.md)`, 3);
+};
 
 const [cmd, ...rest] = pos;
 switch (cmd) {

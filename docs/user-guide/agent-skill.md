@@ -1,6 +1,6 @@
 # Using it from an AI agent
 
-`SKILL.md` in the repository root is an agent skill (the same shape as Archify's). Point your agent at the repository and ask, for example:
+`SKILL.md` in the repository root is an agent skill (the same shape as Archify's). Install it with `npx skills add akashtalole/archify-aws`, then ask your agent, for example:
 
 > *Use archify-aws to diagram a multi-AZ web app on ECS Fargate with Aurora, estimate the monthly cost, and review it against the Well-Architected pillars.*
 
